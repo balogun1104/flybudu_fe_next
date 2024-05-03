@@ -7,6 +7,7 @@ const axiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  timeout: 30000, // Set the timeout to 30 seconds (30000 milliseconds)
 });
 
 axiosInstance.interceptors.request.use(
@@ -62,6 +63,19 @@ axiosInstance.interceptors.response.use(
       showToast(`Error: ${error.message}`, "error");
     }
 
+    return Promise.reject(error);
+  }
+);
+
+// Add a new interceptor to handle network errors
+axiosInstance.interceptors.request.use(
+  (config) => {
+    return config;
+  },
+  (error) => {
+    if (error.message === "Network Error") {
+      showToast("No internet connection. Please connect to the internet and try again.", "error");
+    }
     return Promise.reject(error);
   }
 );
