@@ -29,6 +29,18 @@ import Hero3 from "@/public/assets/images/heroBg3.jpeg";
 import BookTravelImg from "@/public/assets/images/BookTravelImg.png";
 import FlyPlane from "@/public/assets/images/planeHero.png";
 import { useMediaQuery } from "react-responsive";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import {
+  setSearchCriteria,
+  setFlightData,
+  setLoading,
+  setError,
+} from "@/redux/flight/flightSlice"; // Adjust the path as needed
+import {
+  FlightSearchRequest,
+  FlightSearchResponse,
+} from "@/redux/flight/types";
 
 // import { OverlayContainer } from "@react-aria/overlays";
 import { DateRangePicker } from "@/utils/DateRangePicker";
@@ -39,6 +51,7 @@ import { useRouter } from "next/router";
 
 const HomeSectionOne = () => {
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [selectedLocation, setSelectedLocation] =
     useState<string>("City or Airport");
@@ -343,7 +356,7 @@ const HomeSectionOne = () => {
     if (!departureDate) {
       newErrors.departureDate = "Please select a departure date";
     }
-    if (!returnDate) {
+    if (isRoundTrip && !returnDate) {
       newErrors.returnDate = "Please select a return date";
     }
     if (totalPassengers === 0) {
@@ -356,26 +369,46 @@ const HomeSectionOne = () => {
       return false;
     }
 
-    // Proceed with API call if all fields are valid
+    // Prepare the search criteria
+    const searchCriteria: FlightSearchRequest = {
+      from: selectedLocation.split(",")[0],
+      to: selectedDestination.split(",")[0],
+      departure_date: departureDate,
+      arrival_date: isRoundTrip ? returnDate : undefined,
+      passengers: totalPassengers,
+    };
+
+    // Dispatch the search criteria to Redux
+    dispatch(setSearchCriteria(searchCriteria));
+
+    // Set loading state
+    dispatch(setLoading(true));
     setIsLoading(true);
 
     try {
-      const payload = {
-        from: selectedLocation.split(",")[0],
-        to: selectedDestination.split(",")[0],
-        departure_date: departureDate,
-        arrival_date: returnDate,
-      };
+      const response = await axiosInstance.post<FlightSearchResponse>(
+        "flights/search",
+        searchCriteria
+      );
 
-      const response = await axiosInstance.post("flights/search", payload);
+      // Dispatch the flight data to Redux
+      dispatch(setFlightData(response.data));
+
       console.log("API Response:", response.data);
-      // Handle the response as needed
-      return true; // Return true if the API call is successful
+
+      // Navigate to the flight page
+      router.push("/flight");
+      return true;
     } catch (error) {
       console.error("Error making API call:", error);
+
+      // Dispatch error to Redux
+      dispatch(setError("Failed to fetch flight data"));
+
       // Handle the error as needed
-      return false; // Return false if there's an error
+      return false;
     } finally {
+      dispatch(setLoading(false));
       setIsLoading(false);
     }
   };
