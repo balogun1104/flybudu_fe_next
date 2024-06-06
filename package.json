@@ -27,6 +27,7 @@
     "@react-aria/utils": "3.13.1",
     "@react-stately/calendar": "3.0.0",
     "@react-stately/datepicker": "3.0.0",
+    "@reduxjs/toolkit": "^2.2.5",
     "antd": "^5.18.0",
     "axios": "^1.7.2",
     "next": "14.2.3",
