@@ -331,7 +331,7 @@ const HomeSectionOne = () => {
 
   const handleLetGoClick = async () => {
     setErrors({});
-  
+
     // Validate fields
     let newErrors: { [key: string]: string } = {};
     if (!selectedLocation || selectedLocation === "City or Airport") {
@@ -343,30 +343,30 @@ const HomeSectionOne = () => {
     if (!departureDate) {
       newErrors.departureDate = "Please select a departure date";
     }
-    if (isRoundTrip && !returnDate) {
+    if (!returnDate) {
       newErrors.returnDate = "Please select a return date";
     }
     if (totalPassengers === 0) {
       newErrors.passengers = "Please select passengers";
     }
-  
+
     // If there are errors, set them and return false
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return false;
     }
-  
+
     // Proceed with API call if all fields are valid
     setIsLoading(true);
-  
+
     try {
       const payload = {
         from: selectedLocation.split(",")[0],
         to: selectedDestination.split(",")[0],
         departure_date: departureDate,
-        arrival_date: isRoundTrip ? returnDate : null,
+        arrival_date: returnDate,
       };
-  
+
       const response = await axiosInstance.post("flights/search", payload);
       console.log("API Response:", response.data);
       // Handle the response as needed
@@ -567,46 +567,48 @@ const HomeSectionOne = () => {
                 </div>
 
                 <div
-  className={`${styles.inputGroup} ${
-    errors.departureDate || errors.returnDate ? styles.inputError : ""
-  }`}
->
-  <span className={styles.icon}>
-    <Image src={Calendar} alt="" />
-  </span>
-  <div>
-    <div className={styles.datePickerHeaders}>
-      <div>
-        <label className={styles.label}>Leaving On</label>
-        <input
-          type="date"
-          value={departureDate}
-          onChange={(e) => setDepartureDate(e.target.value)}
-          className={styles.dateInput}
-          placeholder={errors.departureDate || "Select date"}
-        />
-      </div>
-      {isRoundTrip && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            flexDirection: 'column'
-          }}
-        >
-          <label className={styles.label}>Returning On</label>
-          <input
-            type="date"
-            value={returnDate}
-            onChange={(e) => setReturnDate(e.target.value)}
-            className={styles.dateInput}
-            placeholder={errors.returnDate || "Select date"}
-          />
-        </div>
-      )}
-    </div>
-  </div>
-</div>
+                  className={`${styles.inputGroup} ${
+                    errors.departureDate || errors.returnDate
+                      ? styles.inputError
+                      : ""
+                  }`}
+                >
+                  <span className={styles.icon}>
+                    <Image src={Calendar} alt="" />
+                  </span>
+                  <div>
+                    <div className={styles.datePickerHeaders}>
+                      <div>
+                        <label className={styles.label}>Leaving On</label>
+                        <input
+                          type="date"
+                          value={departureDate}
+                          onChange={(e) => setDepartureDate(e.target.value)}
+                          className={styles.dateInput}
+                          placeholder={errors.departureDate || "Select date"}
+                        />
+                      </div>
+                      {isRoundTrip && (
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <label className={styles.label}>Returning On</label>
+                          <input
+                            type="date"
+                            value={returnDate}
+                            onChange={(e) => setReturnDate(e.target.value)}
+                            className={styles.dateInput}
+                            placeholder={errors.returnDate || "Select date"}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
 
                 <div
                   className={`${styles.inputGroup} ${
