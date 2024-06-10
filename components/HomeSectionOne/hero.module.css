@@ -1,0 +1,751 @@
+/* General Styles */
+.HomeSectionOne {
+  background-color: #12B4D5;
+  width: 100%;
+  position: relative;
+}
+
+.general {
+  /* margin-top: 3em; */
+  padding: 20px;
+}
+
+/* Hero Section */
+.hero {
+  padding: 40px;
+  border-radius: 40px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.heroWrap {
+  margin-top: 100px;
+  margin-left: 100px;
+}
+
+.heroMiddleText {
+  height: 160px;
+  width: 800px;
+}
+
+.heroSecondText {
+  border-radius: 20px;
+  margin-top: 165px;
+  background-color: #fff;
+  padding: 20px;
+}
+
+.contWrap {
+  width: 100%;
+}
+
+.beci,
+.becidiff {
+  font-family: "Light";
+  font-size: 72px;
+  font-weight: 400;
+  line-height: 100px;
+  color: #fff;
+  margin: 0;
+}
+
+.br {
+  display: block;
+}
+
+.TravelImg {
+  top: -6.5rem;
+  position: relative;
+  left: 10em;
+}
+
+.bookTravelImg {
+  top: -6.5rem;
+  position: relative;
+  left: -2em;
+}
+
+.arivalTravelImg {
+  top: -6.6rem;
+  position: relative;
+  left: 25em;
+  width: 250px;
+}
+
+.FlyPlane {
+  position: relative;
+  bottom: 15em;
+  left: 12em;
+  width: 45px;
+}
+
+.crafts {
+  color: #fff;
+  font-family: "NeueHaasDisplayLight";
+  font-weight: 500;
+  top: -3em;
+  position: relative;
+  font-size: 24px;
+}
+
+/* Button Container */
+.Buttoncontainer {
+  gap: 5px;
+  display: flex;
+}
+
+.buttonTravel {
+  padding: 10px;
+  border: 1px solid #E0E0E0;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  color: black;
+}
+
+.button:hover {
+  border-color: #aaa;
+}
+
+.dropdownIcon {
+  margin-left: 10px;
+}
+
+.small {
+  margin-right: 10px;
+}
+
+/* Search Form */
+.midloc {
+  padding-top: 20px;
+}
+
+.searchForm {
+  font-family: sans-serif;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.inputGroup {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #B7B7B7;
+  padding: 5px 10px;
+}
+.inputField::placeholder{
+  color: #000;
+  font-weight: bold;
+}
+.inputField {
+  border: none;
+  outline: none;
+  padding: 10px;
+  margin-left: 5px;
+  font-size: 14px;
+  color: #000;
+  font-weight: bold;
+}
+
+.label {
+  font-size: 12px;
+  color: #555;
+  display: block;
+  margin-left: 15px;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.cycle {
+  position: absolute;
+  top: 39em;
+  left: 27em;
+}
+
+.inputGroup:nth-child(1) {
+  width: 23.77%;
+}
+
+.inputGroup:nth-child(2) {
+ 
+}
+
+.inputGroup:nth-child(3) {
+ width: 23.77%;
+ 
+}
+
+.inputGroup:nth-child(4) {
+ width: 33.99%;
+ 
+}
+.inputGroup:nth-child(5){
+  width: 18.47%;
+}
+
+/* Art Section */
+.fly {
+  position: absolute;
+}
+
+.theArt {
+  object-fit: cover;
+}
+
+.theArtDiv {
+  padding-left: 13.5rem;
+  position: relative;
+  padding-top: 7rem;
+  display: flex;
+}
+
+.theArtDiv2 {
+  /* position: relative; */
+  right: 48px;
+  top: 63px;
+  position: absolute;
+}
+
+.theArtText {
+  font-family: "Light";
+  font-size: 72px;
+  font-weight: 400;
+  line-height: 80px;
+  position: relative;
+  right:65px;
+  top: 1em;
+}
+
+.theArtText2 {
+  font-family: "Light";
+  font-size: 72px;
+  font-weight: 400;
+  line-height: 80px;
+  position: relative;
+  display: none;
+}
+
+.elewon {
+  position: relative;
+  right: 6em;
+  top: 5em;
+  
+
+}
+
+.plane {
+  position: absolute;
+  right: 14em;
+  bottom: 6em;
+
+}
+
+/* Section Three */
+.HomeSectionThree {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 11%;
+  padding-right: 11%;
+  margin-top: 3rem;
+  /* gap: 20px; */
+  padding-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.secThreeUp {
+  display: flex;
+  gap: 20px;
+}
+
+.secThree {
+  width: 250px;
+}
+
+.secThreeImg {
+  background-color: #00758D;
+  border-radius: 5px;
+  padding: 5px;
+  width: 44px;
+  height: 44px;
+}
+
+.secThreeText {
+  font-family: "NeueHaasDisplayBold";
+  font-size: 24px;
+  font-weight: 600;
+  width: 100%;
+  display: flex;
+  color: #171717;
+  margin: 0;
+}
+.secThreeDown{
+  width: 100%;
+}
+.secThreeMainText {
+  font-family: "NeueHaasDisplayLight";
+  font-size: 12px;
+  margin: 10px 0;
+  font-weight: 500;
+  color: #171717;
+}
+
+/* Location and Dropdown */
+.whereDropdown {
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+  font-family: sans-serif;
+}
+
+.locationWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 540px;
+}
+
+.dropdownMenu ul {
+  position: absolute;
+  left: 36px;
+  top: 20px;
+}
+
+.dropdownMenuOne ul {
+  position: absolute;
+  left: -29px;
+  top: 20px;
+}
+
+/* Date Picker */
+.datePickerHeaders {
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.datePickerContainer {
+  width: 100%;
+}
+
+/* Passenger Dropdown */
+.passengerDropdownMenu {
+  display: flex;
+}
+
+.passengerCountsFlex ul {
+  display: flex;
+}
+
+.passengerCountsFlex {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+.menuover{
+right: 40px;
+width: 100%;
+}
+
+ .plus{
+  width: 24px;
+  height: 24px;
+  background: #EEECE1;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  justify-content: center;
+  border-radius: 50%; 
+} 
+.minus{
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgb(196, 190, 190);
+  color: rgb(196, 190, 190);
+  text-align: center;
+  display: flex;
+  font-size: 24px;
+text-align: center;
+  align-items: center;
+  font-weight: bold;
+  justify-content: center;
+  border-radius: 50%;  
+}
+/* Let's Go Button */
+.Letgo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.Letgo span {
+  display: flex;
+  gap: 10px;
+}
+
+.Letgo p {
+  color: rgba(125, 125, 125, 1);
+}
+
+.LegoButton {
+  width: 243px;
+  height: 48px;
+  padding: 0 24px;
+  gap: 8px;
+  border-radius: 32px;
+  background-color: rgba(6, 188, 225, 1) !important;
+  border: none;
+  margin-left: 20px;
+  color: #fff;
+  cursor: pointer;
+  opacity: 1;
+}
+
+/* Cloud Section */
+.cloudDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.imgDiv {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 6em;
+}
+
+/* Fade Transition */
+.fadeTransition {
+  transition: background-image 1.5s ease-out;
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+  .fly {
+    width: 10em;
+  }
+
+  .theArtText {
+    display: none;
+  }
+
+  .theArtDiv {
+    gap: 10%;
+    padding-left: 13%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .theArt {
+    width: 230px;
+  }
+.menuover{
+  right: 0;
+  left: -40px;
+}
+  .elewon {
+    position: relative;
+    top: -53px;
+    right: 30px;
+  }
+
+  .heroSecondText {
+    height: auto;
+  }
+
+  .searchForm {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .inputGroup {
+    width: 90% !important;
+  }
+
+  .Letgo span {
+    display: flex;
+    align-items: center;
+  }
+
+  .heroWrap {
+    margin: 0;
+  }
+
+  .small {
+    display: none;
+  }
+
+  .dropdownIcon {
+    margin-left: 3px;
+  }
+
+  .cycle {
+    top: 35em;
+    left: 50%;
+  }
+
+  .datePickerHeaders {
+    gap: 5px;
+  }
+
+  .datePickerHeaders div {
+    margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    border-radius: 10px;
+  }
+
+  .contWrap {
+    padding-left: 1em;
+  }
+
+  .heroMiddleText {
+    margin-top: 3em;
+  }
+
+  .crafts {
+    margin: 1em 0;
+    font-family: 'NeueHaasDisplayLight';
+    font-size: 14px;
+    width: 199px;
+  }
+
+  .buttonTravel {
+    font-size: 10px;
+  }
+
+  .Buttoncontainer {
+    gap: 5px;
+    justify-content: space-between;
+  }
+
+  .fly {
+    width: 10em;
+  }
+
+  .heroSecondText {
+    padding: 10px;
+    margin-top: 3.5em !important;
+  }
+
+  .theArt {
+    width: 166px;
+    height: 180px;
+    right: 7em;
+    position: relative;
+  }
+
+  .theArtText2 {
+    font-size: 40px !important;
+    line-height: 52px;
+    display: block;
+    margin-top: 10em;
+    left: 6%;
+  }
+
+  .HomeSectionThree {
+    flex-wrap: wrap;
+  }
+
+  .theArtDiv {
+    gap: 6em !important;
+    padding-left: 7%;
+    padding-top: 3em;
+    
+    
+    
+  }
+
+  .elewon {
+    position: relative;
+    width: 178px;
+    position: relative;
+    top: 1em;
+    left: 8em;
+  }
+
+  .TravelImg {
+    bottom: 1.5rem !important;
+    position: relative;
+    left: 4.5em !important;
+  }
+
+  .bookTravelImg {
+    top: -2.5em !important;
+    position: relative;
+    left: -0.5em;
+    width: 75px !important;
+  }
+
+  .FlyPlane {
+    bottom: 5em;
+    left: 5.8em;
+    width: 28px;
+  }
+
+  .LegoButton {
+    width: 100%;
+    height: auto;
+    padding: 15px 10px;
+    align-self: center;
+    text-align: center;
+    justify-content: center;
+    justify-self: center;
+    border-radius: 32px;
+    background-color: rgba(6, 188, 225, 1) !important;
+    border: none;
+    display: flex;
+    text-decoration: none;
+    margin-left: 0;
+    color: #fff;
+    cursor: pointer;
+    opacity: 1;
+  }
+
+  .Letgo a {
+    text-decoration: none;
+    width: 100%;
+    align-items: center;
+    align-self: center;
+    justify-self: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .plane {
+    width: 100px;
+  }
+
+  .Letgo {
+    width: 100%;
+    flex-direction: column-reverse;
+  }
+
+  .cycle {
+    top: 26.5em !important;
+    left: 46% !important;
+  }
+
+  .general {
+    margin-top: 3em;
+    padding: 20px;
+  }
+
+  .theArtText2 {
+    font-size: 30px;
+  }
+
+  .secThreeText {
+    font-family: "NeueHaasDisplayBold";
+    font-size: 18px;
+    font-weight: 600;
+    width: 100%;
+    display: flex;
+    color: #171717;
+    margin: 0;
+  }
+
+  .beci,
+  .becidiff {
+    width: 290px;
+    font-size: 30px;
+    line-height: 40px;
+    ;
+  }
+
+  .heroMiddleText {
+    width: 100% !important;
+  }
+
+  .TravelImg {
+    width: 100px;
+    top: -38px;
+  }
+
+  .bookTravelImg {
+    width: 100px;
+    top: -38px;
+  }
+
+  .arivalTravelImg {
+    width: 100px !important;
+    top: -2.8em !important;
+    left: 4em;
+  }
+
+  .Letgo input {
+    width: unset;
+  }
+
+  .Letgo span {
+    margin-top: 10px;
+  }
+
+  .hero {
+    padding: 10px !important;
+    height: 20em;
+    margin-top: 1rem;
+  }
+
+  .inputField {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .datePickerContainer {
+    width: 100%;
+  }
+
+  .datePickerHeaders {
+    gap: 5px;
+  }
+
+  .datePickerHeaders div {
+    margin-bottom: 5px;
+  }
+
+  .general {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .plane{
+    position: relative;
+    right: 3.8em;
+    bottom: 6em;
+  }
+}
+
+@media (max-width: 680px) {
+  .secThree {
+    width: 90%;
+  }
+}
+
+@media (max-width: 500px) {
+  .theArtText2 {
+    /* font-size: 20px !important; */
+  }
+
+  .fly {
+    display: none;
+  }
+}
+
+@media (max-width: 385px) {
+  /* Styles for screens up to 385px wide */
+}

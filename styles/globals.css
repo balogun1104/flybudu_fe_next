@@ -105,3 +105,32 @@ a {
     color-scheme: dark;
   }
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: "Light";   /*Can be any text*/
+  src: local("Wreckout-BWWR8"),
+    url("../public/assets/fonts/Wreckout-BWWR8.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "NeueHaasDisplayBold";   /*Can be any text*/
+  src: local("NeueHaasDisplay"),
+    url("../public/assets/fonts/NeueHaasDisplayRoman.ttf") format("truetype"),;
+}
+
+@font-face {
+  font-family: "NeueHaasDisplayLight";   /*Can be any text*/
+  src: local("NeueHaasDisplay"),
+    url("../public/assets/fonts/NeueHaasDisplayThin.ttf") format("truetype"),;
+}
+
+@font-face {
+  font-family: "RomanLight";   /*Can be any text*/
+  src: local("NeueHaasDisplay"),
+    url("../public/assets/fonts/NeueHaasDisplayRoman.ttf") format("truetype"),;
+}
