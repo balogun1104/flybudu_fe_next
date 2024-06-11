@@ -1,0 +1,189 @@
+.darkBG {
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.body{
+  background: #fff;
+    width: 1000px;
+    gap: 2em;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+     border-radius: 20px;
+}
+
+.inputDiv{
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    margin-bottom: 30px;
+  }
+  .booking{
+    font-size: 26px;
+    font-weight: bold;
+  }
+  .clear{
+    font-size: 20px;
+  }
+  .clearDiv{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 2.5em;
+  }
+
+  @font-face {
+    font-family: medium;
+    src: url('/public/assets/fonts/NeueHaasDisplayLight.ttf');
+  }
+  .toor::placeholder, .textArea::placeholder, .email::placeholder, .number::placeholder{
+    font-family:  medium;
+  }
+  .messageInput{
+    display: flex;
+    gap: 1em;
+    flex-direction: column;
+  }
+  .twin{
+    display: flex;
+    gap: 0.5em;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .email{
+    padding: 10px 20px;
+    border: 1px solid rgb(196, 196, 196);
+    border-radius: 10px;
+    outline: none;
+    
+  }
+  
+  .phoneSaga{
+    display: flex;
+    flex-direction: row;
+    
+  }
+  .number{
+    padding: 10px 20px;
+    border: 1px solid rgb(196, 196, 196);
+    border-radius: 10px;
+    outline: none;
+    border-top-left-radius: 0;
+    /* width: 100%; */
+    border-bottom-left-radius: 0;
+  }
+  .select1{
+    padding: 10px;
+    border: 1px solid rgb(196, 196, 196);
+    border-radius: 10px;
+    outline: none;  
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .phoneInput{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  .emailInput{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  .textArea{
+    padding: 10px 20px;
+    border: 1px solid rgb(196, 196, 196);
+    border-radius: 10px;
+    outline: none;
+    width: unset;
+    height: 90px !important;
+    resize: none;
+  }
+  .send{
+    align-self: center;
+    width: 65%;
+    background: rgba(6, 188, 225, 1);
+    color: #fff;
+    padding: 10px 0;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 29px;
+  }
+  
+.toor{
+    padding: 10px 20px;
+    border: 1px solid rgb(196, 196, 196);
+    border-radius: 10px;
+    outline: none;
+    
+  }
+  .nameInput{
+    width: 100%;
+  }
+
+  .lastDiv{
+    display: flex;
+    gap: 1em;
+    align-items: center;
+  }
+  .quote{
+    padding: 20px 40px ;
+    background: #06BCE1;
+    border-radius: 30px;
+    color: #fff;
+  }
+  .check{
+    width: 25px;
+    height: 30px;
+  }
+  .checkbox{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  @media (max-width:1200px) {
+    .body img{
+      display: none;
+    }
+    .body{
+      width: 100%;
+    }
+    .lastDiv{
+      flex-wrap: wrap;
+    }
+  }
+  @media (max-width:965px) {
+    .number, .phoneInput, .emailInput{
+      width: 100%;
+    }
+  }
+  @media (max-width:768px) {
+    .booking{
+      font-size: 20px;
+    }
+    .checkbox{
+      flex-wrap: nowrap;
+    }
+    .body{
+      width: 80vw;
+    }
+    .inputDiv{
+      width: 100%;
+    }
+  }

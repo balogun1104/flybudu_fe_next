@@ -1,0 +1,160 @@
+.navbarWrapBlack{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(51, 51, 51, 1);
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+}
+
+.edit{
+  display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 8px 24px 8px 24px;
+    border: 1px solid #0E90AA;
+    border-radius: 32px;
+    cursor: pointer;
+}
+.border{
+  border-left: 2px solid rgb(173, 169, 169);
+  border-right: 2px solid rgb(173, 169, 169);
+  padding: 0px 9%;
+}
+.navbarWrap{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+}
+
+.logo{
+    color: #fff;
+   
+}
+
+.navbar {
+     /* Dark grey background */
+    overflow: hidden;
+  }
+  .navbar a {
+    float: left;
+    display: block;
+    color: white; /* White text color */
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    border: 2px  none;
+  }
+  /* Change the color of links on hover */
+  .navbar a:hover {
+    color: #FFD600;
+    border-bottom:  solid #FFD600;
+  }
+  /* Add a color to the active/current link */
+  .navbar a.active {
+   color: #FFD600; /* Green background */
+ 
+  }
+
+  .quote{
+    background-color: #FFFFFF;
+    border-radius: 32px;
+    padding: 5px 10px;
+    /* width: 160px; */
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+
+  .quoteWrap{
+    display: flex;
+    gap: 10px;
+    /* filter: blur(5px); */
+  }
+
+  .quoteImg{
+    background-color: #171717;
+    padding: 5px;
+    border-radius: 8px;
+  }
+
+  .NavTwo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-left: 30px;
+    font-weight: bold;
+    padding-right: 30px;
+    padding-bottom: 20px;
+    background-color: rgba(255, 255, 255, 1);
+  }
+
+  .nvTwo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+  }
+
+  .NavtwoContainer{
+    background-color: rgba(247, 247, 247, 1);
+  
+    padding: 30px 30px 0px 30px;
+  }
+
+
+   .navbarWrapBlack{
+   border-top-left-radius: 30px;
+   border-top-right-radius: 30px;
+  }
+
+  .NavTwo {
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+  .searchInput{
+    display: none;
+  }
+  @media (max-width:1000px) {
+    .navbar, .quote{
+      display: none;
+    }
+  }
+  @media (max-width:768px) {
+    .quoteImg{
+      position: relative;
+      /* right: 3em; */
+      margin-right: 3em;
+      margin-left: 12px;
+      background: none;
+    }
+    .logo{
+      /* width: 123px; */
+    }
+    .navbarWrap{
+      z-index: 120;
+      display: flex;
+    justify-content: space-between;
+    align-items: center;
+    left: 0;
+    top: 0;
+    padding: 10px 20px;
+    width: 100%;
+    background: #fff;
+    position: fixed;
+    }
+    .searchInput{
+      /* display: block; */
+      background: transparent;
+        border: #adabab 1px solid;
+        padding: 10px;
+        border-radius: 12px;
+        width: 100%;
+    }
+  }

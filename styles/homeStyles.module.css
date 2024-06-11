@@ -1,0 +1,8 @@
+.HomePage{
+    z-index: 2;
+    top: 0;
+    box-sizing: border-box;
+    overflow-y: hiden;
+    overflow-x: hidden;
+    font-family: NeueHaasDisplayBold;
+}
