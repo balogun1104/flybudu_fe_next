@@ -1,0 +1,313 @@
+.HomeSectionFive {
+  background-color: #f4f4f4;
+  padding-left: 5rem;
+  position: relative;
+  padding-bottom: 17rem;
+  z-index: 2;
+  top: 0;
+  box-sizing: border-box;
+}
+.trip {
+  display: flex;
+  justify-content: space-between;
+  gap: 3em;
+}
+.fiveContent {
+  padding-top: 5rem;
+}
+.freq {
+  font-family: "Light";
+  font-size: 72px;
+  font-weight: 400;
+  margin: 0;
+  padding-bottom: 4rem;
+}
+.howBook {
+  width: 567px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.bookp {
+  margin: 0;
+  font-size: 20px;
+  font-family: "san-serif";
+}
+
+.bookflight {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #b7b7b7;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 15px;
+  align-items: center;
+}
+
+.bookfImg {
+  padding-top: 5rem;
+}
+.subscribeButton img{
+  padding: 0px 10px;
+}
+
+.featImgaeWrap {
+  position: absolute;
+  top: 19.5rem;
+  left: 41.5rem;
+}
+
+.featImgaeOne {
+}
+
+.featImgaeTwo {
+  bottom: 104px;
+  position: absolute;
+  left: 10em;
+}
+
+.final {
+  background-color: #ffffff;
+  position: absolute;
+  padding-top: 1.5rem;
+  /* padding-right: 2em; */
+  /* padding-bottom: 20px; */
+  border-radius: 10px;
+  /* flex-wrap: wrap-reverse; */
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+  justify-content: space-around;
+  bottom: -4rem;
+  width: 90%;
+  padding-bottom: 20px;
+}
+
+.imageWrapFinal {
+  display: flex;
+
+  align-items: center;
+  position: relative;
+}
+
+.image1 {
+  z-index: 5;
+}
+
+.image2 {
+  position: relative;
+  right: 2.5rem;
+  z-index: 3;
+}
+
+.image3 {
+  position: relative;
+  right: 7.5rem;
+}
+
+.uptoDate {
+  position: relative;
+  left: -84px;
+}
+
+.be {
+  font-family: "Light";
+  font-size: 72px;
+  color: #06bce1;
+  margin: 30px 0;
+}
+.open {
+  width: 80%;
+}
+.sub {
+  width: 548px;
+  font-family: "NeueHaasDisplayLight";
+  font-size: 20px;
+  padding-bottom: 20px;
+}
+
+.subscribe {
+  border: 1px solid #3b9691;
+  border-radius: 32px;
+  display: flex;
+  width: 450px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f4f4f4;
+}
+
+.subscribeInput {
+  width: 100%;
+  border: none;
+  background-color: #f4f4f4;
+  outline: none;
+}
+
+.subscribeButton {
+  background-color: #06bce1;
+  padding: 8px;
+  border: none;
+  border-radius: 25px;
+  color: #ffffff;
+  cursor: pointer;
+}
+@media (max-width: 1200px) {
+  .HomeSectionFive {
+    padding-left: 0;
+  }
+  .trip {
+    display: flex;
+    justify-content: space-between;
+    gap: 3em;
+    width: 86%;
+  }
+  .bookflight {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #b7b7b7;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding-bottom: 15px;
+    align-items: center;
+  }
+
+  .featImgaeWrap {
+    /* width: 100%; */
+    left: 10.5rem;
+    position: relative;
+    top: -10em;
+  }
+.featImgaeOne ,.featImgaeTwo{
+  width: 250px;
+}
+.featImgaeTwo{
+  bottom: 30px;
+    left: 7em;
+}
+  .freq {
+    font-size: 32px;
+    text-align: center;
+  }
+  .bookfImg {
+    /* padding-top: 29em; */
+    width: 345px;
+  }
+  .howBook {
+    width: 100%;
+    display: flex;
+    gap: 9px;
+    padding-left: 1.5em;
+    align-items: flex-end;
+  }
+  .final {
+  /* flex-wrap: wrap-reverse; */
+ width: 90%;
+ margin-left: 20px;
+ justify-content: space-between;
+ padding-left: 30px;
+}
+ .image1{
+    width: 190px;
+ }
+ .image2{
+    width: 170px;
+ }
+ .image3{
+    width: 140px;
+ }
+ .be{
+    font-size: 33px;
+ }
+ .sub{
+    width: 255px;
+ }
+ .subscribe{
+    width: unset;
+ }
+}
+@media (max-width: 1323px) {
+  .uptoDate {
+  }
+}
+@media (max-width: 800px) {
+  .featImgaeWrap {
+    left: 4.5rem;
+  }
+  .image1{
+    width: 120px;
+ }   
+ .image2{
+    width: 110px;
+ }
+ .image3{
+    width: 125px;
+    height: 100px;
+ }
+}
+@media (max-width: 600px) {
+  .bookfImg {
+    width: 280px;
+  }
+  .final{
+    
+  }
+}
+@media (max-width: 560px) {
+  .bookfImg {
+    padding-top: 16em;
+  }
+  .featImgaeWrap {
+    top: -14.4em;
+        /* left: 2em; */
+        position: relative;
+  }
+  .featImgaeTwo {
+    bottom: 53px;
+    position: absolute;
+    left: 5em;
+    width: 230px;
+  }
+  .featImgaeOne {
+    width: 230px;
+  }
+}
+
+@media (max-width:700px) {
+    .HomeSectionFive{
+        /* padding-bottom: 29em; */
+    }
+.final{
+    width: 80%;
+    flex-wrap: wrap-reverse;
+    border-radius: 24px;
+}
+.imageWrapFinal{
+    justify-content: center;
+    margin-top: 20px;
+}.subscribe {
+  border: 1px solid #3b9691;
+  border-radius: 32px;
+  display: flex;
+  /* width: 450px; */
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  background-color: #f4f4f4;
+}
+
+.uptoDate{
+    width: 95%;
+    flex-direction: column;
+    display: flex;
+    left: 0;
+}
+.be{
+  margin: 20px 0;
+    font-size: 33px;
+ }
+.sub{
+    width: 90%;
+}
+}

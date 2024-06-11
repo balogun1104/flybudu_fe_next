@@ -1,0 +1,191 @@
+.HomeSectionFour{
+    display: flex;
+    justify-content: center;
+    padding-top: 5rem;
+    padding-left: 1rem;
+    gap: 20px;
+    padding-right: 1rem;
+}
+
+.card{
+    /* height: 633px;
+    width: 437.33px; */
+    padding: 20px ;
+    border-radius: 12px;
+}
+
+.cardOne{
+    background-image: url('../../public/assets/images/eleFour.png');
+    background-position: center;
+    background-repeat:no-repeat;
+    background-size: cover;
+   
+}
+
+.cardTwo{
+
+    background-color: rgba(239, 204, 19, 1);
+    justify-content: center;
+    display: flex;
+}
+
+.cardThree{
+   background-color: rgba(51, 51, 51, 1);
+   justify-content: center;
+   display: flex;
+}
+.LagosImage{
+    padding-top: 1.7rem;
+}
+.cardFour{
+    background-image: url('../../public/assets/images/calabar.jpeg');
+    background-position: center;
+    background-repeat:no-repeat;
+    background-size: cover;
+}
+
+.cardFive{
+    background-image: url('../../public/assets/images/abjFour.jpeg');
+    background-position: center;
+    background-repeat:no-repeat;
+    background-size: cover;
+}
+
+.cardSix{
+   background-color: rgba(6, 188, 225, 1);
+   display: flex;
+   justify-content: center;
+}
+
+.state{
+    font-family: "Light";
+    font-size: 72px;
+    margin: 0;
+    text-align: center;
+    padding-top: 4rem;
+}
+
+.lowState{
+    font-size: 32px;
+    text-align: center;
+    margin: 0;
+    font-family: "NeueHaasDisplayLight";
+    padding-top: 10px;
+}
+
+.bouncingDiv {
+    animation: bounce 2s infinite alternate; /* 1s duration, infinite loop, alternate direction */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  @keyframes bounce {
+    0% {
+      transform: translateY(0); /* Start at current position */
+    }
+    100% {
+      transform: translateY(-20px); /* Move up by 10px */
+    }
+  }
+  
+
+  .explore{
+    display: flex;
+    justify-content: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .exploreButton{
+    background-color: #06BCE1;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+   padding:   15px;
+    border: none;
+    border-radius: 25px;
+
+  }
+  .eko{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2em;
+  } 
+  .eko p{
+color: white;
+  }
+
+.jos{
+  display: flex;
+  flex-direction: column;
+  gap: 20em;
+  align-items: center;
+  text-align: center;
+  width: 95%;
+  justify-content: center;
+}
+.jos p{
+  color: white;
+}
+.mobile{
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+@media (max-width:1200px) {
+  .mobile, .bouncingDiv{
+    flex-direction: row;
+    gap: 0.5em;
+  }
+  .HomeSectionFour{
+    align-items: center;
+    flex-direction: column ;
+    gap: 2em;
+  }
+ 
+}
+@media (max-width:750px) {
+  .overflow{
+    overflow: hidden;
+    width: 90%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    margin-bottom: 1em;
+  }
+  .state{
+    font-size: 25px !important;
+    padding-top: 1em;
+  }
+  .card{
+    padding: 10px;
+    display: block;
+    height: 315px;
+  }
+  .jos{
+    display: flex;
+    gap: 10em;
+  }
+  .eko{
+    gap: 3px;
+  }
+}
+@media (max-width:900px){
+  .state{
+    font-size: 40px;
+  }
+  .LagosImage{
+    width: 200px;
+  }
+}
+@media (max-width:600px) {
+  .LagosImage{
+    width: 130px;
+    margin-bottom: 30px;
+  }
+  
+}

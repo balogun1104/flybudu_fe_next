@@ -1,0 +1,276 @@
+.HomeSectionTwo{
+  margin-top: 4rem;
+  padding-left: 3rem;
+  padding-right: 7rem;
+  background-image: url('/public/assets/images//curveBg.png');
+  background-position: center;
+  background-repeat:no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end ;
+  overflow: hidden;
+}
+
+.feat{
+  font-family: "Light";
+  font-size: 72px;
+  margin: 30px ;
+  margin-left: 0;
+ 
+  @media(max-width:768px){
+    position: relative;
+    margin: auto;
+    left: -3rem;
+    display: flex;
+    font-size: 40px !important;
+    text-align: center;
+    
+  }
+  
+}
+.corem{
+  width: 80%;
+  margin: 40px 0;
+  font-family: "NeueHaasDisplayLight";
+  @media(max-width:768px){
+    position: relative;
+    left: -3rem;
+    width: 100%;
+  }
+}
+
+.secTwo{
+  display: flex;
+justify-content: space-between;
+margin-left: 7rem;
+
+align-items: center;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Adjust the space between buttons as needed */
+}
+
+.button {
+  border: 2px solid transparent; /* Ensures consistent size between buttons */
+  border-radius: 50%; /* Makes the button round */
+  width: 50px; /* Size of the button */
+  height: 50px; /* Size of the button */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.outlined {
+  background-color: #fff; /* Change to the color of your page background */
+  border-color: #12B4D5; /* Light blue border color */
+}
+
+.filled {
+  background-color: #12B4D5; /* Light blue background color */
+  border-color: #12B4D5; /* Light blue border color */
+}
+
+.arrow {
+  font-size: 24px; /* Adjust size as needed */
+  color: #12B4D5; /* Adjust arrow color as needed */
+}
+
+.filled .arrow {
+  color: #fff; /* White arrow color for contrast on filled button */
+}
+
+/* Add hover effects if needed */
+.button:hover {
+  border-color: #888; /* Example hover color change for border */
+}
+
+.filled:hover {
+  background-color: #999; /* Example hover color change for filled button */
+}
+.number{
+  font-size:22px;
+   font-family:NeueHaasDisplayBold;
+    font-weight:bold;
+}
+.textTwin{
+  font-family:NeueHaasDisplayBold;
+   font-weight:bold;
+}
+
+.secThreeImg{
+display: flex;
+overflow-y: auto;
+/* white-space: nowrap; */
+/* gap: 30px; */
+width: 100%;
+justify-content: space-evenly;
+margin-left: 20%;
+}
+.secThreeImg::-webkit-scrollbar{
+  width: 0;
+}
+
+.secThreeImgs{
+  display: none;
+}
+@media (max-width:768px) {
+
+  .slider{
+    display: block !important;
+  }
+  .secThreeImg{
+    display: none;
+  }
+  .secThreeImgs{
+    display: block;
+    width: 90%;
+    gap: 1rem !important;
+    margin: auto;
+  }
+}
+
+.card{
+  flex-shrink: 0;
+  width: 300px;
+  border-radius: 24px;
+  border: 1px solid #c6c6c6;
+  box-sizing: border-box;
+  word-wrap: break-word;
+ 
+  @media(max-width:768px){
+    width: 88vw !important;
+  }
+}
+
+.slider{
+  display: none !important;
+ 
+}
+
+.secThreeMid{
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  background-color: #CAF3FB;
+  align-items: center;
+  padding: 10px 20px;
+  position: relative;
+  top: -3px;
+  margin-bottom: 10px;
+}
+@font-face {
+  font-family: NeueHaasDisplayBold;
+  src: url("/public/assets/fonts/NeueHaasDisplayBold.ttf");
+}
+.newBorn{
+font-family:NeueHaasDisplayBold;
+
+padding-left: 20px;
+font-weight: bold;
+}
+@font-face {
+font-family: "fontType";
+src: url("/public/assets/fonts/NeueHaasDisplayMediu.ttf");
+}
+.Yorem{
+  margin: 0;
+  padding: 20px;
+  padding-top: 0px;
+  font-family: 'RomanLight';
+ /* word-wrap: break-word; */
+ font-size: 16px;
+font-weight: 200;
+
+  }
+
+.cardBottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-top: 1px solid #D2D2D2;
+padding-bottom: 30px;
+padding-top: 20px;
+}
+
+.cardBottomOne{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.cardBottomTwo{
+  display: flex;
+  flex-direction: column;
+}
+
+.ffDown{
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  position: relative;
+}
+.sun{
+  position: absolute; 
+  left: 2em;
+}
+@media (max-width:500px) {
+  .card{
+   
+  }
+  .HomeSectionTwo{
+    padding: 0;
+  }
+  .feat{
+    font-size: 30px;
+    margin-left: 0px;
+  }
+  .sun{
+    display: none;
+  }
+  .secTwo{
+    margin-left: 20%;
+  }
+  .ffDown{
+    width: 108px;
+    left: 63%;
+  }
+  .cardBottom{
+    width: 88%;
+  }
+}
+@media (max-width:800px) {
+  .number{
+    font-size: 19px;
+  }
+  .buttonContainer{
+    display: none;
+  }
+  .card{
+    width: 70%;
+
+  }
+  .HomeSectionTwo{
+    padding: 0;
+  }
+  .secThreeImg{
+    justify-content: unset;
+    gap: 1em;
+  }
+}
+@media only screen and (max-width: 768px) {
+  /* Hide the scrollbar */
+  .secThreeImg::-webkit-scrollbar {
+    width: 0;
+  }
+  .secThreeImg{
+    overflow-y: hidden !important;
+  }
+}

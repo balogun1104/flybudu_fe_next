@@ -1,0 +1,74 @@
+@font-face {
+    font-family: wreckout;
+    src: url("/public/assets/fonts/Wreckout-BWWR8.otf");
+}
+
+.general{
+    overflow-x: hidden;
+    font-family: sans-serif;
+    padding: 0 0 80px;
+    margin: 0;
+}
+.body{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 5em;
+    flex-wrap: wrap;
+}
+
+.corporateText{
+    font-size: 62px;
+    width: 500px;
+    display: flex;
+    font-family: wreckout;
+}
+.secondDiv{
+display: flex;
+flex-direction: column;
+}
+.text{
+    font-size: 20px;
+    width: 500px; 
+    margin-top: 20px;
+}
+.started{
+    background: #06BCE1;
+    padding: 14px 28px;
+    border-radius: 8px;
+    width: 250px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+}
+@media (max-width:768px) {
+    .corporateText{
+        font-size: 30px;
+        margin-left: 20px;
+        width: 90%;
+    }
+    .body img{
+        width: 90%;
+    }
+    .text{
+        text-wrap: balance;
+        font-size: 20px;
+        width: 92%;
+        text-align: center;
+        margin-top: 30px;
+        
+    }
+    .started{
+        background: #06BCE1;
+        padding: 12px 20px;
+        border-radius: 8px;
+        text-align: center;
+        width: 60%;
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        /* margin-right: 20px; */
+        font-weight: bold;
+        margin-top: 30px;
+    }
+}

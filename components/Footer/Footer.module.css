@@ -1,0 +1,148 @@
+.FooterWrap{
+    background-color: #06BCE1;
+    z-index: 2;
+    top: 0;
+    box-sizing: border-box;
+    margin: 0 auto;
+    box-sizing: border-box;
+    margin: 0 auto;
+    overflow-y: hidden;
+    
+    overflow-y: hidden;
+}
+.contantDiv{
+    margin-right: 50px;
+}
+.loremDiv{
+    display: flex;
+    justify-content: center;
+    text-decoration: underline;
+    font-size: 15px;
+}
+.Footer{
+    padding: 7rem;
+    display: flex;
+   flex-direction: column;
+    padding-bottom: 7rem;
+}
+.bold, .contant{
+    font-weight: bold;
+}
+
+.sec1{
+    /* width: 70%; */
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+}
+.about, .service, .destination{
+    width: 200px;
+}
+.sec2{
+    display: flex;
+    flex-wrap: wrap-reverse;
+    align-items: self-end;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 3em;
+}
+
+.para{
+    margin: 0;
+    font-size: 16px;
+    font-family: "NeueHaasDisplayLight";
+}
+
+.bold{
+    font-size: 24px;
+    margin: 0;
+    padding-bottom: 20px;
+    font-family: "NeueHaasDisplayLight";
+    font-weight: 400;
+}
+/* p{
+    font-family: "NeueHaasDisplayLight";
+    margin: 0;
+} */
+.contant{
+    border-bottom: 1px solid #171717;
+  padding-bottom: 4px;
+
+  font-size: 24px;
+}
+
+.we{
+    padding-bottom: 40px;
+    padding-top: 20px;
+}
+
+.ade{
+   
+   border-bottom: 1px solid #171717;
+   padding-bottom: 5px;
+}
+.support{
+   padding-top: 18px;
+    border-bottom: 1px solid #171717;
+    padding-bottom: 5px;
+}
+
+.phone{
+   
+    padding-top: 18px;
+    border-bottom: 1px solid #171717;
+    padding-bottom: 5px;
+}
+
+.social{
+    padding-top: 20px;
+}
+.social p{
+    padding-bottom: 20px;
+}
+
+.iconWrap{
+    display: flex;
+    gap: 20px;
+}
+@media (max-width:1000px) {
+    .sec1{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    /* .about, .service, .contant, .destination{
+        width: 45%;
+    } */
+    .contantDiv{
+        width: 150px;
+    }
+}
+@media (max-width:671px) {
+    .about, .destination, .service, .contantDiv{
+        width: 97%;
+    }
+    .Footer{
+        box-sizing: border-box;
+        margin: 0 auto;
+        overflow-y: hidden;
+        padding: 7em 1em;
+    }
+    .destinationDiv{
+       display: flex;
+       width: 60%;
+       gap: 3em;
+    }
+    .iconWrap img{
+        width: 28px;
+  
+    }
+    .iconWrap{
+        gap: 10px;
+    }
+}
+@media (max-width:800px) {
+    .sec2{
+
+    }
+}

@@ -1,0 +1,94 @@
+.HomeSectionThree{
+    background-color: #06BCE1;
+    position: relative;
+    /* padding-bottom: 5rem; */
+}
+
+.homeSect{
+  padding-top: 5rem;
+}
+
+.our{
+    font-family: "Light";
+    font-size: 72px;
+    color: #fff;
+    margin: 0;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.card{
+    background-color: rgba(202, 243, 251, 1);
+    /* max-width: 268px; */
+    max-width: 250px;
+    margin: 30px;
+    display: flex!important;
+    gap: 0px;
+    padding: 12px;
+    border-radius: 12px;
+    /* align-items: center; */
+    margin-bottom: 10px;
+    
+    flex-direction: row;
+}
+
+.card img{
+    width: 40px;
+    height: 40px;
+}
+
+.yorem{
+    margin: 0;
+    font-family: NeueHaasDisplayMed;
+    padding-top: 6px;
+}
+
+.green {
+    margin: 0;
+    font-weight: 600px;
+}
+
+.fullHair{
+    position: absolute;
+    z-index: 2;
+    left: 48px;
+    top: 7.7rem;
+    
+}
+
+.cardWrapper{
+    z-index: 1;
+    position: relative;
+    padding-top: 3rem;
+}
+
+.overLay{
+    top: 9.8rem;
+    position: absolute;
+    left: 4rem;
+
+}
+
+.house{
+    position: relative;
+    left: 64rem;
+    padding-top: 1rem;
+}
+.slider{
+   width: 100em;
+  
+}
+@media (max-width:1200px) {
+    .fullHair{
+        display: none;
+    }
+    .overLay{
+        display: none;
+    }
+}
+@media (max-width:750px) {
+    .our{
+        font-size: 36px;
+    }
+
+}
