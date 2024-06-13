@@ -1,0 +1,174 @@
+
+.body{
+    display: flex;
+    padding: 0 20px;
+    border-radius: 12px;
+    background: #fff;
+    display: flex;
+}
+/* .greenImg{
+ 
+} */
+.flex{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.firstDiv{
+    justify-content: space-between;
+    padding: 15px 20px;
+    align-items: center;
+    display: flex;
+    width: 60%;
+}
+.secondDiv{
+    border-left: 1px dotted;
+    padding:  15px 20px;
+    display: flex;
+    width: 40%;
+    justify-content: space-between;
+align-items: center;
+}
+.selectDiv{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+.left{
+    display: flex;
+    gap: 10px;
+}
+.seat{
+    align-items: center;
+    background: #ECF8FA;
+    padding: 10px 20px;
+    display: flex;
+    gap: 6px;
+    border-radius: 12px;
+    color: #0E90AA;
+    font-size: 18px;
+}
+.image{
+    
+    display: none;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    width: 50px;
+
+}
+.extra{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.money{
+    font-size: 32px;
+    color: #058EA9;
+    font-weight: bold;
+}
+.time{
+    font-size: 32px;
+    font-weight: bold;
+}
+
+
+.selectChange{
+    appearance: none; /* Hides the default arrow in some browsers */
+    -webkit-appearance: none; /* Hides the default arrow in Safari */
+    -moz-appearance: none;
+    display: flex;
+    color: #000;
+    background: #fff;
+    border: 1px solid #b1b0b0;
+    padding: 10px 20px;
+    outline: none;
+    border-radius: 12px;
+}
+
+.select{
+    padding: 10px 20px;
+    color: #fff;
+    background: #000;
+    border-radius: 12px;
+}
+.lineDiv{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+.circle{
+    display: flex;
+    align-items: center;
+}
+.mobileDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.mother{
+    border-radius: 12px;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    gap: 1em;
+}
+.mobileFlex{
+    display: flex;
+    flex-direction: column;
+}
+@media (max-width:1200px) {
+    .mother{
+        display: flex;
+        background: #fff
+    }
+    .GreenImg{
+
+        width: 40px;
+        height: 40px;
+    }
+    .body{
+        display: none;
+    }
+
+    .bold{
+        font-size: 20px;
+       }
+}
+@media (max-width:768px) {
+    
+    .mother{
+        margin: 0 10px;
+    }
+    .select{
+
+        width: 26%;
+        text-align: center;
+    }
+  .abuja{
+    display: flex;
+    text-align: flex-end;
+    justify-content: flex-end;
+    margin-top: 15px;
+  }
+  .lagos{
+    display: flex;
+    margin-top: 15px;
+  }
+  .monay{
+    font-size: 22px;
+  }
+  
+    .bold{
+        font-size: 20px;
+       }
+       .lineDiv span{
+        font-weight: 100;
+       }
+}
+@media (max-width:500px) {
+    .seat{
+        padding: 10px ;
+    }
+}

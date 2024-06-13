@@ -1,0 +1,569 @@
+.general {
+  background: rgb(236, 234, 234);
+  box-sizing: border-box;
+  margin: 0 auto;
+  overflow-x: hidden;
+  padding: 30px 0;
+  padding-bottom: 0 !important;
+}
+
+.backgroundDiv {
+  width: 100%;
+  background-image: url("../public/assets/images/destinationbackground\ \(2\).png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  color: #fff;
+  flex-wrap: wrap;
+  padding: 60px 0px;
+}
+.span{
+  display: flex;
+  gap: 10px;
+  align-items: center;  
+
+}
+.firstPart span {
+  font-size: 45px;
+  font-family: Light;
+}
+.firstPart {
+  margin-left: 70px;
+  flex-direction: column;
+  display: flex;
+  gap: 2em;
+}
+.firstPart p {
+  width: 400px;
+}
+.secondPart {
+  margin-right: 70px;
+  padding: 20px;
+  border: 2px dotted #efcc13;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.pictureText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+.pictureText img {
+  width: 60px;
+}
+.amount {
+  color: #efcc13;
+  font-size: 45px;
+  border-top: 1px solid white;
+  font-weight: bold;
+}
+.japa {
+  margin: 10px 0;
+}
+.from {
+  margin-bottom: 15px;
+}
+
+.HomeSectionFour {
+  display: flex;
+  justify-content: center;
+  padding-top: 5rem;
+  padding-left: 1rem;
+  gap: 20px;
+  padding-right: 1rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  /* height: 633px;
+    width: 437.33px; */
+  padding: 20px;
+
+  width: 27%;
+}
+.cardSeven {
+  background: #06bce1;
+  display: flex;
+  justify-content: center;
+  width: 59%;
+  padding: 20px;
+}
+.cardSeven img {
+  width: 90%;
+}
+.cardOne, .cardEight {
+  background-image: url("../public/assets/images/eleFour.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.cardTwo, .cardNine {
+  background-color: rgba(239, 204, 19, 1);
+  justify-content: center;
+  display: flex;
+}
+
+.cardThree, .cardTen {
+  background-color: rgba(51, 51, 51, 1);
+  justify-content: center;
+  display: flex;
+}
+.LagosImage {
+  width: 300px;
+}
+.cardFour {
+  background-image: url("../public/assets/images/calabar.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.cardFive {
+  background-image: url("../public/assets/images/abjFour.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.cardSix {
+  background-color: rgba(6, 188, 225, 1);
+  display: flex;
+  justify-content: center;
+}
+.eko {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3em;
+}
+.jos {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  justify-content: space-between;
+}
+.state {
+  font-family: "Light";
+  font-size: 68px;
+  margin: 0;
+  text-align: center;
+}
+
+.lowState {
+  font-size: 32px;
+  text-align: center;
+  margin: 0;
+  font-family: "NeueHaasDisplayLight";
+  padding-top: 10px;
+}
+
+.bouncingDiv {
+  animation: bounce 2s infinite alternate; /* 1s duration, infinite loop, alternate direction */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.prev{
+    color: #fff;
+    background: #D3D3D3;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 10px 20px;
+}
+.prev, .next{
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.next{
+    color: #fff;
+    background: #06bce1;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+}
+.special{
+  padding: 7px 15px;
+      border: 1px solid black;
+      border-radius: 6px;
+      font-weight: bold;
+}
+.tooMuch{
+    margin: 50px 0;
+    display: flex;
+    gap: 5em;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.buttonDiv{
+    display: flex;
+    gap: 1em;
+}
+.cloud{
+    position: relative;
+    top: 3em;
+}
+.final {
+    background-color: #ffffff;
+    position: relative;
+    padding-top: 1.5rem;
+    /* padding-right: 2em; */
+    /* padding-bottom: 20px; */
+    border-radius: 10px;
+    /* flex-wrap: wrap-reverse; */
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    justify-content: space-around;
+    left: 3em;
+    top: 5em;
+    width: 90%;
+    padding-bottom: 20px;
+  }
+  
+  .imageWrapFinal {
+    display: flex;
+  
+    align-items: center;
+    position: relative;
+  }
+  
+  .image1 {
+    z-index: 5;
+  }
+  
+  .image2 {
+    position: relative;
+    right: 2.5rem;
+    z-index: 3;
+  }
+  
+  .image3 {
+    position: relative;
+    right: 7.5rem;
+  }
+  
+  .uptoDate {
+    position: relative;
+    left: -84px;
+  }
+  
+  .be {
+    font-family: "Light";
+    font-size: 72px;
+    color: #06bce1;
+    margin: 30px 0;
+  }
+  .open {
+    width: 80%;
+  }
+  .sub {
+    width: 548px;
+    font-family: "NeueHaasDisplayLight";
+    font-size: 20px;
+    padding-bottom: 20px;
+  }
+  
+  .subscribe {
+    border: 1px solid #3b9691;
+    border-radius: 32px;
+    display: flex;
+    width: 450px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f4f4f4;
+  }
+  
+  .subscribeInput {
+    width: 100%;
+    border: none;
+    background-color: #f4f4f4;
+    outline: none;
+  }
+  
+  .subscribeButton {
+    background-color: #06bce1;
+    padding: 8px;
+    border: none;
+    border-radius: 25px;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  .subscribeButton img{
+    padding: 0px 10px;
+  }
+  .cardEight, .cardNine, .cardTen{
+    display: none;
+  }
+  @media (max-width:817px) {
+    .firstPart{
+      margin-left: 0;
+      width: 80%;
+    }
+    .firstPart p{
+      width: 90%;
+    }
+    .firstPart span{
+      font-size: 30px;
+    }
+    .secondPart{
+      width: 70%;
+      margin: 0;
+    }
+    .backgroundDiv{
+      gap: 2em;
+      justify-content: center;
+    }
+    .state{
+      font-size: 45px;
+    }
+    .overflow{
+      display: -webkit-box;
+    max-width: 100%;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    }
+    .card{
+      padding: 20px 10px;
+    }
+    .cloud{
+      display: none;
+    }
+  }
+
+  
+  @media (max-width:500px) {
+    .firstPart span{
+      font-size: 25px;
+    }
+    .firstPart{
+      width: 90%;
+    }
+    .LagosImage{
+      width: 80%;
+    }
+    .cardSeven img{
+      width: 100%;
+    }
+    .cardFive{
+      height: 20em !important;
+      text-align: center;
+    }
+    .state{
+      font-size: 30px;
+    }
+    .card{
+      width: 41.5% !important;
+    }
+    .state{
+      font-size: 25px;
+    }
+    .HomeSectionFour{
+      gap: 5px !important;
+    }
+  }
+  @media (max-width:357px) {
+    .card{
+      width: 38% !important;
+    }
+    .state{
+      font-size: 20px;
+    }
+  }
+  @media (max-width:1200px) {
+.cardThree, .cardFour{
+  display: none;
+}
+.cardFive{
+  width: 100% !important;
+  height: 36em;
+}
+.cardSeven{
+  width: 100%;
+}
+.cardEight, .cardNine, .cardTen{
+  display: flex;
+}
+.card{
+  width: 43%;
+}
+.LagosImage{
+  width: 96%;
+}
+.HomeSectionFour{
+ gap: 10px;
+ justify-content: space-between;
+}
+  }
+
+  @media (max-width:400px) {
+    .tooMuch{
+      align-items: center;
+      gap: 2em;
+      flex-direction: column;
+    }
+  }
+
+
+
+
+
+  
+@media (max-width: 1200px) {
+  .HomeSectionFive {
+    padding-left: 0;
+  }
+  .trip {
+    display: flex;
+    justify-content: space-between;
+    gap: 3em;
+    width: 86%;
+  }
+  .bookflight {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #b7b7b7;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding-bottom: 15px;
+    align-items: center;
+  }
+
+  .featImgaeWrap {
+    /* width: 100%; */
+    top: 33.5rem;
+    left: 13.5rem;
+  }
+  .freq {
+    font-size: 32px;
+    text-align: center;
+  }
+  .bookfImg {
+    padding-top: 29em;
+    width: 345px;
+  }
+  .howBook {
+    width: 100%;
+    display: flex;
+    gap: 9px;
+    padding-left: 1.5em;
+    align-items: flex-end;
+  }
+  .final {
+  /* flex-wrap: wrap-reverse; */
+ width: 90%;
+ justify-content: space-between;
+ padding-left: 30px;
+}
+ .image1{
+    width: 190px;
+ }
+ .image2{
+    width: 170px;
+ }
+ .image3{
+    width: 140px;
+ }
+ .be{
+  margin: 20px 0;
+    font-size: 33px;
+ }
+ .sub{
+    width: 255px;
+ }
+ .subscribe{
+    width: unset;
+ }
+}
+@media (max-width: 1323px) {
+  .uptoDate {
+  }
+}
+@media (max-width: 800px) {
+  .featImgaeWrap {
+    left: 4.5rem;
+  }
+  .image1{
+    width: 120px;
+ }   
+ .image2{
+    width: 110px;
+ }
+ .image3{
+    width: 125px;
+    height: 100px;
+ }
+}
+@media (max-width: 600px) {
+  .bookfImg {
+    width: 280px;
+  }
+  .final{
+    
+  }
+}
+@media (max-width: 560px) {
+  .bookfImg {
+    padding-top: 16em;
+  }
+  .featImgaeWrap {
+    top: 36.6em;
+    left: 2em;
+  }
+  .featImgaeTwo {
+    bottom: 53px;
+    position: absolute;
+    left: 5em;
+    width: 230px;
+  }
+  .featImgaeOne {
+    width: 230px;
+  }
+}
+@media (max-width:700px) {
+  .tooMuch{
+    align-items: center;
+    gap: 2em;
+    flex-direction: column;
+  }
+    .HomeSectionFive{
+        padding-bottom: 29em;
+    }
+.final{
+    width: 80%;
+    flex-wrap: wrap-reverse;
+    border-radius: 24px;
+    left: 1em;
+}
+.imageWrapFinal{
+    justify-content: center;
+    margin-top: 20px;
+}
+.uptoDate{
+    width: 95%;
+    flex-direction: column;
+    display: flex;
+    left: 0;
+}
+.sub{
+    width: 90%;
+}
+}

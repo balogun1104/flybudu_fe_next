@@ -1,0 +1,56 @@
+.general{
+    border-radius: 20px;
+    background: #fff;
+    border-left: 8px solid #06BCE1;
+    margin: 30px 0;
+}
+.paystackDiv{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.paystackDiv span{
+    font-size: 20px;
+    font-weight: bold;
+}
+.images{
+    margin: 20px 0;
+    gap: 1em;
+    display: flex;
+    justify-content: flex-end;
+}
+.firstDiv{
+    padding: 20px;
+}
+.payment{
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    background: #DBDBDB;
+    font-weight: bold;
+    padding: 10px;
+    align-items: center;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.payment span{
+    font-size: 23px;
+}
+@media (max-width:600px) {
+  
+    .paystackDiv img{
+        width: 120px;
+    }
+    .images img{
+        width: 20%;
+    }
+    .images{
+        gap: 10px;
+    }
+    .firstDiv{
+        padding: 20px 15px;
+    }
+    .payment span{
+        font-size: 21px;
+    }
+  }

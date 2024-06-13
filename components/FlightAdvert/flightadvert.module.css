@@ -1,0 +1,60 @@
+.general {
+  width: 300px;
+  padding: 20px;
+  position: relative;
+  justify-content: space-between;
+  flex-direction: column;
+  display: flex;
+  background: url("../../public/assets/images/flightAdvert.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  gap: 19em;
+  border-radius: 10px;
+}
+.from {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  align-items: center;
+}
+.lag {
+  position: absolute;
+  top: 0.8em;
+  left: 0.2em;
+  font-size: 49px;
+  font-weight: bold;
+}
+.abj {
+  display: flex;
+  margin-left: 20px;
+}
+.crazy {
+  background: linear-gradient(rgba(6, 188, 225, 0.6), rgba(3, 102, 123, 1));
+color: #fff;
+padding: 10px;
+border-radius: 10px;
+}
+.crazy span {
+  /* opacity: 1 !important; */
+}
+.size{
+    font-size: 40px;    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.triplet{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+.triplet span{
+    border-right: 1px solid #fff ;
+    padding-right: 8px;
+}
+@media (max-width:500px) {
+  .general{
+    width: 100%;
+  }
+}

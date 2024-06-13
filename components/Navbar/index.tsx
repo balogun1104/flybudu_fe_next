@@ -5,11 +5,12 @@ import Quote from "@/public/assets/svg/Payment.svg";
 import flyBudu from "@/public/assets/images/flybuduLogo.png"
 
 import WhiteImg from "@/public/assets/images/whiteFlybudu.png"
-// import QuoteBar from "../Qoute/quote"
+import QuoteBar from "../Qoute/quote"
 import Link from "next/link"
 import Image from "next/image";
+import { MobileNavScreen } from "../MobileNavScreen";
 
-// <import { MobileNavScreen } from "../MobileNavScreen";
+
 
 // function isMobileDiv(){
 //   return ((window) .width() > 768)
@@ -46,12 +47,12 @@ const [isOpen, setIsOpen] = useState(false)
       </Link>
       <div>
         <div className={styles.navbar}>
-          <a className={styles.active} href="#home">
+          <Link className={styles.active} href="#home">
             Home
-          </a>
-          <a href="/destinations">Destinations</a>
-          <a href="/featuredflights">Featured Flights</a>
-          <a href="/contacts">Contact</a>
+          </Link>
+          <Link href="/destinations">Destinations</Link>
+          <Link href="/featuredflights">Featured Flights</Link>
+          <Link href="/contacts">Contact</Link>
         </div>
       </div>
       <input type="text" placeholder="Search Flights" className={styles.searchInput} />
@@ -62,15 +63,15 @@ const [isOpen, setIsOpen] = useState(false)
             <Image src={Quote} alt="" />
           </span>
         </div>
-        {/* {isMobile ? (<Image src={WhiteImg} alt="" className={styles.quoteImg} onClick={() => setOpenMenu(!openMenu)} />
+        {isMobile ? (<Image src={WhiteImg} alt="" className={styles.quoteImg} onClick={() => setOpenMenu(!openMenu)} />
         ) : (<Image src={Menu} alt="" className={styles.quoteImg} onClick={() => setOpenMenu(!openMenu)} />
-        )} */}
+        )}
 
-        {/* {
+        {
           openMenu && <MobileNavScreen onClick={() => setOpenMenu(false)} />
-        } */}
+        }
       </div>
-      {/* {isOpen && <QuoteBar setIsOpen={setIsOpen}/>} */}
+      {isOpen && <QuoteBar setIsOpen={setIsOpen}/>}
     </div>
   );
 };

@@ -17,7 +17,7 @@ import SmallFly from "@/public/assets/svg/buttonFly.svg";
 import ArrowDown from "@/public/assets/svg/arrowDown.svg";
 import Cycle from "@/public/assets/svg/cycle.svg";
 import { Dropdown, Menu, Button } from "antd";
-import Link from "next/link"
+import Link from "next/link";
 import cloud from "@/public/assets/svg/Vector.png";
 // import { FlightCard } from "../SwitchableInputs";
 import LocationPin from "@/public/assets/images/location pin.png";
@@ -29,26 +29,40 @@ import Hero3 from "@/public/assets/images/heroBg3.jpeg";
 import BookTravelImg from "@/public/assets/images/BookTravelImg.png";
 import FlyPlane from "@/public/assets/images/planeHero.png";
 import { useMediaQuery } from "react-responsive";
-import {DatePicker} from "@nextui-org/date-picker";
-
+import { DatePicker } from '@nextui-org/date-picker';
+import { DateValue, parseAbsoluteToLocal } from '@internationalized/date';
+import { I18nProvider } from '@react-aria/i18n';
 
 
 const HomeSectionOne = () => {
-    const [selectedLocation, setSelectedLocation] = useState<string>("City or Airport");
-    const [local, setLocal] = useState<string[]>([]);
-    const [international, setInternational] = useState<string[]>([]);
-    const [round, setRound] = useState<string[]>([]);
-    const [selectedDestination, setSelectedDestination] = useState<string>("City or Airport");
-    const [, setDates] = useState<Date[]>([]);
-    const [isPassengerDropdownVisible, setIsPassengerDropdownVisible] = useState<boolean>(false);
-    const [, setLeaveDate] = useState<string | null>(null);
-    const [, setReturnDate] = useState<string | null>(null);
-    const [passengerCounts, setPassengerCounts] = useState<{ adults: number; children: number; infants: number }>({
-      adults: 1,
-      children: 0,
-      infants: 0,
-    });
-    const [isDatePickerOpen, setIsDatePickerOpen] = useState<boolean>(false);
+
+  let [date, setDate] = useState<DateValue>(
+    parseAbsoluteToLocal('2021-04-07T18:45:22Z')
+  );
+  
+
+  const [selectedLocation, setSelectedLocation] =
+    useState<string>("City or Airport");
+  const [local, setLocal] = useState<string[]>([]);
+  const [international, setInternational] = useState<string[]>([]);
+  const [round, setRound] = useState<string[]>([]);
+  const [selectedDestination, setSelectedDestination] =
+    useState<string>("City or Airport");
+  const [, setDates] = useState<Date[]>([]);
+  const [isPassengerDropdownVisible, setIsPassengerDropdownVisible] =
+    useState<boolean>(false);
+  const [, setLeaveDate] = useState<string | null>(null);
+  const [, setReturnDate] = useState<string | null>(null);
+  const [passengerCounts, setPassengerCounts] = useState<{
+    adults: number;
+    children: number;
+    infants: number;
+  }>({
+    adults: 1,
+    children: 0,
+    infants: 0,
+  });
+  const [isDatePickOpen, setIsDatePickOpen] = useState<boolean>(false);
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const totalPassengers = Object.values(passengerCounts).reduce(
@@ -56,7 +70,10 @@ const HomeSectionOne = () => {
     0
   );
 
-  const handlePassengerChange =(type: keyof typeof passengerCounts, operation: "increment" | "decrement") => {
+  const handlePassengerChange = (
+    type: keyof typeof passengerCounts,
+    operation: "increment" | "decrement"
+  ) => {
     setPassengerCounts((prevCounts) => {
       const newValue =
         operation === "increment" ? prevCounts[type] + 1 : prevCounts[type] - 1;
@@ -73,14 +90,14 @@ const HomeSectionOne = () => {
     });
   };
 
-  const closePassengerDropdown = (e:any) => {
+  const closePassengerDropdown = (e: any) => {
     e.preventDefault(); // Prevent default form submission
     e.stopPropagation(); // Stop click event from reaching the Dropdown
     setIsPassengerDropdownVisible(false);
   };
 
   const passengersMenu = (
-    <Menu className={styles.menuover} style={{ position:"relative"}}>
+    <Menu className={styles.menuover} style={{ position: "relative" }}>
       <Menu.ItemGroup title="Adult" className={styles.passengerCountsFlex}>
         <Menu.Item
           style={{ padding: "5px" }}
@@ -89,7 +106,9 @@ const HomeSectionOne = () => {
         >
           <span className={styles.plus}>+</span>
         </Menu.Item>
-        <Menu.Item key="adults-count" style={{ padding: "5px" }}>{passengerCounts.adults}</Menu.Item>
+        <Menu.Item key="adults-count" style={{ padding: "5px" }}>
+          {passengerCounts.adults}
+        </Menu.Item>
         <Menu.Item
           style={{ padding: "5px" }}
           key="adults-decrement"
@@ -104,9 +123,11 @@ const HomeSectionOne = () => {
           key="children-increment"
           onClick={() => handlePassengerChange("children", "increment")}
         >
-          <span className={styles.plus} >+</span>
+          <span className={styles.plus}>+</span>
         </Menu.Item>
-        <Menu.Item key="children-count" style={{ padding: "5px" }}>{passengerCounts.children}</Menu.Item>
+        <Menu.Item key="children-count" style={{ padding: "5px" }}>
+          {passengerCounts.children}
+        </Menu.Item>
         <Menu.Item
           style={{ padding: "5px" }}
           key="children-decrement"
@@ -123,20 +144,41 @@ const HomeSectionOne = () => {
         >
           <span className={styles.plus}>+</span>
         </Menu.Item>
-        <Menu.Item key="infants-count" style={{ padding: "5px" }}>{passengerCounts.infants}</Menu.Item>
+        <Menu.Item key="infants-count" style={{ padding: "5px" }}>
+          {passengerCounts.infants}
+        </Menu.Item>
         <Menu.Item
           style={{ padding: "5px" }}
           key="infants-decrement"
           onClick={() => handlePassengerChange("infants", "decrement")}
         >
           <span className={styles.minus}>-</span>
-
         </Menu.Item>
       </Menu.ItemGroup>
       <Menu.Divider />
       <Menu.Item>
-        <button style={{ outline: "none", border: "none", marginBottom: "10px", background:"none" }} type="primary" block onClick={closePassengerDropdown}>
-          <span style={{ color: "white", padding: "10px 60px", borderRadius: "30px", background: "#06BCE1", width: "100%" }}>Done</span>
+        <button
+          style={{
+            outline: "none",
+            border: "none",
+            marginBottom: "10px",
+            background: "none",
+          }}
+          type="primary"
+          block
+          onClick={closePassengerDropdown}
+        >
+          <span
+            style={{
+              color: "white",
+              padding: "10px 60px",
+              borderRadius: "30px",
+              background: "#06BCE1",
+              width: "100%",
+            }}
+          >
+            Done
+          </span>
         </button>
       </Menu.Item>
     </Menu>
@@ -149,14 +191,14 @@ const HomeSectionOne = () => {
 
     // Check if both leaving and returning dates are selected
     if (dates && dates.length === 2) {
-      setIsDatePickerOpen(false); // Close the date picker
+      setIsDatePickOpen(false); // Close the date picker
     }
   };
 
   const handleInternational = (info: any) => {
     setInternational([internationalTrip[info.key]]);
   };
-  
+
   const handleRoundTrip = (info: any) => {
     setRound([roundTrip[info.key]]);
   };
@@ -165,20 +207,18 @@ const HomeSectionOne = () => {
     setLocal([localFlight[info.key]]);
   };
 
-
   const handleMenuClick = (info: any) => {
     setSelectedLocation(locations[info.key]);
   };
-  
+
   const handleDestinationClick = (info: any) => {
     setSelectedDestination(locations[info.key]);
   };
 
   const internationalTrip: string[] = [
     "Local Flights",
-    "International Flights"
-  ]
- 
+    "International Flights",
+  ];
 
   const internationalTripMenu = (
     <Menu onClick={handleInternational}>
@@ -199,13 +239,9 @@ const HomeSectionOne = () => {
         </Menu.Item>
       ))}
     </Menu>
-  )
+  );
 
-  const roundTrip: string[] = [
-    "Round trip",
-    "One Way"
-  ]
-
+  const roundTrip: string[] = ["Round trip", "One Way"];
 
   const roundTripMenu = (
     <Menu onClick={handleRoundTrip}>
@@ -226,13 +262,8 @@ const HomeSectionOne = () => {
         </Menu.Item>
       ))}
     </Menu>
-  )
-  const localFlight: string[] = [
-    "Economy",
-    "Business",
-    "First Class"
-  ]
-
+  );
+  const localFlight: string[] = ["Economy", "Business", "First Class"];
 
   const LocalFlightMenu = (
     <Menu onClick={handleLocalFlight}>
@@ -253,7 +284,7 @@ const HomeSectionOne = () => {
         </Menu.Item>
       ))}
     </Menu>
-  )
+  );
 
   const locations = [
     "Lagos, Nigeria",
@@ -264,8 +295,6 @@ const HomeSectionOne = () => {
     "Enugu, Nigeria",
     "Jos, Nigeria",
   ];
-
- 
 
   const locationMenu = (
     <Menu onClick={handleMenuClick} className={styles.locationWrapper}>
@@ -307,9 +336,6 @@ const HomeSectionOne = () => {
     </Menu>
   );
 
-
-
-
   const handleHeroSectionChange = (index: number) => {
     setCurrentHeroIndex(index);
   };
@@ -319,16 +345,19 @@ const HomeSectionOne = () => {
     content: React.ReactNode;
   }
 
-  const HeroSection: React.FC<HeroSectionProps> = ({ backgroundImage, content })=> {
+  const HeroSection: React.FC<HeroSectionProps> = ({
+    backgroundImage,
+    content,
+  }) => {
     return (
       <div
         className={`${styles.hero} ${styles.fadeTransition}`}
         style={{
-            position: 'relative',
-            backgroundImage: `url(${backgroundImage.src})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
+          position: "relative",
+          backgroundImage: `url(${backgroundImage.src})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
         <Navbar />
 
@@ -336,26 +365,21 @@ const HomeSectionOne = () => {
           <div className={styles.heroMiddleText}>{content}</div>
           <div className={styles.heroSecondText}>
             <div className={styles.Buttoncontainer}>
-              <Dropdown
-                overlay={internationalTripMenu}
-                trigger={["click"]}
-              >
+              <Dropdown overlay={internationalTripMenu} trigger={["click"]}>
                 <button className={`${styles.buttonTravel} ${styles.local}`}>
                   <span className={styles.small}>
                     <Image src={SmallFly} alt="f " />
                   </span>
                   Local Flights
-
                   <span className={styles.dropdownIcon}>
                     <Image src={ArrowDown} alt="flw dow " />
                   </span>
                 </button>
               </Dropdown>
-              <Dropdown
-                overlay={roundTripMenu}
-                trigger={["click"]}
-              >
-                <button className={`${styles.buttonTravel} ${styles.roundTrip}`}>
+              <Dropdown overlay={roundTripMenu} trigger={["click"]}>
+                <button
+                  className={`${styles.buttonTravel} ${styles.roundTrip}`}
+                >
                   <span className={styles.small}>
                     <Image src={SmallFly} alt="f " />
                   </span>
@@ -366,10 +390,7 @@ const HomeSectionOne = () => {
                   </span>
                 </button>
               </Dropdown>
-              <Dropdown
-                overlay={LocalFlightMenu}
-                trigger={["click"]}
-              >
+              <Dropdown overlay={LocalFlightMenu} trigger={["click"]}>
                 <button className={`${styles.buttonTravel} ${styles.economy}`}>
                   <span className={styles.small}>
                     <Image src={SmallFly} alt="f " />
@@ -387,10 +408,10 @@ const HomeSectionOne = () => {
                 <div
                   className={styles.inputGroup}
                   style={{ fontFamily: "sans-serif", fontWeight: "600" }}
-                // style={{ width: "23.77%" }}
+                  // style={{ width: "23.77%" }}
                 >
                   <span className={styles.icon}>
-                  <Image alt="" src={LocationPin} />
+                    <Image alt="" src={LocationPin} />
                   </span>
                   <Dropdown
                     overlay={locationMenu}
@@ -398,7 +419,10 @@ const HomeSectionOne = () => {
                     overlayClassName={styles.dropdownMenuOne}
                   >
                     <div className={styles.whereDropdown}>
-                      <label htmlFor="to" style={{ marginLeft: "15px" }}>
+                      <label
+                        htmlFor="to"
+                        style={{ marginLeft: "15px", display: "none" }}
+                      >
                         To Where
                       </label>
                       <input
@@ -422,7 +446,7 @@ const HomeSectionOne = () => {
                 <Image src={Cycle} className={styles.cycle} alt="cycle" />
                 <div
                   className={styles.inputGroup}
-                // style={{ width: "23.77%" }}
+                  // style={{ width: "23.77%" }}
                 >
                   <span className={styles.icon}>
                     <Image alt="" src={LocationPin} />
@@ -433,10 +457,13 @@ const HomeSectionOne = () => {
                       trigger={["click"]}
                       placement="bottomRight"
                       overlayClassName={styles.dropdownMenu}
-                    // style={{ position: "relative", right: "200px" }}
+                      // style={{ position: "relative", right: "200px" }}
                     >
                       <div className={styles.whereDropdown}>
-                        <label htmlFor="to" style={{ marginLeft: "15px" }}>
+                        <label
+                          htmlFor="to"
+                          style={{ marginLeft: "15px", display: "none" }}
+                        >
                           To Where
                         </label>
                         <input
@@ -460,7 +487,7 @@ const HomeSectionOne = () => {
                 </div>
                 <div
                   className={styles.inputGroup}
-                //  style={{ width: "33.99%" }}
+                  //  style={{ width: "33.99%" }}
                 >
                   <span className={styles.icon}>
                     {" "}
@@ -477,10 +504,10 @@ const HomeSectionOne = () => {
                           justifyContent: "flex-start",
                         }}
                       >
-                        <label className={styles.label}>Returning On</label>
+                        <label className={styles.label}>Returning On </label>
                       </div>
                     </div>
-                    <div className={styles.datePickerContainer}>
+                    {/* <div className={styles.datePickerContainer}>
                       {/* <RangePicker
                         style={{ cursor: "pointer" }}
                         className={styles.inputField}
@@ -490,20 +517,23 @@ const HomeSectionOne = () => {
                         onOpenChange={(open) => setIsDatePickerOpen(open)}
                         placeholder={["Date", "Date"]}
                       /> */}
-
-                      {/* <DateRangePicker
-                        label="Stay duration"
-                        visibleMonths={2}
-                      /> */}
-                       <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-                       <DatePicker label="Birth date" className="max-w-[284px]" />
+<div className="flex flex-col gap-4">
+      <I18nProvider locale="hi-IN-u-ca-indian">
+        <DatePicker
+          showMonthAndYearPickers
+          variant="flat"
+          label="Date"
+          value={date}
+          onChange={setDate}
+        />
+      </I18nProvider>
     </div>
-                    </div>
+                  
                   </div>
                 </div>
                 <div
                   className={styles.inputGroup}
-                // style={{ width: "18.47%", cursor: "pointer" }}
+                  // style={{ width: "18.47%", cursor: "pointer" }}
                 >
                   <span className={styles.icon}>
                     <Image src={Passenger} alt="" />
@@ -519,8 +549,9 @@ const HomeSectionOne = () => {
                       overlayClassName={styles.passengerDropdownMenu}
                     >
                       <Button className={styles.inputField}>
-                        {`${totalPassengers} Passenger${totalPassengers > 1 ? "s" : ""
-                          }`}{" "}
+                        {`${totalPassengers} Passenger${
+                          totalPassengers > 1 ? "s" : ""
+                        }`}{" "}
                         {/* <DownOutlined /> */}
                       </Button>
                     </Dropdown>
@@ -531,7 +562,11 @@ const HomeSectionOne = () => {
             <div className={styles.Letgo}>
               <span>
                 {" "}
-                <input type="checkbox" name="dates" />
+                <input
+                  type="checkbox"
+                  name="dates"
+                  style={{ background: "#fff" }}
+                />
                 <p>My dates are flexible(+/- 3days)</p>
               </span>
               <Link href="/flight">
@@ -616,15 +651,15 @@ const HomeSectionOne = () => {
 
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
 
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setCurrentHeroIndex((prevIndex) => (prevIndex + 1) % heroData.length);
-//     }, 5000);
+  //   useEffect(() => {
+  //     const interval = setInterval(() => {
+  //       setCurrentHeroIndex((prevIndex) => (prevIndex + 1) % heroData.length);
+  //     }, 5000);
 
-//     return () => {
-//       clearInterval(interval);
-//     };
-//   }, []);
+  //     return () => {
+  //       clearInterval(interval);
+  //     };
+  //   }, []);
 
   return (
     <>
@@ -653,9 +688,7 @@ const HomeSectionOne = () => {
             </div>
           ))}
         </div> */}
-        <div>
-          {/* <FlightCard /> */}
-        </div>
+        <div>{/* <FlightCard /> */}</div>
         <div className={styles.theArtContainer}>
           <Image src={FLy} className={styles.fly} alt="fly" />
           <p className={styles.theArtText2}>

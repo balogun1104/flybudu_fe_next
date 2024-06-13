@@ -1,0 +1,301 @@
+.general {
+    background: rgb(236, 234, 234);
+    box-sizing: border-box;
+    padding: 20px;
+  }
+  .asap{
+    background: pink;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5em;
+    width: 45%;
+    height: 450px;
+    border-radius: 20px;
+    padding: 32px 81px ;
+
+}
+.asap span{
+    font-weight: bold;
+}
+  .first span{
+  font-size: 30px;  
+    font-weight: bold;
+  }
+  .first{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 30px;
+  }
+  .father{
+        display: flex;
+        justify-content: space-between;
+        align-items: self-start;
+        text-align: start;
+      
+  }
+  .flutt{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 20px;
+    justify-content: space-between;
+  }
+  .flutt span{
+    font-weight: bold;
+  }
+  .flutter{
+    display: flex;
+    align-items: center;
+    padding: 30px 10px;
+    background-color: #fff;
+    border-radius: 20px;
+    justify-content: space-between;
+    margin: 30px 0;
+  }
+  .flutter span{
+    font-weight: bold;
+  }
+  .skip{
+    color: #06BCE1;
+    border: 1px solid #06BCE1;
+    padding: 10px 40px;
+    border-radius: 20px;
+  }
+  .save{
+    color: white;
+    background:  #06BCE1;
+    padding: 10px 40px;
+    border-radius: 20px;
+  }
+  .skipDiv span{
+   font-weight: bold
+  }
+  .skipDiv{
+    display: flex;
+    flex-direction: row;
+    margin: 30px 0;
+    font-weight: bold;
+    gap: 1em;
+    justify-content: flex-end;
+  }
+  .firstDiv{
+    width: 65%;
+  }
+  .customerDiv {
+    margin: 3em 0;
+    display: flex;
+    background: #fff;
+    text-align: center;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 30px 50px;
+    gap: 0.5em;
+    border-radius: 20px;
+    font-size: 15px;
+    display: flex;
+    line-height: 20px;
+  }
+  .customerDiv span {
+    font-weight: bolder;
+  }
+  .secondDiv{
+    width: 30%;
+  }
+  .secondHeader{
+    display: none;
+  }
+  .money{
+    display: none;
+  }
+@media (max-width:1000px) {
+  .secondDiv{
+    display: none;
+  }
+  .firstDiv{
+    width: 100%;
+  }
+}
+@media (max-width:768px) {
+  .general{
+    margin-top: 2.5em;
+    margin-bottom: 3em;
+  }
+  .first p{
+    font-family: sans-serif;
+    font-weight: bold;
+  }
+  
+  .secondHeader{
+    display: flex;
+    position: fixed;
+    top: 0;
+    background: #fff;
+    display: flex;
+    width: 100%;
+    position: fixed;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    background: #fff;
+    padding: 1em 0;
+    align-items: center;
+  }
+  .back{
+    margin-left: 1em;
+  }
+  .support{
+    margin-right: 1em;
+    width: 35px;
+  }
+  .specialText{
+    font-weight: lighter;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 6px;
+    margin-left: 5px;
+      }
+      
+    .money{
+      display: block;
+      margin-left: 20px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .skipDiv{
+      position: fixed;
+      background: #fff;
+      bottom: 0;
+      width: 100%;
+      left: 0;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 25px 0;
+      margin: 0;
+    }
+    .save{
+      font-size: 14px;
+      font-weight: bold;
+      background: #06BCE1;
+      padding: 15px 30px;
+      justify-content: center;
+      display: flex;
+      border-radius: 40px;
+      margin-right: 10px;
+      width: 68%;
+    }
+    .link{
+      display: none;
+    }
+    /* .skipDiv a{
+      margin-right: 20px;
+      display: flex;
+    } */
+    .money{
+      display: block;
+      margin-left: 10px;
+      font-size: 20px;
+      width: 30%;
+      font-weight: bold;
+    }
+    .skip{
+      display: none;
+    }
+    .first span{
+      display: none;
+    }
+}
+@media (max-width:500px) {
+  .flutt img{
+    width: 150px;
+  }
+  .flutter img{
+    width: 50px;
+  }
+}
+
+
+
+
+
+
+.body{
+  height: 120px;
+}
+.fath{
+  width: 100%;
+  height: 80px;
+  background: #333333;
+  position: relative;
+  top: 40px;
+  border-radius: 30px 30px 0 0;
+  display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.others{
+  display: flex;
+      margin-right: 50px;
+}
+.all1{
+  background-image:  url("../public/assets/images/Rectangle\ 3468115.png");
+  color: white;
+  font-weight: bold;
+  align-items: center;
+  justify-content: space-evenly;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  /* margin: 20px 0;
+width: 90%; */
+  padding: 20px;
+  display: flex;
+  gap: 5px;
+  border-radius: 5px;
+}
+.all2{
+  background-image:  url("../public/assets/images/bluebackground.png");
+  color: white;
+  font-weight: bold;
+  align-items: center;
+  justify-content: space-evenly;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  /* margin: 20px 0;
+width: 90%; */
+  padding: 20px;
+  display: flex;
+  gap: 5px;
+  border-radius: 5px;
+}
+.all{ align-items: center;
+  font-weight: bold;
+justify-content: space-evenly;
+/* margin: 20px 0;
+width: 90%; */
+  padding: 38px;
+  background-image:  url("../public/assets/images/bluebackground.png");
+  display: flex;
+  gap: 5px;
+  color: #fff;
+  border-radius: 5px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.flybudu{
+  margin-left: 30px;
+}
+.p{
+  font-size: 15px;
+}
+@media (max-width:768px) {
+  .body{
+      display: none;
+  }
+}

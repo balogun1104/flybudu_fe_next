@@ -25,7 +25,7 @@ const MobileNav = () => {
       id: 3,
       title: "Manage Booking",
       icon: calendarIcon, // Use the imported SVG file directly
-      Route: "manage-booking",
+      Route: "managebooking",
     },
   ];
 
