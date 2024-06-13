@@ -30,30 +30,30 @@ justify-content: space-between;
  border-bottom: 1px solid #ddd;
   } */
 
-  table {
+  .table {
     width: 100%;
     border-collapse: collapse;
   }
   
   /* Define row styles */
-  th, td {
+  .th, .td {
     padding: 13px 8px;
     border-bottom: 1px solid #ddd;
     text-align: left;
   }
-  th{
+  .th{
     border: none;
   }
 
   /* Style the first row differently for headings */
-  th {
+  .th {
     /* background-color: #f2f2f2; */
   }
   @media (max-width:670px) {
     .mother{
       background: transparent;
     }
-    tbody{
+    .tbody{
       gap:10px;
       display: flex;
       flex-direction: column;
@@ -66,10 +66,10 @@ justify-content: space-between;
       gap: 1em;
       background: none;
     } */
-    td{
+    .td{
       padding: 20px 8px;
     }
-    tr{
+    .tr{
       background: #fff;
               background: #fff;
         display: flex;

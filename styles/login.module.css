@@ -1,0 +1,234 @@
+.general{
+    padding: 20px 20px 0 20px;
+    background: rgb(236, 234, 234);
+    box-sizing: border-box;
+    margin: 0 auto;
+    overflow-y: hidden;
+}
+.navbarWrapBlack {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(51, 51, 51, 1);
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  
+  .edit {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 8px 24px 8px 24px;
+    border: 1px solid #0e90aa;
+    border-radius: 32px;
+    cursor: pointer;
+  }
+  .border {
+    border-left: 2px solid rgb(173, 169, 169);
+    border-right: 2px solid rgb(173, 169, 169);
+    padding: 0px 9%;
+  }
+  .navbarWrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #333333;
+    padding: 10px 30px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  
+  .logo {
+    color: #fff;
+  }
+  
+  .navbar {
+    /* Dark grey background */
+    overflow: hidden;
+  }
+  .navbar a {
+    float: left;
+    display: block;
+    color: white; /* White text color */
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+  }
+  /* Change the color of links on hover */
+  .navbar a:hover {
+    color: #ffd600;
+    border-bottom: 2px solid #ffd600;
+  }
+  /* Add a color to the active/current link */
+  .navbar a.active {
+    color: #ffd600; /* Green background */
+  }
+  
+  .quote {
+    background-color: #ffffff;
+    border-radius: 32px;
+    padding: 5px;
+    width: 160px;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .quoteWrap {
+    display: flex;
+    gap: 1.5em;
+    /* filter: blur(5px); */
+  }
+  
+  .quoteImg {
+    background-color: #171717;
+    padding: 5px;
+    border-radius: 8px;
+  }
+  
+  .NavTwo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+    background-color: rgba(255, 255, 255, 1);
+  }
+  
+  .nvTwo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+  }
+  
+  .NavtwoContainer {
+    background-color: rgba(247, 247, 247, 1);
+  
+    padding: 30px 30px 0px 30px;
+  }
+  
+  .navbarWrapBlack {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+  }
+  
+  .NavTwo {
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+  .avatar{
+    width: 40px;
+    border-radius: 50%;
+  }
+  .secondDiv{
+    
+   
+    padding: 50px 20px ;
+    display: flex;
+    justify-content: space-around;
+    background-image: url("../public/assets/images/Union.png");
+    background-position:  0%;
+    background-repeat: no-repeat;
+    background-color: rgba(6, 188, 225, 1);
+  }
+  .create{
+    display: flex;
+    padding: 7px 10px;
+    border: 1px solid #fff;
+    color: #fff;
+    border-radius: 10px;
+    justify-content: center;
+  }
+  .createDiv{
+    display: flex;
+    color: #fff;
+    flex-direction: column;
+    gap: 1em;
+    width: 150px;
+  }
+  .searchInput{
+    display: none;
+  }
+
+  @media (max-width:1150px) {
+    .navbar, .quote{
+      display: none;
+    }
+  }
+  
+  @media (max-width:1000px) {
+    .secondDiv{
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center;
+      gap: 3em;
+    }
+    .secondDiv{
+      background-image: none;
+    }
+  }
+  @media (max-width:768px) {
+    .general{
+      padding: 20px 5px;
+    }
+    .quoteImg{
+      position: relative;
+      /* right: 3em; */
+      margin-right: 3em;
+      margin-left: 12px;
+      background: none;
+    }
+    .logo{
+      /* width: 123px; */
+    }
+    .navbarWrap{
+      z-index: 120;
+      display: flex;
+    justify-content: space-between;
+    align-items: center;
+    left: 0;
+    top: 0;
+    padding: 10px 20px;
+    width: 100%;
+    background: #fff;
+    position: fixed;
+    }
+    .searchInput{
+     display: block; 
+      background: transparent;
+        border: #adabab 1px solid;
+        padding: 10px;
+        border-radius: 12px;
+        outline: none;
+        width: 100%;
+    }
+    .avatar{
+      display: none;
+    }
+    .secondDiv{
+      margin-top: 3em;
+     
+    }
+  
+    .createDiv{
+      width: 100%;
+      background-image: url("../public/assets/images/Union.png");
+      background-position: cover;
+      padding: 2em 0 16em;
+      /* background-size: cover; */
+      background-repeat: no-repeat;
+    }
+    .createDiv span{
+      margin-left: 2em;
+      width: 150px;
+    }
+    .tabDiv{
+      width: 90%;
+    }
+  }
