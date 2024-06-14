@@ -1,0 +1,491 @@
+.general {
+    background: rgb(236, 234, 234);
+    box-sizing: border-box;
+    margin: 0 auto;
+    overflow-x: hidden;
+    padding: 30px 0;
+    padding-bottom: 0 !important;
+  }
+.span{
+  display: flex;
+  gap: 10px;
+  align-items: center;  
+}
+  .backgroundDiv {
+    width: 100%;
+    background-image: url("../public/assets/images/featuredflightbackground.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    color: #fff;
+    padding: 60px 0px;
+  }
+  .firstPart span {
+    font-size: 45px;
+    font-family: Light;
+  }
+  .firstPart {
+    margin-left: 70px;
+    flex-direction: column;
+    display: flex;
+    gap: 2em;
+  }
+  .firstPart p {
+    width: 400px;
+  }
+  .secondPart {
+    margin-right: 70px;
+    padding: 20px;
+    border: 2px dotted #efcc13;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .pictureText {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+  }
+  .pictureText img {
+    width: 60px;
+  }
+  .amount {
+    color: #efcc13;
+    font-size: 45px;
+    border-top: 1px solid white;
+    font-weight: bold;
+  }
+  .japa {
+    margin: 10px 0;
+  }
+  .from {
+    margin-bottom: 15px;
+  }
+  .secThreeImg{
+    display: flex;
+    /* white-space: nowrap; */
+    gap: 30px;
+    flex-wrap: wrap;
+   justify-content: center;
+   padding: 40px 0;
+
+   align-items: center;
+    }
+  
+    .card{
+      flex-shrink: 0;
+      width: 345px;
+      border-radius: 24px;
+      border: 1px solid #c6c6c6;
+      box-sizing: border-box;
+      word-wrap: break-word;
+     
+    }
+  
+    
+    .secThreeMid{
+      flex-wrap: wrap;
+      display: flex;
+      justify-content: space-between;
+      background-color: #CAF3FB;
+      align-items: center;
+      padding: 10px 20px;
+      position: relative;
+      top: -3px;
+      margin-bottom: 10px;
+    }
+  .newBorn{
+   
+    padding-left: 20px;
+    font-weight: bold;
+  }
+    .Yorem{
+    
+      margin: 0;
+      padding: 20px;
+      padding-top: 0px;
+      font-family: "NeueHaasDisplayBold";
+     /* word-wrap: break-word; */
+      }
+  
+    .cardBottom{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 20px;
+      padding-right: 20px;
+      border-top: 1px solid #D2D2D2;
+  padding-bottom: 30px;
+  padding-top: 20px;
+    }
+  
+    .cardBottomOne{
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+  
+    .cardBottomTwo{
+      display: flex;
+      flex-direction: column;
+    }
+    .prev, .next{
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+    .main{
+      margin-top: 20px;
+      padding:  0 30px ;
+      display: flex;
+      align-items: self-start;
+      justify-content: center;
+    }
+   
+    .rightPlane{
+position: relative;
+left: 3.3em;
+    }
+    .leftPlane{
+      position: relative;
+      right: 1em;
+    }
+    .prev{
+      color: #fff;
+      background: #D3D3D3;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      padding: 10px 20px;
+  }
+  .next{
+      color: #fff;
+      background: #06bce1;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+  }
+  .special{
+      padding: 7px 15px;
+      border: 1px solid black;
+      border-radius: 6px;
+      font-weight: bold;
+  }
+  .tooMuch{
+    margin: 50px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .buttonDiv{
+      display: flex;
+      gap: 1em;
+  }
+  .cloud{
+      position: relative;
+      top: 3em;
+      visibility: hidden;
+  }
+  .final {
+    background-color: #ffffff;
+    position: relative;
+    padding-top: 1.5rem;
+    /* padding-right: 2em; */
+    /* padding-bottom: 20px; */
+    border-radius: 10px;
+    /* flex-wrap: wrap-reverse; */
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    justify-content: space-around;
+    left: 3em;
+    top: 5em;
+    width: 90%;
+    padding-bottom: 20px;
+  }
+  
+  .imageWrapFinal {
+    display: flex;
+  
+    align-items: center;
+    position: relative;
+  }
+  
+  .image1 {
+    z-index: 5;
+  }
+  
+  .image2 {
+    position: relative;
+    right: 2.5rem;
+    z-index: 3;
+  }
+  
+  .image3 {
+    position: relative;
+    right: 7.5rem;
+  }
+  
+  .uptoDate {
+    position: relative;
+    left: -84px;
+  }
+  
+  .be {
+    font-family: "Light";
+    font-size: 72px;
+    color: #06bce1;
+    margin: 30px 0;
+  }
+  .open {
+    width: 80%;
+  }
+  .sub {
+    width: 548px;
+    font-family: "NeueHaasDisplayLight";
+    font-size: 20px;
+    padding-bottom: 20px;
+  }
+  
+  .subscribe {
+    border: 1px solid #3b9691;
+    border-radius: 32px;
+    display: flex;
+    width: 450px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f4f4f4;
+  }
+  
+  .subscribeInput {
+    width: 100%;
+    border: none;
+    background-color: #f4f4f4;
+    outline: none;
+  }
+  
+  .subscribeButton {
+    background-color: #06bce1;
+    padding: 8px;
+    border: none;
+    border-radius: 25px;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  .subscribeButton img{
+    padding: 0px 10px;
+  }
+  .right, .left{
+      height: 3em;
+  }
+
+  @media (max-width:500px) {
+    .left, .right{
+      display: none;
+    }
+    .card{
+      width: 100% !important; 
+    }
+    .firstPart span{
+      font-size: 25px;
+    }
+    .firstPart{
+      width: 90%;
+    }
+ 
+  }
+  @media (max-width:750px) {
+       .tooMuch{
+      align-items: center;
+      gap: 2em;
+      flex-direction: column;
+    }
+  }
+  
+@media (max-width:817px) {
+  .backgroundDiv{
+    gap: 2em;
+    justify-content: center;
+  }
+
+  .firstPart{
+    margin-left: 0;
+    width: 80%;
+  }
+  .firstPart p{
+    width: 90%;
+  }
+  .firstPart span{
+    font-size: 30px;
+  }
+  .secondPart{
+    width: 70%;
+    margin: 0;
+  }
+}
+
+
+
+
+
+
+
+  
+@media (max-width: 1200px) {
+  .HomeSectionFive {
+    padding-left: 0;
+  }
+  .trip {
+    display: flex;
+    justify-content: space-between;
+    gap: 3em;
+    width: 86%;
+  }
+  .bookflight {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #b7b7b7;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding-bottom: 15px;
+    align-items: center;
+  }
+
+  .featImgaeWrap {
+    /* width: 100%; */
+    top: 33.5rem;
+    left: 13.5rem;
+  }
+  .freq {
+    font-size: 32px;
+    text-align: center;
+  }
+  .bookfImg {
+    padding-top: 29em;
+    width: 345px;
+  }
+  .howBook {
+    width: 100%;
+    display: flex;
+    gap: 9px;
+    padding-left: 1.5em;
+    align-items: flex-end;
+  }
+  .final {
+  /* flex-wrap: wrap-reverse; */
+ width: 90%;
+ justify-content: space-between;
+ padding-left: 30px;
+}
+ .image1{
+    width: 190px;
+ }
+ .image2{
+    width: 170px;
+ }
+ .image3{
+    width: 140px;
+ }
+ .be{
+  margin: 20px 0;
+    font-size: 33px;
+ }
+ .sub{
+    width: 255px;
+ }
+ .subscribe{
+    width: unset;
+ }
+}
+@media (max-width: 1323px) {
+  .uptoDate {
+  }
+}
+@media (max-width: 800px) {
+  .featImgaeWrap {
+    left: 4.5rem;
+  }
+  .image1{
+    width: 120px;
+ }   
+ .image2{
+    width: 110px;
+ }
+ .image3{
+    width: 125px;
+    height: 100px;
+ }
+}
+@media (max-width: 600px) {
+  .bookfImg {
+    width: 280px;
+  }
+  .final{
+    
+  }
+}
+@media (max-width: 560px) {
+  .bookfImg {
+    padding-top: 16em;
+  }
+  .featImgaeWrap {
+    top: 36.6em;
+    left: 2em;
+  }
+  .featImgaeTwo {
+    bottom: 53px;
+    position: absolute;
+    left: 5em;
+    width: 230px;
+  }
+  .featImgaeOne {
+    width: 230px;
+  }
+}
+
+@media (max-width:700px) {
+    .HomeSectionFive{
+        padding-bottom: 29em;
+    }
+.final{
+    width: 80%;
+    flex-wrap: wrap-reverse;
+    border-radius: 24px;
+    left: 1em;
+}
+.imageWrapFinal{
+    justify-content: center;
+    margin-top: 20px;
+}.subscribe {
+  border: 1px solid #3b9691;
+  border-radius: 32px;
+  display: flex;
+  /* width: 450px; */
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  background-color: #f4f4f4;
+}
+
+.uptoDate{
+    width: 95%;
+    flex-direction: column;
+    display: flex;
+    left: 0;
+}
+.sub{
+    width: 90%;
+}
+}

@@ -1,0 +1,226 @@
+
+@font-face {
+  font-family: myFont;
+  src: url("../public/assets/fonts/NeueHaasDisplayMediu.ttf");
+}
+.general {
+  padding: 0 20px;
+  background: rgb(236, 234, 234);
+  box-sizing: border-box;
+  margin: 0 auto;
+  overflow-x: hidden;
+  font-family: myFont;
+}
+.secondHeader{
+  display: none;
+}
+.niceDiv {
+  margin: 3em 0;
+  margin-bottom: 0;
+  color: #009d52;
+  display: flex;
+  background: #fff;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 50px;
+  border-radius: 7px;
+  font-size: 15px;
+}
+.niceDiv img{
+  width: 30px;
+}
+.who{
+  margin: 1em 0;
+  display: flex;
+  font-size: 32px;
+}
+.niceDiv span {
+  font-weight: bold;
+}
+.niceDiv p {
+  
+}
+.codeDiv {
+  margin: 3em 0;
+  display: flex;
+  background: #fff;
+  /* text-align: center; */
+  /* align-items: center; */
+  justify-content: flex-start;
+  padding: 20px;
+  flex-direction: column;
+  gap: 1em;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: bolder;
+}
+.code{
+  border: 1px solid #99999d;
+  padding: 20px;
+  border-radius: 12px;
+  outline: none;
+}
+.textDiv {
+  display: flex;
+  width: 500px;
+  align-items: center;
+  gap: 0.5em;
+}
+.textDiv span {
+  font-weight: bolder;
+  color: #06bce1;
+}
+.save {
+  color: #fff;
+  background: #06bce1;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+.saveDiv {
+  display: flex;
+  /* gap: 2.5em; */
+  margin-bottom: 50px;
+  justify-content: space-between;
+}
+.father {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.customerDiv {
+  margin: 3em 0;
+  display: flex;
+  background: #fff;
+  text-align: center;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 30px 50px;
+    gap: 0.5em;
+  border-radius: 20px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  line-height: 20px;
+}
+.customerDiv span {
+  font-weight: bolder;
+}
+.second{
+    width: 30%;
+}
+.first{
+    width: 68%;
+}
+.money{
+  display: none;
+}
+@media (max-width:1162px) {
+  .second{
+    display: none;
+  }
+  .first{
+    width: 100%;
+    padding-top: 4em;
+    padding-bottom: 4em;
+  }
+}
+ @media (max-width:768px) {
+  .second{
+    display: none;
+  }
+  .first{
+    width: 100%;
+    padding-top: 4em;
+    padding-bottom: 4em;
+  }
+  .code{
+    width: unset;
+  }
+  .niceDiv{
+    margin-left: 1em;
+    margin-right: 1em;
+    justify-content: space-between;
+    padding: 10px 10px;
+  }
+  .niceDiv span{
+    font-size: 12px;
+  }
+  .niceDiv p{
+    font-size: 14px;
+  }
+  .textDiv{
+display: none;
+  }
+  .saveDiv{
+    position: fixed;
+    background: #fff;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 25px 0;
+    margin: 0;
+  }
+  .save{
+    font-size: 14px;
+    font-weight: bold;
+    background: #06BCE1;
+    padding: 15px 30px;
+    justify-content: center;
+    display: flex;
+    border-radius: 40px;
+    width: 68%;
+  }
+  .link{
+    width: 100%;
+  }
+  /* .saveDiv a{
+    margin-right: 20px;
+  } */
+  .money{
+    display: block;
+    margin-left: 10px;
+    font-size: 20px;
+    width: 30%;
+    font-weight: bold;
+  }
+  .general{
+    padding: 0;
+  }
+  .secondHeader{
+    font-family: sans-serif;
+    display: flex;
+    position: fixed;
+    top: 0;
+    background: #fff;
+    display: flex;
+    width: 100%;
+    position: fixed;
+    justify-content: space-between;
+    top: 0;
+    background: #fff;
+    padding: 1em 0;
+    align-items: center;
+  }
+  .back{
+    margin-left: 1em;
+  }
+  .support{
+    margin-right: 1em;
+    width: 35px;
+  }
+  .specialText{
+font-weight: lighter;
+padding: 10px;
+border: 1px solid black;
+border-radius: 6px;
+margin-left: 5px;
+  }
+  .who{
+    font-size: 18px;
+    margin-left: 20px;
+  }
+}

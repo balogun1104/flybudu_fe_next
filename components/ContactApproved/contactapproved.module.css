@@ -1,0 +1,151 @@
+.general{
+    background: pink;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5em;
+    width: 45%;
+    height: 450px;
+    border-radius: 20px;
+    padding: 32px 81px ;
+    z-index: 10;
+
+}
+.general span{
+    font-weight: bold;
+}
+.booking{
+    font-weight: bold;
+    font-size: 30px;
+    color: #06BCE1;
+}
+
+.skip{
+    color: #06BCE1;
+    border: 1px solid #06BCE1;
+    padding: 10px 40px;
+    border-radius: 20px;
+  }
+  .save{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #06BCE1;
+    padding: 10px 80px;
+    border-radius: 20px;
+  }
+  .skipDiv span{
+   font-weight: bold
+  }
+  .skipDiv{
+    display: flex;
+    flex-direction: row;
+    /* margin: 30px 0; */
+    justify-content: center;
+    width: 100%;
+    font-weight: bold;
+    gap: 1em;
+    justify-content: center;
+  }
+  .darkBG {
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+  
+  .centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .modal text{
+    
+  }
+  .modal {
+    height: 170px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    width: 100%;
+    height: 450px;
+    border-radius: 20px;
+    padding: 5px 35px ;
+     border-radius: 16px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+  }
+  
+  .modalHeader {
+    height: 50px;
+    background: white;
+    overflow: hidden;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+  }
+  
+  .heading {
+    margin: 0;
+    padding: 10px;
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+  }
+  
+  .modalContent {
+    padding: 10px;
+    font-size: 14px;
+    color: #2c3e50;
+    text-align: center;
+  }
+  
+  .modalActions {
+    position: absolute;
+    bottom: 2px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  .actionsContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .ApprovedImg{
+    margin: 30px 0;
+  }
+  .member{
+    font-size: 24px;
+  }
+
+  @media (max-width:500px) {
+    .modal{
+      width: 80vw;
+    }
+    .booking{
+      font-size: 23px;
+    }
+    .member{
+      font-size: 18px;
+    }
+  }
+  @media (max-width:900px) {
+    .modal{
+      padding: 30px 20px 20px;
+        text-align: center;
+      gap: 10px;
+      height: unset;
+    }
+  }

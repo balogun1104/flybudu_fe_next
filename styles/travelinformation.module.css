@@ -1,0 +1,304 @@
+
+.general {
+    background: rgb(236, 234, 234);
+    box-sizing: border-box;
+    padding: 20px;
+    z-index: 2;
+    overflow-y: hidden;
+
+   
+    top: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+  .secondHeader{
+    display: none;
+  }
+  .travel{
+    font-size: 24px;
+
+    font-weight: bold;
+  }
+  .travelDiv{
+    margin: 40px 0;
+  }
+  .firstDiv{
+width: 68%;
+}
+  .father{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: self-start;
+    text-align: start;
+  }     
+  .secondDiv{
+    width: 30%;
+  }
+  .skip{
+    color: #06BCE1;
+    border: 1px solid #06BCE1;
+    padding: 10px 40px;
+    border-radius: 20px;
+  }
+  .save{
+    color: white;
+    background:  #06BCE1;
+    padding: 10px 40px;
+    border-radius: 20px;
+  }
+  .skipDiv span{
+   font-weight: bold
+  }
+  .money{
+    display: none;
+  }
+  .skipDiv{
+    display: flex;
+    flex-direction: row;
+    margin: 30px 0;
+    font-weight: bold;
+    gap: 1em;
+    justify-content: flex-end;
+  }
+  .customerDiv {
+    margin: 3em 0;
+    display: flex;
+    background: #fff;
+    text-align: center;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 30px 50px;
+    gap: 0.5em;
+    border-radius: 20px;
+    font-size: 15px;
+    display: flex;
+    line-height: 20px;
+  }
+  .customerDiv span {
+    font-weight: bolder;
+  }
+  @media (max-width:1000px) {
+    .secondDiv{
+      display: none;
+    }
+    .firstDiv{
+      width: 100%;
+    }
+  }
+  @media (max-width:900px) {
+    
+  }
+  @media (max-width:768px) {
+    
+  .secondHeader{
+    display: flex;
+    position: fixed;
+    top: 0;
+    background: #fff;
+    display: flex;
+    width: 100%;
+    position: fixed;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    background: #fff;
+    padding: 1em 0;
+    align-items: center;
+  }
+  .travel{
+    font-size: 16px !important;
+    margin-left: 10px;
+  }
+  .back{
+    margin-left: 1em;
+  }
+  .support{
+    margin-right: 1em;
+    width: 35px;
+  }
+  .specialText{
+    font-weight: lighter;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 6px;
+    margin-left: 5px;
+      }
+    .money{
+      display: block;
+      margin-left: 20px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .skipDiv{
+      position: fixed;
+      background: #fff;
+      bottom: 0;
+      width: 100%;
+      left: 0;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 25px 0;
+      margin: 0;
+    }
+    .save{
+      font-size: 14px;
+      font-weight: bold;
+      background: #06BCE1;
+      padding: 15px 30px;
+      justify-content: center;
+      display: flex;
+      border-radius: 40px;
+      width: 68%;
+    }
+    .link{
+      width: 100%;
+    }
+    /* .skipDiv a{
+      margin-right: 20px;
+      display: flex;
+    } */
+    .money{
+      display: block;
+      margin-left: 10px;
+      font-size: 20px;
+      width: 30%;
+      font-weight: bold;
+    }
+    .skip{
+      display: none;
+    }
+    /* .link{
+      display: none;
+    } */
+    .general{
+      padding: 0;
+    }
+    .travelDiv{
+      margin: 5.5em 0 30px;
+    }
+      .travelDiv span{
+        font-size: 20px;
+        display: flex;
+        width: 90%;
+      }
+      .father{
+        padding-bottom: 7em;
+        height: 100%;
+      }
+      .none{
+        display: none;
+      }
+  }
+
+
+
+
+
+  .body{
+    height: 120px;
+}
+.fath{
+    width: 100%;
+    height: 80px;
+    background: #333333;
+    position: relative;
+    top: 40px;
+    border-radius: 30px 30px 0 0;
+    display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.others{
+    display: flex;
+        margin-right: 50px;
+}
+.all1{
+  align-items: center;
+  font-weight: bold;
+justify-content: space-evenly;
+/* margin: 20px 0;
+width: 90%; */
+  padding: 38px;
+  background-image:  url("../public/assets/images/bluebackground.png");
+  display: flex;
+  gap: 5px;
+  color: #000;
+  border-radius: 5px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  color: white;
+    font-weight: bold;
+    align-items: center;
+    justify-content: space-evenly;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* margin: 20px 0;
+width: 90%; */
+    padding: 20px;
+    display: flex;
+    gap: 5px;
+    border-radius: 5px;
+}
+.all2{
+    background-image:  url("../public/assets/images/bluebackground.png");
+    color: white;
+    font-weight: bold;
+    align-items: center;
+    justify-content: space-evenly;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* margin: 20px 0;
+width: 90%; */
+    padding: 20px;
+    display: flex;
+    gap: 5px;
+    border-radius: 5px;
+}
+.all{ align-items: center;
+    font-weight: bold;
+justify-content: space-evenly;
+/* margin: 20px 0;
+width: 90%; */
+    padding: 38px;
+    background: url("../public/assets/images/whitebackground.png");
+    display: flex;
+    gap: 5px;
+    color: #000;
+    border-radius: 5px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.all3{
+  align-items: center;
+    font-weight: bold;
+justify-content: space-evenly;
+/* margin: 20px 0;
+width: 90%; */
+    padding: 38px;
+    background-image:  url("../public/assets/images/bluebackground.png");
+    display: flex;
+    gap: 5px;
+    color: #fff;
+    border-radius: 5px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+}
+.flybudu{
+    margin-left: 30px;
+}
+.p{
+    font-size: 15px;
+}
+@media (max-width:768px) {
+    .body{
+        display: none;
+    }
+}

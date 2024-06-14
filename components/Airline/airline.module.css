@@ -1,0 +1,105 @@
+.general{
+   
+}
+.mother{
+    background: #fff;
+    padding: 10px 10px 0 10px;
+    display: flex;
+    flex-direction: column;
+   gap: 1em;
+    /* width: 98%; */
+}
+.iconDiv{
+    width: 10px;
+    gap: 0.1em;
+    display: flex;
+    flex-direction: column;
+}
+.firstDiv{
+    font-weight: bold;
+    display: flex;
+    /* width: 90%; */
+    justify-content: space-between;
+}
+.iconSpan{
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+.first{
+    display: flex;
+    gap: 1em;
+    margin-right: 50px;
+}
+.sameDiv{
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(114, 114, 114);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+    /* margin-bottom: 30px;
+    border-bottom: 1px solid black; */
+
+}
+.imageDiv{
+    display: flex;
+    align-items: center;
+}
+.routeDiv{
+    display: flex;
+    flex-direction: column;
+}
+.togeda{
+    display: flex;
+    gap: 1em;
+}
+
+.juju{
+visibility: hidden;
+}
+.mobileMother{
+    /* width: 100%; */
+    background: #fff;
+    padding: 5px 20px;
+    display: none;
+    border-radius: 8px;
+    /* display: flex; */
+    justify-content: space-between;
+}
+.firstDate, .secondDate{
+    display: flex;
+    gap: 1em;
+    /* width: 50%; */
+    align-items: center;
+    /* justify-content: center; */
+    
+}
+.secondDate{
+    justify-content: flex-end;
+width: 45%;
+border-left: 1px solid ;
+/* padding-left: 1em; */
+}
+.firstDate, .secondDate{
+    padding: 10px 0;
+}
+@media (max-width:500px) {
+    .firstDate, .secondDate{
+        gap: 5px;
+    }
+    /* .mobileMother{
+        padding: 10px;
+    } */
+}
+@media (max-width:850px) {
+    .firstDiv, .sameDiv{
+        display: none;
+    }
+    .mobileMother{
+        display: flex;
+    }
+    .mother{
+        background: none;
+    }
+}

@@ -1,0 +1,94 @@
+
+.main{
+    background: #fff;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 85%;
+    height: 100%;
+    z-index: 1000 !important;
+    overflow-y: auto;
+    display: none;
+}
+@media(max-width: 768px){
+ .main{
+      display: block;
+}
+}
+.top{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 2rem;
+}
+.listOfIcon{
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+.dataContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding-bottom: 2rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+.cardContents{
+    display: flex;
+    gap: 0.5rem
+}
+.cardContents img{
+    width: 20px;
+}
+
+.cardContents .title {
+    font-size: 15px;
+    font-weight: 600;
+}
+.contactUs p{
+    font-size: 20px;
+    font-weight: 600;
+}
+.innerContainer{
+    display: flex;
+    gap: 0.5rem;
+}
+.contactUs{
+    margin-top: -3rem;
+    padding: 1rem;
+ 
+}
+.contactUsCard{
+    border-radius: 10px !important;
+    width: 100%;
+    margin-top: 1rem;
+}
+.contactUsCard .img{
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.contactUsCard .innercard .img {
+    width: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.innercard{
+    padding: 2rem;
+    background: #F4F4F4;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: -1rem;
+    
+}
+.innerContainer img{
+    width: 20px;
+}
+.innerContainer p{
+    font-weight: 500;
+    padding-top: 0.1rem;
+}

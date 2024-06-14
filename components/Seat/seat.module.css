@@ -1,0 +1,106 @@
+.general {
+    border-radius: 20px;
+    padding:30px;
+    background: #fff;
+
+  }
+  .firstDiv{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+}
+.spanDiv{
+    margin: 1em 0;
+}
+.spans{
+    gap: 1em;
+    flex-wrap: wrap;
+    font-weight: bold;
+    display: flex;
+    margin-top: 20px;
+}
+.spans span{
+
+    padding: 7px 15px;
+    border-radius: 8px;
+background: #ebe9e9;
+    border: 1px solid #BFBFBF;
+}
+.first{
+    font-weight: bold;
+    width: 30%;
+}
+.flight1{
+    width: 100px;
+}
+.flight2{
+    width: 150px;
+}
+.flight{
+    display: flex;
+    justify-content: space-between;
+}
+.economy{
+    padding: 20px ;
+    background: #F7F7F7;
+    text-align: center;
+    justify-content: center;
+    font-weight: bold;
+    display: flex;
+    border-radius: 7px;
+}
+.second{
+    border-left: #BFBFBF 1px solid;
+    width: 60%;
+}
+.reserved{
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #BFBFBF;
+}
+.secondDiv{
+    display: flex;
+    justify-content: space-between;
+}
+.booked{
+    display: flex;
+    align-items: center;
+}
+.choose{
+    margin: 20px 0;
+font-size: 17px;
+}
+@media (max-width:768px) {
+    .first{
+        display: none;
+    }
+    .second{
+        width: 100%;
+    }
+    .general{
+     border-radius: 0;  
+    }
+    .booked img{
+        width: 25px;
+    }
+    .booked{
+        flex-wrap: wrap;
+        gap: 0.5em;
+        align-items: center;
+        justify-content: center;
+    }
+    .choose{
+        font-size: 15px;
+    }
+    .firstDiv span{
+        font-weight: bold;
+    }
+   
+}
+@media (max-width:500px) {
+    .flight1 img, .flight2 img{
+        width: 35px;
+    }
+
+}

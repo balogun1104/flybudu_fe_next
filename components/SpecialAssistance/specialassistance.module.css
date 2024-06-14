@@ -1,0 +1,49 @@
+.general {
+    border-radius: 20px;
+    padding:30px;
+    background: #fff;
+margin: 30px 0;
+    
+  }
+  .firstDiv{
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+  }
+  .triplet{
+    gap: 0.5em;
+    display: flex;
+    /* text-wrap: wrap; */
+    margin-top: 25px;
+  }
+
+  .triplet span{
+    color: #06BCE1;
+    font-weight: bold;
+  }
+
+  .firstDiv span{
+    font-weight: bold;
+  }
+  @media (max-width:768px) {
+    .general{
+      border-radius: 0;
+    }
+    .firstDiv{
+      margin-bottom: 10px;
+    }
+    .assistance{
+      font-size: 15px;
+    }
+    /* input{
+      width: unset;
+    } */
+    .triplet{
+      align-items: flex-start;
+    }
+    .triplet text{
+      font-size: 16px;
+    }
+  }
