@@ -120,6 +120,11 @@
   border-radius: 50%;
 }
 .general {
+<<<<<<< HEAD
+  color: black;
+  font-family: sans-serif;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   padding: 20px;
   background: rgb(236, 234, 234);
   box-sizing: border-box;
@@ -201,6 +206,11 @@
   align-items: center;  
 }
 .graph{
+<<<<<<< HEAD
+  text-align: center;
+  font-family: sans-serif;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   width: 200px;
   padding: 30px;
   background: white;

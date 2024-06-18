@@ -7,6 +7,10 @@
   padding: 0 20px;
   background: rgb(236, 234, 234);
   box-sizing: border-box;
+<<<<<<< HEAD
+  color: black;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   margin: 0 auto;
   overflow-x: hidden;
   font-family: myFont;
@@ -29,6 +33,10 @@
 }
 .niceDiv img{
   width: 30px;
+<<<<<<< HEAD
+  height: 30px;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
 }
 .who{
   margin: 1em 0;
@@ -58,6 +66,10 @@
 .code{
   border: 1px solid #99999d;
   padding: 20px;
+<<<<<<< HEAD
+  background: #fff;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   border-radius: 12px;
   outline: none;
 }
@@ -131,7 +143,11 @@
   }
   .first{
     width: 100%;
+<<<<<<< HEAD
+    padding-top: 0;
+=======
     padding-top: 4em;
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     padding-bottom: 4em;
   }
   .code{
@@ -140,8 +156,14 @@
   .niceDiv{
     margin-left: 1em;
     margin-right: 1em;
+<<<<<<< HEAD
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+=======
     justify-content: space-between;
     padding: 10px 10px;
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   }
   .niceDiv span{
     font-size: 12px;
@@ -172,7 +194,11 @@ display: none;
     justify-content: center;
     display: flex;
     border-radius: 40px;
+<<<<<<< HEAD
+    width: 90%;
+=======
     width: 68%;
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   }
   .link{
     width: 100%;
@@ -184,6 +210,10 @@ display: none;
     display: block;
     margin-left: 10px;
     font-size: 20px;
+<<<<<<< HEAD
+    font-weight: bold;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     width: 30%;
     font-weight: bold;
   }
@@ -211,6 +241,10 @@ display: none;
   .support{
     margin-right: 1em;
     width: 35px;
+<<<<<<< HEAD
+    height: 35px;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   }
   .specialText{
 font-weight: lighter;

@@ -1,6 +1,11 @@
 .general {
     background: rgb(236, 234, 234);
     box-sizing: border-box;
+<<<<<<< HEAD
+    color: #000;
+    font-family: sans-serif;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     padding: 20px;
   }
   .asap{
@@ -61,6 +66,10 @@
   }
   .skip{
     color: #06BCE1;
+<<<<<<< HEAD
+    background: transparent;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     border: 1px solid #06BCE1;
     padding: 10px 40px;
     border-radius: 20px;

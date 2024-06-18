@@ -1,6 +1,11 @@
 .general {
     padding: 20px;
     background: rgb(236, 234, 234);
+<<<<<<< HEAD
+    color: black;
+    font-family: sans-serif;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     box-sizing: border-box;
     margin: 0 auto;
     overflow-y: hidden;

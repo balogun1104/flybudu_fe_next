@@ -1,6 +1,10 @@
 .general {
     border-radius: 20px;
     padding:30px;
+<<<<<<< HEAD
+    font-family: sans-serif;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     background: #fff;
 margin: 30px 0;
     
@@ -14,6 +18,10 @@ margin: 30px 0;
   }
   .triplet{
     gap: 0.5em;
+<<<<<<< HEAD
+    line-height: 23px;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     display: flex;
     /* text-wrap: wrap; */
     margin-top: 25px;
