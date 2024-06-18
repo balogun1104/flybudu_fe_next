@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./navbar.module.css";
+<<<<<<< HEAD
 import Menu from "@/public/assets/images/menu 1.png";
+=======
+import Menu from "@/public/assets/svg/menu.svg";
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
 import Quote from "@/public/assets/svg/Payment.svg";
 import flyBudu2 from "@/public/assets/images/flybuduLogo2.png";
 import { MobileNavScreen } from "../ManageBookingNavBar";
@@ -103,7 +107,11 @@ function Navbar() {
                 <Image
                   src={Menu}
                   alt=""
+<<<<<<< HEAD
                  
+=======
+                  className={styles.quoteImg}
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
                   onClick={() => setOpenMenu(!openMenu)}
                 />
               )}

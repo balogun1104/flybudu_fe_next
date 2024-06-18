@@ -1,16 +1,11 @@
-.general {
-    padding: 20px;
+.general{
+    padding: 20px 20px 0 20px;
     background: rgb(236, 234, 234);
-<<<<<<< HEAD
-    color: black;
-    font-family: sans-serif;
-=======
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     box-sizing: border-box;
     margin: 0 auto;
     overflow-y: hidden;
-  }
-  .navbarWrapBlack {
+}
+.navbarWrapBlack {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -52,10 +47,6 @@
   .navbar {
     /* Dark grey background */
     overflow: hidden;
-  }
-  .avatar{
-    width: 40px;
-    border-radius: 50%;
   }
   .navbar a {
     float: left;
@@ -131,84 +122,113 @@
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
   }
-  
-  .firstDiv {
-    width: 100%;
-    background-image: url("../public/assets/images/background.jfif");
-    background-position: center;
+  .avatar{
+    width: 40px;
+    border-radius: 50%;
+  }
+  .secondDiv{
+    
+   
+    padding: 50px 20px ;
+    display: flex;
+    justify-content: space-around;
+    background-image: url("../public/assets/images/Union.png");
+    background-position:  0%;
     background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    display: flex;
+    background-color: rgba(6, 188, 225, 1);
   }
-  .hero {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
-  
-  .textDiv {
-    margin-top: 100px;
-    margin-left: 40px;
-    margin-bottom: 100px;
+  .create{
     display: flex;
+    padding: 7px 10px;
+    border: 1px solid #fff;
+    color: #fff;
+    border-radius: 10px;
+    justify-content: center;
+  }
+  .createDiv{
+    display: flex;
+    color: #fff;
     flex-direction: column;
     gap: 1em;
+    width: 150px;
   }
-  .bigText {
-    font-size: 45px;
-    font-family: Light;
-    color: #fff;
+  .searchInput{
+    display: none;
+  }
+
+  @media (max-width:1150px) {
+    .navbar, .quote{
+      display: none;
+    }
   }
   
-  .small {
-    width: 420px;
-    font-size: 18px;
+  @media (max-width:1000px) {
+    .secondDiv{
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center;
+      gap: 3em;
+    }
+    .secondDiv{
+      background-image: none;
+    }
   }
-  .secondDiv {
-    display: flex;
-    margin-bottom: 7em;
+  @media (max-width:768px) {
+    .general{
+      padding: 20px 5px;
+    }
+    .quoteImg{
+      position: relative;
+      /* right: 3em; */
+      margin-right: 3em;
+      margin-left: 12px;
+      background: none;
+    }
+    .logo{
+      /* width: 123px; */
+    }
+    .navbarWrap{
+      z-index: 120;
+      display: flex;
     justify-content: space-between;
+    align-items: center;
+    left: 0;
+    top: 0;
+    padding: 10px 20px;
+    width: 100%;
+    background: #fff;
+    position: fixed;
+    }
+    .searchInput{
+     display: block; 
+      background: transparent;
+        border: #adabab 1px solid;
+        padding: 10px;
+        border-radius: 12px;
+        outline: none;
+        width: 100%;
+    }
+    .avatar{
+      display: none;
+    }
+    .secondDiv{
+      margin-top: 3em;
+     
+    }
+  
+    .createDiv{
+      width: 100%;
+      background-image: url("../public/assets/images/Union.png");
+      background-position: cover;
+      padding: 2em 0 16em;
+      /* background-size: cover; */
+      background-repeat: no-repeat;
+    }
+    .createDiv span{
+      margin-left: 2em;
+      width: 150px;
+    }
+    .tabDiv{
+      width: 90%;
+    }
   }
-  .about {
-    width: 25%;
-  }
-  .second{
-    width: 73%;}
-    .saved{
-        display: flex;
-        font-weight: bold;
-        font-size: 22px;
-        margin: 20px 0;
-      }
-      .ilule{
-        display: none;
-      }
-      @media (max-width:1200px) {
-        .about{
-          width: 35%;
-        }
-        .second{
-          width: 63%;
-        }
-      }
-      @media (max-width:768px) {
-        .second{
-          display: none !important;
-        }
-        .about{
-          width: 100%;
-        }
-        .ilule{
-          margin: 1em 0;
-          display: flex;
-          font-size: 20px;
-          font-weight: bold;
-        }
-        .firstDiv{
-          display: none;
-        }
-        .general{
-          padding-top: 4em;
-        }
-      }

@@ -2,7 +2,11 @@
   margin-top: 4rem;
   padding-left: 3rem;
   padding-right: 7rem;
+<<<<<<< HEAD
 background: white;
+=======
+  background-image: url('/public/assets/images//curveBg.png');
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   background-position: center;
   background-repeat:no-repeat;
   background-size: cover;
@@ -142,7 +146,10 @@ margin-left: 20%;
   border-radius: 24px;
   border: 1px solid #c6c6c6;
   box-sizing: border-box;
+<<<<<<< HEAD
   color: black;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   word-wrap: break-word;
  
   @media(max-width:768px){

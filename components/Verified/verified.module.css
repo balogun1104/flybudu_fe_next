@@ -1,19 +1,25 @@
 .general {
   border-radius: 7px;
+<<<<<<< HEAD
   gap: 9px;
   flex-direction: column;
   display: flex;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   padding: 30px;
   background: white;
   padding-bottom: 10px;
   overflow-x: hidden;
   font-family: myFont;
 }
+<<<<<<< HEAD
 .general input,
 .general select {
   background: white;
   color: black;
 }
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
 @font-face {
   font-family: myFont;
   src: url("../../public/assets/fonts/NeueHaasDisplayMediu.ttf");
@@ -33,7 +39,11 @@
 .passportDiv {
   margin-top: 1em;
   display: flex;
+<<<<<<< HEAD
   align-items: flex-start;
+=======
+  align-items: flex-start; 
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   gap: 10px;
   padding: 15px 15px;
   border: 1px solid #06bce1;
@@ -45,6 +55,10 @@
   text-align: start;
 }
 .passportDiv span {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
 }
 .details {
 }
@@ -55,7 +69,11 @@
   border-radius: 7px;
 }
 .titleDiv {
+<<<<<<< HEAD
   display: flex;
+=======
+  display: flex; 
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   flex-direction: column;
   /* align-items: center; */
   line-height: 30px;
@@ -64,6 +82,10 @@
 .surnameDiv {
   display: flex;
   align-items: center;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
 }
 .omo {
   display: flex;
@@ -73,8 +95,13 @@
   /* outline: 1px solid rgb(184, 175, 175); */
   /* border: 1px solid; */
   -webkit-appearance: none; /* Remove default arrow in Safari */
+<<<<<<< HEAD
   -moz-appearance: none; /* Remove default arrow in Firefox */
   appearance: none; /* Remove default arrow in other browsers */
+=======
+        -moz-appearance: none; /* Remove default arrow in Firefox */
+        appearance: none; /* Remove default arrow in other browsers */
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   /* -webkit-animation: none; */
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -99,16 +126,26 @@
 }
 .adult label select {
   padding: 10px 10px;
+<<<<<<< HEAD
   background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="%23000000" viewBox="0 0 24 24" width="24" height="24"%3E%3Cpath stroke-width="1" d="M10 7l5 5-5 5z" /%3E%3C/svg%3E'); /* Add dropdown arrow */
   background-repeat: no-repeat; /* Prevent arrow from repeating */
   background-position: right 10px center; /* Position the arrow on the right */
+=======
+        background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="%23000000" viewBox="0 0 24 24" width="24" height="24"%3E%3Cpath stroke-width="1" d="M10 7l5 5-5 5z" /%3E%3C/svg%3E'); /* Add dropdown arrow */
+  background-repeat: no-repeat; /* Prevent arrow from repeating */
+        background-position: right 10px center; /* Position the arrow on the right */
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
 }
 .adult span {
 }
 .mother {
 }
 .father {
+<<<<<<< HEAD
   gap: 2em;
+=======
+    gap: 1em;
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -129,7 +166,11 @@
   gap: 0.5em;
 }
 .nationality {
+<<<<<<< HEAD
   gap: 0.5em;
+=======
+    gap: 0.5em;
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   display: flex;
   flex-direction: column;
   width: 350px;
@@ -138,7 +179,11 @@
   width: 100%;
 }
 .gender {
+<<<<<<< HEAD
   gap: 0.5em;
+=======
+    gap: 0.5em;
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   display: flex;
   flex-direction: column;
   width: 350px;
@@ -147,7 +192,11 @@
   width: 100%;
 }
 .DOB {
+<<<<<<< HEAD
   gap: 0.5em;
+=======
+    gap: 0.5em;
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   display: flex;
   flex-direction: column;
   width: 350px;
@@ -161,10 +210,17 @@
   border-bottom-left-radius: 7px;
   width: 120px;
   outline: none; /* Remove outline */
+<<<<<<< HEAD
   -webkit-appearance: none; /* Remove default arrow in Safari */
   -moz-appearance: none; /* Remove default arrow in Firefox */
   appearance: none; /* Remove default arrow in other browsers */
   text-align: center; /* Center align the options */
+=======
+        -webkit-appearance: none; /* Remove default arrow in Safari */
+        -moz-appearance: none; /* Remove default arrow in Firefox */
+        appearance: none; /* Remove default arrow in other browsers */
+        text-align: center; /* Center align the options */
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
 }
 /* .taye option{
   text-align: center;
@@ -183,6 +239,7 @@
   border-bottom-right-radius: 7px;
   /* outline: 1px solid rgb(184, 175, 175); */
 }
+<<<<<<< HEAD
 .titleDivk {
   display: flex;
   align-items: center;
@@ -233,13 +290,68 @@
   text-align: center;
 }
 .idowu {
+=======
+.titleDivk{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    line-height: 30px;
+    width: 350px;
+flex-wrap: wrap;    
+}
+
+
+.confirm{
+    width: 100%;
+}
+.sigh{
+    display: flex;
+    align-items: center;
+}
+.firstDivk{
+    display: flex;
+align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+.checkbox{
+    display: flex;
+font-size: 14px;
+font-family: myFont;
+}
+.bold{
+  /* font-weight: 100; */
+  font-family: sans-serif;
+}
+.checkbox2{
+    display: flex;
+align-items: center;
+margin-top: 20px;
+width: 85%;
+justify-content: space-between;}
+.thirdNla{
+margin: 20px 0;
+}
+.taye, .kehinde{
+  border-radius: 0;
+  text-align: center;
+}
+.idowu{
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   text-align: center;
   display: flex;
   align-self: center;
   justify-content: center;
+<<<<<<< HEAD
 }
 @media (max-width: 768px) {
   .adult {
+=======
+
+}
+@media (max-width:768px) {
+  .adult{
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     display: flex;
     justify-content: space-between;
     align-items: self-start;
@@ -248,6 +360,7 @@
     flex-direction: column-reverse;
     margin: 15px 0;
   }
+<<<<<<< HEAD
   .titleDiv,
   .firstDiv,
   .middle,
@@ -274,11 +387,33 @@
     width: unset;
   }
   .checkbox2 {
+=======
+  .titleDiv, .firstDiv, .middle, .nationality, .gender, .DOB{
+    width: 100%;
+  }
+  .bigger{
+    margin: 10px 0;
+  }
+  .firstDivk{
+    flex-direction: column;
+  }
+  .titleDivk{
+    width: 94%;
+  }
+  .input1{
+    width: 100%;
+  }
+  .input{
+    width: unset;
+  }
+  .checkbox2{
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     width: unset;
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5em;
   }
+<<<<<<< HEAD
   .checkbox {
     gap: 15px;
   }
@@ -307,10 +442,37 @@
     border-bottom-left-radius: 0;
   }
   .detailsDiv {
+=======
+  .checkbox{
+    gap: 0;
+  }
+  .checkbox input{
+    width: 30px;
+  }
+  .labels, .taye, .kehinde, .idowu{
+    width: 100%;
+  }
+  .taye, .kehinde{
+    border-radius: 0;
+  }
+  .taye{
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px !important;
+  }
+  .father{
+    font-family: sans-serif;
+  }
+  .idowu{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .detailsDiv{
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
   }
+<<<<<<< HEAD
   .details {
     font-size: 18px;
     display: flex;
@@ -331,8 +493,34 @@
     width: 25px;
   }
   .lock {
+=======
+  .details{
+    font-size: 18px;
+    display: flex;
+margin-bottom: 10px;
+  }
+  .personal{
+    font-size: 14px;
+    font-family: sans-serif;
+  }
+  .lock img{
+    width: 18px;
+  }
+  .passportDiv{
+    font-size: 13.5px
+  }
+  .passportDiv img{
+    width: 25px;
+  }
+  .lock{
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     display: flex;
     align-items: center;
     gap: 5px;
   }
+<<<<<<< HEAD
 }
+=======
+  
+}
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd

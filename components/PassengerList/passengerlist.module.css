@@ -30,30 +30,50 @@ justify-content: space-between;
  border-bottom: 1px solid #ddd;
   } */
 
+<<<<<<< HEAD
  .general table {
+=======
+  .table {
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     width: 100%;
     border-collapse: collapse;
   }
   
   /* Define row styles */
+<<<<<<< HEAD
  .general th, .general td {
+=======
+  .th, .td {
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     padding: 13px 8px;
     border-bottom: 1px solid #ddd;
     text-align: left;
   }
+<<<<<<< HEAD
   .general th{
+=======
+  .th{
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     border: none;
   }
 
   /* Style the first row differently for headings */
+<<<<<<< HEAD
   .general th {
+=======
+  .th {
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     /* background-color: #f2f2f2; */
   }
   @media (max-width:670px) {
     .mother{
       background: transparent;
     }
+<<<<<<< HEAD
     .general  tbody{
+=======
+    .tbody{
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
       gap:10px;
       display: flex;
       flex-direction: column;
@@ -66,10 +86,17 @@ justify-content: space-between;
       gap: 1em;
       background: none;
     } */
+<<<<<<< HEAD
     .general  td{
       padding: 20px 8px;
     }
     .general  tr{
+=======
+    .td{
+      padding: 20px 8px;
+    }
+    .tr{
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
       background: #fff;
               background: #fff;
         display: flex;

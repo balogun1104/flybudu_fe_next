@@ -3,10 +3,16 @@
   background: rgb(236, 234, 234);
   box-sizing: border-box;
   margin: 0 auto;
+<<<<<<< HEAD
   color: black;
   font-family: sans-serif;
   overflow-y: hidden;
 }
+=======
+  overflow-y: hidden;
+}
+
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
 .navbarWrapBlack {
   display: flex;
   justify-content: space-between;

@@ -55,7 +55,10 @@ align-items: center;
     align-self: center;
     align-items: center;
     width: 50px;
+<<<<<<< HEAD
     height: 50px;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
 
 }
 .extra{
@@ -143,7 +146,12 @@ align-items: center;
         margin: 0 10px;
     }
     .select{
+<<<<<<< HEAD
 padding: 10px 30px;
+=======
+
+        width: 26%;
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
         text-align: center;
     }
   .abuja{

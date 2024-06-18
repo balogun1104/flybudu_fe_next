@@ -3,15 +3,22 @@
     display: flex;
     flex-direction: column;
     gap: 2em;
+<<<<<<< HEAD
     color: black;
     padding: 20px ;
     font-family: sans-serif;
+=======
+    padding: 20px ;
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     justify-content: center;
     align-items: center;
 }
 .avatar{
     width: 100px;
+<<<<<<< HEAD
     height: 100px;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     border-radius: 50%;
 }
 .avatarImg{

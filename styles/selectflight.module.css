@@ -2,15 +2,21 @@
   padding: 0 20px;
   background: rgb(236, 234, 234);
   box-sizing: border-box;
+<<<<<<< HEAD
   color: black;
   font-family: sans-serif;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   margin: 0 auto;
   overflow-x: hidden;
 }
 
 .dateDiv {
   padding: 10px;
+<<<<<<< HEAD
   font-weight: bold;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   align-items: center;
   display: flex;
   background: #FFFFFF;
@@ -152,7 +158,10 @@
   .support {
     margin-right: 1em;
     width: 35px;
+<<<<<<< HEAD
     height: 35px;
+=======
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   }
 
   .month {
@@ -201,6 +210,10 @@
     justify-content: center;
     display: flex;
     border-radius: 40px;
+<<<<<<< HEAD
+=======
+    width: 68%;
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   }
 
   .flexDiv span {
@@ -245,7 +258,11 @@
   }
 
   .money {
+<<<<<<< HEAD
     font-weight: bold;
+=======
+    width: 30%;
+>>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     margin-left: 10px;
   }
 }

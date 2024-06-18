@@ -72,7 +72,6 @@
     }
   
     .quoteWrap{
-      align-items: center;
       display: flex;
       gap: 10px;
       /* filter: blur(5px); */
@@ -137,6 +136,7 @@
   @media (max-width:768px) {
     .quoteImg{
       background: none;
+      margin-right: 3em;
       margin-left: 12px;
     }
    .avatar{
