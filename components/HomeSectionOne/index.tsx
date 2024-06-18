@@ -29,17 +29,16 @@ import Hero3 from "@/public/assets/images/heroBg3.jpeg";
 import BookTravelImg from "@/public/assets/images/BookTravelImg.png";
 import FlyPlane from "@/public/assets/images/planeHero.png";
 import { useMediaQuery } from "react-responsive";
-import { DatePicker } from '@nextui-org/date-picker';
-import { DateValue, parseAbsoluteToLocal } from '@internationalized/date';
-import { I18nProvider } from '@react-aria/i18n';
 
+// import { OverlayContainer } from "@react-aria/overlays";
+import { DateRangePicker } from "@/utils/DateRangePicker";
+import { today, getLocalTimeZone } from "@internationalized/date";
+import dynamic from "next/dynamic";
 
 const HomeSectionOne = () => {
-
-  let [date, setDate] = useState<DateValue>(
-    parseAbsoluteToLocal('2021-04-07T18:45:22Z')
-  );
-  
+  // let [date, setDate] = useState<DateValue>(
+  //   parseAbsoluteToLocal('2021-04-07T18:45:22Z')
+  // );
 
   const [selectedLocation, setSelectedLocation] =
     useState<string>("City or Airport");
@@ -69,6 +68,22 @@ const HomeSectionOne = () => {
     (total, count) => total + count,
     0
   );
+  const OverlayContainer = dynamic(
+    () =>
+      import("@react-aria/overlays").then((module) => module.OverlayContainer),
+    { ssr: false }
+  );
+
+  const [isClient, setIsClient] = useState(false);
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const handleDatePickerToggle = () => {
+    setIsDatePickerOpen(!isDatePickerOpen);
+  };
 
   const handlePassengerChange = (
     type: keyof typeof passengerCounts,
@@ -507,28 +522,18 @@ const HomeSectionOne = () => {
                         <label className={styles.label}>Returning On </label>
                       </div>
                     </div>
-                    {/* <div className={styles.datePickerContainer}>
-                      {/* <RangePicker
-                        style={{ cursor: "pointer" }}
-                        className={styles.inputField}
-                        onChange={handleDatesChange}
-                        format="DD/MM/YYYY"
-                        open={isDatePickerOpen}
-                        onOpenChange={(open) => setIsDatePickerOpen(open)}
-                        placeholder={["Date", "Date"]}
-                      /> */}
-<div className="flex flex-col gap-4">
-      <I18nProvider locale="hi-IN-u-ca-indian">
-        <DatePicker
-          showMonthAndYearPickers
-          variant="flat"
-          label="Date"
-          value={date}
-          onChange={setDate}
-        />
-      </I18nProvider>
-    </div>
-                  
+                    <button type="button" onClick={handleDatePickerToggle}>
+                    
+                    </button>
+                    {isClient && isDatePickerOpen && (
+                      <OverlayContainer>
+                        <DateRangePicker
+                          label="Trip dates"
+                          minValue={today(getLocalTimeZone())}
+                        />
+                      </OverlayContainer>
+                    )}
+                    <div className="flex flex-col gap-4"></div>
                   </div>
                 </div>
                 <div

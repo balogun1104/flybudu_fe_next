@@ -1,0 +1,62 @@
+
+.body{
+    border-radius: 25px;
+     padding: 2em;
+     width: 350px;
+     flex-direction: column;
+     background: #fff;
+     justify-content: center;
+     display: flex;
+     gap: 2em;
+     text-align: center;
+ }
+ .welcome{
+     font-weight: bolder;
+     font-size: 35px;
+     font-family: NeueHaasDisplayBold;
+ }
+  
+ .sign{
+    color: rgba(6, 188, 225, 1);
+    background: #fff;
+    border: 1px solid rgba(6, 188, 225, 1);
+    width: 100%;
+    border-radius: 40px;
+    padding: 14px 0;
+    font-weight: bold;
+    outline: none;
+   
+    cursor: pointer;
+}
+.img{
+    display: flex;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+
+@media (max-width:500px) {
+    .body{
+      width: 90% !important;
+      padding: 1.5em 16px;
+    }  
+    .password{
+      width: 90%;
+    }
+    .welcome{
+      font-size: 25px;
+    }
+    .email, .password{
+      padding-right: 0;
+      width: 91%;
+    }
+    .joinDiv{
+      gap: 0.5em;
+    }
+   }
+   @media (max-width:500px) {
+      .welcome{
+          font-size: 25px;
+      }
+   }
