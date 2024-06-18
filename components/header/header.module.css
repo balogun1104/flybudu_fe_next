@@ -1,5 +1,5 @@
     .body{
-        height: 120px;
+        height: 50px;
 
     }
     .father{
@@ -71,7 +71,7 @@
         font-size: 15px;
     }
     @media (max-width:768px) {
-        .general{
+        .father{
             display: none;
         }
     }

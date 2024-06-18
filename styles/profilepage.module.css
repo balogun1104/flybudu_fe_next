@@ -1,6 +1,8 @@
 .general {
     padding: 20px;
     background: rgb(236, 234, 234);
+    color: black;
+    font-family: sans-serif;
     box-sizing: border-box;
     margin: 0 auto;
     overflow-y: hidden;

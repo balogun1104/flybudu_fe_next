@@ -1,3 +1,12 @@
+.general {
+  padding: 20px;
+  background: rgb(236, 234, 234);
+  box-sizing: border-box;
+  margin: 0 auto;
+  color: black;
+  font-family: sans-serif;
+  overflow-y: hidden;
+}
 .navbarWrapBlack {
   display: flex;
   justify-content: space-between;
@@ -9,6 +18,11 @@
   padding-bottom: 15px;
 }
 
+.avatar {
+  width: 40px;
+  border-radius: 50%;
+}
+
 .edit {
   display: flex;
   align-items: center;
@@ -18,11 +32,13 @@
   border-radius: 32px;
   cursor: pointer;
 }
+
 .border {
   border-left: 2px solid rgb(173, 169, 169);
   border-right: 2px solid rgb(173, 169, 169);
   padding: 0px 9%;
 }
+
 .navbarWrap {
   display: flex;
   justify-content: space-between;
@@ -41,22 +57,27 @@
   /* Dark grey background */
   overflow: hidden;
 }
+
 .navbar a {
   float: left;
   display: block;
-  color: white; /* White text color */
+  color: white;
+  /* White text color */
   text-align: center;
   padding: 14px 20px;
   text-decoration: none;
 }
+
 /* Change the color of links on hover */
 .navbar a:hover {
   color: #ffd600;
   border-bottom: 2px solid #ffd600;
 }
+
 /* Add a color to the active/current link */
 .navbar a.active {
-  color: #ffd600; /* Green background */
+  color: #ffd600;
+  /* Green background */
 }
 
 .quote {
@@ -115,19 +136,7 @@
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
 }
-.avatar{
-  width: 40px;
-  border-radius: 50%;
-}
-.general {
-  color: black;
-  font-family: sans-serif;
-  padding: 20px;
-  background: rgb(236, 234, 234);
-  box-sizing: border-box;
-  margin: 0 auto;
-  overflow-y: hidden;
-}
+
 .firstDiv {
   width: 100%;
   background-image: url("../public/assets/images/background.jfif");
@@ -137,6 +146,7 @@
   position: relative;
   display: flex;
 }
+
 .hero {
   position: absolute;
   bottom: 0;
@@ -151,6 +161,7 @@
   flex-direction: column;
   gap: 1em;
 }
+
 .bigText {
   font-size: 45px;
   font-family: Light;
@@ -161,68 +172,29 @@
   width: 420px;
   font-size: 18px;
 }
-.about {
-  width: 25%;
-}
-.bookingDiv {
-  width: 73%;
-}
-.blue {
-  padding: 10px 20px;
-  border-radius: 40px;
-  border: 2px solid #06bce1;
-  color: #06bce1;
-  background: #fff;
-  font-weight: bold;
-}
-.white {
-  padding: 10px 30px;
-  border-radius: 40px;
-  background: #06bce1;
-  color: #fff;
-  font-weight: bold;
-}
+
 .secondDiv {
   display: flex;
   margin-bottom: 7em;
   justify-content: space-between;
 }
-.book {
+
+.about {
+  width: 25%;
+}
+
+.second {
+  width: 73%;
+}
+
+.saved {
   display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
   font-weight: bold;
-  align-items: center;
+  font-size: 22px;
+  margin: 20px 0;
 }
-.blueDiv {
-  display: flex;
-  gap: 1em;
-}.span{
-  display: flex;
-  gap: 10px;
-  align-items: center;  
-}
-.graph{
-  text-align: center;
-  font-family: sans-serif;
-  width: 200px;
-  padding: 30px;
-  background: white;
-  display: flex;
-  gap: 0.5em;
-  align-items: center;
-  font-weight: bold;
-  border-radius: 10px;
-}
-.graph span{
-  font-size: 24px;
-}
-.graphDiv{
-  display: flex;
-  justify-content: space-between;
-  margin: 30px 0;
-}
-.prev{
+
+.prev {
   color: #fff;
   background: #D3D3D3;
   border: none;
@@ -230,7 +202,8 @@
   font-weight: bold;
   padding: 10px 20px;
 }
-.next{
+
+.next {
   color: #fff;
   background: #06bce1;
   font-weight: bold;
@@ -238,117 +211,67 @@
   border-radius: 8px;
   padding: 10px 20px;
 }
-.special{
+
+.pass{
+  display: none;
+}
+.special {
   padding: 7px 15px;
   border: 1px solid black;
   border-radius: 6px;
   font-weight: bold;
 }
-.tooMuch{
+
+.tooMuch {
   margin: 50px 0;
   display: flex;
   justify-content: space-between;
 }
-.buttonDiv{
+
+.buttonDiv {
   display: flex;
   gap: 1em;
 }
-.pass{
-  display: none;
-}
+
+
 @media (max-width:1200px) {
-  .about{
+  .about {
     display: none;
   }
-  .bookingDiv{
+
+  .second {
     width: 100%;
   }
 }
-@media (max-width:850px) {
-  
-  .graphDiv{
-    flex-wrap: wrap;
+
+@media (max-width:768px) {
+  .firstDiv {
+    display: none;
   }
-  .graph:nth-child(1){
-    width: 100% !important;
-    padding: 20px;
-    margin-bottom: 20px;
-    gap: 1em;
+
+  .general {
+    padding-top: 5em;
   }
-  .graph:nth-child(1) div{
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-   
-  }
-  .graph p{
-    font-family: unset;
-    font-weight: 500;
-  }
-  .graph:nth-child(2), .graph:nth-child(3){
-    width: 45%;
-    display: flex;
-    flex-direction: column;
-  }
-  .graph:nth-child(2) div, .graph:nth-child(3) div{
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-  }
-/* .none{
-  display: none;
-} */
-.tooMuch{
-  display: none;
-}
-  .graph{
-    padding: 4px;
-  }
-}
-@media (max-width:750px) {
-  
-  .book{
-    justify-content: center;
-    margin-top: 5px;
-  }
-  .blueDiv{
-    display: flex;
-    flex-wrap: wrap !important;
-    justify-content: space-between;
-  }
-  .white{
-    width: 100%;
-    align-items: center;
-    text-align: center;
-  }
-  .blue{
-    width: 45%;
-    padding: 10px 0;
-    text-align: center;
-  }
-  .none{
-    display: none !important;
+
+  .tooMuch {
+    display: none;
   }
   .pass{
     display: flex;
     padding: 10px 32px;
             display: flex;
         font-size: 23px;
-       
+        margin-bottom: 20px;
+   
         justify-content: space-between;
   }
   .passenger{
     padding-bottom: 10px;
     border-bottom:  #06BCE1 1px solid;
   }
-}
-
-@media (max-width:768px) {
-
-  .firstDiv{
+  .saved{
     display: none;
   }
-  .general{padding-top: 5em;}
 }
 @media (max-width:500px) {
   .pass{

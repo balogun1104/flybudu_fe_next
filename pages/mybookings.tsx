@@ -63,7 +63,7 @@ function Mybookings() {
         </div>
         <div className={styles.family}>
           <div className={styles.spanDiv}>
-            <Link href="/manage-booking" style={{ textDecoration: "none" }}>
+            <Link href="/managebooking" style={{ textDecoration: "none" }}>
               <span>Back</span>
             </Link>{" "}
             <div className={styles.twin}>

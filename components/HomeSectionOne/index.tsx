@@ -698,7 +698,7 @@ const HomeSectionOne = () => {
           </p>
           <div className={styles.theArtDiv}>
             <Image src={TheArt} className={styles.theArt} alt="theArt" />
-            <p className={styles.theArtText}>
+            <p className={styles.theArtText} style={{color:"black"}}>
               The <span style={{ color: "#fff" }}>A</span>rt Of <br />
               Tail<span style={{ color: "#fff" }}>o</span>red Tra
               <span style={{ color: "#fff" }}>v</span>el

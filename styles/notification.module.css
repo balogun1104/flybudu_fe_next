@@ -4,6 +4,7 @@
     box-sizing: border-box;
     margin: 0 auto;
     overflow-y: hidden;
+    color: #000;
   }
   .navbarWrapBlack {
     display: flex;

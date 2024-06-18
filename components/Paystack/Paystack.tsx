@@ -7,7 +7,7 @@ import masterCard from "@/public/assets/images/Frame 48097434.png";
 import verve from "@/public/assets/images/Frame 48097433.png";
 import Image from "next/image";
 // import flutterwave from "@/public/assets/images/Frame 48097430 (2).png"
-
+  
 function Paystack() {
   return (
     <div className={styles.general}>

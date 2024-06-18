@@ -2,12 +2,15 @@
   padding: 0 20px;
   background: rgb(236, 234, 234);
   box-sizing: border-box;
+  color: black;
+  font-family: sans-serif;
   margin: 0 auto;
   overflow-x: hidden;
 }
 
 .dateDiv {
   padding: 10px;
+  font-weight: bold;
   align-items: center;
   display: flex;
   background: #FFFFFF;
@@ -149,6 +152,7 @@
   .support {
     margin-right: 1em;
     width: 35px;
+    height: 35px;
   }
 
   .month {
@@ -197,7 +201,6 @@
     justify-content: center;
     display: flex;
     border-radius: 40px;
-    width: 68%;
   }
 
   .flexDiv span {
@@ -242,7 +245,7 @@
   }
 
   .money {
-    width: 30%;
+    font-weight: bold;
     margin-left: 10px;
   }
 }

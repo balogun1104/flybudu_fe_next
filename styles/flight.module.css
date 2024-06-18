@@ -1,6 +1,8 @@
 .flightContainer{
     background-color: rgba(223, 223, 223, 1);
     overflow-x: hidden;
+    color: black;
+    font-family: sans-serif;
 }
 @font-face {
     font-family: myFont;
@@ -210,6 +212,7 @@ flex-direction: column;
    }
    .flexDiv span{
     font-size: 15px;
+    width: 90px;
    }
    .navbarText{
     flex-direction: column;

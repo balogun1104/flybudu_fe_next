@@ -5,8 +5,8 @@
     padding: 20px;
     z-index: 2;
     overflow-y: hidden;
-
-   
+    color: black;
+    font-family: sans-serif;
     top: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
@@ -116,6 +116,7 @@ width: 68%;
   .support{
     margin-right: 1em;
     width: 35px;
+    height: 35px;
   }
   .specialText{
     font-weight: lighter;
@@ -150,7 +151,7 @@ width: 68%;
       justify-content: center;
       display: flex;
       border-radius: 40px;
-      width: 68%;
+      width: 90%;
     }
     .link{
       width: 100%;

@@ -6,7 +6,9 @@
 .general{
     overflow-x: hidden;
     font-family: sans-serif;
-    padding: 0 0 80px;
+    padding: 70px 0 80px;
+    background: rgba(246, 246, 246, 1);
+    color: black;
     margin: 0;
 }
 .body{

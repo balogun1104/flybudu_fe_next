@@ -1,10 +1,18 @@
 .general {
   border-radius: 7px;
+  gap: 9px;
+  flex-direction: column;
+  display: flex;
   padding: 30px;
   background: white;
   padding-bottom: 10px;
   overflow-x: hidden;
   font-family: myFont;
+}
+.general input,
+.general select {
+  background: white;
+  color: black;
 }
 @font-face {
   font-family: myFont;
@@ -25,7 +33,7 @@
 .passportDiv {
   margin-top: 1em;
   display: flex;
-  align-items: flex-start; 
+  align-items: flex-start;
   gap: 10px;
   padding: 15px 15px;
   border: 1px solid #06bce1;
@@ -37,7 +45,6 @@
   text-align: start;
 }
 .passportDiv span {
-
 }
 .details {
 }
@@ -48,7 +55,7 @@
   border-radius: 7px;
 }
 .titleDiv {
-  display: flex; 
+  display: flex;
   flex-direction: column;
   /* align-items: center; */
   line-height: 30px;
@@ -57,7 +64,6 @@
 .surnameDiv {
   display: flex;
   align-items: center;
-
 }
 .omo {
   display: flex;
@@ -67,8 +73,8 @@
   /* outline: 1px solid rgb(184, 175, 175); */
   /* border: 1px solid; */
   -webkit-appearance: none; /* Remove default arrow in Safari */
-        -moz-appearance: none; /* Remove default arrow in Firefox */
-        appearance: none; /* Remove default arrow in other browsers */
+  -moz-appearance: none; /* Remove default arrow in Firefox */
+  appearance: none; /* Remove default arrow in other browsers */
   /* -webkit-animation: none; */
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -93,16 +99,16 @@
 }
 .adult label select {
   padding: 10px 10px;
-        background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="%23000000" viewBox="0 0 24 24" width="24" height="24"%3E%3Cpath stroke-width="1" d="M10 7l5 5-5 5z" /%3E%3C/svg%3E'); /* Add dropdown arrow */
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="%23000000" viewBox="0 0 24 24" width="24" height="24"%3E%3Cpath stroke-width="1" d="M10 7l5 5-5 5z" /%3E%3C/svg%3E'); /* Add dropdown arrow */
   background-repeat: no-repeat; /* Prevent arrow from repeating */
-        background-position: right 10px center; /* Position the arrow on the right */
+  background-position: right 10px center; /* Position the arrow on the right */
 }
 .adult span {
 }
 .mother {
 }
 .father {
-    gap: 1em;
+  gap: 2em;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -123,7 +129,7 @@
   gap: 0.5em;
 }
 .nationality {
-    gap: 0.5em;
+  gap: 0.5em;
   display: flex;
   flex-direction: column;
   width: 350px;
@@ -132,7 +138,7 @@
   width: 100%;
 }
 .gender {
-    gap: 0.5em;
+  gap: 0.5em;
   display: flex;
   flex-direction: column;
   width: 350px;
@@ -141,7 +147,7 @@
   width: 100%;
 }
 .DOB {
-    gap: 0.5em;
+  gap: 0.5em;
   display: flex;
   flex-direction: column;
   width: 350px;
@@ -155,10 +161,10 @@
   border-bottom-left-radius: 7px;
   width: 120px;
   outline: none; /* Remove outline */
-        -webkit-appearance: none; /* Remove default arrow in Safari */
-        -moz-appearance: none; /* Remove default arrow in Firefox */
-        appearance: none; /* Remove default arrow in other browsers */
-        text-align: center; /* Center align the options */
+  -webkit-appearance: none; /* Remove default arrow in Safari */
+  -moz-appearance: none; /* Remove default arrow in Firefox */
+  appearance: none; /* Remove default arrow in other browsers */
+  text-align: center; /* Center align the options */
 }
 /* .taye option{
   text-align: center;
@@ -177,60 +183,63 @@
   border-bottom-right-radius: 7px;
   /* outline: 1px solid rgb(184, 175, 175); */
 }
-.titleDivk{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    line-height: 30px;
-    width: 350px;
-flex-wrap: wrap;    
+.titleDivk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 30px;
+  width: 350px;
+  flex-wrap: wrap;
 }
 
-
-.confirm{
-    width: 100%;
+.confirm {
+  width: 100%;
 }
-.sigh{
-    display: flex;
-    align-items: center;
+.sigh {
+  display: flex;
+  align-items: center;
 }
-.firstDivk{
-    display: flex;
-align-items: center;
-    justify-content: space-between;
-    margin: 10px 0;
+.firstDivk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
 }
-.checkbox{
-    display: flex;
-font-size: 14px;
-font-family: myFont;
+.checkbox {
+  display: flex;
+  font-size: 14px;
+  font-family: myFont;
 }
-.bold{
+.bold {
   /* font-weight: 100; */
   font-family: sans-serif;
 }
-.checkbox2{
-    display: flex;
-align-items: center;
-margin-top: 20px;
-width: 85%;
-justify-content: space-between;}
-.thirdNla{
-margin: 20px 0;
+.checkbox2 {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  width: 85%;
+  justify-content: space-between;
 }
-.taye, .kehinde{
+.thirdNla {
+  display: flex;
+    flex-direction: column;
+    gap: 15px;
+  margin: 20px 0;
+}
+.taye,
+.kehinde {
   border-radius: 0;
   text-align: center;
 }
-.idowu{
+.idowu {
   text-align: center;
   display: flex;
   align-self: center;
   justify-content: center;
-
 }
-@media (max-width:768px) {
-  .adult{
+@media (max-width: 768px) {
+  .adult {
     display: flex;
     justify-content: space-between;
     align-items: self-start;
@@ -239,80 +248,91 @@ margin: 20px 0;
     flex-direction: column-reverse;
     margin: 15px 0;
   }
-  .titleDiv, .firstDiv, .middle, .nationality, .gender, .DOB{
+  .titleDiv,
+  .firstDiv,
+  .middle,
+  .nationality,
+  .gender,
+  .DOB {
     width: 100%;
   }
-  .bigger{
+  .bigger {
     margin: 10px 0;
   }
-  .firstDivk{
+  .firstDivk {
+    gap: 10px;
     flex-direction: column;
   }
-  .titleDivk{
+  .titleDivk {
+
     width: 94%;
   }
-  .input1{
+  .input1 {
     width: 100%;
   }
-  .input{
+  .input {
     width: unset;
   }
-  .checkbox2{
+  .checkbox2 {
     width: unset;
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5em;
   }
-  .checkbox{
-    gap: 0;
+  .checkbox {
+    gap: 15px;
   }
-  .checkbox input{
-    width: 30px;
+  .checkbox input {
+    background: white;
   }
-  .labels, .taye, .kehinde, .idowu{
+  .labels,
+  .taye,
+  .kehinde,
+  .idowu {
     width: 100%;
   }
-  .taye, .kehinde{
+  .taye,
+  .kehinde {
     border-radius: 0;
   }
-  .taye{
+  .taye {
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px !important;
   }
-  .father{
+  .father {
     font-family: sans-serif;
   }
-  .idowu{
+  .idowu {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
-  .detailsDiv{
+  .detailsDiv {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
   }
-  .details{
+  .details {
     font-size: 18px;
     display: flex;
-margin-bottom: 10px;
+    margin-bottom: 10px;
   }
-  .personal{
+  .personal {
     font-size: 14px;
     font-family: sans-serif;
   }
-  .lock img{
+  .lock img {
     width: 18px;
+    height: 20px;
   }
-  .passportDiv{
-    font-size: 13.5px
+  .passportDiv {
+    font-size: 13.5px;
   }
-  .passportDiv img{
+  .passportDiv img {
     width: 25px;
   }
-  .lock{
+  .lock {
     display: flex;
     align-items: center;
     gap: 5px;
   }
-  
 }

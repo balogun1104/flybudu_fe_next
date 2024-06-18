@@ -7,6 +7,7 @@
   padding: 0 20px;
   background: rgb(236, 234, 234);
   box-sizing: border-box;
+  color: black;
   margin: 0 auto;
   overflow-x: hidden;
   font-family: myFont;
@@ -29,6 +30,7 @@
 }
 .niceDiv img{
   width: 30px;
+  height: 30px;
 }
 .who{
   margin: 1em 0;
@@ -58,6 +60,7 @@
 .code{
   border: 1px solid #99999d;
   padding: 20px;
+  background: #fff;
   border-radius: 12px;
   outline: none;
 }
@@ -131,7 +134,7 @@
   }
   .first{
     width: 100%;
-    padding-top: 4em;
+    padding-top: 0;
     padding-bottom: 4em;
   }
   .code{
@@ -140,8 +143,9 @@
   .niceDiv{
     margin-left: 1em;
     margin-right: 1em;
+    align-items: center;
     justify-content: space-between;
-    padding: 10px 10px;
+    padding: 10px 15px;
   }
   .niceDiv span{
     font-size: 12px;
@@ -172,7 +176,7 @@ display: none;
     justify-content: center;
     display: flex;
     border-radius: 40px;
-    width: 68%;
+    width: 90%;
   }
   .link{
     width: 100%;
@@ -184,6 +188,7 @@ display: none;
     display: block;
     margin-left: 10px;
     font-size: 20px;
+    font-weight: bold;
     width: 30%;
     font-weight: bold;
   }
@@ -211,6 +216,7 @@ display: none;
   .support{
     margin-right: 1em;
     width: 35px;
+    height: 35px;
   }
   .specialText{
 font-weight: lighter;

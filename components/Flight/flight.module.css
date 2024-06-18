@@ -193,7 +193,7 @@
 
 .book {
     background-color: #06BCE1;
-    padding: 10px 24px 10px 24px;
+    padding: 10px 50px;
     border: none;
     border-radius: 32px;
     color: #fff;
@@ -202,12 +202,13 @@
 
 .more {
     display: flex;
+    color: black;
     align-items: center;
     gap: 1em;
-    background-color: #ECF8FA;
+    background-color: rgba(236, 248, 250, 1);
     padding: 12px 24px;
-    border: none;
-    border-radius: 12px;
+    border: 1px solid black;
+    border-radius: 32px;
     cursor: pointer;
 }
 
@@ -277,6 +278,7 @@
 
 .price {
     display: none;
+    font-weight: bold;
     align-items: center;
     font-size: 22px;
         font-family: 'NeueHaasDisplayBold';
@@ -317,7 +319,8 @@
 
     .greenSmall {
         display: block;
-        width: 30px;
+        width: 40px;
+        height: 40px;
     }
 
     .seat {
@@ -394,6 +397,7 @@
 
     .price {
         display: flex;
+
     }
 
     .book {

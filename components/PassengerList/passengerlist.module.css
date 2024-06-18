@@ -1,0 +1,80 @@
+.general{
+
+}
+.mother{
+background: #fff;
+padding: 20px 20px 0 20px;
+
+overflow-y: hidden;
+}
+.nameCircle{
+    font-weight: bold;
+    padding: 5px;
+    background: rgba(97, 205, 227, 1);
+    border-radius: 100px;
+}
+/* .firstDiv{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+.sameDiv{
+    display: flex;
+    justify-content: space-between;
+} */
+/* .table  tr{
+display: flex;
+justify-content: space-between;
+} */
+/* .table tr {
+ border-bottom: 1px solid #ddd;
+  } */
+
+ .general table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  /* Define row styles */
+ .general th, .general td {
+    padding: 13px 8px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  .general th{
+    border: none;
+  }
+
+  /* Style the first row differently for headings */
+  .general th {
+    /* background-color: #f2f2f2; */
+  }
+  @media (max-width:670px) {
+    .mother{
+      background: transparent;
+    }
+    .general  tbody{
+      gap:10px;
+      display: flex;
+      flex-direction: column;
+    }
+    .none{
+      display: none;
+    }
+    /* .table{
+      display: flex;
+      gap: 1em;
+      background: none;
+    } */
+    .general  td{
+      padding: 20px 8px;
+    }
+    .general  tr{
+      background: #fff;
+              background: #fff;
+        display: flex;
+        gap: 1em;
+        padding-left: 10px;
+
+    }
+  }

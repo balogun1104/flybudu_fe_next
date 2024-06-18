@@ -43,7 +43,7 @@ function Faq() {
               </p>
               <button style={{background: "rgba(255, 255, 255, 0.1)", border:"none"}}>
                 <span>
-                <ButtonIcon/>
+                <ButtonIcon color='black'/>
                 </span>
               </button>
              </div>

@@ -1,24 +1,28 @@
 
 .mother{
-    background: #fff;
-    width: 80%;
-    padding: 30px;
-    border-radius: 12px;
+  background: #fff;
+  width: 80%;
+  padding: 30px;
+  color: black;
+  font-family: sans-serif;
+  border-radius: 12px;
 }
 .avatar{
-  width: 150px;
-  border-radius: 50%;
+  height: 150px;
+width: 150px;
+border-radius: 50%;
 }
+
 .firstLine{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
 }
 .edit{
-    padding: 5px 10px;
-    border-radius: 30px;
-    border: 1px solid;
+  padding: 5px 10px;
+  border-radius: 30px;
+  border: 1px solid;
 }
 
 
@@ -33,298 +37,306 @@
 
 
 
-.general {
-    /* font-family: myFont; */
-  }
-  @font-face {
-    font-family: myFont;
-    src: url("../../public/assets/fonts/NeueHaasDisplayMediu.ttf");
-  }
-  
-  .select {
-    padding: 10px 5px;
-    border: none;
-    border-radius: 7px;
-    outline: 1px solid rgb(184, 175, 175);
-  }
-  .detailsDiv {
+.general input, .general select {
+  color: black;
+  background: #fff;
+  /* font-family: myFont; */
+}
+
+
+.select {
+  padding: 10px 5px;
+  border: none;
+  border-radius: 7px;
+  outline: 1px solid rgb(184, 175, 175);
+}
+.detailsDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.firstDiv {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  gap: 0.5em;
+}
+.passportDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+.passportDiv span {
+  padding: 15px 15px;
+  border: 1px solid #06bce1;
+  border-radius: 10px;
+  background: #f4fdff;
+  font-size: 12px;
+  width: 100%;
+  text-align: center;
+}
+.details {
+}
+.input {
+  padding: 10px 5px;
+  border: 1px solid rgb(173, 168, 168);
+  outline: none;
+  border-radius: 7px;
+}
+.titleDiv {
+  display: flex;
+  flex-direction: column;
+  line-height: 30px;
+  width: 350px;
+}
+.surnameDiv {
+  display: flex;
+  align-items: center;
+}
+
+.omo {
+  display: flex;
+
+}
+.select1 {
+  padding: 9px 5px;
+  outline: 1px solid rgb(184, 175, 175);
+  border: none;
+  border-radius: 0;
+  border-top-right-radius: none;
+  border-bottom-right-radius: none;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+}
+.input1 {
+  padding: 9px 5px;
+  border: 1px solid rgb(173, 168, 168);
+  outline: none;
+  width: 260px;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+.adult {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+.adult label select {
+  padding: 5px 10px;
+}
+.adult span {
+}
+.mother {
+}
+.father {
+    gap: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 50px;
+}
+
+.middle {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  gap: 0.5em;
+}
+.nationality {
+    gap: 0.5em;
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+.nationality label select {
+  width: 100%;
+}
+.gender {
+    gap: 0.5em;
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+.gender label select {
+  width: 100%;
+}
+.DOB {
+    gap: 0.5em;
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+.input1{
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.triplet {
+  display: flex;
+}
+.taye {
+  padding: 10px 5px;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  width: 120px;
+  outline: 1px solid rgb(184, 175, 175);
+}
+
+.kehinde {
+  padding: 10px 5px;
+  border: none;
+  outline: none;
+  border-radius: 0;
+  outline: 1px solid rgb(184, 175, 175);
+  width: 100px;
+}
+.idowu {
+  padding: 10px 5px;
+  border: none;
+  width: 130px;
+  outline: none;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+  outline: 1px solid rgb(184, 175, 175);
+}
+.titleDivk{
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  .firstDiv {
-    display: flex;
-    flex-direction: column;
-    width: 350px;
-    gap: 0.5em;
-  }
-  .passportDiv {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 0;
-  }
-  .passportDiv span {
-    padding: 15px 15px;
-    border: 1px solid #06bce1;
-    border-radius: 10px;
-    background: #f4fdff;
-    font-size: 12px;
-    width: 100%;
-    text-align: center;
-  }
-  .details {
-  }
-  .input {
-    padding: 10px 5px;
-    border: 1px solid rgb(173, 168, 168);
-    outline: none;
-    border-radius: 7px;
-  }
-  .titleDiv {
-    display: flex;
-    flex-direction: column;
     line-height: 30px;
     width: 350px;
-  }
-  .surnameDiv {
-    display: flex;
-    align-items: center;
-  }
-  
-  .omo {
-    display: flex;
+flex-wrap: wrap;    
+}
 
-  }
-  .select1 {
-    padding: 9px 5px;
-    outline: 1px solid rgb(184, 175, 175);
-    border: none;
-    border-radius: 0;
-    border-top-right-radius: none;
-    border-bottom-right-radius: none;
-    border-top-left-radius: 7px;
-    border-bottom-left-radius: 7px;
-  }
-  .input1 {
-    padding: 9px 5px;
-    border: 1px solid rgb(173, 168, 168);
-    outline: none;
-    width: 260px;
-    border-top-right-radius: 7px;
-    border-bottom-right-radius: 7px;
-  }
-  .adult {
+.confirm{
+    width: 100%;
+}
+.sigh{
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin: 15px 0;
-  }
-  .adult label select {
-    padding: 5px 10px;
-  }
-  .adult span {
-  }
-  .mother {
-  }
-  .father {
-      gap: 1em;
+}
+.firstDivk{
     display: flex;
-    flex-wrap: wrap;
+align-items: center;
     justify-content: space-between;
-    padding-bottom: 50px;
-  }
-  
-  .middle {
+    margin: 10px 0;
+}
+.checkbox{
     display: flex;
-    flex-direction: column;
-    width: 350px;
-    gap: 0.5em;
-  }
-  .nationality {
-      gap: 0.5em;
+font-size: 14px;
+font-family: myFont;
+
+
+}
+.checkbox2{
     display: flex;
-    flex-direction: column;
-    width: 350px;
-  }
-  .nationality label select {
+align-items: center;
+margin-top: 20px;
+width: 85%;
+justify-content: space-between;}
+.thirdNla{
+margin: 20px 0;
+}
+.navbar{
+  display: none;
+}
+.bottom{
+  display: none;
+}
+@media (max-width:1267px) {
+  .titleDiv input , .sigh, .input1{
     width: 100%;
   }
-  .gender {
-      gap: 0.5em;
-    display: flex;
-    flex-direction: column;
-    width: 350px;
-  }
-  .gender label select {
+   .kehinde, .idowu{
     width: 100%;
   }
-  .DOB {
-      gap: 0.5em;
-    display: flex;
-    flex-direction: column;
-    width: 350px;
+  .mother{
+    width: 369px;
   }
-  .input1{
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+}
+@media (max-width:768px) {
+  .mother{
+    width: unset;
+    background: #f1f0f0;
+    margin-top: 3em;
+    padding-top: 4em;
+    padding-bottom: 4em;
   }
-  .triplet {
-    display: flex;
-  }
-  .taye {
-    padding: 10px 5px;
-    border: none;
-    border-radius: 0;
-    outline: none;
-    width: 120px;
-    outline: 1px solid rgb(184, 175, 175);
-  }
-  
-  .kehinde {
-    padding: 10px 5px;
-    border: none;
-    outline: none;
-    border-radius: 0;
-    outline: 1px solid rgb(184, 175, 175);
-    width: 100px;
-  }
-  .idowu {
-    padding: 10px 5px;
-    border: none;
-    width: 130px;
-    outline: none;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 7px;
-    border-bottom-right-radius: 7px;
-    outline: 1px solid rgb(184, 175, 175);
-  }
-  .titleDivk{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      line-height: 30px;
-      width: 350px;
-  flex-wrap: wrap;    
-  }
-  
-  .confirm{
-      width: 100%;
-  }
-  .sigh{
-      display: flex;
-      align-items: center;
-  }
-  .firstDivk{
-      display: flex;
-  align-items: center;
-      justify-content: space-between;
-      margin: 10px 0;
-  }
-  .checkbox{
-      display: flex;
-  font-size: 14px;
-  font-family: myFont;
-  
-  
-  }
-  .checkbox2{
-      display: flex;
-  align-items: center;
-  margin-top: 20px;
-  width: 85%;
-  justify-content: space-between;}
-  .thirdNla{
-  margin: 20px 0;
+  .mother, .general{
+    overflow-x: hidden;
   }
   .navbar{
-    display: none;
+    display: flex;
+    gap: 41%;
+    padding: 1em 2em;
+    background: #fff;
+    font-size: 24px;
+    width: 100%;
+    position: fixed;
   }
-  .bottom{
-    display: none;
-  }
-  @media (max-width:1267px) {
-    .mother{
-      width: 369px;
-    }
-  }
-  @media (max-width:768px) {
-    .mother{
-      width: unset;
-      background: #f1f0f0;
-      margin-top: 3em;
-      padding-top: 4em;
-      padding-bottom: 4em;
-    }
-    .mother, .general{
-      overflow-x: hidden;
-    }
-    .navbar{
+    .bottom{
       display: flex;
-      gap: 41%;
-      padding: 1em 2em;
-      background: #fff;
-      font-size: 24px;
-      width: 100%;
+      padding: 1em;
+      /* font-size: 18px; */
+      gap: 1em; 
       position: fixed;
+      bottom: 0;
+      width: 93%;
+      background-color: #fff;
+      justify-content: space-between;
     }
-      .bottom{
-        display: flex;
-        padding: 1em;
-        /* font-size: 18px; */
-        gap: 1em; 
-        position: fixed;
-        bottom: 0;
-        width: 93%;
-        background-color: #fff;
-        justify-content: space-between;
-      }
-      .changes{
-        color: #fff;
-        background: #06bce1;
-        padding: 10px 30px;
-        justify-content: center;
-        /* width: 60%; */
-        border-radius: 40px;
-        display: flex;
-        text-align: center;
-      }
-      .edit{
-        display: none;
-      }
-      .cancel{
-        padding: 10px 30px;
-        border-radius: 40px;
-        border: 1px solid;
-        display: flex;
-        text-align: center;
-        justify-content: center;
-      }
-      .input1{
-        width: 99%;
-      }
-      .titleDiv, .surnameDiv, .firstDiv, .middle, .nationality, .gender, .taye, .kehinde, .idowu{
-        width: 100%;
-      }
-      .labels{
-        width: 33%;
-      }
-      .DOB, .triplet, .sigh{
-        width: 100%;
-      }
-      .titleDivk{
-        width: 100%;
-      }
-      .input{
-        width: unset;
-      }
-      .spad{
-        width: 94% !important;
-      }
-  }
-  @media (max-width:500px) {
-    .navbar{
-      gap: 24%;
+    .changes{
+      color: #fff;
+      background: #06bce1;
+      padding: 10px 30px;
+      justify-content: center;
+      /* width: 60%; */
+      border-radius: 40px;
+      display: flex;
+      text-align: center;
     }
+    .edit{
+      display: none;
+    }
+    .cancel{
+      padding: 10px 30px;
+      border-radius: 40px;
+      border: 1px solid;
+      display: flex;
+      text-align: center;
+      justify-content: center;
+    }
+    .input1{
+      width: 99%;
+    }
+    .titleDiv input , .sigh, .input1{
+      width: 100%;
+    }
+    .titleDiv, .surnameDiv, .firstDiv, .middle, .nationality, .gender, .taye, .kehinde, .idowu{
+      width: 100%;
+    }
+    .labels{
+      width: 33%;
+    }
+    .DOB, .triplet, .sigh{
+      width: 100%;
+    }
+    .titleDivk{
+      width: 100%;
+    }
+    .input{
+      width: unset;
+    }
+    .spad{
+      width: 94% !important;
+    }
+}
+@media (max-width:500px) {
+  .navbar{
+    gap: 24%;
   }
+}
