@@ -10,13 +10,9 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.55",
-<<<<<<< HEAD
-    "@internationalized/date": "^3.5.4",
-=======
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.20",
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     "@nextui-org/date-picker": "^2.1.1",
     "@nextui-org/react": "^2.4.1",
     "antd": "^5.18.0",
