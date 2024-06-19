@@ -6,13 +6,10 @@
 .general{
     overflow-x: hidden;
     font-family: sans-serif;
-<<<<<<< HEAD
     padding: 70px 0 80px;
     background: rgba(246, 246, 246, 1);
     color: black;
-=======
     padding: 0 0 80px;
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     margin: 0;
 }
 .body{

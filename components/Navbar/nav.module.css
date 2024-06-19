@@ -11,10 +11,7 @@
 }
 
 .edit{
-<<<<<<< HEAD
   color: black;
-=======
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   display: flex;
     align-items: center;
     background-color: #fff;
@@ -67,10 +64,7 @@
   .quote{
     background-color: #FFFFFF;
     border-radius: 32px;
-<<<<<<< HEAD
     color: black;
-=======
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     padding: 5px 10px;
     /* width: 160px; */
   gap: 10px;
@@ -81,10 +75,7 @@
 
   .quoteWrap{
     display: flex;
-<<<<<<< HEAD
     align-items: center;
-=======
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     gap: 10px;
     /* filter: blur(5px); */
   }
@@ -97,10 +88,7 @@
 
   .NavTwo{
     display: flex;
-<<<<<<< HEAD
     color: black;
-=======
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     justify-content: space-between;
     align-items: center;
     padding-top: 20px;

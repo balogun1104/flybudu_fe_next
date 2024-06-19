@@ -33,7 +33,7 @@ function ManageBooking() {
         <div className={styles.bookingDiv}>
           <div className={styles.pass}> 
             <span className={styles.passenger} style={{fontWeight:"bold"}}>My Bookings</span> 
-        <Link href="/saved-passenger" style={{textDecoration:"none", color:"black"}}>    <span>Passengers</span></Link>
+        <Link href="/savedpassenger" style={{textDecoration:"none", color:"black"}}>    <span>Passengers</span></Link>
           </div>
           <div className={styles.book}>
             <span className={styles.none}>Bookings</span>
