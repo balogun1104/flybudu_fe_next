@@ -64,7 +64,6 @@
       background-color: #FFFFFF;
       border-radius: 32px;
       padding: 5px;
-      width: 160px;
     gap: 10px;
     display: flex;
     align-items: center;
@@ -72,6 +71,10 @@
     }
   
     .quoteWrap{
+      color: black;
+      font-family: sans-serif;
+      font-weight: bold;
+      align-items: center;
       display: flex;
       gap: 10px;
       /* filter: blur(5px); */

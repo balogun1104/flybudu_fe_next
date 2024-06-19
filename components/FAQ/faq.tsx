@@ -43,11 +43,8 @@ function Faq() {
               </p>
               <button style={{background: "rgba(255, 255, 255, 0.1)", border:"none"}}>
                 <span>
-<<<<<<< HEAD
                 <ButtonIcon color='black'/>
-=======
                 <ButtonIcon/>
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
                 </span>
               </button>
              </div>

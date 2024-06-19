@@ -38,7 +38,7 @@
   }
   @font-face {
     font-family: myFont;
-    /* src: url("../../assets/fonts/NeueHaasDisplayMediu.ttf"); */
+    src: url("../../assets/fonts/NeueHaasDisplayMediu.ttf");
   }
   
   .select {

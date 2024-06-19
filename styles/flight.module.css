@@ -1,11 +1,8 @@
 .flightContainer{
     background-color: rgba(223, 223, 223, 1);
     overflow-x: hidden;
-<<<<<<< HEAD
     color: black;
     font-family: sans-serif;
-=======
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
 }
 @font-face {
     font-family: myFont;
@@ -181,10 +178,10 @@ outline: none;
     width: 100%;
     justify-content: space-between;
     padding: 0 10px;
-    overflow-x: scroll;
+    overflow-x: auto;
  }
 .flexDiv{
-    width: 100%;
+    width: 150px;
     text-align: center;
 display: flex;
 border-left: 1px solid;
@@ -215,10 +212,6 @@ flex-direction: column;
    }
    .flexDiv span{
     font-size: 15px;
-<<<<<<< HEAD
-    width: 90px;
-=======
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
    }
    .navbarText{
     flex-direction: column;

@@ -5,7 +5,7 @@ import { useLocale } from "@react-aria/i18n";
 import { createCalendar } from "@internationalized/date";
 import { CalendarButton } from "./Button";
 import { CalendarGrid } from "./CalendarGrid";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
+// import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
 
 export function RangeCalendar(props) {
   let { locale } = useLocale();

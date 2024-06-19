@@ -45,6 +45,7 @@ padding: 6px 18px;
 
 .airlineSearch input{
 border: none;
+background: none;
 outline: none;
 }
 

@@ -20,10 +20,7 @@
 .card{
     background-color: rgba(202, 243, 251, 1);
     /* max-width: 268px; */
-<<<<<<< HEAD
     color: black;
-=======
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     max-width: 250px;
     margin: 30px;
     display: flex!important;

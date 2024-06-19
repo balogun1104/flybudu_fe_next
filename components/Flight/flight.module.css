@@ -1,4 +1,4 @@
-.Customer {
+ .Customer {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -110,8 +110,7 @@
     width: 64px;
     height: 64px;
     object-fit: contain;
-    padding-top: 20px;
-    padding-bottom: 15px;
+    margin-bottom: 15px;
 
 }
 
@@ -193,11 +192,7 @@
 
 .book {
     background-color: #06BCE1;
-<<<<<<< HEAD
-    padding: 10px 50px;
-=======
     padding: 10px 24px 10px 24px;
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     border: none;
     border-radius: 32px;
     color: #fff;
@@ -206,22 +201,13 @@
 
 .more {
     display: flex;
-<<<<<<< HEAD
-    color: black;
     align-items: center;
     gap: 1em;
+    color: black;
     background-color: rgba(236, 248, 250, 1);
     padding: 12px 24px;
     border: 1px solid black;
     border-radius: 32px;
-=======
-    align-items: center;
-    gap: 1em;
-    background-color: #ECF8FA;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 12px;
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     cursor: pointer;
 }
 
@@ -291,10 +277,7 @@
 
 .price {
     display: none;
-<<<<<<< HEAD
     font-weight: bold;
-=======
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     align-items: center;
     font-size: 22px;
         font-family: 'NeueHaasDisplayBold';
@@ -335,12 +318,8 @@
 
     .greenSmall {
         display: block;
-<<<<<<< HEAD
         width: 40px;
         height: 40px;
-=======
-        width: 30px;
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     }
 
     .seat {
@@ -417,10 +396,6 @@
 
     .price {
         display: flex;
-<<<<<<< HEAD
-
-=======
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     }
 
     .book {
