@@ -2,7 +2,12 @@
 .general{
   padding: 20px 0;
   overflow-y: hidden;
+  color: black;
+  font-family: sans-serif;
   background-color: rgb(212, 211, 211);
+}
+.general input, .general select, .general textarea{
+  background: white;
 }
 .firstDiv {
   width: 100%;
@@ -16,6 +21,7 @@
   padding: 40px 0;
 }
 .subscribeButton img{
+  width: 45px;
   padding: 0px 10px;
 }
 .hero {
@@ -46,6 +52,7 @@
 }
 .image1, .image2, .image3, .image4{
   width: 150px;
+  height: auto;
 }
 
 .kehinde{
@@ -491,12 +498,15 @@
  padding-left: 30px;
 }
  .image1{
+  height: auto;
     width: 190px;
  }
  .image2{
+  height: auto;
     width: 170px;
  }
  .image3{
+  height: auto;
     width: 140px;
  }
  .be{
@@ -561,7 +571,7 @@
         padding-bottom: 29em;
     }
 .final{
-    width: 80%;
+    width: 90%;
     flex-wrap: wrap-reverse;
     border-radius: 24px;
     left: 1em;

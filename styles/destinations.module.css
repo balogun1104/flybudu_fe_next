@@ -206,6 +206,7 @@
 .tooMuch{
     margin: 50px 0;
     display: flex;
+    color: black;
     gap: 5em;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -222,6 +223,7 @@
     background-color: #ffffff;
     position: relative;
     padding-top: 1.5rem;
+    color: black;
     /* padding-right: 2em; */
     /* padding-bottom: 20px; */
     border-radius: 10px;
@@ -301,12 +303,14 @@
     background-color: #06bce1;
     padding: 8px;
     border: none;
+  
     border-radius: 25px;
     color: #ffffff;
     cursor: pointer;
   }
   .subscribeButton img{
     padding: 0px 10px;
+    width: 45px;
   }
   .cardEight, .cardNine, .cardTen{
     display: none;
@@ -370,7 +374,7 @@
       font-size: 30px;
     }
     .card{
-      width: 41.5% !important;
+      /* width: 41.5% !important; */
     }
     .state{
       font-size: 25px;
@@ -380,9 +384,7 @@
     }
   }
   @media (max-width:357px) {
-    .card{
-      width: 38% !important;
-    }
+  
     .state{
       font-size: 20px;
     }
@@ -402,10 +404,13 @@
   display: flex;
 }
 .card{
-  width: 43%;
+  width: 49%;
 }
 .LagosImage{
   width: 96%;
+}
+.cardSeven img, .card img{
+  height: auto;
 }
 .HomeSectionFour{
  gap: 10px;
@@ -503,9 +508,11 @@
   }
   .image1{
     width: 120px;
+    height: auto;
  }   
  .image2{
     width: 110px;
+    height: auto;
  }
  .image3{
     width: 125px;
@@ -534,6 +541,9 @@
     left: 5em;
     width: 230px;
   }
+  .card{
+    width: 48%;
+  }
   .featImgaeOne {
     width: 230px;
   }
@@ -548,7 +558,7 @@
         padding-bottom: 29em;
     }
 .final{
-    width: 80%;
+    width: 90%;
     flex-wrap: wrap-reverse;
     border-radius: 24px;
     left: 1em;

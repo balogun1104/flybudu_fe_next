@@ -2,10 +2,12 @@
 .body{
     border-radius: 25px;
      padding: 2em;
+     color: black;
      width: 500px;
      flex-direction: column;
      background: #fff;
      justify-content: center;
+     font-family: sans-serif;
      display: flex;
      gap: 1em;
      text-align: center;
@@ -17,8 +19,10 @@
  }
  .joinDiv{
  display: flex;
+ color: black;
  justify-content: space-between
  }
+
  .joinDiv button{
      cursor: pointer;
      display: flex;
@@ -28,6 +32,7 @@
      display: flex;
      width: 48%;
      border-radius: 8px;
+     color: black;
      padding: 10px 0;
      justify-content: center;
      border: 1px solid rgba(6, 188, 225, 1);
@@ -56,15 +61,17 @@
      gap: 1em;
  }
  .email{
-     width: 90%;
+     width: 100%;
      outline: none;
      padding: 10px 24px;
+     background: #fff;
      border-radius: 8px;
      border: 1px solid rgb(170, 162, 162);
  }
  .password{
-     width: 33.5em;
+    width: 100%;
      outline: none;
+     background: #fff;
      padding: 10px 24px;
      border-radius: 8px;
      border: 1px solid rgb(170, 162, 162);

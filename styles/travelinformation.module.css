@@ -5,13 +5,8 @@
     padding: 20px;
     z-index: 2;
     overflow-y: hidden;
-<<<<<<< HEAD
     color: black;
     font-family: sans-serif;
-=======
-
-   
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     top: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
@@ -121,10 +116,7 @@ width: 68%;
   .support{
     margin-right: 1em;
     width: 35px;
-<<<<<<< HEAD
     height: 35px;
-=======
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
   }
   .specialText{
     font-weight: lighter;
@@ -159,11 +151,7 @@ width: 68%;
       justify-content: center;
       display: flex;
       border-radius: 40px;
-<<<<<<< HEAD
       width: 90%;
-=======
-      width: 68%;
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
     }
     .link{
       width: 100%;

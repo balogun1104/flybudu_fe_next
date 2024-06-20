@@ -82,6 +82,9 @@
     }
   
     .card{
+      color: black;
+      font-family: sans-serif;
+      font-weight: bold;
       flex-shrink: 0;
       width: 345px;
       border-radius: 24px;
@@ -210,6 +213,9 @@ left: 3.3em;
     justify-content: space-around;
     left: 3em;
     top: 5em;
+    color: black;
+font-family: sans-serif;
+font-weight: bold;
     width: 90%;
     padding-bottom: 20px;
   }
@@ -285,6 +291,7 @@ left: 3.3em;
   }
   .subscribeButton img{
     padding: 0px 10px;
+    width: 45px;
   }
   .right, .left{
       height: 3em;
@@ -419,9 +426,11 @@ left: 3.3em;
   }
   .image1{
     width: 120px;
+    height: auto;
  }   
  .image2{
     width: 110px;
+    height: auto;
  }
  .image3{
     width: 125px;

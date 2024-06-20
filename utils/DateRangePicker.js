@@ -5,7 +5,7 @@ import { FieldButton } from "./Button";
 import { RangeCalendar } from "./RangeCalendar";
 import { DateField } from "./DateField";
 import { Popover } from "./Popover";
-import { CalendarIcon, ExclamationIcon } from "@heroicons/react/outline";
+// import { CalendarIcon, ExclamationIcon } from "@heroicons/react/outline";
 
 export function DateRangePicker(props) {
   let state = useDateRangePickerState(props);
