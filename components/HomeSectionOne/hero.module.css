@@ -169,8 +169,8 @@
 
 .cycle {
   position: absolute;
-  top: 39em;
-  left: 27em;
+  top: 38em;
+  left: 26em;
 }
 
 .inputGroup:nth-child(1) {
@@ -472,7 +472,7 @@ text-align: center;
   }
 
   .inputGroup {
-    width: 90% !important;
+    width: 100% !important;
   }
 
   .Letgo span {
@@ -493,7 +493,7 @@ text-align: center;
   }
 
   .cycle {
-    top: 35em;
+    top: 34em;
     left: 50%;
   }
 
@@ -639,7 +639,7 @@ text-align: center;
   }
 
   .cycle {
-    top: 26.5em !important;
+    top: 24.5em !important;
     left: 46% !important;
   }
 
@@ -676,7 +676,7 @@ text-align: center;
 
   .TravelImg {
     width: 100px;
-    top: -38px;
+    top: -72px;
   }
 
   .bookTravelImg {

@@ -8,6 +8,19 @@ import { Link } from "@nextui-org/react";
 import Footer from "../components/Footer/index";
 import Navbar from "../components/NavbarSecond/navbar";
 import PassengerList from "@/components/PassengerList/PassengerList";
+
+
+
+
+
+
+import avatar from "@/public/assets/images/whatsaap.jpg";
+import booking from "@/public/assets/images/managebookingblack.png";
+import notification from "@/public/assets/images/Group 2.png";
+import profileImg from "@/public/assets/images/Layer 2.png";
+import savedImg from "@/public/assets/images/savedpassengerwhite.png";
+import logoutImg from "@/public/assets/images/Wallet.png";
+import Image from "next/image";
 function SavedPassenger() {
   return (
     <div className={styles.general}>
@@ -27,10 +40,128 @@ function SavedPassenger() {
    </div>
    <div className={styles.secondDiv}>
      <div className={styles.about}>
-         <About/>
+       
+       
+
+
+
+
+
+
+
+     <div className={styles.genera}>
+      <div className={styles.avatarImg}>
+        {" "}
+        <Image src={avatar} className={styles.avatar} alt="" />
+        <Link
+          style={{ textDecoration: "none", color: "black" }}
+          href="/profile"
+        >
+          {" "}
+          <span className={styles.edit}>Edit Profile</span>
+        </Link>
+      </div>
+
+      <div className={styles.relax}>
+        <span style={{ fontWeight: "bold" }}> Mr. Unknown Viktim</span>
+        <span>
+          Phone: <b>081xxxxxxx</b>
+        </span>
+        <span>
+          Email: <b>unknown@viktim.com</b>
+        </span>
+        <span>
+          Nationality: <b>Nigerian</b>
+        </span>
+        <span>
+          Gender:<b>Male</b>
+        </span>
+        <span>
+          Date of Birth <b>Mar. 23, 2024</b>
+        </span>
+      </div>
+
+      <div className={styles.nameDiv}>
+        <span>Unknown user</span>
+        <p>090xxxxxxxx</p>
+        <p>Unknown@gmail.com</p>
+      </div>
+      <div className={styles.listDiv}>
+        <div className={styles.fourDiv}>
+          <Link
+            href="/managebooking"
+            style={{ textDecoration: "none", cursor: "pointer" }}
+          >
+            {" "}
+            <div className={styles.profile}>
+              <Image alt="" src={booking} />
+              <span>My Bookings</span>
+            </div>
+          </Link>
+
+          <Link
+            href="/notification"
+            style={{ textDecoration: "none", cursor: "pointer" }}
+          >
+            {" "}
+            <div className={styles.notification}>
+              <div className={styles.inner}>
+                <Image alt="" src={notification} />
+                <span>Notifications</span>
+              </div>
+              <p className={styles.red}>7</p>
+            </div>
+          </Link>
+
+          <Link
+            href="/profilepage"
+            style={{ textDecoration: "none", cursor: "pointer" }}
+          >
+            <div className={styles.profile}>
+              <Image alt="" src={profileImg} />
+              <span>Profile</span>
+            </div>
+          </Link>
+
+          <Link
+            href="/savedpassenger"
+            style={{ textDecoration: "none", cursor: "pointer" }}
+          >
+            <div className={styles.mybookingDiv}>
+              <Image alt="" src={savedImg} />
+              <span>Saved Passengers</span>
+            </div>
+          </Link>
+        </div>
+        <div className={styles.logoutDiv}>
+          <div className={styles.profile}>
+            <Image alt="" src={logoutImg} />
+            <Link
+              style={{ textDecoration: "none", cursor: "pointer" }}
+              href="/login"
+            >
+              {" "}
+              <span>Logout</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
      </div>
      <div className={styles.second}>
          <span className={styles.saved}>Saved Passengers</span>
+
+         <div className={styles.pass}> 
+            <Link  href="/managebooking" style={{textDecoration:"none", color:"black"}}> <span >My Bookings</span> </Link>
+        <Link href="/savedpassenger" style={{textDecoration:"none", color:"black"}}>    <span className={styles.passenger} style={{fontWeight:"bold"}}>Passengers</span></Link>
+          </div>
+
          <PassengerList/>
          <div className={styles.tooMuch}>
        <div>

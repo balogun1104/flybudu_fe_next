@@ -4,12 +4,46 @@ import MobileNavBar from "../components/MobileNavBar/index"
 import graph from "@/public/assets/images/graph.png";
 import hero from "@/public/assets/images/Hero Illustration.png";
 import About from "../components/About/About";
+import locationIcon from "@/public/assets/svg/locationpin.svg";
+import flyIcon from "@/public/assets/svg/buttonFly.svg";
+import calendarIcon from "@/public/assets/images/managebookingbluehouse.png";
 import Link from "next/link";
 import Airline from "../components/Airline/Airline";
 import Footer from "../components/Footer/index"
 import Navbar from "../components/NavbarSecond/navbar"
 import Image from "next/image";
 function ManageBooking() {
+
+
+
+  const MobileNavButtons = [
+    {
+      id: 1,
+      title: "Featured Flights",
+      icon: flyIcon, // Use the imported SVG file directly
+      Route: "featuredflights",
+      class:"black",
+    },
+    {
+      id: 2,
+      title: "Destinations",  
+      class:"black",
+      icon: locationIcon, // Use the imported SVG file directly
+      Route: "destinations",
+    },
+    {
+      id: 3,
+      title: "Manage Booking",
+      class:"rgba(6, 188, 225, 1)",
+      icon: calendarIcon, // Use the imported SVG file directly
+      Route: "managebooking",
+    },
+  ];
+
+
+
+
+  
   return (
     <div className={styles.general}>
       <div className={styles.header}>
@@ -33,7 +67,7 @@ function ManageBooking() {
         <div className={styles.bookingDiv}>
           <div className={styles.pass}> 
             <span className={styles.passenger} style={{fontWeight:"bold"}}>My Bookings</span> 
-        <Link href="/saved-passenger" style={{textDecoration:"none", color:"black"}}>    <span>Passengers</span></Link>
+        <Link href="/savedpassenger" style={{textDecoration:"none", color:"black"}}>    <span>Passengers</span></Link>
           </div>
           <div className={styles.book}>
             <span className={styles.none}>Bookings</span>
@@ -84,7 +118,33 @@ function ManageBooking() {
         </div>
         </div>
       </div>
-      <MobileNavBar/>
+     
+     
+
+
+
+
+      <div className={styles.navba}>
+      <div className={styles.buttondiv}>
+        {MobileNavButtons.map((item) => (
+          <Link key={item.id} href={`/${item.Route}`}>
+            <button className={styles.buttons}>
+              <div className={styles.img}>
+                <Image src={item.icon} alt={item.title} width={24} height={24} /> {/* Render SVG using next/image */}
+              </div>
+              <p style={{ color: `${item.class}` }} >{item.title}</p>
+            </button>
+          </Link>
+        ))}
+      </div>
+    </div>
+
+
+
+
+
+
+
       <Footer/>
     </div>
   );

@@ -1,4 +1,4 @@
-.general{
+.genera{
     background-color: #fff;
     display: flex;
     flex-direction: column;
@@ -115,7 +115,7 @@
     .fourDiv a{
         display: none;
     }
-    .general{
+    .genera{
         border-radius: 12px;
     }
 }

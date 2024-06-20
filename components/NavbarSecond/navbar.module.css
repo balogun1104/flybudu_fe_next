@@ -139,8 +139,6 @@
   @media (max-width:768px) {
     .quoteImg{
       background: none;
-      margin-right: 3em;
-      margin-left: 12px;
     }
    .avatar{
     display: none;

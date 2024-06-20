@@ -3,46 +3,50 @@
     background: #fff;
     width: 80%;
     padding: 30px;
+    color: black;
+    font-family: sans-serif;
     border-radius: 12px;
-}
-.avatar{
+  }
+  .avatar{
+    height: 150px;
   width: 150px;
   border-radius: 50%;
-}
-.firstLine{
+  }
+  
+  .firstLine{
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 30px;
-}
-.edit{
+  }
+  .edit{
     padding: 5px 10px;
     border-radius: 30px;
     border: 1px solid;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-.general {
-    /* font-family: myFont; */
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  .general{
     color: black;
     font-family: sans-serif;
   }
-
-  .general input , .general select{
-    background: white;
+  .general input, .general select {
     color: black;
+    background: #fff;
+    /* font-family: myFont; */
   }
+  
   
   .select {
     padding: 10px 5px;
@@ -97,7 +101,7 @@
   
   .omo {
     display: flex;
-
+  
   }
   .select1 {
     padding: 9px 5px;
@@ -171,10 +175,6 @@
   .input1{
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-  }
-  .omo{
-    display: flex;
-    gap: 6px;
   }
   .triplet {
     display: flex;
@@ -252,6 +252,12 @@
     display: none;
   }
   @media (max-width:1267px) {
+    .titleDiv input , .sigh, .input1{
+      width: 100%;
+    }
+     .kehinde, .idowu{
+      width: 100%;
+    }
     .mother{
       width: 369px;
     }
@@ -269,17 +275,12 @@
     }
     .navbar{
       display: flex;
-      /* gap: 41%; */
-      padding: 1em 0;
-      justify-content: space-around;
+      gap: 41%;
+      padding: 1em 2em;
       background: #fff;
       font-size: 24px;
       width: 100%;
-      align-items: center;
       position: fixed;
-    }
-    .navbar span{
-      font-size: 18px;
     }
       .bottom{
         display: flex;
@@ -298,6 +299,7 @@
         padding: 10px 30px;
         justify-content: center;
         /* width: 60%; */
+        font-size: 14px;
         border-radius: 40px;
         display: flex;
         text-align: center;
@@ -315,6 +317,9 @@
       }
       .input1{
         width: 99%;
+      }
+      .titleDiv input , .sigh, .input1{
+        width: 100%;
       }
       .titleDiv, .surnameDiv, .firstDiv, .middle, .nationality, .gender, .taye, .kehinde, .idowu{
         width: 100%;
@@ -336,7 +341,8 @@
       }
   }
   @media (max-width:500px) {
-    /* .navbar{
+    .navbar{
       gap: 24%;
-    } */
+    }
   }
+  
