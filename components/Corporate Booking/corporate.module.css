@@ -9,7 +9,7 @@
     padding: 70px 0 80px;
     background: rgba(246, 246, 246, 1);
     color: black;
-    padding: 0 0 80px;
+    padding: 80 0 80px;
     margin: 0;
 }
 .body{
@@ -52,6 +52,7 @@ flex-direction: column;
     }
     .body img{
         width: 90%;
+        height: auto;
     }
     .text{
         text-wrap: balance;

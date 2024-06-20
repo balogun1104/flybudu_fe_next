@@ -64,7 +64,6 @@
   .quote{
     background-color: #FFFFFF;
     border-radius: 32px;
-    color: black;
     padding: 5px 10px;
     /* width: 160px; */
   gap: 10px;
@@ -76,6 +75,8 @@
   .quoteWrap{
     display: flex;
     align-items: center;
+    color: black;
+    font-weight: bold;
     gap: 10px;
     /* filter: blur(5px); */
   }
@@ -88,7 +89,6 @@
 
   .NavTwo{
     display: flex;
-    color: black;
     justify-content: space-between;
     align-items: center;
     padding-top: 20px;
@@ -134,8 +134,8 @@
     .quoteImg{
       position: relative;
       /* right: 3em; */
-      margin-right: 3em;
-      margin-left: 12px;
+      /* margin-right: 3em;
+      margin-left: 12px; */
       background: none;
     }
     .logo{

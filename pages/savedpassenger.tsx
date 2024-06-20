@@ -1,3 +1,4 @@
+
 import React from "react";
 import styles from "../styles/savedpassenger.module.css";
 import MobileNav from "../components/MobileNavBar/index";
@@ -7,7 +8,6 @@ import { Link } from "@nextui-org/react";
 import Footer from "../components/Footer/index";
 import Navbar from "../components/NavbarSecond/navbar";
 import PassengerList from "@/components/PassengerList/PassengerList";
-import Image from "next/image";
 function SavedPassenger() {
   return (
     <div className={styles.general}>
@@ -16,7 +16,7 @@ function SavedPassenger() {
      
    </div>
    <div className={styles.firstDiv}>
-     <Image className={styles.hero} src={hero} alt="" />
+     <img className={styles.hero} src={hero} alt="" />
      <div className={styles.textDiv}>
        <span className={styles.bigText}> MANAGE BOOKINGS</span>
        <p className={styles.small}>

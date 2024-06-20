@@ -86,7 +86,7 @@ function Navbar() {
                 style={{ cursor: "pointer" }}
                 className={styles.quote}
               >
-                <span>Get a Qoute</span>
+                <span>Corporate Booking</span>
                 <span>
                   <Image src={Quote} alt="" />
                 </span>

@@ -1,10 +1,10 @@
 import React from 'react'
-import styles from "./passengerdetails.module.css"
+import styles from "../styles/passengerdetails.module.css"
 // import ProfileImg from "../../assets/images/whatsaap.jpg"
 // import { IoIosArrowBack } from 'react-icons/io'
 import Link from 'next/link';
 import Backbutton from "../../public/assets/images/backbutton.png"
-function Profile() {
+function PassengerDetails() {
 
   function HeroiconsOutlineDotsVertical(props) {
     return (
@@ -29,7 +29,7 @@ function Profile() {
 
   return (
     <div className={styles.general}>
-      <div className={styles.navbar}> <Link href="/saved-passenger"> <img src={Backbutton} alt='' /> </Link><span> Passenger Details</span> <HeroiconsOutlineDotsVertical/></div>
+      <div className={styles.navbar}> <Link to="/saved-passenger"> <img src={Backbutton} alt='' /> </Link><span> Passenger Details</span> <HeroiconsOutlineDotsVertical/></div>
       <div className={styles.mother}>
         <div className={styles.firstLine}>
           <span className={styles.edit}> Edit Passenger</span>
@@ -137,9 +137,9 @@ function Profile() {
           </div>
         </div>
       </div>
-      <div className={styles.bottom}> <Link href="/saved-passenger" style={{color:"black", textDecoration:"none"}}><span className={styles.cancel}>Cancel</span>  </Link>  <Link  to="/profile-page" style={{color:"black", textDecoration:"none"}} ><span className={styles.changes}>Save Changes</span></Link></div>
+      <div className={styles.bottom}> <Link to="/saved-passenger" style={{color:"black", textDecoration:"none"}}><span className={styles.cancel}>Cancel</span>  </Link>  <Link  to="/profile-page" style={{color:"black", textDecoration:"none"}} ><span className={styles.changes}>Save Changes</span></Link></div>
     </div>
   )
 }
 
-export default Profile
+export default PassengerDetails

@@ -5,6 +5,7 @@
   color: black;
   padding-bottom: 17rem;
   z-index: 2;
+  font-family: sans-serif;
   top: 0;
   box-sizing: border-box;
 }
@@ -49,6 +50,7 @@
   padding-top: 5rem;
 }
 .subscribeButton img{
+  width: 45px;
   padding: 0px 10px;
 }
 
@@ -182,6 +184,7 @@
   }
 .featImgaeOne ,.featImgaeTwo{
   width: 250px;
+  height: auto;
 }
 .featImgaeTwo{
   bottom: 30px;
@@ -207,16 +210,19 @@
  width: 90%;
  margin-left: 20px;
  justify-content: space-between;
- padding-left: 30px;
+ padding-left: 10px;
 }
  .image1{
     width: 190px;
+    height: auto;
  }
  .image2{
     width: 170px;
+    height: auto;
  }
  .image3{
     width: 140px;
+    height: auto;
  }
  .be{
     font-size: 33px;

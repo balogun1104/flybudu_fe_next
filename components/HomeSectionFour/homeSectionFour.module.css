@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     padding-top: 5rem;
+    background: white;
     padding-left: 1rem;
     gap: 20px;
     padding-right: 1rem;
@@ -93,6 +94,7 @@
   .explore{
     display: flex;
     justify-content: center;
+    background: white;
     padding-top: 3rem;
     padding-bottom: 3rem;
   }
@@ -179,12 +181,14 @@ color: white;
     font-size: 40px;
   }
   .LagosImage{
+    height: auto;
     width: 200px;
   }
 }
 @media (max-width:600px) {
   .LagosImage{
     width: 130px;
+
     margin-bottom: 30px;
   }
   

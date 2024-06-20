@@ -1,9 +1,5 @@
     .body{
-<<<<<<< HEAD
         height: 50px;
-=======
-        height: 120px;
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
 
     }
     .father{
@@ -75,11 +71,7 @@
         font-size: 15px;
     }
     @media (max-width:768px) {
-<<<<<<< HEAD
         .father{
-=======
-        .general{
->>>>>>> 399b9c1d7cb072ef7ea17c0aab64fa83017bfccd
             display: none;
         }
     }
