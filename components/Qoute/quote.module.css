@@ -72,7 +72,10 @@
     outline: none;
     
   }
-  
+  .darkBG input, .darkBG select, .darkBG textarea {
+    background: white;
+    color: black;
+  }
   .phoneSaga{
     display: flex;
     flex-direction: row;
