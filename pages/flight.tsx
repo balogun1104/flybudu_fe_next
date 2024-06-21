@@ -10,14 +10,15 @@ import Edit from "@/public/assets/images/Edit.png"
 import MobileNav from "../components/MobileNavBar";
 import FlightFilter from "../components/FlightFilter/index"
 import Image from "next/image";
-
+import { useAppSelector } from '@/redux/hooks';
 // import SliderControl from "../components/SliderControl/SliderControl";
 import  Link  from 'next/link';
 
 
 const Flight = () => {
+  const { searchCriteria, flightData, loading, error } = useAppSelector((state) => state.flight);
 
-
+  // console.log(flightData, "................................")
   const [visible, setVisible] = useState(false);
   const toggleDivs = () =>{
       setVisible(!visible)
