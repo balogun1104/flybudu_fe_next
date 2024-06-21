@@ -1,0 +1,135 @@
+
+.flg{
+    display: flex;
+    width: 100%;
+    z-index: 4;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rec{
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+    gap: 10px;
+    flex-wrap:wrap
+}
+
+.rec p{
+    background-color:#F1F1F1 ;
+padding: 6px 18px;
+    border-radius: 32px;
+    font-size: 14px;
+    /* flex: 1 1 calc(50% - 10px);
+    text-align: center;  */
+    border: 1px solid #D6D6D6;
+    font-family: mythin;
+}
+
+.price span{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.airline{
+    padding-bottom: 15px;
+}
+.airlineHead{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.airlineSearch input{
+border: none;
+background: none;
+outline: none;
+}
+
+.airlineSearch {
+    border: 1px solid #B5C3C3;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 16px;
+    padding: 5px 16px 5px 16px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.airPeace{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.airPeace p{
+    color: #1D1D1D;
+    font-weight: bold;
+    margin: 0.2em 0;
+}
+.airPeace span{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #7A7A7A;
+}
+
+.flexibilty{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+    
+}
+
+.refund{
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding-bottom: 10px;
+}
+.filterDiv{
+    display: none;
+}
+@media (max-width:768px) {
+    .general{
+        padding: 2em 2em 8em;
+        background: white;
+        color: black;   
+        font-family: sans-serif;
+
+    }
+    .filterDiv{
+        display: flex;
+       background: #fff;
+        position: fixed;
+        bottom: 0;
+        justify-content: space-between;
+        left: 0;
+        width: 100%;
+        padding: 30px;
+    }
+.cancel{
+    padding: 10px 20px ;
+    border-radius: 40px;
+    border: 1px solid;
+}
+.filter{
+    color: #fff;
+    background: #06BCE1;
+    padding: 10px  25px;
+    border-radius: 40px;
+}
+.bold{
+    font-size: 20px;
+}
+.airPeace input, .refund input{
+    font-family: sans-serif;
+    width: 20px;
+    background: #F6F5EA;
+}
+}

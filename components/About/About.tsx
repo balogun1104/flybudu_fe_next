@@ -11,7 +11,7 @@ import Image from "next/image";
 
 function About() {
   return (
-    <div className={styles.general}>
+    <div className={styles.genera}>
       <div className={styles.avatarImg}>
         {" "}
         <Image src={avatar} className={styles.avatar} alt="" />

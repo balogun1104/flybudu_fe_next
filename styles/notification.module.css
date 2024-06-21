@@ -260,3 +260,138 @@
   }
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+.genera{
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  color: black;
+  padding: 20px ;
+  font-family: sans-serif;
+  justify-content: center;
+  align-items: center;
+}
+.avatar{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.avatarImg{
+
+}
+.edit{
+  /* position: relative;
+  right: 1em; */
+  padding: 10px;
+  display: none;
+  border: 1px solid;
+  border-radius: 10px;
+}
+.nameDiv{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  justify-content: center;
+  text-align: center;
+}
+.nameDiv span{
+  font-size: 30px;
+  font-weight: bold;
+}
+.nameDiv p{
+  font-size: 20px;
+}
+.mybookingDiv{
+  display: flex;
+  align-items: center;
+  padding: 20px 20px;
+  background:  #06BCE1;
+  gap: 1em;
+  border-radius: 10px;
+}
+.mybookingDiv span{
+  font-weight: 600;
+  color: #fff;
+}
+.notificatio{
+  display: flex;
+  align-items: center;
+  padding: 20px 20px;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+.red{
+  color: #fff;
+  background: red;
+  padding: 3px 6px;
+  border-radius: 12px;
+}
+.inner{
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+.profile{
+  display: flex;
+  align-items: center;
+  padding: 20px 20px;
+ 
+  gap: 1em;
+  border-radius: 10px;
+}
+.fourDiv{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgb(129, 128, 128);
+}
+.listDiv{
+  width: 100%;
+}
+.relax{
+  display: none;
+}
+@media (max-width:768px) {
+  .avatarImg{
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      /* width: 100%; */
+      width: 100%;
+      align-self: flex-end;
+      justify-content: space-between;
+  }
+  .edit{
+      display: flex;
+      border-radius: 40px;
+  }
+  .relax{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 1em;
+  }
+  .nameDiv{
+      display: none;
+  }
+  .fourDiv a{
+      display: none;
+  }
+  .genera{
+      border-radius: 12px;
+  }
+}

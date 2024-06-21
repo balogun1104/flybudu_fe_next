@@ -1,0 +1,246 @@
+.general {
+    margin-top: 70px;
+    background: white;
+    border-radius: 5px;
+    border-radius:  20px;
+    color: black;
+    font-family: sans-serif;
+  }
+  .plane{
+    margin: 0 30px;
+  }
+  .img {
+    width: 100%;
+    height: 120px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background: #1eff59;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  .greenAfrica {
+    display: flex;
+    gap: 10px;
+    /* padding: 10px ; */
+  }
+  .bold {
+    font-weight: bold;
+  }
+  .greenText {
+    border-right: 1px solid black;
+    padding-right: 10px;
+  }
+  .seconddiv {
+    padding: 20px 15px;
+    border-bottom: 1px solid black;
+  }
+  .book {
+    font-weight: bolder;
+  }
+  .change {
+    background: #ecf8fa;
+    padding: 5px 20px;
+    border: 1px solid #0e90aa;
+    border-radius: 50px;
+    font-size: 14px;
+  }
+  .init {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  .depart {
+    font-weight: bolder;
+  }
+  .departDiv {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+  }
+  .depart,
+  .date {
+    border-right: 1px solid black;
+    padding-right: 20px;
+  }
+  .thirdDiv {
+    padding: 20px 15px;
+    border-bottom: 1px solid black;
+  }
+  .fourthDiv {
+    padding: 20px 15px;
+    border-bottom: 1px solid black;
+  }
+  .triplet {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    line-height: 23px;
+    margin-top: 10px;
+  }
+  .abuja {
+    text-align: end;
+  }
+  .abujaText {
+    font-weight: bolder;
+  }
+  .time {
+    font-size: 18px;
+  }
+  .fifthDiv {
+    padding: 20px 15px;
+    line-height: 30px;
+  
+  }
+  .twins {
+    display: flex;
+    justify-content: space-between;
+    line-height: 30px;
+  }
+  .base {
+    font-size: 20px;
+    font-weight: bolder;
+  }
+  .blue {
+    font-weight: bold;
+    font-size: 20px;
+    color: #06bce1;
+  }
+  .priceDiv {
+    align-items: center;
+    justify-content: center;
+    text-align: flex-start;
+    display: flex;
+    padding: 10px;
+    padding-bottom: 30px;
+    color: #eb5130;
+    background: #fff3f0;
+    font-size: 14px;
+    padding: 10px;
+    font-weight: bold;
+  
+  }
+  .price {
+    font-size: 14px
+  }
+  .secondHeader{
+    display: none;
+  }
+  
+  .skipDiv{
+    display: none;
+  }
+  @media (max-width:768px) {
+    .general{
+      background: #f0efef;
+    }
+    .seconddiv, .thirdDiv, .fourthDiv, .fifthDiv, .skipDiv{
+      background: #fff;
+    }
+    .body{
+      background: #f0efef;
+      padding-bottom: 5em;
+    }
+    .general{
+      padding: 20px ;
+    }
+    .secondHeader{
+      display: flex;
+      position: fixed;
+      top: 0;
+      background: #fff;
+      display: flex;
+      width: 100%;
+      position: fixed;
+      justify-content: space-between;
+      top: 0;
+      left: 0;
+      background: #fff;
+      padding: 1em 0;
+      align-items: center;
+    }
+    .back{
+      margin-left: 1em;
+    }
+    .support{
+      margin-right: 1em;
+      width: 35px;
+      height: 35px;
+    }
+    .specialText{
+      font-weight: lighter;
+      padding: 10px;
+      border: 1px solid black;
+      border-radius: 6px;
+      margin-left: 5px;
+        }
+       
+      .money{
+        display: block;
+        margin-left: 20px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .skipDiv{
+        position: fixed;
+        background: #fff;
+        bottom: 0;
+        width: 100%;
+        left: 0;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        padding: 25px 0;
+        margin: 0;
+      }
+      .save{
+        font-size: 14px;
+        font-weight: bold;
+        background: #06BCE1;
+        padding: 15px 30px;
+        color: #fff;
+        justify-content: center;
+        display: flex;
+        border-radius: 40px;
+        width: 90%;
+      }
+      .link{
+        width: 100%;
+      }
+      /* .skipDiv a{
+        margin-right: 20px;
+        display: flex;
+      } */
+      .money{
+        display: block;
+        margin-left: 10px;
+        font-size: 20px;
+        width: 30%;
+        font-weight: bold;
+      }
+    .fifthDiv{
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+    .abuja{
+      gap: 10px !important;
+      display: flex;
+      flex-direction: column;
+    }
+    .lagos{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .price{
+      line-height: 18px;
+    }
+    .priceDiv{
+      gap: 10px;
+      margin-top: 30px;
+      /* border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px; */
+      border-radius: 10px;
+    }
+  }

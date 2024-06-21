@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from "./passengerlist.module.css"
-import Link from 'next/link';
+import { Link } from "@nextui-org/react";
 function PassengerList() {
     function HeroiconsOutlineDotsVertical(props) {
         return (
@@ -82,7 +82,7 @@ function PassengerList() {
       <td className={`${styles.none} ${styles.td}`}>080xxxxxxx</td>
       <td colspan="4" className={`${styles.none} ${styles.td}`}> <HeroiconsOutlineDotsVertical/></td>
     </tr><tr className={styles.tr} >
-       <td className={styles.td}>08</td>
+      <Link href='/PassengerDetails'> <td className={styles.td}>08</td></Link>
        <td className={styles.td}> <span className={styles.nameCircle}>AG</span> Unknown User</td>
       <td className={`${styles.none} ${styles.td}`}>unknown@gmail.com.com</td>
       <td className={`${styles.none} ${styles.td}`}>080xxxxxxx</td>
