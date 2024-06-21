@@ -64,6 +64,10 @@ const HomeSectionOne = () => {
   const [isDatePickOpen, setIsDatePickOpen] = useState<boolean>(false);
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
+  const [localFlightText, setLocalFlightText] = useState("Local Flights");
+  const [tripTypeText, setTripTypeText] = useState("Round Trip");
+  const [classTypeText, setClassTypeText] = useState("Economy");
+
   const totalPassengers = Object.values(passengerCounts).reduce(
     (total, count) => total + count,
     0
@@ -76,6 +80,21 @@ const HomeSectionOne = () => {
 
   const [isClient, setIsClient] = useState(false);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+
+  const handleInternational = (info: any) => {
+    setInternational([internationalTrip[info.key]]);
+    setLocalFlightText(internationalTrip[info.key]);
+  };
+
+  const handleRoundTrip = (info: any) => {
+    setRound([roundTrip[info.key]]);
+    setTripTypeText(roundTrip[info.key]);
+  };
+
+  const handleLocalFlight = (info: any) => {
+    setLocal([localFlight[info.key]]);
+    setClassTypeText(localFlight[info.key]);
+  };
 
   useEffect(() => {
     setIsClient(true);
@@ -208,18 +227,6 @@ const HomeSectionOne = () => {
     if (dates && dates.length === 2) {
       setIsDatePickOpen(false); // Close the date picker
     }
-  };
-
-  const handleInternational = (info: any) => {
-    setInternational([internationalTrip[info.key]]);
-  };
-
-  const handleRoundTrip = (info: any) => {
-    setRound([roundTrip[info.key]]);
-  };
-
-  const handleLocalFlight = (info: any) => {
-    setLocal([localFlight[info.key]]);
   };
 
   const handleMenuClick = (info: any) => {
@@ -385,7 +392,7 @@ const HomeSectionOne = () => {
                   <span className={styles.small}>
                     <Image src={SmallFly} alt="f " />
                   </span>
-                  Local Flights
+                  {localFlightText}
                   <span className={styles.dropdownIcon}>
                     <Image src={ArrowDown} alt="flw dow " />
                   </span>
@@ -398,9 +405,8 @@ const HomeSectionOne = () => {
                   <span className={styles.small}>
                     <Image src={SmallFly} alt="f " />
                   </span>
-                  Round Trip
+                  {tripTypeText}
                   <span className={styles.dropdownIcon}>
-                    {" "}
                     <Image src={ArrowDown} alt="flw dow " />
                   </span>
                 </button>
@@ -410,9 +416,8 @@ const HomeSectionOne = () => {
                   <span className={styles.small}>
                     <Image src={SmallFly} alt="f " />
                   </span>
-                  Economy
+                  {classTypeText}
                   <span className={styles.dropdownIcon}>
-                    {" "}
                     <Image src={ArrowDown} alt="flw dow " />
                   </span>
                 </button>
@@ -522,9 +527,10 @@ const HomeSectionOne = () => {
                         <label className={styles.label}>Returning On </label>
                       </div>
                     </div>
-                    <button type="button" onClick={handleDatePickerToggle}>
-                    
-                    </button>
+                    <button
+                      type="button"
+                      onClick={handleDatePickerToggle}
+                    ></button>
                     {isClient && isDatePickerOpen && (
                       <OverlayContainer>
                         <DateRangePicker
@@ -703,7 +709,7 @@ const HomeSectionOne = () => {
           </p>
           <div className={styles.theArtDiv}>
             <Image src={TheArt} className={styles.theArt} alt="theArt" />
-            <p className={styles.theArtText} style={{color:"black"}}>
+            <p className={styles.theArtText} style={{ color: "black" }}>
               The <span style={{ color: "#fff" }}>A</span>rt Of <br />
               Tail<span style={{ color: "#fff" }}>o</span>red Tra
               <span style={{ color: "#fff" }}>v</span>el

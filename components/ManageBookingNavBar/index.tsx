@@ -50,7 +50,7 @@ export const MobileNavScreen: React.FC<MobileNavScreenProps> = ({
       id: 1,
       title: "Profile",
       icon: Unknown,
-      navigate: "/profile-page",
+      navigate: "/profilepage",
     },
     {
       id: 2,
@@ -62,7 +62,7 @@ export const MobileNavScreen: React.FC<MobileNavScreenProps> = ({
       id: 3,
       title: "Saved passenger",
       icon: payment,
-      navigate: "/saved-passenger",
+      navigate: "/savedpassenger",
     },
     {
       id: 4,
