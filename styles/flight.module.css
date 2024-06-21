@@ -200,6 +200,22 @@ flex-direction: column;
 .Navbar{
     display: none;
 }
+.edit{
+    text-align: center;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 30px;
+    font-size: 20px;
+    margin:  0 0 10px ;
+    border-radius: 30px;
+    align-items: flex-end;
+    border: 1px solid black;
+  }
+  .editDiv{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
 @media (max-width:768px) {
     .imgDiv{
         margin-right: 10px !important;
@@ -239,6 +255,9 @@ flex-direction: column;
     .dateDiv{
         border-radius: 0;
     }
+    .edit{
+        margin-right: 20px;
+       }
     .Navbar svg{
         margin-left: 10px !important;
     }

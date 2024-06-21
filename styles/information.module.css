@@ -1,0 +1,169 @@
+
+.mother{
+    padding: 30px;
+    color: black;
+    font-family: sans-serif;
+    background: #fff;
+}
+.general{
+    color: black;
+    font-family: sans-serif;
+    background: #fff;
+}
+.firstDiv{
+    display: flex;
+    justify-content: space-between;
+    font-size: 22px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+.innerFirst{
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+.departDiv{
+    display: flex;
+    
+    /* gap: 1em; */
+}
+.departDiv span{
+    font-size: 19px;
+    padding: 0 10px ;
+    border-right: 1px solid  black;
+}
+.travelDiv{
+display: flex;
+gap: 0.3em;
+padding: 20px 0;
+
+flex-direction: column;
+}
+.travelDiv div{
+    display: flex;
+    justify-content: space-between;
+}
+.state{
+    font-weight: bold;
+    font-size: 22px;
+}
+.time{
+    font-size: 21px;
+}
+.depart{
+   padding-left: 0 !important;
+}
+.customer{
+    font-size: 21px;
+    font-weight: bold;
+}
+.customerDiv{
+    display: flex;
+    padding: 20px 0;
+    flex-direction: column;
+    gap: 0.3em;
+    border-top: 1px solid;
+}
+.customerDiv div, .fareDiv div, .paymentDiv div{
+    display: flex;
+    justify-content: space-between;
+}
+.fareDiv{
+    padding: 20px 0;
+    display: flex;
+    border-top: 1px solid;
+    flex-direction: column;
+    gap: 0.3em;
+}  
+.total{
+    font-size: 21px;
+}
+.secondHeader{
+    display: none;
+}
+
+.totalAmt{
+font-size: 21px;
+color: rgba(6, 188, 225, 1);
+font-weight: bold;
+}
+.paymentDiv{
+    gap: 0.7em;
+    padding: 20px 0;
+    border-top: 1px solid;
+    display: flex;
+    flex-direction: column
+}
+@media (max-width:768px) {
+    .general{
+        padding: 8em 15px;
+        background: #dbd8d8;
+    }
+    .state{
+        font-size: 20px;
+    }
+    .airport{
+        width: 150px;
+        text-align:  end;
+    }
+    .airportLeft{
+        width: 150px;
+        text-align: left;
+    }
+    .airportDiv{
+        gap: 14px;
+        display: flex;
+        align-items: center;
+    }
+    .sike{
+        display: none;
+    }
+    .mother{
+        padding: 30px 10px;
+        border-radius: 12px;
+    }
+    
+  .secondHeader{
+    display: flex;
+    position: fixed;
+    top: 0;
+    background: #fff;
+    display: flex;
+    width: 100%;
+    position: fixed;
+    justify-content: space-between;
+    top: 0;
+    background: #fff;
+    padding: 1em 0;
+    align-items: center;
+    left: 0;
+  }
+  .secondHeader span{
+    font-size: 20px;
+  }
+  .back{
+    margin-left: 1em;
+  }
+  .support{
+    margin-right: 1em;
+    width: 50px;
+  }
+  .specialText{
+font-weight: lighter;
+padding: 10px;
+border: 1px solid black;
+border-radius: 6px;
+margin-left: 5px;
+  }
+  .who{
+    font-size: 25px;
+  }
+}
+@media (max-width:400px) {
+    .departDiv span{
+        padding: 0 10px;
+    }
+    .departDiv{
+        /* justify-content: space-between; */
+    }
+}
