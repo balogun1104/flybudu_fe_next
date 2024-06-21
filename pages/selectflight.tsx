@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styles from "@/styles/selectflight.module.css"
 import Plane from "@/public/assets/images/BlueSmallPlane.png"
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
@@ -14,6 +14,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 function SelectFlight() {
+
+  
+  const [visible, setVisible] = useState(false);
+  const toggleDivs = () =>{
+      setVisible(!visible)
+  }
   return (
     <div className={styles.general}>
 
@@ -49,8 +55,11 @@ function SelectFlight() {
   <span className={styles.state}>Lagos to Abuja</span>
   </div></div>
 
+  <div className={styles.editDiv}>
+  <span className={styles.edit}  onClick={toggleDivs}>Edit</span>
+  </div>
   <div className={styles.margin}>
-  <div className={styles.dateDiv}>
+  <div className={styles.dateDiv}  style={{display: visible ? "flex" : "none"}}>
               <IoIosArrowBack />
              
               <div className={styles.opor}>

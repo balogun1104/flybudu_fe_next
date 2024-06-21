@@ -116,6 +116,23 @@
   display: none;
 }
 
+.edit{
+  text-align: center;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 30px;
+  font-size: 20px;
+  margin:  0 0 10px ;
+  border-radius: 30px;
+  align-items: flex-end;
+  border: 1px solid black;
+}
+.editDiv{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 @media (max-width:768px) {
   .general {
 
@@ -192,6 +209,11 @@
     font-weight: bold;
     background: #fff;
   }
+
+  .edit{
+    margin-right: 20px;
+   }
+
 
   .booking {
     font-size: 14px;

@@ -16,6 +16,12 @@ import  Link  from 'next/link';
 
 
 const Flight = () => {
+
+
+  const [visible, setVisible] = useState(false);
+  const toggleDivs = () =>{
+      setVisible(!visible)
+  }
   const [openEdit, setOpenEdit] = useState(false)
 
   return (
@@ -56,7 +62,11 @@ const Flight = () => {
           <FlightFilter onClick={() => setOpenEdit(false)} />
           </div>
           <div className={styles.flightContentTwo}>
-            <div className={styles.dateDiv}>
+
+          <div className={styles.editDiv}>
+  <span className={styles.edit}  onClick={toggleDivs}>Edit</span>
+  </div>
+            <div className={styles.dateDiv}   style={{display: visible ? "flex" : "none"}}>
               <IoIosArrowBack />
              <div className={styles.opor}>
              <div className={styles.flexDiv}>
