@@ -34,11 +34,11 @@ import { useMediaQuery } from "react-responsive";
 import { DateRangePicker } from "@/utils/DateRangePicker";
 import { today, getLocalTimeZone } from "@internationalized/date";
 import dynamic from "next/dynamic";
+import axiosInstance from "@/redux/api";
+import { useRouter } from "next/router";
 
 const HomeSectionOne = () => {
-  // let [date, setDate] = useState<DateValue>(
-  //   parseAbsoluteToLocal('2021-04-07T18:45:22Z')
-  // );
+  const router = useRouter();
 
   const [selectedLocation, setSelectedLocation] =
     useState<string>("City or Airport");
@@ -51,7 +51,11 @@ const HomeSectionOne = () => {
   const [isPassengerDropdownVisible, setIsPassengerDropdownVisible] =
     useState<boolean>(false);
   const [, setLeaveDate] = useState<string | null>(null);
-  const [, setReturnDate] = useState<string | null>(null);
+  const [isRoundTrip, setIsRoundTrip] = useState(true);
+
+  const [departureDate, setDepartureDate] = useState("");
+  const [returnDate, setReturnDate] = useState("");
+  const [canNavigate, setCanNavigate] = useState(false);
   const [passengerCounts, setPassengerCounts] = useState<{
     adults: number;
     children: number;
@@ -63,6 +67,14 @@ const HomeSectionOne = () => {
   });
   const [isDatePickOpen, setIsDatePickOpen] = useState<boolean>(false);
   const isMobile = useMediaQuery({ maxWidth: 767 });
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<{
+    from?: string;
+    to?: string;
+    departureDate?: string;
+    returnDate?: string;
+    passengers?: string;
+  }>({});
 
   const [localFlightText, setLocalFlightText] = useState("Local Flights");
   const [tripTypeText, setTripTypeText] = useState("Round Trip");
@@ -89,6 +101,7 @@ const HomeSectionOne = () => {
   const handleRoundTrip = (info: any) => {
     setRound([roundTrip[info.key]]);
     setTripTypeText(roundTrip[info.key]);
+    setIsRoundTrip(roundTrip[info.key] === "Round trip");
   };
 
   const handleLocalFlight = (info: any) => {
@@ -308,6 +321,71 @@ const HomeSectionOne = () => {
     </Menu>
   );
 
+  const handleButtonClick = async (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent default navigation
+    const isValid = await handleLetGoClick();
+    if (isValid) {
+      setCanNavigate(true);
+    }
+  };
+
+  const handleLetGoClick = async () => {
+    setErrors({});
+
+    // Validate fields
+    let newErrors: { [key: string]: string } = {};
+    if (!selectedLocation || selectedLocation === "City or Airport") {
+      newErrors.from = "Please select a departure location";
+    }
+    if (!selectedDestination || selectedDestination === "City or Airport") {
+      newErrors.to = "Please select a destination";
+    }
+    if (!departureDate) {
+      newErrors.departureDate = "Please select a departure date";
+    }
+    if (!returnDate) {
+      newErrors.returnDate = "Please select a return date";
+    }
+    if (totalPassengers === 0) {
+      newErrors.passengers = "Please select passengers";
+    }
+
+    // If there are errors, set them and return false
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return false;
+    }
+
+    // Proceed with API call if all fields are valid
+    setIsLoading(true);
+
+    try {
+      const payload = {
+        from: selectedLocation.split(",")[0],
+        to: selectedDestination.split(",")[0],
+        departure_date: departureDate,
+        arrival_date: returnDate,
+      };
+
+      const response = await axiosInstance.post("flights/search", payload);
+      console.log("API Response:", response.data);
+      // Handle the response as needed
+      return true; // Return true if the API call is successful
+    } catch (error) {
+      console.error("Error making API call:", error);
+      // Handle the error as needed
+      return false; // Return false if there's an error
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (canNavigate) {
+      router.push("/flight");
+    }
+  }, [canNavigate]);
+
   const locations = [
     "Lagos, Nigeria",
     "Abuja, Nigeria",
@@ -426,9 +504,9 @@ const HomeSectionOne = () => {
             <div className={styles.midloc}>
               <div className={styles.searchForm}>
                 <div
-                  className={styles.inputGroup}
-                  style={{ fontFamily: "sans-serif", fontWeight: "600" }}
-                  // style={{ width: "23.77%" }}
+                  className={`${styles.inputGroup} ${
+                    errors.from ? styles.inputError : ""
+                  }`}
                 >
                   <span className={styles.icon}>
                     <Image alt="" src={LocationPin} />
@@ -439,112 +517,103 @@ const HomeSectionOne = () => {
                     overlayClassName={styles.dropdownMenuOne}
                   >
                     <div className={styles.whereDropdown}>
-                      <label
-                        htmlFor="to"
-                        style={{ marginLeft: "15px", display: "none" }}
-                      >
-                        To Where
-                      </label>
                       <input
                         style={{ cursor: "pointer" }}
                         type="text"
-                        placeholder="City or Airport"
+                        placeholder={errors.from || "City or Airport"}
                         className={styles.inputField}
-                        value={selectedLocation}
+                        value={
+                          selectedLocation === "City or Airport"
+                            ? ""
+                            : selectedLocation
+                        }
                         readOnly
                       />
-                      <span className={styles.dropdownIcon}>
-                        <Image
-                          style={{ visibility: "hidden", display: "none" }}
-                          src={ArrowDown}
-                          alt="Dropdown"
-                        />
-                      </span>
                     </div>
                   </Dropdown>
                 </div>
+
                 <Image src={Cycle} className={styles.cycle} alt="cycle" />
+
                 <div
-                  className={styles.inputGroup}
-                  // style={{ width: "23.77%" }}
+                  className={`${styles.inputGroup} ${
+                    errors.to ? styles.inputError : ""
+                  }`}
                 >
                   <span className={styles.icon}>
                     <Image alt="" src={LocationPin} />
                   </span>
-                  <div>
-                    <Dropdown
-                      overlay={destinationMenu}
-                      trigger={["click"]}
-                      placement="bottomRight"
-                      overlayClassName={styles.dropdownMenu}
-                      // style={{ position: "relative", right: "200px" }}
-                    >
-                      <div className={styles.whereDropdown}>
-                        <label
-                          htmlFor="to"
-                          style={{ marginLeft: "15px", display: "none" }}
-                        >
-                          To Where
-                        </label>
-                        <input
-                          style={{ cursor: "pointer" }}
-                          type="text"
-                          placeholder="City or Airport"
-                          className={styles.inputField}
-                          value={selectedDestination}
-                          readOnly
-                        />
-                        <span className={styles.dropdownIcon}>
-                          <Image
-                            style={{ visibility: "hidden", display: "none" }}
-                            src={ArrowDown}
-                            alt="Dropdown"
-                          />
-                        </span>
-                      </div>
-                    </Dropdown>
-                  </div>
+                  <Dropdown
+                    overlay={destinationMenu}
+                    trigger={["click"]}
+                    placement="bottomRight"
+                    overlayClassName={styles.dropdownMenu}
+                  >
+                    <div className={styles.whereDropdown}>
+                      <input
+                        style={{ cursor: "pointer" }}
+                        type="text"
+                        placeholder={errors.to || "City or Airport"}
+                        className={styles.inputField}
+                        value={
+                          selectedDestination === "City or Airport"
+                            ? ""
+                            : selectedDestination
+                        }
+                        readOnly
+                      />
+                    </div>
+                  </Dropdown>
                 </div>
+
                 <div
-                  className={styles.inputGroup}
-                  //  style={{ width: "33.99%" }}
+                  className={`${styles.inputGroup} ${
+                    errors.departureDate || errors.returnDate
+                      ? styles.inputError
+                      : ""
+                  }`}
                 >
                   <span className={styles.icon}>
-                    {" "}
-                    <Image src={Calendar} alt="" />{" "}
+                    <Image src={Calendar} alt="" />
                   </span>
                   <div>
                     <div className={styles.datePickerHeaders}>
                       <div>
                         <label className={styles.label}>Leaving On</label>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "flex-start",
-                        }}
-                      >
-                        <label className={styles.label}>Returning On </label>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={handleDatePickerToggle}
-                    ></button>
-                    {isClient && isDatePickerOpen && (
-                      <OverlayContainer>
-                        <DateRangePicker
-                          label="Trip dates"
-                          minValue={today(getLocalTimeZone())}
+                        <input
+                          type="date"
+                          value={departureDate}
+                          onChange={(e) => setDepartureDate(e.target.value)}
+                          className={styles.dateInput}
+                          placeholder={errors.departureDate || "Select date"}
                         />
-                      </OverlayContainer>
-                    )}
-                    <div className="flex flex-col gap-4"></div>
+                      </div>
+                      {isRoundTrip && (
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <label className={styles.label}>Returning On</label>
+                          <input
+                            type="date"
+                            value={returnDate}
+                            onChange={(e) => setReturnDate(e.target.value)}
+                            className={styles.dateInput}
+                            placeholder={errors.returnDate || "Select date"}
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
+
                 <div
-                  className={styles.inputGroup}
-                  // style={{ width: "18.47%", cursor: "pointer" }}
+                  className={`${styles.inputGroup} ${
+                    errors.passengers ? styles.inputError : ""
+                  }`}
                 >
                   <span className={styles.icon}>
                     <Image src={Passenger} alt="" />
@@ -560,10 +629,10 @@ const HomeSectionOne = () => {
                       overlayClassName={styles.passengerDropdownMenu}
                     >
                       <Button className={styles.inputField}>
-                        {`${totalPassengers} Passenger${
-                          totalPassengers > 1 ? "s" : ""
-                        }`}{" "}
-                        {/* <DownOutlined /> */}
+                        {errors.passengers ||
+                          `${totalPassengers} Passenger${
+                            totalPassengers > 1 ? "s" : ""
+                          }`}
                       </Button>
                     </Dropdown>
                   </div>
@@ -572,7 +641,6 @@ const HomeSectionOne = () => {
             </div>
             <div className={styles.Letgo}>
               <span>
-                {" "}
                 <input
                   type="checkbox"
                   name="dates"
@@ -580,11 +648,22 @@ const HomeSectionOne = () => {
                 />
                 <p>My dates are flexible(+/- 3days)</p>
               </span>
-              <Link href="/flight">
-                {" "}
-                <button className={styles.LegoButton}>Let's Go</button>
+              <Link href={canNavigate ? "/flight" : "#"} passHref>
+                <button
+                  className={styles.LegoButton}
+                  onClick={handleButtonClick}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Processing..." : "Let's Go"}
+                </button>
               </Link>
             </div>
+
+            {isLoading && (
+              <div className={styles.loaderOverlay}>
+                <div className={styles.loader}></div>
+              </div>
+            )}
           </div>
         </div>
       </div>
