@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./flight.module.css";
 import GreenAfrica from "@/public/assets/images/greenAfrica.png";
 import Star from "@/public/assets/images/star.png";
@@ -15,41 +15,79 @@ import smallPlane from "@/public/assets/images/smallPlane.png";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
 
-interface DetailsModalProps {
-  isOpen: boolean;
-  onClose: any;
+interface Airline {
+  id: number;
+  company: string;
+  code: string;
+  logo: string;
+  region: string;
+  // Add other properties as needed
 }
-const DetailsModal: React.FC<DetailsModalProps> = ({ isOpen, onClose }) => {
-  const navigate = useRouter()
+
+interface FlightData {
+  arrival: null;
+  departure: {
+    additional_info: null;
+    airline: Airline;
+    airline_id: string;
+    arrival: string;
+    available_seats: null;
+    created_at: string;
+    date: string;
+    dates: string;
+    days: string;
+    departure: string;
+    exempted_dates: string;
+    id: number;
+    peak_periods: string;
+    price: string;
+    repeats: string;
+    route_id: string;
+    setting_id: string;
+    status: string;
+    updated_at: string;
+  };
+}
+
+interface FlightChunkProps {
+  flightData: { [key: string]: FlightData[] };
+}
+
+const DetailsModal: React.FC<{ isOpen: boolean; onClose: () => void; flightData: FlightData }> = ({ isOpen, onClose, flightData }) => {
   if (!isOpen) return null;
+
+  useEffect(() => {
+    console.log("DetailsModal data updated:", flightData);
+  }, [flightData]);
+
+  const departureData = flightData.departure;
 
   return (
     <div className={styles.modalBackground}>
       <div className={styles.modalContent}>
         <span className={styles.smallPlane}>
-          <Image src={smallPlane} alt="" /> Depature Flight
+          <Image src={smallPlane} alt="" /> Departure Flight
         </span>
         <div className={styles.df}>
           <div className={styles.dfOne}>
             <span style={{ fontWeight: "bold", fontSize: "20px" }}>
-              Lagos (LOS)
+              {/* Replace with actual departure city and airport */}
+              Departure City (Airport Code)
             </span>
-            <span>Murtala Muhammed International Airport</span>
+            <span>{departureData.airline.company}</span>
             <span className={styles.ip}>
               <Image src={date} alt="" />
-              Date: Mar. 19, 2024
+              Date: {departureData.date}
             </span>
             <span className={styles.ip}>
-              <Image src={time} alt="" /> Time: 7:00 - 8:40{" "}
+              <Image src={time} alt="" /> Time: {departureData.departure} - {departureData.arrival}
             </span>
             <span className={styles.ip}>
               <Image src={Smallseat} alt="" /> Class: Economy
             </span>
             <span className={styles.ip}>
-              <Image src={Bagage} alt="" /> Baggage:{" "}
-              <span style={{ fontWeight: "700" }}>7KG Hand Baggage</span>
+              <Image src={Bagage} alt="" /> Baggage: Standard
             </span>
           </div>
           <div>
@@ -57,102 +95,44 @@ const DetailsModal: React.FC<DetailsModalProps> = ({ isOpen, onClose }) => {
           </div>
           <div style={{ lineHeight: "35px" }}>
             <span style={{ fontSize: "20px", fontWeight: "bold" }}>
-              Abuja (ABJ)
+              {/* Replace with actual arrival city and airport */}
+              Arrival City (Airport Code)
             </span>
-            <span>Nnamdi Azikiwe International Airport</span>
+            <span>{departureData.airline.company}</span>
             <span>
-              <Image src="" alt="" /> PASSANGER 1
+              <Image src="" alt="" /> PASSENGER 1
             </span>
-            <span>1h 40m</span>
-            <span>Round Trip</span>
-            <span style={{ fontWeight: "bold" }}>2 Seats Left</span>
+            <span>{/* Add duration if available */}</span>
+            <span>{departureData.repeats}</span>
+            <span style={{ fontWeight: "bold" }}>{departureData.available_seats || 'N/A'} Seats Left</span>
           </div>
         </div>
       </div>
       <div style={{ border: "1px solid #ccc" }}></div>
-      <div className={styles.modalContent}>
-        <span className={styles.smallPlane}>
-          <Image src="" alt="" /> Return Flight
-        </span>
-        <div className={styles.df}>
-          <div className={styles.dfOne}>
-            <span style={{ fontWeight: "bold" }}>Lagos (LOS)</span>
-            <span>Murtala Muhammed International Airport</span>
-            <span className={styles.ip}>
-              <Image src={date} alt="" />
-              Date: Mar. 19, 2024
-            </span>
-            <span className={styles.ip}>
-              <Image src={time} alt="" /> Time: 7:00 - 8:40{" "}
-            </span>
-            <span className={styles.ip}>
-              <Image src={Smallseat} alt="" /> Class: Economy
-            </span>
-            <span className={styles.ip}>
-              <Image src={Bagage} alt="" /> Baggage:{" "}
-              <span style={{ fontWeight: "700" }}>7KG Hand Baggage</span>
-            </span>
-          </div>
-          <div>
-            <Image src={Plane} alt="" />
-          </div>
-          <div style={{ lineHeight: "35px" }}>
-            <span style={{ fontSize: "20px", fontWeight: "bold" }}>
-              Abuja (ABJ)
-            </span>
-            <span>Nnamdi Azikiwe International Airport</span>
-            <span>
-              <Image src="" alt="" /> PASSANGER 1
-            </span>
-            <span>1h 40m</span>
-            <span>Round Trip</span>
-            <span style={{ fontWeight: "bold" }}>2 Seats Left</span>
-          </div>
-        </div>
-      </div>
       <div className={styles.totalDiv}>
         <div className={styles.total}>
-          {" "}
-          <span>Total</span> <span>&#8358;160,000</span>
+          <span>Total</span> <span>&#8358;{departureData.price}</span>
         </div>
-        <div className={styles.display}>
-          {" "}
-          <span>Depature: Mar, 19, 2024 07:00-08:40</span> <span>1h40m</span>{" "}
-        </div>
-        <div className={styles.display}>
-          {" "}
-          <span>
-            {" "}
-            Passenger: <b>1</b>
-          </span>{" "}
-          <span>One Way</span>{" "}
-        </div>
-        <div className={styles.display}>
-          {" "}
-          <span>
-            Baggage: <b>7KGS Hand baggage</b>
-          </span>{" "}
-          <span style={{ fontWeight: "bold" }}>2 Seats Left</span>{" "}
-        </div>
+        {/* Add more details as needed */}
         <span style={{ fontWeight: "bold", color: "red" }}>PLEASE NOTE</span>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div>
             <span style={{ fontWeight: "bold" }}> *Non Refundable.</span>
             <span style={{ fontWeight: "bold" }}>
               *Total fare displayed has been rounded off and may thus show a
-              slight difference.{" "}
+              slight difference.
             </span>
           </div>
           <Link href="/selectflight" style={{ textDecoration: "none" }}>
             <span className={styles.save}>Book Now</span>
-          </Link>{" "}
+          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-const FlightChunk = () => {
+const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
@@ -161,120 +141,100 @@ const FlightChunk = () => {
 
   const buttonText = isModalOpen ? "Show Less" : "More Details";
   const ButtonIcon = isModalOpen ? IoIosArrowBack : IoIosArrowForward;
+
+  useEffect(() => {
+    console.log("FlightChunk data updated:", flightData);
+  }, [flightData]);
+
+  // Assuming we're dealing with the first airline and its first flight
+  const airlineName = Object.keys(flightData)[0];
+  const firstFlight = flightData[airlineName][0];
+
+  if (!firstFlight) {
+    return <div>No flight data available</div>;
+  }
+
+  const departureData = firstFlight.departure;
+
   return (
     <div className={styles.container}>
-      <Link
-        href="/selectflight"
-        style={{ textDecoration: "none", color: "black" }}
-      >
-        <div className={styles.FlightChunkWrapper}>
-          <div className={styles.FlightChunkOne}>
-            <div className={styles.chunkOne}>
-              <Image src={GreenAfrica} alt="" className={styles.greenIMG} />
-              <div className={styles.Customer}>
-                <span>
-                  {" "}
-                  <Image src={Star} alt="" />{" "}
-                  <span style={{ fontWeight: "bold" }}>5.0</span>
-                </span>
-                <span>
-                  {" "}
-                  <Image src={Customer} alt="" /> <span>123</span>
-                </span>
-              </div>
+      <div className={styles.FlightChunkWrapper}>
+        <div className={styles.FlightChunkOne}>
+          <div className={styles.chunkOne}>
+            <Image src={departureData.airline.logo} alt="" width={50} height={50} className={styles.greenIMG} />
+            <div className={styles.Customer}>
+              <span>
+                <Image src={Star} alt="" />
+                <span style={{ fontWeight: "bold" }}>N/A</span>
+              </span>
+              <span>
+                <Image src={Customer} alt="" /> <span>N/A</span>
+              </span>
             </div>
-            <span className={styles.money}>₦160,000</span>
+          </div>
+          <span className={styles.money}>₦{departureData.price}</span>
+        </div>
+
+        <div className={styles.FlightChunkTwo}>
+          <div className={styles.green} style={{ paddingBottom: "25px" }}>
+            <div className={styles.imgText}>
+              <Image alt="" src={departureData.airline.logo} width={30} height={30} className={styles.greenSmall} />
+              <span style={{ fontFamily: "sans-serif" }}>{departureData.airline.company}</span>
+            </div>
+
+            <div className={styles.client}>
+              <span>
+                <Image src={Star} alt="" />
+                <span style={{ fontWeight: "bold" }}>N/A</span>
+              </span>
+              <span>
+                <Image src={Customer} alt="" /> <span>N/A</span>
+              </span>
+            </div>
+
+            <button className={styles.seatLeft}>
+              <Image src={Seat} alt="seat" /> {departureData.available_seats || 'N/A'}{" "}
+              <span className={styles.seat}>Seats left</span>
+            </button>
+            {/* Add recommended button if needed */}
           </div>
 
-          <div className={styles.FlightChunkTwo}>
-            <div className={styles.green} style={{ paddingBottom: "25px" }}>
-              <div className={styles.imgText}>
-                <Image alt="" src={GreenAfrica} className={styles.greenSmall} />
-                <span style={{ fontFamily: "sans-serif" }}>Green Africa</span>
+          <div className={styles.seven} style={{ paddingBottom: "25px" }}>
+            <b className={styles.lagosText}>
+              {departureData.departure}({departureData.airline.code}){" "}
+              <span className={`${styles.little} ${styles.lagos}`}>
+                {/* Add departure city if available */}
+              </span>
+            </b>
+            <div>
+              <span className={styles.onehr}>{/* Add duration if available */}</span>
+              <div className={styles.imgWrap}>
+                <Image className={styles.imgOne} src={Circle} alt="" />
+                <Image className={styles.imgTwo} src={Line} alt="" />
+                <Image className={styles.imgThree} src={Circle} alt="" />
               </div>
-
-              <div className={styles.client}>
-                <span>
-                  {" "}
-                  <Image src={Star} alt="" />{" "}
-                  <span style={{ fontWeight: "bold" }}>5.0</span>
-                </span>
-                <span>
-                  {" "}
-                  <Image src={Customer} alt="" /> <span>123</span>
-                </span>
-              </div>
-
-              <button className={styles.seatLeft}>
-                <Image src={Seat} alt="seat" /> 2{" "}
-                <span className={styles.seat}>Seats left</span>
-              </button>
-              <button className={styles.reco}>Recommended</button>
+              <span className={styles.onehrStrop}>0 Stop</span>
             </div>
+            <b className={styles.abujaText}>
+              {departureData.arrival}({departureData.airline.code}) <span className={styles.little}>{/* Add arrival city if available */}</span>
+            </b>
+          </div>
 
-            <div className={styles.seven} style={{ paddingBottom: "25px" }}>
-              <b className={styles.lagosText}>
-                07:00(LOS){" "}
-                <span className={`${styles.little} ${styles.lagos}`}>
-                  {" "}
-                  Lagos{" "}
-                </span>
-              </b>
-              <div>
-                <span className={styles.onehr}>1h 40m</span>
-                <div className={styles.imgWrap}>
-                  <Image className={styles.imgOne} src={Circle} alt="" />
-                  <Image className={styles.imgTwo} src={Line} alt="" />
-                  <Image className={styles.imgThree} src={Circle} alt="" />
-                </div>
-                <span className={styles.onehrStrop}>0 Stop</span>
-              </div>
-              <b className={styles.abujaText}>
-                8:40(ABV) <span className={styles.little}>Abuja</span>
-              </b>
-            </div>
-
-            <div className={styles.seven} style={{ paddingBottom: "25px" }}>
-              <b className={styles.lagosText}>
-                07:00(LOS){" "}
-                <span className={`${styles.little} ${styles.lagos}`}>
-                  {" "}
-                  Lagos{" "}
-                </span>
-              </b>
-              <div>
-                <span className={styles.onehr}>1h 40m</span>
-                <div className={styles.imgWrap}>
-                  <Image className={styles.imgOne} src={Circle} alt="" />
-                  <Image className={styles.imgTwo} src={Line} alt="" />
-                  <Image className={styles.imgThree} src={Circle} alt="" />
-                </div>
-                <span className={styles.onehrStrop}>0 Stop</span>
-              </div>
-              <b className={styles.abujaText}>
-                8:40(ABV) <span className={styles.little}>Abuja</span>
-              </b>
-            </div>
-
-            <div className={styles.bkmr}>
-              <span className={styles.price}> #160,000</span>
-              <Link href="/selectflight">
-                {" "}
-                <button className={styles.book}>
-                  Book Now
-                </button>
-              </Link>
-              <button className={styles.more} onClick={toggleModal}>
-                {buttonText}{" "}
-                <span>
-                  <ButtonIcon />
-                </span>
-              </button>
-            </div>
+          <div className={styles.bkmr}>
+            <span className={styles.price}>₦{departureData.price}</span>
+            <Link href="/selectflight">
+              <button className={styles.book}>Book Now</button>
+            </Link>
+            <button className={styles.more} onClick={toggleModal}>
+              {buttonText}{" "}
+              <span>
+                <ButtonIcon />
+              </span>
+            </button>
           </div>
         </div>
-        <DetailsModal isOpen={isModalOpen} onClose={toggleModal} />
-      </Link>
+      </div>
+      <DetailsModal isOpen={isModalOpen} onClose={toggleModal} flightData={firstFlight} />
     </div>
   );
 };

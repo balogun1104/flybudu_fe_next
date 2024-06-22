@@ -394,14 +394,10 @@ const HomeSectionOne = () => {
       // Dispatch the flight data to Redux
       dispatch(setFlightData(response.data));
 
-      console.log("API Response:", response.data);
-
       // Navigate to the flight page
       router.push("/flight");
       return true;
     } catch (error) {
-      console.error("Error making API call:", error);
-
       // Dispatch error to Redux
       dispatch(setError("Failed to fetch flight data"));
 
