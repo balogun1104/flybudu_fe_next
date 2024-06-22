@@ -27,11 +27,13 @@ interface Airline {
 
 interface FlightData {
   arrival: null;
+ 
   departure: {
     additional_info: null;
     airline: Airline;
     airline_id: string;
     arrival: string;
+    from :string,
     available_seats: null;
     created_at: string;
     date: string;
@@ -71,11 +73,11 @@ const DetailsModal: React.FC<{ isOpen: boolean; onClose: () => void; flightData:
         </span>
         <div className={styles.df}>
           <div className={styles.dfOne}>
-            <span style={{ fontWeight: "bold", fontSize: "20px" }}>
+            <span style={{ fontWeight: "bold", fontSize: "20px"}}>
               {/* Replace with actual departure city and airport */}
               Departure City (Airport Code)
             </span>
-            <span>{departureData.airline.company}</span>
+            <span className={styles.font}>{departureData.airline.company}</span>
             <span className={styles.ip}>
               <Image src={date} alt="" />
               Date: {departureData.date}
@@ -93,18 +95,18 @@ const DetailsModal: React.FC<{ isOpen: boolean; onClose: () => void; flightData:
           <div>
             <Image src={Plane} alt="" />
           </div>
-          <div style={{ lineHeight: "35px" }}>
+          <div  className={styles.dftwo}>
             <span style={{ fontSize: "20px", fontWeight: "bold" }}>
               {/* Replace with actual arrival city and airport */}
               Arrival City (Airport Code)
             </span>
-            <span>{departureData.airline.company}</span>
-            <span>
+            <span className={styles.font}>{departureData.airline.company}</span>
+            <span className={styles.font}>
               <Image src="" alt="" /> PASSENGER 1
             </span>
             <span>{/* Add duration if available */}</span>
-            <span>{departureData.repeats}</span>
-            <span style={{ fontWeight: "bold" }}>{departureData.available_seats || 'N/A'} Seats Left</span>
+            <span className={styles.font}>{departureData.repeats}</span>
+            <span style={{ fontWeight: "bold" }} className={styles.font}>{departureData.available_seats || 'N/A'} Seats Left</span>
           </div>
         </div>
       </div>
@@ -115,7 +117,7 @@ const DetailsModal: React.FC<{ isOpen: boolean; onClose: () => void; flightData:
         </div>
         {/* Add more details as needed */}
         <span style={{ fontWeight: "bold", color: "red" }}>PLEASE NOTE</span>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap:"10px", alignItems:"center" }}>
           <div>
             <span style={{ fontWeight: "bold" }}> *Non Refundable.</span>
             <span style={{ fontWeight: "bold" }}>

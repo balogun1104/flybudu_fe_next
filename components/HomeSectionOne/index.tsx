@@ -377,6 +377,7 @@ const HomeSectionOne = () => {
       arrival_date: isRoundTrip ? returnDate : undefined,
       passengers: totalPassengers,
     };
+    
 
     // Dispatch the search criteria to Redux
     dispatch(setSearchCriteria(searchCriteria));

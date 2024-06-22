@@ -66,13 +66,11 @@
 .abujaText {
     font-size: 18px;
     text-align: end;
-    width: 120px;
 }
 
 .lagosText {
     font-size: 18px;
     text-align: start;
-    width: 120px;
 }
 
 .little {
@@ -218,6 +216,9 @@
     align-self: center;
     width: 96%;
     align-items: center;
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 20px;
     justify-content: space-between;
     font-weight: bold;
 }
@@ -225,6 +226,8 @@
 .save {
     color: white;
     background: #06BCE1;
+    display: flex;
+    text-wrap: nowrap;
     padding: 10px 40px;
     border-radius: 20px;
     border: none;
@@ -262,7 +265,20 @@
     font-weight: 600;
     font-family: "NeueHaasDisplayBold";
 }
-
+.dfOne{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.dftwo{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align:  end;
+}
+.ip, .font{
+    font-family: sans-serif;
+}
 .dfOne p {
     padding: 5px;
     font-family: "NeueHaasDisplayLight";
