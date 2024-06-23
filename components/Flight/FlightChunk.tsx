@@ -75,6 +75,9 @@ function diff(){
   arrivalTime + DepartTime
 }
 
+
+
+
 return (
     <div className={styles.modalBackground}>
       <div className={styles.modalContent}>
@@ -83,7 +86,7 @@ return (
         </span>
         <div className={styles.df}>
           <div className={styles.dfOne}>
-            <span style={{ fontWeight: "bold", fontSize: "20px"}}>
+            <span className={styles.special}>
               {/* Replace with actual departure city and airport */}
               Departure City (Airport Code)
             </span>
@@ -106,7 +109,7 @@ return (
             <Image src={Plane} alt="" />
           </div>
           <div  className={styles.dftwo}>
-            <span style={{ fontSize: "20px", fontWeight: "bold" }}>
+            <span className={styles.special}>
               {/* Replace with actual arrival city and airport */}
               Arrival City (Airport Code)
             </span>
@@ -123,7 +126,7 @@ return (
       <div style={{ border: "1px solid #ccc" }}></div>
       <div className={styles.totalDiv}>
         <div className={styles.total}>
-          <span>Total</span> <span>&#8358;{departureData.price}</span>
+          <span>Total</span> <span>&#8358;{departureData.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
         </div>
         {/* Add more details as needed */}
         <span style={{ fontWeight: "bold", color: "red" }}>PLEASE NOTE</span>
@@ -184,7 +187,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
               </span>
             </div>
           </div>
-          <span className={styles.money}>₦{departureData.price}</span>
+          <span className={styles.money}>₦{departureData.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
         </div>
 
         <div className={styles.FlightChunkTwo}>
@@ -213,7 +216,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
 
           <div className={styles.seven} style={{ paddingBottom: "25px" }}>
             <b className={styles.lagosText}>
-              {departureData.departure}({departureData.airline.code}){" "}
+              {departureData.departure} <br/>({departureData.airline.code}){" "}
               <span className={`${styles.little} ${styles.lagos}`}>
                 {/* Add departure city if available */}
               </span>
@@ -229,7 +232,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
               <span className={styles.onehrStrop}>0 Stop</span>
             </div>
             <b className={styles.abujaText}>
-              {departureData.arrival}({departureData.airline.code}) <span className={styles.little}>{/* Add arrival city if available */}</span>
+              {departureData.arrival} <br/>({departureData.airline.code}) <span className={styles.little}>{/* Add arrival city if available */}</span>
             </b>
           </div>
 
