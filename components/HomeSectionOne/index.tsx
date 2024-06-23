@@ -344,7 +344,7 @@ const HomeSectionOne = () => {
 
   const handleLetGoClick = async () => {
     setErrors({});
-
+  
     // Validate fields
     let newErrors: { [key: string]: string } = {};
     if (!selectedLocation || selectedLocation === "City or Airport") {
@@ -362,47 +362,55 @@ const HomeSectionOne = () => {
     if (totalPassengers === 0) {
       newErrors.passengers = "Please select passengers";
     }
-
+  
     // If there are errors, set them and return false
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return false;
     }
-
+  
     // Prepare the search criteria
-    const searchCriteria: FlightSearchRequest = {
+    const updatedSearchCriteria: FlightSearchRequest = {
       from: selectedLocation.split(",")[0],
       to: selectedDestination.split(",")[0],
       departure_date: departureDate,
       arrival_date: isRoundTrip ? returnDate : undefined,
-      passengers: totalPassengers,
+      passengers: {
+        adults: passengerCounts.adults,
+        children: passengerCounts.children,
+        infants: passengerCounts.infants,
+      },
+      flightType: localFlightText, // 'Local Flights' or 'International Flights'
+      tripType: tripTypeText, // 'Round trip' or 'One Way'
+      classType: classTypeText, // 'Economy', 'Business', or 'First Class'
     };
-    
-
-    // Dispatch the search criteria to Redux
-    dispatch(setSearchCriteria(searchCriteria));
-
+  
+    // Dispatch the updated search criteria to Redux
+    dispatch(setSearchCriteria(updatedSearchCriteria));
+  
     // Set loading state
     dispatch(setLoading(true));
     setIsLoading(true);
-
+  
     try {
       const response = await axiosInstance.post<FlightSearchResponse>(
         "flights/search",
-        searchCriteria
+        updatedSearchCriteria
       );
-
+  
       // Dispatch the flight data to Redux
       dispatch(setFlightData(response.data));
-
-      // Navigate to the flight page
-      router.push("/flight");
+  
+      // Set canNavigate to true
+      setCanNavigate(true);
+  
       return true;
     } catch (error) {
       // Dispatch error to Redux
       dispatch(setError("Failed to fetch flight data"));
-
+  
       // Handle the error as needed
+      console.error("Error fetching flight data:", error);
       return false;
     } finally {
       dispatch(setLoading(false));

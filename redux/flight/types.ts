@@ -1,13 +1,18 @@
-// types/flight.ts
-
 // Request Types
 export interface FlightSearchRequest {
-    from: string;
-    to: string;
-    departure_date: string;
-    arrival_date?: string; // Optional for one-way trips
-    passengers: number;
-  }
+  from: string;
+  to: string;
+  departure_date: string;
+  arrival_date?: string;
+  passengers: {
+    adults: number;
+    children: number;
+    infants: number;
+  };
+  flightType: string; // 'Local Flights' or 'International Flights'
+  tripType: string; // 'Round trip' or 'One Way'
+  classType: string; // 'Economy', 'Business', or 'First Class'
+}
   
   // Response Types
   export interface Airline {
