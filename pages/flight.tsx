@@ -13,13 +13,16 @@ import Image from "next/image";
 import { useAppSelector } from "@/redux/hooks";
 // import SliderControl from "../components/SliderControl/SliderControl";
 import Link from "next/link";
+import { useFlightData, formatDate } from '@/utils/helper';
 
 const Flight = () => {
-  const { searchCriteria, flightData, loading, error } = useAppSelector(
-    (state) => state.flight
-  );
+  const { searchCriteria, flightData, loading, error, totalFlight, totalPassengers } = useFlightData();
 
-  console.log(flightData, "................................");
+
+  
+
+  // console.log(searchCriteria, "................................");
+  // console.log(flightData, "................................");
   const [visible, setVisible] = useState(false);
   const toggleDivs = () => {
     setVisible(!visible);
@@ -28,6 +31,9 @@ const Flight = () => {
 
   const firstFlight = flightData[0];
   const otherFlights = flightData.slice(1);
+
+
+
 
   return (
     <div className={styles.flightContainer}>
@@ -41,8 +47,11 @@ const Flight = () => {
           />
         </Link>
         <div className={styles.navbarText}>
-          <span className={styles.location}>Lagos - Abuja</span>
-          <span>Feb. 29, 2024 - Mar. 14, 2024, 1 Pass, Economy</span>
+          <span className={styles.location}>{`${searchCriteria.from} - ${searchCriteria.to}`}</span>
+          <span>
+            {`${formatDate(searchCriteria.departure_date)} - ${formatDate(searchCriteria.arrival_date)}, 
+            ${totalPassengers} Pass, ${searchCriteria.classType}`}
+          </span>
         </div>
         <div className={styles.imgDiv}>
           <Link href="/mobileflight">
@@ -62,7 +71,7 @@ const Flight = () => {
         <div style={{ margin: "30px" }}>
           {" "}
           <span className={styles.found}>
-            We Found 56 Flights From Lagos To Abuja
+            We Found {totalFlight} Flights From {searchCriteria.from} To {searchCriteria.to}
           </span>
         </div>
 
@@ -71,10 +80,7 @@ const Flight = () => {
             <FlightFilter onClick={() => setOpenEdit(false)} />
           </div>
           <div className={styles.flightContentTwo}>
-          
-            <div
-              className={styles.dateDiv}
-            >
+            <div className={styles.dateDiv}>
               <IoIosArrowBack />
               <div className={styles.opor}>
                 <div className={styles.flexDiv}>
