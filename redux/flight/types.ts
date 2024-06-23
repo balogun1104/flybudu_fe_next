@@ -51,6 +51,7 @@ export interface FlightDetails {
 }
 
 export interface Flight {
+  id: string;
   departure: FlightDetails;
   arrival: FlightDetails | null;
 }
