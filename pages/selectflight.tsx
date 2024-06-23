@@ -55,11 +55,8 @@ function SelectFlight() {
   <span className={styles.state}>Lagos to Abuja</span>
   </div></div>
 
-  <div className={styles.editDiv}>
-  <span className={styles.edit}  onClick={toggleDivs}>Edit</span>
-  </div>
   <div className={styles.margin}>
-  <div className={styles.dateDiv}  style={{display: visible ? "flex" : "none"}}>
+  <div className={styles.dateDiv}>
               <IoIosArrowBack />
              
               <div className={styles.opor}>

@@ -71,14 +71,9 @@ const Flight = () => {
             <FlightFilter onClick={() => setOpenEdit(false)} />
           </div>
           <div className={styles.flightContentTwo}>
-            <div className={styles.editDiv}>
-              <span className={styles.edit} onClick={toggleDivs}>
-                Edit
-              </span>
-            </div>
+          
             <div
               className={styles.dateDiv}
-              style={{ display: visible ? "flex" : "none" }}
             >
               <IoIosArrowBack />
               <div className={styles.opor}>
