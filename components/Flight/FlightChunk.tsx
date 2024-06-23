@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./flight.module.css";
-import GreenAfrica from "@/public/assets/images/greenAfrica.png";
 import Star from "@/public/assets/images/star.png";
 import Customer from "@/public/assets/images/Customers.png";
 import Seat from "@/public/assets/images/seats.png";
 import Line from "@/public/assets/images/Line.png";
 import Circle from "@/public/assets/images/circle.png";
-import { useFlightData, formatDate } from '@/utils/helper';
 import Plane from "@/public/assets/images/plane.png";
 import date from "@/public/assets/svg/date.svg";
 import time from "@/public/assets/svg/time.svg";
@@ -16,59 +14,28 @@ import smallPlane from "@/public/assets/images/smallPlane.png";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
 import Image from "next/image";
-
-interface Airline {
-  id: number;
-  company: string;
-  code: string;
-  logo: string;
-  region: string;
-  // Add other properties as needed
-}
-
-interface FlightData {
-  arrival: null;
- 
-  departure: {
-    additional_info: null;
-    airline: Airline;
-    airline_id: string;
-    arrival: string;
-    from :string,
-    available_seats: null;
-    created_at: string;
-    date: string;
-    dates: string;
-    days: string;
-    departure: string;
-    exempted_dates: string;
-    id: number;
-    peak_periods: string;
-    price: string;
-    repeats: string;
-    route_id: string;
-    setting_id: string;
-    status: string;
-    updated_at: string;
-  };
-}
+import { AirlineFlights, Flight, FlightDetails } from "@/redux/flight/types";
+import { useDispatch } from "react-redux";
+import { setSelectedFlight } from "@/redux/flight/flightSlice";
+import { useRouter } from 'next/router';
 
 interface FlightChunkProps {
-  flightData: { [key: string]: FlightData[] };
+  flightData: AirlineFlights | Flight;
 }
 
-
-const DetailsModal: React.FC<{ isOpen: boolean; onClose: () => void; flightData: FlightData }> = ({ isOpen, onClose, flightData }) => {
+const DetailsModal: React.FC<{
+  isOpen: boolean;
+  onClose: () => void;
+  flightData: Flight;
+}> = ({ isOpen, onClose, flightData }) => {
   if (!isOpen) return null;
 
-  useEffect(() => {
-    console.log("DetailsModal data updated:", flightData);
-  }, [flightData]);
-
   const departureData = flightData.departure;
+  const arrivalData = flightData.arrival;
 
-  const { searchCriteria, loading, error, totalFlight } = useFlightData();
+  console.log(flightData, "in flight chunck")
 
+<<<<<<< HEAD
 const arrivalTime = parseFloat(departureData.arrival);
 const DepartTime = parseFloat( departureData.departure); 
 function diff(){
@@ -79,6 +46,9 @@ function diff(){
 
 
 return (
+=======
+  return (
+>>>>>>> 34d3144bd1f05b830d8a8199a19f4b3546f19e60
     <div className={styles.modalBackground}>
       <div className={styles.modalContent}>
         <span className={styles.smallPlane}>
@@ -86,9 +56,14 @@ return (
         </span>
         <div className={styles.df}>
           <div className={styles.dfOne}>
+<<<<<<< HEAD
             <span className={styles.special}>
               {/* Replace with actual departure city and airport */}
               Departure City (Airport Code)
+=======
+            <span style={{ fontWeight: "bold", fontSize: "20px" }}>
+              {departureData.from} ({departureData.airline.code})
+>>>>>>> 34d3144bd1f05b830d8a8199a19f4b3546f19e60
             </span>
             <span className={styles.font}>{departureData.airline.company}</span>
             <span className={styles.ip}>
@@ -96,7 +71,8 @@ return (
               Date: {departureData.date}
             </span>
             <span className={styles.ip}>
-              <Image src={time} alt="" /> Time: {departureData.departure} - {departureData.arrival}
+              <Image src={time} alt="" /> Time: {departureData.departure} -{" "}
+              {departureData.arrival}
             </span>
             <span className={styles.ip}>
               <Image src={Smallseat} alt="" /> Class: Economy
@@ -108,10 +84,17 @@ return (
           <div>
             <Image src={Plane} alt="" />
           </div>
+<<<<<<< HEAD
           <div  className={styles.dftwo}>
             <span className={styles.special}>
               {/* Replace with actual arrival city and airport */}
               Arrival City (Airport Code)
+=======
+          <div className={styles.dftwo}>
+            <span style={{ fontSize: "20px", fontWeight: "bold" }}>
+              {arrivalData ? arrivalData.from : departureData.from} (
+              {departureData.airline.code})
+>>>>>>> 34d3144bd1f05b830d8a8199a19f4b3546f19e60
             </span>
             <span className={styles.font}>{departureData.airline.company}</span>
             <span className={styles.font}>
@@ -119,7 +102,9 @@ return (
             </span>
             <span>{/* Add duration if available */}</span>
             <span className={styles.font}>{departureData.repeats}</span>
-            <span style={{ fontWeight: "bold" }} className={styles.font}>{departureData.available_seats || 'N/A'} Seats Left</span>
+            <span style={{ fontWeight: "bold" }} className={styles.font}>
+              {departureData.available_seats || "N/A"} Seats Left
+            </span>
           </div>
         </div>
       </div>
@@ -128,9 +113,15 @@ return (
         <div className={styles.total}>
           <span>Total</span> <span>&#8358;{departureData.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
         </div>
-        {/* Add more details as needed */}
         <span style={{ fontWeight: "bold", color: "red" }}>PLEASE NOTE</span>
-        <div style={{ display: "flex", justifyContent: "space-between", gap:"10px", alignItems:"center" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "10px",
+            alignItems: "center",
+          }}
+        >
           <div>
             <span style={{ fontWeight: "bold" }}> *Non Refundable.</span>
             <span style={{ fontWeight: "bold" }}>
@@ -139,7 +130,9 @@ return (
             </span>
           </div>
           <Link href="/selectflight" style={{ textDecoration: "none" }}>
-            <span className={styles.save}>Book Now</span>
+            <span onClick={onClose} className={styles.save}>
+              Book Now
+            </span>
           </Link>
         </div>
       </div>
@@ -148,6 +141,8 @@ return (
 };
 
 const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
@@ -161,29 +156,51 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
     console.log("FlightChunk data updated:", flightData);
   }, [flightData]);
 
-  // Assuming we're dealing with the first airline and its first flight
-  const airlineName = Object.keys(flightData)[0];
-  const firstFlight = flightData[airlineName][0];
+  const getFlight = (data: AirlineFlights | Flight): Flight => {
+    if ("departure" in data && "arrival" in data) {
+      return data as Flight;
+    } else {
+      const airlineName = Object.keys(data as AirlineFlights)[0];
+      return (data as AirlineFlights)[airlineName][0];
+    }
+  };
 
-  if (!firstFlight) {
+  const flight = getFlight(flightData);
+  console.log(flight, "flight data in getflight")
+  const departureData = flight.departure;
+  const arrivalData = flight.arrival;
+
+  if (!departureData) {
     return <div>No flight data available</div>;
   }
 
-  const departureData = firstFlight.departure;
+  const handleBookNow = () => {
+    dispatch(setSelectedFlight(flight));
+    router.push({
+      pathname: '/selectflight',
+      query: { flightId: flight.departure.id },
+    });
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.FlightChunkWrapper}>
         <div className={styles.FlightChunkOne}>
           <div className={styles.chunkOne}>
-            <Image src={departureData.airline.logo} alt="" width={50} height={50} className={styles.greenIMG} />
+            <Image
+              src={departureData.airline.logo}
+              alt=""
+              width={50}
+              height={50}
+              className={styles.greenIMG}
+            />
             <div className={styles.Customer}>
               <span>
                 <Image src={Star} alt="" />
-                <span style={{ fontWeight: "bold" }}>4.5</span>
+                <span style={{ fontWeight: "bold" }}>N/A</span>
               </span>
               <span>
-                <Image src={Customer} alt="" /> <span>58</span>
+                <Image src={Customer} alt="" /> <span>N/A</span>
               </span>
             </div>
           </div>
@@ -193,8 +210,16 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
         <div className={styles.FlightChunkTwo}>
           <div className={styles.green} style={{ paddingBottom: "25px" }}>
             <div className={styles.imgText}>
-              <Image alt="" src={departureData.airline.logo} width={30} height={30} className={styles.greenSmall} />
-              <span style={{ fontFamily: "sans-serif" }}>{departureData.airline.company}</span>
+              <Image
+                alt=""
+                src={departureData.airline.logo}
+                width={30}
+                height={30}
+                className={styles.greenSmall}
+              />
+              <span style={{ fontFamily: "sans-serif" }}>
+                {departureData.airline.company}
+              </span>
             </div>
 
             <div className={styles.client}>
@@ -208,38 +233,50 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
             </div>
 
             <button className={styles.seatLeft}>
-              <Image src={Seat} alt="seat" /> {departureData.available_seats || 'N/A'}{" "}
+              <Image src={Seat} alt="seat" />{" "}
+              {departureData.available_seats || "N/A"}{" "}
               <span className={styles.seat}>Seats left</span>
             </button>
-            {/* Add recommended button if needed */}
           </div>
 
           <div className={styles.seven} style={{ paddingBottom: "25px" }}>
             <b className={styles.lagosText}>
               {departureData.departure} <br/>({departureData.airline.code}){" "}
               <span className={`${styles.little} ${styles.lagos}`}>
-                {/* Add departure city if available */}
+                {departureData.from}
               </span>
             </b>
             <div>
-              <span className={styles.onehr}>   {parseFloat(departureData.arrival) - parseFloat(departureData.departure)}h    </span>
-
+              <span className={styles.onehr}>
+                {/* Add duration if available */}
+              </span>
               <div className={styles.imgWrap}>
                 <Image className={styles.imgOne} src={Circle} alt="" />
                 <Image className={styles.imgTwo} src={Line} alt="" />
                 <Image className={styles.imgThree} src={Circle} alt="" />
               </div>
-              <span className={styles.onehrStrop}>0 Stop</span>
+              <span className={styles.onehrStrop}>
+                {arrivalData ? "1 Stop" : "0 Stop"}
+              </span>
             </div>
             <b className={styles.abujaText}>
+<<<<<<< HEAD
               {departureData.arrival} <br/>({departureData.airline.code}) <span className={styles.little}>{/* Add arrival city if available */}</span>
+=======
+              {departureData.arrival}({departureData.airline.code})
+              <span className={styles.little}>
+                {arrivalData ? arrivalData.from : departureData.from}
+              </span>
+>>>>>>> 34d3144bd1f05b830d8a8199a19f4b3546f19e60
             </b>
           </div>
 
           <div className={styles.bkmr}>
             <span className={styles.price}>₦{departureData.price}</span>
             <Link href="/selectflight">
-              <button className={styles.book}>Book Now</button>
+              <button className={styles.book} onClick={handleBookNow}>
+                Book Now
+              </button>
             </Link>
             <button className={styles.more} onClick={toggleModal}>
               {buttonText}{" "}
@@ -250,7 +287,11 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
           </div>
         </div>
       </div>
-      <DetailsModal isOpen={isModalOpen} onClose={toggleModal} flightData={firstFlight} />
+      <DetailsModal
+        isOpen={isModalOpen}
+        onClose={toggleModal}
+        flightData={flight}
+      />
     </div>
   );
 };

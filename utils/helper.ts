@@ -1,7 +1,7 @@
 import { useAppSelector } from "@/redux/hooks";
 
 export const useFlightData = () => {
-  const { searchCriteria, flightData, loading, error } = useAppSelector(
+  const { searchCriteria, flightData, loading, error, selectedFlight } = useAppSelector(
     (state) => state.flight
   );
 
@@ -12,7 +12,7 @@ export const useFlightData = () => {
     searchCriteria.passengers.children + 
     searchCriteria.passengers.infants;
 
-  return { searchCriteria, flightData, loading, error, totalFlight, totalPassengers };
+  return { searchCriteria, flightData, loading, error, totalFlight, totalPassengers , selectedFlight};
 };
 
 export const formatDate = (dateString: any) => {
