@@ -17,14 +17,11 @@ import { AirlineFlights, } from "@/redux/flight/types";
 const Flight = () => {
   const { searchCriteria, flightData, loading, error, totalFlight, totalPassengers } = useFlightData();
 
-<<<<<<< HEAD
 
   
-
- console.log(searchCriteria, "................................");
+// console.log(searchCriteria)
+// console.log(searchCriteria, "................................");
   // console.log(flightData, "................................");
-=======
->>>>>>> 4fa815a4e5edf966682f7c392bca2cad86dea29f
   const [visible, setVisible] = useState(false);
   const toggleDivs = () => {
     setVisible(!visible);
