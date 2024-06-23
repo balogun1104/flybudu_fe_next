@@ -21,7 +21,7 @@ const Flight = () => {
 
   
 
-  // console.log(searchCriteria, "................................");
+ console.log(searchCriteria, "................................");
   // console.log(flightData, "................................");
   const [visible, setVisible] = useState(false);
   const toggleDivs = () => {

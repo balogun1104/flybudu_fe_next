@@ -6,6 +6,7 @@ import Customer from "@/public/assets/images/Customers.png";
 import Seat from "@/public/assets/images/seats.png";
 import Line from "@/public/assets/images/Line.png";
 import Circle from "@/public/assets/images/circle.png";
+import { useFlightData, formatDate } from '@/utils/helper';
 import Plane from "@/public/assets/images/plane.png";
 import date from "@/public/assets/svg/date.svg";
 import time from "@/public/assets/svg/time.svg";
@@ -64,6 +65,8 @@ const DetailsModal: React.FC<{ isOpen: boolean; onClose: () => void; flightData:
   }, [flightData]);
 
   const departureData = flightData.departure;
+
+  const { searchCriteria, loading, error, totalFlight } = useFlightData();
 
   return (
     <div className={styles.modalBackground}>
@@ -203,7 +206,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
 
           <div className={styles.seven} style={{ paddingBottom: "25px" }}>
             <b className={styles.lagosText}>
-              {departureData.departure}({departureData.airline.code}){" "}
+              {useFlightData.sea}({departureData.airline.code}){" "}
               <span className={`${styles.little} ${styles.lagos}`}>
                 {/* Add departure city if available */}
               </span>

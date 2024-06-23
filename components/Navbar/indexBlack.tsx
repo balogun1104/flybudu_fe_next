@@ -12,6 +12,7 @@ import { useMediaQuery } from "react-responsive";
 import { DateRangePicker } from "@/utils/DateRangePicker";
 import { today, getLocalTimeZone } from "@internationalized/date";
 import dynamic from "next/dynamic";
+import { useFlightData, formatDate } from '@/utils/helper';
 import ArrowDown from "@/public/assets/svg/arrowDown.svg";
 import Cycle from "@/public/assets/svg/cycle.svg";
 import { Dropdown, Menu, Button } from "antd";
@@ -25,6 +26,8 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 const Navbar = () => {
+    const { searchCriteria, flightData, loading, error, totalFlight } = useFlightData();
+
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
@@ -409,12 +412,12 @@ const destinationMenu = (
 
         <div className={styles.NavTwo}  style={{display: visible ? "none" : "flex"}}>
           <div className={styles.nvTwo}>
-            <span style={{ fontWeight: "bold" }}>Lagos(LOS)</span>
+            <span style={{ fontWeight: "bold" }}> {`${searchCriteria.from}`}</span>
             <Image src={Arrow} alt="" />
-            <span style={{ fontWeight: "bold" }}>Abuja(ABJ)</span>
+            <span style={{ fontWeight: "bold" }}>{`${searchCriteria.to}`}</span>
           </div>
           <div className={styles.border}>
-            <p>Mar. 15, 2023 - Mar. 24, 2023</p>
+            <p>{`${searchCriteria.arrival_date}  - ${searchCriteria.departure_date}`}</p>
           </div>
           <div className={styles.nvTwo}>
             <p>1 Passenger, Economy</p>
@@ -490,7 +493,7 @@ const destinationMenu = (
                       <input
                         style={{ cursor: "pointer" }}
                         type="text"
-                        placeholder="City or Airport"
+                        placeholder={`${searchCriteria.from}`}
                         className={styles.inputField}
                         value={selectedLocation}
                         readOnly
