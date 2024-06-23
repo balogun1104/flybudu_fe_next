@@ -10,30 +10,18 @@ import Edit from "@/public/assets/images/Edit.png";
 import MobileNav from "../components/MobileNavBar";
 import FlightFilter from "../components/FlightFilter/index";
 import Image from "next/image";
-import { useAppSelector } from "@/redux/hooks";
-// import SliderControl from "../components/SliderControl/SliderControl";
 import Link from "next/link";
 import { useFlightData, formatDate } from '@/utils/helper';
+import { AirlineFlights, } from "@/redux/flight/types";
 
 const Flight = () => {
   const { searchCriteria, flightData, loading, error, totalFlight, totalPassengers } = useFlightData();
 
-
-  
-
-  // console.log(searchCriteria, "................................");
-  // console.log(flightData, "................................");
   const [visible, setVisible] = useState(false);
   const toggleDivs = () => {
     setVisible(!visible);
   };
   const [openEdit, setOpenEdit] = useState(false);
-
-  const firstFlight = flightData[0];
-  const otherFlights = flightData.slice(1);
-
-
-
 
   return (
     <div className={styles.flightContainer}>
@@ -55,11 +43,9 @@ const Flight = () => {
         </div>
         <div className={styles.imgDiv}>
           <Link href="/mobileflight">
-            {" "}
             <Image src={Edit} alt="" />
           </Link>
           <Link href="/filter">
-            {" "}
             <Image src={FilterImg} alt="" />
           </Link>
         </div>
@@ -69,7 +55,6 @@ const Flight = () => {
 
       <div className={styles.flightWrapper}>
         <div style={{ margin: "30px" }}>
-          {" "}
           <span className={styles.found}>
             We Found {totalFlight} Flights From {searchCriteria.from} To {searchCriteria.to}
           </span>
@@ -112,15 +97,16 @@ const Flight = () => {
               </div>
               <IoIosArrowForward />
             </div>
-            {firstFlight && <FlightChunk flightData={firstFlight} />}
 
-            <h4 className={styles.other}> Other Flights Options</h4>
-            {otherFlights.map((flight, index) => (
-              <FlightChunk key={index} flightData={flight} />
+            {flightData.map((airlineFlights: AirlineFlights, index: number) => (
+              <React.Fragment key={index}>
+                {index === 0 && <FlightChunk flightData={airlineFlights} />}
+                {index === 1 && <h4 className={styles.other}>Other Flights Options</h4>}
+                {index > 0 && <FlightChunk flightData={airlineFlights} />}
+              </React.Fragment>
             ))}
 
             <div className={styles.loadDiv}>
-              {" "}
               <p>Load More Result</p> <Image alt="" src={arrow} />
             </div>
           </div>
@@ -128,7 +114,6 @@ const Flight = () => {
       </div>
 
       <MobileNav />
-
       <Footer />
     </div>
   );
