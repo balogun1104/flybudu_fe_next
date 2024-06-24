@@ -35,35 +35,17 @@ const DetailsModal: React.FC<{
 
   console.log(flightData, "in flight chunck")
 
-<<<<<<< HEAD
-const arrivalTime = parseFloat(departureData.arrival);
-const DepartTime = parseFloat( departureData.departure); 
-function diff(){
-  arrivalTime + DepartTime
-}
-
-
-
-
-return (
-=======
   return (
->>>>>>> 34d3144bd1f05b830d8a8199a19f4b3546f19e60
     <div className={styles.modalBackground}>
       <div className={styles.modalContent}>
         <span className={styles.smallPlane}>
           <Image src={smallPlane} alt="" /> Departure Flight
         </span>
+          
         <div className={styles.df}>
           <div className={styles.dfOne}>
-<<<<<<< HEAD
-            <span className={styles.special}>
-              {/* Replace with actual departure city and airport */}
-              Departure City (Airport Code)
-=======
             <span style={{ fontWeight: "bold", fontSize: "20px" }}>
               {departureData.from} ({departureData.airline.code})
->>>>>>> 34d3144bd1f05b830d8a8199a19f4b3546f19e60
             </span>
             <span className={styles.font}>{departureData.airline.company}</span>
             <span className={styles.ip}>
@@ -84,17 +66,10 @@ return (
           <div>
             <Image src={Plane} alt="" />
           </div>
-<<<<<<< HEAD
-          <div  className={styles.dftwo}>
-            <span className={styles.special}>
-              {/* Replace with actual arrival city and airport */}
-              Arrival City (Airport Code)
-=======
           <div className={styles.dftwo}>
             <span style={{ fontSize: "20px", fontWeight: "bold" }}>
               {arrivalData ? arrivalData.from : departureData.from} (
               {departureData.airline.code})
->>>>>>> 34d3144bd1f05b830d8a8199a19f4b3546f19e60
             </span>
             <span className={styles.font}>{departureData.airline.company}</span>
             <span className={styles.font}>
@@ -260,14 +235,10 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
               </span>
             </div>
             <b className={styles.abujaText}>
-<<<<<<< HEAD
-              {departureData.arrival} <br/>({departureData.airline.code}) <span className={styles.little}>{/* Add arrival city if available */}</span>
-=======
               {departureData.arrival}({departureData.airline.code})
               <span className={styles.little}>
                 {arrivalData ? arrivalData.from : departureData.from}
               </span>
->>>>>>> 34d3144bd1f05b830d8a8199a19f4b3546f19e60
             </b>
           </div>
 
