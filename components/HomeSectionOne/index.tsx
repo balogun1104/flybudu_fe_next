@@ -36,7 +36,7 @@ import {
   setFlightData,
   setLoading,
   setError,
-} from "@/redux/flight/flightSlice"; // Adjust the path as needed
+} from "@/redux/flight/flightSlice";
 import {
   FlightSearchRequest,
   FlightSearchResponse,

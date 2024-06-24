@@ -17,7 +17,7 @@ import Image from "next/image";
 import { AirlineFlights, Flight, FlightDetails } from "@/redux/flight/types";
 import { useDispatch } from "react-redux";
 import { setSelectedFlight } from "@/redux/flight/flightSlice";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 interface FlightChunkProps {
   flightData: AirlineFlights | Flight;
@@ -28,12 +28,39 @@ const DetailsModal: React.FC<{
   onClose: () => void;
   flightData: Flight;
 }> = ({ isOpen, onClose, flightData }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   if (!isOpen) return null;
+
+  const getFlight = (data: AirlineFlights | Flight): Flight => {
+    if ("departure" in data && "arrival" in data) {
+      return data as Flight;
+    } else {
+      const airlineName = Object.keys(data as AirlineFlights)[0];
+      return (data as AirlineFlights)[airlineName][0];
+    }
+  };
+
+  const flight = getFlight(flightData);
 
   const departureData = flightData.departure;
   const arrivalData = flightData.arrival;
 
-  console.log(flightData, "in flight chunck")
+  console.log(flightData, "in flight chunck");
+
+  const handleBookNow = () => {
+    // i was using this to dispach the data to the flight page
+    // dispatch(setSelectedFlight(flight));
+    // router.push({
+    //   pathname: "/customerinfo",
+    //   query: { flightId: flight.departure.id },
+    // });
+    dispatch(setSelectedFlight(flight));
+    router.push({
+      pathname: "/customerinfo",
+      query: { flightId: flight.departure.id },
+    });
+  };
 
   return (
     <div className={styles.modalBackground}>
@@ -104,11 +131,16 @@ const DetailsModal: React.FC<{
               slight difference.
             </span>
           </div>
-          <Link href="/selectflight" style={{ textDecoration: "none" }}>
-            <span onClick={onClose} className={styles.save}>
-              Book Now
-            </span>
-          </Link>
+
+          <button
+            onClick={() => {
+              onClose();
+              handleBookNow();
+            }}
+            className={styles.save}
+          >
+            Book Now
+          </button>
         </div>
       </div>
     </div>
@@ -141,7 +173,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
   };
 
   const flight = getFlight(flightData);
-  console.log(flight, "flight data in getflight")
+  
   const departureData = flight.departure;
   const arrivalData = flight.arrival;
 
@@ -150,9 +182,15 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
   }
 
   const handleBookNow = () => {
+    // i was using this to dispach the data to the flight page
+    // dispatch(setSelectedFlight(flight));
+    // router.push({
+    //   pathname: "/customerinfo",
+    //   query: { flightId: flight.departure.id },
+    // });
     dispatch(setSelectedFlight(flight));
     router.push({
-      pathname: '/selectflight',
+      pathname: "/customerinfo",
       query: { flightId: flight.departure.id },
     });
   };
@@ -244,11 +282,11 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
 
           <div className={styles.bkmr}>
             <span className={styles.price}>₦{departureData.price}</span>
-            <Link href="/selectflight">
-              <button className={styles.book} onClick={handleBookNow}>
-                Book Now
-              </button>
-            </Link>
+
+            <button className={styles.book} onClick={handleBookNow}>
+              Book Now
+            </button>
+
             <button className={styles.more} onClick={toggleModal}>
               {buttonText}{" "}
               <span>
