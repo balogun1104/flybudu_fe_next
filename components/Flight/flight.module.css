@@ -107,6 +107,7 @@
 .greenIMG {
     width: 64px;
     height: 64px;
+    border-radius: 50%;
     object-fit: contain;
     margin-bottom: 15px;
 
@@ -402,7 +403,7 @@ display: none;
     }
 
     .lagosText {
-        font-size: 16px;
+        font-size: 17px;
         text-align: start;
         width: 100px;
     }

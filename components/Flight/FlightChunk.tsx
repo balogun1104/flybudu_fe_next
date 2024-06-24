@@ -48,6 +48,7 @@ const DetailsModal: React.FC<{
 
   console.log(flightData, "in flight chunck");
 
+
   const handleBookNow = () => {
     // i was using this to dispach the data to the flight page
     // dispatch(setSelectedFlight(flight));
@@ -238,10 +239,10 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
             <div className={styles.client}>
               <span>
                 <Image src={Star} alt="" />
-                <span style={{ fontWeight: "bold" }}>N/A</span>
+                <span style={{ fontWeight: "bold" }}>4.5</span>
               </span>
               <span>
-                <Image src={Customer} alt="" /> <span>N/A</span>
+                <Image src={Customer} alt="" /> <span>53</span>
               </span>
             </div>
 
@@ -273,7 +274,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
               </span>
             </div>
             <b className={styles.abujaText}>
-              {departureData.arrival}({departureData.airline.code})
+              {departureData.arrival} <br/> ({departureData.airline.code})
               <span className={styles.little}>
                 {arrivalData ? arrivalData.from : departureData.from}
               </span>
@@ -281,7 +282,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
           </div>
 
           <div className={styles.bkmr}>
-            <span className={styles.price}>₦{departureData.price}</span>
+            <span className={styles.price}>₦{departureData.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
 
             <button className={styles.book} onClick={handleBookNow}>
               Book Now

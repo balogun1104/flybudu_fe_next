@@ -165,7 +165,7 @@ function CustomerInfo() {
           </div>
           <span className={styles.who}>Who is travelling to Abuja?</span>
           <form onSubmit={handleSubmit}>
-            <div className={styles.general}>
+            <div className={styles.generall}>
               <div className={styles.detailsDiv}>
                 <span className={styles.details}>Enter your Details</span>
                 <div className={styles.lock}>
@@ -402,18 +402,14 @@ function CustomerInfo() {
               )}
             </div>
             <div className={styles.saveDiv}>
-              <div className={styles.textDiv}>
-                <input type="checkbox" />
-                <p>
-                  By submitting your flight request you have agree to our
-                  <span>Terms & Conditions & Privacy policy </span>
-                  and to receive further communication regarding your flight.
-                </p>
-              </div>
-              <span className={styles.money}> #160,000</span>
+             
+           <div className={styles.ilu}>
+           <span className={styles.money}> #160,000</span>
+              <button className={styles.back}>Back</button>
               <button type="submit" className={styles.save}>
-                Save Continue
+                Save & Continue
               </button>
+           </div>
             </div>
           </form>
         </div>
