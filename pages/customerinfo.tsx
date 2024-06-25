@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from "react";
 import styles from "../styles/customerinfo.module.css";
 import Header from "@/components/header/header";
@@ -94,7 +95,7 @@ function CustomerInfo() {
     setIsActive(!isActive);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
