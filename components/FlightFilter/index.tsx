@@ -41,7 +41,7 @@ function index( { onClick }) {
             </div>
             <div className={styles.rec}>
               <p>Fastest</p>
-              <p>Rating</p>
+              
             </div>
             <div style={{ border: "0.5px solid #BFBFBF" }}></div>
             <div className={styles.price} style={{ marginTop: "10px" }}>

@@ -9,9 +9,17 @@ import support from "@/public/assets/images/customer-support (1) 1.png";
 import plane from "@/public/assets/images/plane.png";
 import Increase from "@/public/assets/images/increase 1.png";
 import Image from "next/image";
+import { useFlightData } from "@/utils/helper";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 // import clock from "../../assets/svg/time.svg";
 
 function SideCard() {
+  const { searchCriteria, flightData, loading, totalFlight, totalPassengers } =
+  useFlightData();
+const selectedAirline = useSelector(
+  (state: RootState) => state.flight.selectedFlight
+);
   return (
     <div className={styles.body}>
       <div className={styles.general}>
