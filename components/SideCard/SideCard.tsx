@@ -20,6 +20,13 @@ function SideCard() {
 const selectedAirline = useSelector(
   (state: RootState) => state.flight.selectedFlight
 );
+console.log(selectedAirline, flightData, totalFlight, totalPassengers)
+const arrivalPrice = selectedAirline?.arrival?.price ? Number(selectedAirline.arrival.price) : 0;
+const departurePrice = selectedAirline?.departure?.price ? Number(selectedAirline.departure.price) : 0;
+
+const Addition = arrivalPrice + departurePrice;
+const passenger = searchCriteria.passengers.adults + searchCriteria.passengers.children + searchCriteria.passengers.infants;
+const finalPrice = Addition * passenger;
   return (
     <div className={styles.body}>
       <div className={styles.general}>
@@ -34,12 +41,12 @@ const selectedAirline = useSelector(
           <Image src={support} className={styles.support} alt="" />
         </div>
         <div className={styles.img}>
-          <Image src={greenImg} alt="erjok" />
+          <Image  className={styles.img} src={selectedAirline?.departure.airline.logo} width={360} height={120} alt="erjok" />
         </div>
         <div className={styles.seconddiv}>
           <div className={styles.greenAfrica}>
             {" "}
-            <p className={styles.greenText}>Green Africa</p>{" "}
+            <p className={styles.greenText}> {selectedAirline?.departure.airline.company}</p>{" "}
             <Image src={star} alt="otilor" />{" "}
             <span className={styles.bold}>5.0</span>
             <Image src={user} alt="asappu" /> <span>123</span>
@@ -47,77 +54,75 @@ const selectedAirline = useSelector(
           <div className={styles.init}>
             {" "}
             <p className={styles.book}>Booking Summary</p>{" "}
-            <span className={styles.change}>Change</span>
+          <Link href="/flight">  <span className={styles.change}>Change</span></Link>
           </div>
         </div>
         <div className={styles.thirdDiv}>
           <div className={styles.departDiv}>
             <p className={styles.depart}>Depart</p>{" "}
-            <span className={styles.date}>Mar.14,2023</span>
-            <span className={styles.stop}>0 Stop</span>
+            <span className={styles.date}>{selectedAirline?.departure.date}</span>
+            <span className={styles.stop}>
+            {selectedAirline?.arrival ? "1 Stop" : "0 Stop"}
+            </span>
           </div>
           <div className={styles.triplet}>
             <div className={styles.lagos}>
-              <span className={styles.abujaText}>Lagos(LOS)</span>
-              <p>Muritala Mohammed</p>
-              <p>International Airport</p>
-              <p className={styles.time}>07:00</p>
+              <span className={styles.abujaText}>{searchCriteria.from}</span>
+            <p> {selectedAirline?.departure.airline.code}</p>
+              <p className={styles.time}>{selectedAirline?.departure.departure}</p>
             </div>
             <div className={styles.plane}>
               <Image src={plane} alt="dayuuum" />
             </div>
             <div className={styles.abuja}>
-              <span className={styles.abujaText}>Abuja(ABV)</span>
-              <p>Nnamdi Azikiwe </p>
-              <p>International Airport</p>
-              <p className={styles.time}>08:40</p>
+              <span className={styles.abujaText}>{searchCriteria.to}</span>
+              <p> {selectedAirline?.departure.airline.code}</p>
+              <p className={styles.time}>{selectedAirline?.departure.departure}</p>
             </div>
           </div>
         </div>
-        <div className={styles.fourthDiv}>
+        {selectedAirline?.arrival ? <div className={styles.fourthDiv}>
           <div className={styles.departDiv}>
             <p className={styles.depart}>Return</p>{" "}
-            <span className={styles.date}>Mar.24,2023</span>
-            <span className={styles.stop}>0 Stop</span>
+            <span className={styles.date}>{selectedAirline?.arrival?.date}</span>
+            {/* <span className={styles.stop}>0 Stop</span> */}
           </div>
           <div className={styles.triplet}>
             <div>
-              <span className={styles.abujaText}>Abuja(ABV)</span>
-              <p>Nnamfi Azikiwe</p>
-              <p>International Airport</p>
-              <p className={styles.time}>07:45</p>
+              <span className={styles.abujaText}>{searchCriteria.to}</span>
+              <p>{selectedAirline?.arrival?.airline.code}</p>
+              <p className={styles.time}>{selectedAirline?.arrival?.departure}</p>
             </div>
             <div className={styles.plane}>
               <Image src={plane} alt="dayuuum" />
             </div>
             <div className={styles.abuja}>
-              <span className={styles.abujaText}>Lagos(LOS)</span>
-              <p>Muritala Mohammed </p>
-              <p>International Airport</p>
-              <p className={styles.time}>09:15</p>
+              <span className={styles.abujaText}>{searchCriteria.from}</span>
+              <p>{selectedAirline?.arrival?.airline.code}</p>
+              <p className={styles.time}>{selectedAirline?.arrival?.arrival}</p>
             </div>
           </div>
-        </div>
+        </div> : ""}
         <div className={styles.fifthDiv}>
           <span className={styles.base}> Flight Base Fare</span>
-          <p>Adult x1</p>
+          <p>Adult x{searchCriteria.passengers.adults}</p>
           <div className={styles.twins}>
             <p> Class</p> <span>Economy</span>
           </div>
           <div className={styles.twins}>
-            <p>Base Fare </p> <span> &#8358;160,000.00</span>
+            <p>Base Fare </p> <span> &#8358; {finalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
           </div>
           <div className={styles.twins}>
-            <p> Discount</p> <span>&#8358;00.00</span>
+            <p> Discount</p> <span>&#8358; 00.00</span>
           </div>
           <div className={styles.twins}>
             <p>
               Taxes and fee <span></span>{" "}
             </p>{" "}
-            <span>&#8358;00.00</span>
+            <span>&#8358; 00.00</span>
           </div>
           <div className={styles.twins}>
-            <p> Total</p> <span className={styles.blue}>&#8358;160,000.00</span>
+            <p> Total</p> <span className={styles.blue}>&#8358; {finalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
           </div>
 
           <div className={styles.priceDiv}>
