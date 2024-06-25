@@ -14,9 +14,17 @@ import support from "@/public/assets/images/customer-support (1) 1.png";
 import Additional from "../components/AdditionalService/AdditionalService";
 import Link from "next/link";
 import Image from "next/image";
-
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { setFormData } from "@/redux/flight/formDataSlice";
+import { Luggage } from "@/redux/types/formData.types";
+import { useRouter } from "next/router";
 
 function TravelInformation() {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const formData = useSelector((state: RootState) => state.formData);
+
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const handleResize = () => {
@@ -30,6 +38,15 @@ function TravelInformation() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handleLuggageSelect = (selectedLuggage: Luggage[]) => {
+    dispatch(setFormData({ ...formData, luggages: selectedLuggage }));
+  };
+
+  const handleSaveAndContinue = () => {
+    router.push("/payment");
+  };
+
   return (
     <div className={styles.general}>
       <div className={styles.body}>
@@ -101,7 +118,7 @@ function TravelInformation() {
               Travel Information (Additional Service)
             </span>
           </div>
-          <Additional />
+          <Additional onLuggageSelect={handleLuggageSelect} />
           <SpecialAssistance />
           <Seat />
           <div className={styles.skipDiv}>
@@ -124,14 +141,14 @@ function TravelInformation() {
                 <span className={styles.save}>Save Continue</span>
               </Link>
             ) : (
-              <Link
+              <button
                 className={styles.link}
-                href="/payment"
                 style={{ textDecoration: "none" }}
+                onClick={handleSaveAndContinue}
               >
                 {" "}
                 <span className={styles.save}>Save Continue</span>
-              </Link>
+              </button>
             )}
           </div>
         </div>

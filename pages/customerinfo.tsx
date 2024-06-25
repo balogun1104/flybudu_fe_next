@@ -14,20 +14,24 @@ import Approved from "@/public/assets/images/Layer 3.png";
 import Image from "next/image";
 import axiosInstance from "@/redux/api";
 import { useFlightData } from "@/utils/helper";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store";
-import { Passenger, FormData } from "../redux/types/customerInfo.type";
+import { Passenger, FormData } from "@/redux/types/formData.types";
+import { setFormData } from "@/redux/flight/formDataSlice";
+import { useRouter } from "next/router";
 
 function CustomerInfo() {
+  const router = useRouter();
   const { searchCriteria, flightData, loading, totalFlight, totalPassengers } =
     useFlightData();
   const selectedAirline = useSelector(
     (state: RootState) => state.flight.selectedFlight
   );
+  const dispatch = useDispatch();
 
   const [isActive, setIsActive] = useState(false);
   const [openCode, setOpenCode] = useState(false);
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormDataState] = useState<FormData>({
     title: "",
     surname: "",
     first_name: "",
@@ -75,7 +79,7 @@ function CustomerInfo() {
         passengers.push({ name: "", age: 1, gender: "" });
       }
 
-      setFormData((prevState) => ({
+      setFormDataState((prevState) => ({
         ...prevState,
         price: totalPrice,
         amount_paid: totalPrice,
@@ -95,40 +99,17 @@ function CustomerInfo() {
     setIsActive(!isActive);
   };
 
-  const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
+  const handleInputChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
+    setFormDataState((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      // Create a new object with the current form data
-      const payloadData = {
-        ...formData,
-        // Ensure these values are correctly set
-        airline_id:
-          selectedAirline?.departure?.airline_id || formData.airline_id,
-        route_id: selectedAirline?.departure?.route_id || formData.route_id,
-        price: formData.price,
-        amount_paid: formData.amount_paid,
-        // Format the departure datetime correctly
-        departure: selectedAirline?.departure
-          ? `${selectedAirline.departure.date} ${selectedAirline.departure.departure}`
-          : formData.departure,
-      };
-
-      console.log("Payload to be sent:", payloadData);
-      const response = await axiosInstance.post("/flights/submit", payloadData);
-      console.log("Submission successful:", response.data);
-      // Handle successful submission (e.g., show a success message, redirect, etc.)
-    } catch (error) {
-      console.error("Submission failed:", error);
-      // Handle error (e.g., show error message to user)
-    }
+  const handleSaveAndContinue = () => {
+    dispatch(setFormData(formData));
+    router.push("/travelinformation");
   };
 
   return (
@@ -165,7 +146,7 @@ function CustomerInfo() {
             </div>
           </div>
           <span className={styles.who}>Who is travelling to Abuja?</span>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className={styles.generall}>
               <div className={styles.detailsDiv}>
                 <span className={styles.details}>Enter your Details</span>
@@ -403,14 +384,17 @@ function CustomerInfo() {
               )}
             </div>
             <div className={styles.saveDiv}>
-             
-           <div className={styles.ilu}>
-           <span className={styles.money}> #160,000</span>
-              <button className={styles.back}>Back</button>
-              <button type="submit" className={styles.save}>
-                Save & Continue
-              </button>
-           </div>
+              <div className={styles.ilu}>
+                <span className={styles.money}> #160,000</span>
+                <button className={styles.back}>Back</button>
+                <button
+                  type="button"
+                  className={styles.save}
+                  onClick={handleSaveAndContinue}
+                >
+                  Save & Continue
+                </button>
+              </div>
             </div>
           </form>
         </div>

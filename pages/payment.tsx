@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/styles/payment.module.css";
 import SideCard from "../components/SideCard/SideCard";
 import Paystack from "../components/Paystack/Paystack";
@@ -17,9 +17,16 @@ import PaymentApproved from "../components/PaymentApproved/PaymentApproved";
 import BackButton from "@/public/assets/images/backbutton.png";
 import support from "@/public/assets/images/customer-support (1) 1.png";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 function Payment() {
   const [isOpen, setIsOpen] = useState(false);
+  const formData = useSelector((state: RootState) => state.formData);
+
+  useEffect(() => {
+    console.log("Form Data:", formData);
+  }, [formData]);
   return (
     <div className={styles.general}>
       <div className={styles.body}>
