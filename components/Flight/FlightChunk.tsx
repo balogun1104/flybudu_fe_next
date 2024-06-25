@@ -111,10 +111,58 @@ const DetailsModal: React.FC<{
           </div>
         </div>
       </div>
+      { arrivalData ? <><div style={{ border: "1px solid #ccc" }}></div>
+
+<div className={styles.modalContent}>
+  <span className={styles.smallPlane}>
+    <Image src={smallPlane} alt="" /> Return Flight
+  </span>
+    
+  <div className={styles.df}>
+    <div className={styles.dfOne}>
+      <span style={{ fontWeight: "bold", fontSize: "20px" }}>
+        {arrivalData.from} ({arrivalData.airline.code})
+      </span>
+      <span className={styles.font}>{arrivalData.airline.company}</span>
+      <span className={styles.ip}>
+        <Image src={date} alt="" />
+        Date: {arrivalData.date}
+      </span>
+      <span className={styles.ip}>
+        <Image src={time} alt="" /> Time: {arrivalData.departure} -{" "}
+        {arrivalData.arrival}
+      </span>
+      <span className={styles.ip}>
+        <Image src={Smallseat} alt="" /> Class: Economy
+      </span>
+      <span className={styles.ip}>
+        <Image src={Bagage} alt="" /> Baggage: Standard
+      </span>
+    </div>
+    <div>
+      <Image src={Plane} alt="" />
+    </div>
+    <div className={styles.dftwo}>
+      <span style={{ fontSize: "20px", fontWeight: "bold" }}>
+        {arrivalData ? arrivalData.from : departureData.from} (
+        {departureData.airline.code})
+      </span>
+      <span className={styles.font}>{departureData.airline.company}</span>
+      <span className={styles.font}>
+        <Image src="" alt="" /> PASSENGER 1
+      </span>
+      <span>{/* Add duration if available */}</span>
+      <span className={styles.font}>{arrivalData.repeats}</span>
+      <span style={{ fontWeight: "bold" }} className={styles.font}>
+        {arrivalData.available_seats || "N/A"} Seats Left
+      </span>
+    </div>
+  </div>
+</div></> : <></>  }
       <div style={{ border: "1px solid #ccc" }}></div>
       <div className={styles.totalDiv}>
         <div className={styles.total}>
-          <span>Total</span> <span>&#8358;{departureData.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+          <span>Total</span> <span>&#8358;{arrivalData ? parseFloat(departureData.price) + parseFloat(arrivalData.price)  : departureData.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
         </div>
         <span style={{ fontWeight: "bold", color: "red" }}>PLEASE NOTE</span>
         <div

@@ -7,18 +7,11 @@ import Link from "next/link";
 import BackButton from "@/public/assets/images/backbutton.png";
 import support from "@/public/assets/images/customer-support (1) 1.png";
 import plane from "@/public/assets/images/plane.png";
-import { useFlightData, formatDate } from '@/utils/helper';
 import Increase from "@/public/assets/images/increase 1.png";
-import { AirlineFlights, Flight, FlightDetails } from "@/redux/flight/types";
 import Image from "next/image";
 // import clock from "../../assets/svg/time.svg";
 
 function SideCard() {
-  const { searchCriteria,  loading, error, totalFlight, totalPassengers } = useFlightData();
-
- 
-
-
   return (
     <div className={styles.body}>
       <div className={styles.general}>
@@ -52,22 +45,21 @@ function SideCard() {
         <div className={styles.thirdDiv}>
           <div className={styles.departDiv}>
             <p className={styles.depart}>Depart</p>{" "}
-            <span className={styles.date}>{searchCriteria.departure_date}</span>
+            <span className={styles.date}>Mar.14,2023</span>
             <span className={styles.stop}>0 Stop</span>
           </div>
           <div className={styles.triplet}>
             <div className={styles.lagos}>
-              <span className={styles.abujaText}>{searchCriteria.from}</span>
-              {/* <p>Muritala Mohammed</p>
-              <p>International Airport</p> */}
-              {}
+              <span className={styles.abujaText}>Lagos(LOS)</span>
+              <p>Muritala Mohammed</p>
+              <p>International Airport</p>
               <p className={styles.time}>07:00</p>
             </div>
             <div className={styles.plane}>
               <Image src={plane} alt="dayuuum" />
             </div>
             <div className={styles.abuja}>
-              <span className={styles.abujaText}>{searchCriteria.to}</span>
+              <span className={styles.abujaText}>Abuja(ABV)</span>
               <p>Nnamdi Azikiwe </p>
               <p>International Airport</p>
               <p className={styles.time}>08:40</p>
@@ -77,7 +69,7 @@ function SideCard() {
         <div className={styles.fourthDiv}>
           <div className={styles.departDiv}>
             <p className={styles.depart}>Return</p>{" "}
-            <span className={styles.date}>{searchCriteria.arrival_date}</span>
+            <span className={styles.date}>Mar.24,2023</span>
             <span className={styles.stop}>0 Stop</span>
           </div>
           <div className={styles.triplet}>
@@ -100,9 +92,9 @@ function SideCard() {
         </div>
         <div className={styles.fifthDiv}>
           <span className={styles.base}> Flight Base Fare</span>
-          <p>Adult x {searchCriteria.passengers.adults}</p>
+          <p>Adult x1</p>
           <div className={styles.twins}>
-            <p> Class</p> <span>{searchCriteria.classType}</span>
+            <p> Class</p> <span>Economy</span>
           </div>
           <div className={styles.twins}>
             <p>Base Fare </p> <span> &#8358;160,000.00</span>
