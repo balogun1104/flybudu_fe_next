@@ -107,6 +107,7 @@
 .greenIMG {
     width: 64px;
     height: 64px;
+    border-radius: 50%;
     object-fit: contain;
     margin-bottom: 15px;
 
@@ -190,8 +191,8 @@
 
 .book {
     background-color: #06BCE1;
-    padding: 10px 24px 10px 24px;
-    border: none;
+    border: 1px  #06BCE1;
+    padding: 13px  24px;
     border-radius: 32px;
     color: #fff;
     cursor: pointer;
@@ -254,12 +255,18 @@
 }
 
 .modalContent {
+    font-family: sans-serif;
     padding: 24px;
 }
 
+.special {
+    font-size: 20px;
+    font-weight: bold;
+}
 .smallPlane {
     display: flex;
     align-items: center;
+    margin-bottom: 15px;
     gap: 10px;
     color: #06BCE1;
     font-weight: 600;
@@ -323,6 +330,9 @@
         justify-content: right;
         margin-top: 16px;
     }
+    .special{
+        font-size: 17px;
+    }
     .lagos{
         display: flex;
         justify-content: left;
@@ -341,8 +351,11 @@
     .seat {
         display: none;
     }
+    .modalContent{
+        padding: 10px;
+    }
     .modalContent, .total, .save{
-        display: none;
+        /* display: none; */
     }
 
     .client, .display {
@@ -371,7 +384,9 @@
         align-items: center;
         gap: 5px;
     }
-
+.ip img{
+display: none;
+}
     .container {
         padding: 20px;
         border-radius: 0;
@@ -385,11 +400,10 @@
     .abujaText {
         font-size: 17px;
         text-align: end;
-        width: 90px;
     }
 
     .lagosText {
-        font-size: 16px;
+        font-size: 17px;
         text-align: start;
         width: 100px;
     }
