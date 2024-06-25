@@ -386,7 +386,7 @@ function CustomerInfo() {
             <div className={styles.saveDiv}>
               <div className={styles.ilu}>
                 <span className={styles.money}> #160,000</span>
-                <button className={styles.back}>Back</button>
+              <Link href="/flight">  <button className={styles.back}>Back</button></Link>
                 <button
                   type="button"
                   className={styles.save}

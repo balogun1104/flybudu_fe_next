@@ -134,11 +134,14 @@
   border-radius: 20px;
   font-size: 15px;
   display: flex;
-  flex-direction: column;
   line-height: 20px;
 }
 .customerDiv span {
   font-weight: bolder;
+}
+.customerDiv img{
+  width: 50px;
+  height: 50px;
 }
 .second{
     width: 30%;

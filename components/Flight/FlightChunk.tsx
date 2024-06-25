@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { parseISO, differenceInMinutes } from 'date-fns';
+// import { parseISO, differenceInMinutes } from 'date-fns';
+// import { parseISO, differenceInMinutes } from 'date-fns';
+
+
 import styles from "./flight.module.css";
 import Star from "@/public/assets/images/star.png";
 import Customer from "@/public/assets/images/Customers.png";
@@ -46,12 +49,17 @@ const DetailsModal: React.FC<{
   const departureData = flightData.departure;
   const arrivalData = flightData.arrival;
 
-  const departureDepartureTime = parseISO(`2000-01-01T${departureData.departure}`);
-  const departureArrivalTime = parseISO(`2000-01-01T${departureData.arrival}`);
-  const departureDurationInMinutes = differenceInMinutes(departureArrivalTime, departureDepartureTime);
-  const departureHours = Math.floor(departureDurationInMinutes / 60);
-  const departureMinutes = departureDurationInMinutes % 60;
-  const formattedDurationForDeparture = `${departureHours} h ${departureMinutes} m`;
+   // const departureDepartureTime = parseISO(`2000-01-01T${departureData.departure}`);
+  const departureDepartureTime = (`2000-01-01T${departureData.departure}`);
+
+  // const departureArrivalTime = parseISO(`2000-01-01T${departureData.arrival}`);
+  const departureArrivalTime = (`2000-01-01T${departureData.arrival}`);
+  // const departureDurationInMinutes = differenceInMinutes(departureArrivalTime, departureDepartureTime);
+  // const departureDurationInMinutes = differenceInMinutes(departureArrivalTime, departureDepartureTime);
+
+  // const departureHours = Math.floor(departureDurationInMinutes / 60);
+  // const departureMinutes = departureDurationInMinutes % 60;
+  // const formattedDurationForDeparture = `${departureHours} h ${departureMinutes} m`;
 
  
   console.log(flightData, "in flight chunck");
@@ -237,12 +245,12 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
   const arrivalData = flight.arrival;
 
 
-  const departureDepartureTime = parseISO(`2000-01-01T${departureData.departure}`);
-  const departureArrivalTime = parseISO(`2000-01-01T${departureData.arrival}`);
-  const departureDurationInMinutes = differenceInMinutes(departureArrivalTime, departureDepartureTime);
-  const departureHours = Math.floor(departureDurationInMinutes / 60);
-  const departureMinutes = departureDurationInMinutes % 60;
-  const formattedDurationForDeparture = `${departureHours}h ${departureMinutes}m`;
+  // const departureDepartureTime = parseISO(`2000-01-01T${departureData.departure}`);
+  // const departureArrivalTime = parseISO(`2000-01-01T${departureData.arrival}`);
+  // const departureDurationInMinutes = differenceInMinutes(departureArrivalTime, departureDepartureTime);
+  // const departureHours = Math.floor(departureDurationInMinutes / 60);
+  // const departureMinutes = departureDurationInMinutes % 60;
+  // const formattedDurationForDeparture = `${departureHours}h ${departureMinutes}m`;
 
   
   if (!departureData) {
@@ -278,10 +286,10 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
             <div className={styles.Customer}>
               <span>
                 <Image src={Star} alt="" />
-                <span style={{ fontWeight: "bold" }}>N/A</span>
+                <span style={{ fontWeight: "bold" }}>4.5</span>
               </span>
               <span>
-                <Image src={Customer} alt="" /> <span>N/A</span>
+                <Image src={Customer} alt="" /> <span>23</span>
               </span>
             </div>
           </div>
@@ -329,7 +337,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
             </b>
             <div>
             <span className={styles.onehr}>
-            {formattedDurationForDeparture}
+            {/* {formattedDurationForDeparture} */}
           </span>
               <div className={styles.imgWrap}>
                 <Image className={styles.imgOne} src={Circle} alt="" />
