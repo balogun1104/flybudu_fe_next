@@ -469,7 +469,7 @@ const Navbar = () => {
                 </button>
               </Dropdown>
             </div>
-            <span onClick={toggleDivs} className={styles.cancel}>x</span>
+            <span onClick={toggleDivs} style={{cursor:"pointer"}} className={styles.cancel}>x</span>
           </div>
           <div className={styles.searchForm}>
             <div

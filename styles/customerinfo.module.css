@@ -9,6 +9,17 @@
   box-sizing: border-box;
   color: black;
   margin: 0 auto;
+
+  overflow-x: hidden;
+  font-family: myFont;
+}
+.generall{
+  padding: 0 20px;
+  background: rgb(236, 234, 234);
+  box-sizing: border-box;
+  color: black;
+  margin: 0 auto;
+
   overflow-x: hidden;
   font-family: myFont;
 }
@@ -23,6 +34,7 @@
   background: #fff;
   text-align: center;
   align-items: center;
+  gap: 10px;
   justify-content: center;
   padding: 10px 50px;
   border-radius: 7px;
@@ -40,8 +52,12 @@
 .niceDiv span {
   font-weight: bold;
 }
+.niceDiv div{
+  display: flex;
+}
 .niceDiv p {
-  
+  font-weight: 100;
+  font-family: sans-serif;
 }
 .codeDiv {
   margin: 3em 0;
@@ -64,9 +80,15 @@
   border-radius: 12px;
   outline: none;
 }
+.ilu{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
 .textDiv {
   display: flex;
-  width: 500px;
+  width: 100%;
+  margin-bottom: 30px;
   align-items: center;
   gap: 0.5em;
 }
@@ -77,10 +99,19 @@
 .save {
   color: #fff;
   background: #06bce1;
-  padding: 10px 20px;
-  border-radius: 20px;
+  padding: 15px 48px;
+  border-radius: 32px;
+}
+.back{
+      background: transparent;
+      color: #06bce1;
+    border: 1px solid #06bce1;
+    padding: 15px 48px;
+    border-radius: 32px;
+
 }
 .saveDiv {
+  flex-wrap: wrap;
   display: flex;
   /* gap: 2.5em; */
   margin-bottom: 50px;
@@ -141,17 +172,18 @@
     width: unset;
   }
   .niceDiv{
-    margin-left: 1em;
-    margin-right: 1em;
     align-items: center;
     justify-content: space-between;
     padding: 10px 15px;
+  }
+  .back{
+    display: none;
   }
   .niceDiv span{
     font-size: 12px;
   }
   .niceDiv p{
-    font-size: 14px;
+    font-size: 12px;
   }
   .textDiv{
 display: none;
@@ -238,7 +270,7 @@ margin-left: 5px;
 
 /* Verified styling the component was move to the customerinfo page we i need to merge the styling  */
 
-.general {
+.generall {
   border-radius: 7px;
   gap: 9px;
   flex-direction: column;
@@ -349,11 +381,13 @@ margin-left: 5px;
 }
 .father {
   gap: 2em;
+  background: rgb(236, 234, 234);
+
+  padding: 50px 20px 50px;
   display: flex;
   /* flex-wrap: wrap; */
   justify-content: space-between;
   border-bottom: 1px solid black;
-  padding-bottom: 50px;
 }
 
 .fatherVerified {
@@ -488,7 +522,13 @@ margin-left: 5px;
   align-self: center;
   justify-content: center;
 }
+@media (max-width:900px) {
+  .niceDiv div{
+    flex-direction: column;
+  }
+}
 @media (max-width: 768px) {
+
   .adult {
     display: flex;
     justify-content: space-between;
@@ -555,6 +595,11 @@ margin-left: 5px;
   .idowu {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+  }.general{
+    padding: 0 !important;
+  }
+  .father{
+    padding: 20px;
   }
   .detailsDiv {
     flex-direction: column;
