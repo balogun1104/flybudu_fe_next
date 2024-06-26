@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "@/styles/payment.module.css";
 import SideCard from "../components/SideCard/SideCard";
+import { PaystackButton } from "react-paystack";
 import Paystack from "../components/Paystack/Paystack";
+import paystack from "@/public/assets/images/Frame 48097430.png";
 import flutterwave from "@/public/assets/images/Frame 48097430 (2).png";
 import visa from "@/public/assets/images/Frame 48097430 (1).png";
 import masterCard from "@/public/assets/images/Frame 48097434.png";
@@ -18,15 +20,46 @@ import BackButton from "@/public/assets/images/backbutton.png";
 import support from "@/public/assets/images/customer-support (1) 1.png";
 import Image from "next/image";
 import { useSelector } from "react-redux";
+import { useFlightData } from "@/utils/helper";
 import { RootState } from "../redux/store";
 
 function Payment() {
+
+  const { searchCriteria, flightData, loading, totalFlight, totalPassengers } =
+  useFlightData();
+const selectedAirline = useSelector(
+  (state: RootState) => state.flight.selectedFlight
+);
+
+
+const arrivalPrice = selectedAirline?.arrival?.price ? Number(selectedAirline.arrival.price) : 0;
+const departurePrice = selectedAirline?.departure?.price ? Number(selectedAirline.departure.price) : 0;
+
+const Addition = arrivalPrice + departurePrice;
+const passenger = searchCriteria.passengers.adults + searchCriteria.passengers.children + searchCriteria.passengers.infants;
+const finalPrice = Addition * passenger;
+
   const [isOpen, setIsOpen] = useState(false);
   const formData = useSelector((state: RootState) => state.formData);
 
   useEffect(() => {
     console.log("Form Data:", formData);
   }, [formData]);
+
+
+
+  
+  const paystackOptions = {
+    amount: finalPrice * 100,
+    publicKey: "pk_live_31623679265ad901114d505a0e83109332561007",
+    text: "Pay Now",
+    onSuccess: () => {
+      console.log("Payment Successful!");
+    },
+    onClose: () => {
+      console.log("Payment Closed!");
+    },
+  };
   return (
     <div className={styles.general}>
       <div className={styles.body}>
@@ -96,7 +129,33 @@ function Payment() {
             <span>Payment</span>
             <p>Choose your preferred method</p>
           </div>
-          <Paystack />
+          <div className={styles.generall}>
+      <div className={styles.firstdiv}>
+        <div className={styles.paystackDiv}>
+          {" "}
+          <span>Paystack</span> <Image src={paystack} alt="dsa" />
+        </div>
+        <div className={styles.images}>
+          {" "}
+          <Image src={visa} alt="dsa" /> <Image src={verve} alt="dsa" />{" "}
+          <Image src={masterCard} alt="dsa" />
+        </div>
+        <div className={styles.textDiv}>
+          <span>
+            By selecting 'Pay Now', you confirm reservation of selected service
+            and agree with the condition of carriage and the fare application
+            rules of FlyBudu. You will be redirected to our secure payment
+            checkout page.{" "}
+          </span>
+        </div>
+      </div>
+      <div className={styles.seconddiv}>
+        <div className={styles.payment}>
+          <p>Your full payment is</p>
+          <span>&#8358;  {finalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+        </div>
+      </div>
+    </div>
           <div className={styles.flutt}>
             <span>Flutterwave</span>
             <Image src={flutterwave} alt="dsf" />
@@ -124,7 +183,7 @@ function Payment() {
               </button>
             </Link>{" "}
             <span className={styles.money}> #172,000</span>
-            <button
+            {/* <span
               style={{
                 textDecoration: "none",
                 border: "none",
@@ -133,8 +192,9 @@ function Payment() {
               onClick={() => setIsOpen(true)}
               className={styles.save}
             >
-              Pay Now
-            </button>
+              Pay Now */}
+              <PaystackButton className={styles.save} {...paystackOptions} />
+              {/* </span> */}
           </div>
         </div>
         <div className={styles.secondDiv}>
