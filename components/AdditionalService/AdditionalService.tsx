@@ -9,44 +9,60 @@ import Image from "next/image";
 import { Luggage } from "@/redux/types/formData.types";
 
 interface AdditionalServiceProps {
-  onLuggageSelect: (selectedLuggage: Luggage[]) => void;
+  onLuggageSelect: (selectedLuggage: {
+    depart: Luggage[];
+    return: Luggage[];
+  }) => void;
 }
 
 function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
   const [isActive, setIsActive] = useState(false);
-  const [selectedLuggage, setSelectedLuggage] = useState<Luggage[]>([]);
+  const [selectedLuggage, setSelectedLuggage] = useState<{
+    depart: Luggage[];
+    return: Luggage[];
+  }>({
+    depart: [],
+    return: [],
+  });
 
   const toggleText = () => {
     setIsActive(!isActive);
   };
 
   const handleLuggageChange = (
+    type: "depart" | "return",
     weight: string,
     quantity: number,
     price: number
   ) => {
-    const existingLuggageIndex = selectedLuggage.findIndex(
+    const existingLuggageIndex = selectedLuggage[type].findIndex(
       (luggage) => luggage.weight === weight
     );
 
     if (existingLuggageIndex !== -1) {
-      const updatedLuggage = [...selectedLuggage];
+      const updatedLuggage = [...selectedLuggage[type]];
       updatedLuggage[existingLuggageIndex] = {
         ...updatedLuggage[existingLuggageIndex],
         quantity,
         price,
       };
-      setSelectedLuggage(updatedLuggage);
+      setSelectedLuggage({
+        ...selectedLuggage,
+        [type]: updatedLuggage,
+      });
     } else {
       const newLuggage: Luggage = {
         weight,
         quantity,
         price,
       };
-      setSelectedLuggage([...selectedLuggage, newLuggage]);
+      setSelectedLuggage({
+        ...selectedLuggage,
+        [type]: [...selectedLuggage[type], newLuggage],
+      });
     }
 
-    onLuggageSelect([...selectedLuggage]);
+    onLuggageSelect(selectedLuggage);
   };
 
   return (
@@ -115,9 +131,10 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     className={styles.minus}
                     onClick={() =>
                       handleLuggageChange(
+                        "depart",
                         "10Kg",
                         Math.max(
-                          (selectedLuggage.find(
+                          (selectedLuggage.depart.find(
                             (luggage) => luggage.weight === "10Kg"
                           )?.quantity || 0) - 1,
                           0
@@ -129,7 +146,7 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     -
                   </button>
                   <span className={styles.number}>
-                    {selectedLuggage.find(
+                    {selectedLuggage.depart.find(
                       (luggage) => luggage.weight === "10Kg"
                     )?.quantity || 0}
                   </span>
@@ -137,8 +154,9 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     className={styles.plus}
                     onClick={() =>
                       handleLuggageChange(
+                        "depart",
                         "10Kg",
-                        (selectedLuggage.find(
+                        (selectedLuggage.depart.find(
                           (luggage) => luggage.weight === "10Kg"
                         )?.quantity || 0) + 1,
                         6000
@@ -157,9 +175,10 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     className={styles.minus}
                     onClick={() =>
                       handleLuggageChange(
+                        "depart",
                         "15Kg",
                         Math.max(
-                          (selectedLuggage.find(
+                          (selectedLuggage.depart.find(
                             (luggage) => luggage.weight === "15Kg"
                           )?.quantity || 0) - 1,
                           0
@@ -171,7 +190,7 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     -
                   </button>
                   <span className={styles.number}>
-                    {selectedLuggage.find(
+                    {selectedLuggage.depart.find(
                       (luggage) => luggage.weight === "15Kg"
                     )?.quantity || 0}
                   </span>
@@ -179,8 +198,9 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     className={styles.plus}
                     onClick={() =>
                       handleLuggageChange(
+                        "depart",
                         "15Kg",
-                        (selectedLuggage.find(
+                        (selectedLuggage.depart.find(
                           (luggage) => luggage.weight === "15Kg"
                         )?.quantity || 0) + 1,
                         9000
@@ -199,9 +219,10 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     className={styles.minus}
                     onClick={() =>
                       handleLuggageChange(
+                        "depart",
                         "20Kg",
                         Math.max(
-                          (selectedLuggage.find(
+                          (selectedLuggage.depart.find(
                             (luggage) => luggage.weight === "20Kg"
                           )?.quantity || 0) - 1,
                           0
@@ -213,7 +234,7 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     -
                   </button>
                   <span className={styles.number}>
-                    {selectedLuggage.find(
+                    {selectedLuggage.depart.find(
                       (luggage) => luggage.weight === "20Kg"
                     )?.quantity || 0}
                   </span>
@@ -221,8 +242,9 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     className={styles.plus}
                     onClick={() =>
                       handleLuggageChange(
+                        "depart",
                         "20Kg",
-                        (selectedLuggage.find(
+                        (selectedLuggage.depart.find(
                           (luggage) => luggage.weight === "20Kg"
                         )?.quantity || 0) + 1,
                         12000
@@ -247,9 +269,10 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     className={styles.minus}
                     onClick={() =>
                       handleLuggageChange(
+                        "return",
                         "10Kg",
                         Math.max(
-                          (selectedLuggage.find(
+                          (selectedLuggage.return.find(
                             (luggage) => luggage.weight === "10Kg"
                           )?.quantity || 0) - 1,
                           0
@@ -261,7 +284,7 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     -
                   </button>
                   <span className={styles.number}>
-                    {selectedLuggage.find(
+                    {selectedLuggage.return.find(
                       (luggage) => luggage.weight === "10Kg"
                     )?.quantity || 0}
                   </span>
@@ -269,8 +292,9 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     className={styles.plus}
                     onClick={() =>
                       handleLuggageChange(
+                        "return",
                         "10Kg",
-                        (selectedLuggage.find(
+                        (selectedLuggage.return.find(
                           (luggage) => luggage.weight === "10Kg"
                         )?.quantity || 0) + 1,
                         6000
@@ -289,9 +313,10 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     className={styles.minus}
                     onClick={() =>
                       handleLuggageChange(
+                        "return",
                         "15Kg",
                         Math.max(
-                          (selectedLuggage.find(
+                          (selectedLuggage.return.find(
                             (luggage) => luggage.weight === "15Kg"
                           )?.quantity || 0) - 1,
                           0
@@ -303,7 +328,7 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     -
                   </button>
                   <span className={styles.number}>
-                    {selectedLuggage.find(
+                    {selectedLuggage.return.find(
                       (luggage) => luggage.weight === "15Kg"
                     )?.quantity || 0}
                   </span>
@@ -311,8 +336,9 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     className={styles.plus}
                     onClick={() =>
                       handleLuggageChange(
+                        "return",
                         "15Kg",
-                        (selectedLuggage.find(
+                        (selectedLuggage.return.find(
                           (luggage) => luggage.weight === "15Kg"
                         )?.quantity || 0) + 1,
                         9000
@@ -331,9 +357,10 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     className={styles.minus}
                     onClick={() =>
                       handleLuggageChange(
+                        "return",
                         "20Kg",
                         Math.max(
-                          (selectedLuggage.find(
+                          (selectedLuggage.return.find(
                             (luggage) => luggage.weight === "20Kg"
                           )?.quantity || 0) - 1,
                           0
@@ -345,7 +372,7 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     -
                   </button>
                   <span className={styles.number}>
-                    {selectedLuggage.find(
+                    {selectedLuggage.return.find(
                       (luggage) => luggage.weight === "20Kg"
                     )?.quantity || 0}
                   </span>
@@ -353,8 +380,9 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                     className={styles.plus}
                     onClick={() =>
                       handleLuggageChange(
+                        "return",
                         "20Kg",
-                        (selectedLuggage.find(
+                        (selectedLuggage.return.find(
                           (luggage) => luggage.weight === "20Kg"
                         )?.quantity || 0) + 1,
                         12000

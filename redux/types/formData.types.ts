@@ -22,7 +22,10 @@ export interface FormData {
   gender: string;
   DOB: string;
   passengers: Passenger[];
-  luggages?: Luggage[]; // Make luggages optional
+  luggages?: {
+    depart: Luggage[];
+    return: Luggage[];
+  };
   price: number;
   discount_code: string;
   discounted_slash: number;
