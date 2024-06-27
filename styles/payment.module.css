@@ -70,6 +70,7 @@
   }
   .save{
     color: white;
+    border: 1px solid #06BCE1;
     background:  #06BCE1;
     padding: 10px 40px;
     border-radius: 20px;
@@ -106,6 +107,7 @@
     font-weight: bolder;
   }
   .secondDiv{
+    margin-top: 8em;
     width: 30%;
   }
   .secondHeader{
