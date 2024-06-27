@@ -33,6 +33,7 @@ width: 68%;
     text-align: start;
   }     
   .secondDiv{
+    margin-top: 7em;
     width: 30%;
   }
   .skip{
@@ -44,7 +45,7 @@ width: 68%;
   .save{
     color: white;
     background:  #06BCE1;
-    padding: 10px 40px;
+    padding: 12px 40px;
     border-radius: 20px;
   }
   .skipDiv span{

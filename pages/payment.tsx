@@ -50,6 +50,7 @@ const finalPrice = Addition * passenger;
 
   
   const paystackOptions = {
+    email : formData.email,
     amount: finalPrice * 100,
     publicKey: "pk_live_31623679265ad901114d505a0e83109332561007",
     text: "Pay Now",
@@ -156,18 +157,7 @@ const finalPrice = Addition * passenger;
         </div>
       </div>
     </div>
-          <div className={styles.flutt}>
-            <span>Flutterwave</span>
-            <Image src={flutterwave} alt="dsf" />
-          </div>
-          <div className={styles.flutter}>
-            <span>Bank Card</span>
-            <div>
-              <Image src={verve} alt="dsf" />
-              <Image src={visa} alt="dsf" />
-              <Image src={masterCard} alt="dsf" />
-            </div>
-          </div>
+        
           <div className={styles.skipDiv}>
             <Link
               href="/travelinformation"
@@ -193,7 +183,9 @@ const finalPrice = Addition * passenger;
               className={styles.save}
             >
               Pay Now */}
-              <PaystackButton className={styles.save} {...paystackOptions} />
+          {formData.email && (
+                          <PaystackButton className={styles.save}  {...paystackOptions} />
+          )}
               {/* </span> */}
           </div>
         </div>
@@ -210,6 +202,9 @@ const finalPrice = Addition * passenger;
           </div>
         </div>
       </div>
+       {formData.email && (
+                          <PaystackButton className={styles.save}  {...paystackOptions} />
+          )}
       {isOpen && <PaymentApproved setIsOpen={setIsOpen} />}
     </div>
   );

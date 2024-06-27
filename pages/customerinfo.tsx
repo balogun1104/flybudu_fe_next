@@ -58,6 +58,7 @@ function CustomerInfo() {
     ticket: "",
   });
 
+  console.log(formData)
   useEffect(() => {
     if (selectedAirline && searchCriteria) {
       const departurePrice = parseFloat(
