@@ -122,7 +122,7 @@ const DetailsModal: React.FC<{
             <span>{/* Add duration if available */}</span>
             <span className={styles.font}>{departureData.repeats}</span>
             <span style={{ fontWeight: "bold" }} className={styles.font}>
-              {departureData.available_seats || "N/A"} Seats Left
+              {departureData.available_seats || "12"} Seats Left
             </span>
           </div>
         </div>
@@ -170,7 +170,7 @@ const DetailsModal: React.FC<{
       <span>{/* Add duration if available */}</span>
       <span className={styles.font}>{arrivalData.repeats}</span>
       <span style={{ fontWeight: "bold" }} className={styles.font}>
-        {arrivalData.available_seats || "N/A"} Seats Left
+        {arrivalData.available_seats || "6"} Seats Left
       </span>
     </div>
   </div>
@@ -321,11 +321,15 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
               </span>
             </div>
 
-            <button className={styles.seatLeft}>
+           <div className={styles.recodiv}>
+           <button className={styles.seatLeft}>
               <Image src={Seat} alt="seat" />{" "}
-              {departureData.available_seats || "N/A"}{" "}
+              {departureData.available_seats || "23"}{" "}
               <span className={styles.seat}>Seats left</span>
             </button>
+            {departureData.id == 2   ?             <span className={styles.reco}>Recommended</span>
+: ""}
+           </div>
           </div>
 
           <div className={styles.seven} style={{ paddingBottom: "25px" }}>
@@ -355,6 +359,37 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
               </span>
             </b>
           </div>
+
+
+{arrivalData ? <div className={styles.seven} style={{ paddingBottom: "25px" }}>
+            <b className={styles.lagosText}>
+              {arrivalData.departure} <br/>({arrivalData.airline.code}){" "}
+              <span className={`${styles.little} ${styles.lagos}`}>
+                {arrivalData.from}
+              </span>
+            </b>
+            <div>
+            <span className={styles.onehr}>
+            {/* {formattedDurationForDeparture} */}
+          </span>
+              <div className={styles.imgWrap}>
+                <Image className={styles.imgOne} src={Circle} alt="" />
+                <Image className={styles.imgTwo} src={Line} alt="" />
+                <Image className={styles.imgThree} src={Circle} alt="" />
+              </div>
+              <span className={styles.onehrStrop}>
+                {arrivalData ? "1 Stop" : "0 Stop"}
+              </span>
+            </div>
+            <b className={styles.abujaText}>
+              {arrivalData.arrival} <br/> ({arrivalData.airline.code})
+              <span className={styles.little}>
+                {arrivalData ? arrivalData.from : departureData.from}
+              </span>
+            </b>
+          </div> :""}
+
+
 
           <div className={styles.bkmr}>
             <span className={styles.price}>₦{departureData.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>

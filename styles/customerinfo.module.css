@@ -13,6 +13,7 @@
   overflow-x: hidden;
   font-family: myFont;
 }
+
 .generall{
   padding: 0 20px;
   background: rgb(236, 234, 234);
@@ -98,6 +99,7 @@
 }
 .save {
   color: #fff;
+  border: 1px #06BCE1 solid;
   background: #06bce1;
   padding: 15px 48px;
   border-radius: 32px;
@@ -144,6 +146,7 @@
   height: 50px;
 }
 .second{
+  margin-top: 100px;
     width: 30%;
 }
 .first{
@@ -430,6 +433,10 @@ margin-left: 5px;
   flex-direction: column;
   width: 350px;
 }
+.lock{
+  display: flex;
+  gap: 10px;
+}
 .gender label select {
   width: 100%;
 }
@@ -632,5 +639,12 @@ margin-left: 5px;
     display: flex;
     align-items: center;
     gap: 5px;
+  }
+}
+
+
+@media (max-width:1253px) {
+  .second{
+    margin-bottom: 17em;
   }
 }

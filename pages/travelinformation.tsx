@@ -135,19 +135,20 @@ function TravelInformation() {
               <Link
                 className={styles.link}
                 href="/side-card"
-                style={{ textDecoration: "none" }}
+                
+                style={{ textDecoration: "none", }}
               >
                 {" "}
-                <span className={styles.save}>Save Continue</span>
+                <span className={styles.save}>Save & Continue</span>
               </Link>
             ) : (
               <button
                 className={styles.link}
-                style={{ textDecoration: "none" }}
+                style={{ textDecoration: "none", border:"none", outline:"none", background:"none" }}
                 onClick={handleSaveAndContinue}
               >
                 {" "}
-                <span className={styles.save}>Save Continue</span>
+                <span className={styles.save}>Save & Continue</span>
               </button>
             )}
           </div>
