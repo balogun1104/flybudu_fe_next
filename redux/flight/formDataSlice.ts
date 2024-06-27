@@ -15,6 +15,7 @@ const initialState: FormData = {
   passengers: [],
   luggages: [],
   price: 0,
+  updatedTotalPrice: 0,
   discount_code: '',
   discounted_slash: 0,
   corporate_code: '',
@@ -37,8 +38,15 @@ const formDataSlice = createSlice({
     setFormData: (state, action: PayloadAction<Partial<FormData>>) => {
       return { ...state, ...action.payload };
     },
+    updateFormData: (state, action) => {
+        return {
+          ...state,
+          ...action.payload,
+        };
+     },
+    
   },
 });
 
-export const { setFormData } = formDataSlice.actions;
+export const { setFormData, updateFormData } = formDataSlice.actions;
 export default formDataSlice.reducer;

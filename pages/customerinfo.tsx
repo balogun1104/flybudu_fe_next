@@ -12,7 +12,6 @@ import Link from "next/link";
 import { IoIosArrowForward } from "react-icons/io";
 import Approved from "@/public/assets/images/Layer 3.png";
 import Image from "next/image";
-import axiosInstance from "@/redux/api";
 import { useFlightData } from "@/utils/helper";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store";
