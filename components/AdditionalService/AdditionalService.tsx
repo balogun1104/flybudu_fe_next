@@ -7,6 +7,8 @@ import suitcase from "@/public/assets/images/Group 8.png";
 import { IoIosArrowForward } from "react-icons/io";
 import Image from "next/image";
 import { Luggage } from "@/redux/types/formData.types";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 interface AdditionalServiceProps {
   onLuggageSelect: (selectedLuggage: {
@@ -24,6 +26,14 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
     depart: [],
     return: [],
   });
+
+  const selectedAirline = useSelector(
+    (state: RootState) => state.flight.selectedFlight
+  );
+
+  const { departure, arrival } = selectedAirline;
+
+  console.log("depart", departure, "arrival", arrival);
 
   const toggleText = () => {
     setIsActive(!isActive);
@@ -257,144 +267,146 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                 <span className={styles.bold}>&#8358;12,000</span>{" "}
               </div>
             </div>
-            <div className={styles.div1}>
-              <div className={styles.departDiv}>
-                <span>Return</span>{" "}
-                <span className={styles.lagos}>Lagos to Abuja</span>
-              </div>
-              <div className={styles.checkDiv}>
-                <span>10Kg check bag</span>{" "}
-                <div className={styles.spanDiv}>
-                  <button
-                    className={styles.minus}
-                    onClick={() =>
-                      handleLuggageChange(
-                        "return",
-                        "10Kg",
-                        Math.max(
+            {arrival ? (
+              <div className={styles.div1}>
+                <div className={styles.departDiv}>
+                  <span>Return</span>{" "}
+                  <span className={styles.lagos}>Lagos to Abuja</span>
+                </div>
+                <div className={styles.checkDiv}>
+                  <span>10Kg check bag</span>{" "}
+                  <div className={styles.spanDiv}>
+                    <button
+                      className={styles.minus}
+                      onClick={() =>
+                        handleLuggageChange(
+                          "return",
+                          "10Kg",
+                          Math.max(
+                            (selectedLuggage.return.find(
+                              (luggage) => luggage.weight === "10Kg"
+                            )?.quantity || 0) - 1,
+                            0
+                          ),
+                          6000
+                        )
+                      }
+                    >
+                      -
+                    </button>
+                    <span className={styles.number}>
+                      {selectedLuggage.return.find(
+                        (luggage) => luggage.weight === "10Kg"
+                      )?.quantity || 0}
+                    </span>
+                    <button
+                      className={styles.plus}
+                      onClick={() =>
+                        handleLuggageChange(
+                          "return",
+                          "10Kg",
                           (selectedLuggage.return.find(
                             (luggage) => luggage.weight === "10Kg"
-                          )?.quantity || 0) - 1,
-                          0
-                        ),
-                        6000
-                      )
-                    }
-                  >
-                    -
-                  </button>
-                  <span className={styles.number}>
-                    {selectedLuggage.return.find(
-                      (luggage) => luggage.weight === "10Kg"
-                    )?.quantity || 0}
-                  </span>
-                  <button
-                    className={styles.plus}
-                    onClick={() =>
-                      handleLuggageChange(
-                        "return",
-                        "10Kg",
-                        (selectedLuggage.return.find(
-                          (luggage) => luggage.weight === "10Kg"
-                        )?.quantity || 0) + 1,
-                        6000
-                      )
-                    }
-                  >
-                    +
-                  </button>
+                          )?.quantity || 0) + 1,
+                          6000
+                        )
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
+                  <span className={styles.bold}>₦6,000</span>{" "}
                 </div>
-                <span className={styles.bold}>₦6,000</span>{" "}
-              </div>
-              <div className={styles.checkDiv}>
-                <span>15Kg check bag</span>{" "}
-                <div className={styles.spanDiv}>
-                  <button
-                    className={styles.minus}
-                    onClick={() =>
-                      handleLuggageChange(
-                        "return",
-                        "15Kg",
-                        Math.max(
+                <div className={styles.checkDiv}>
+                  <span>15Kg check bag</span>{" "}
+                  <div className={styles.spanDiv}>
+                    <button
+                      className={styles.minus}
+                      onClick={() =>
+                        handleLuggageChange(
+                          "return",
+                          "15Kg",
+                          Math.max(
+                            (selectedLuggage.return.find(
+                              (luggage) => luggage.weight === "15Kg"
+                            )?.quantity || 0) - 1,
+                            0
+                          ),
+                          9000
+                        )
+                      }
+                    >
+                      -
+                    </button>
+                    <span className={styles.number}>
+                      {selectedLuggage.return.find(
+                        (luggage) => luggage.weight === "15Kg"
+                      )?.quantity || 0}
+                    </span>
+                    <button
+                      className={styles.plus}
+                      onClick={() =>
+                        handleLuggageChange(
+                          "return",
+                          "15Kg",
                           (selectedLuggage.return.find(
                             (luggage) => luggage.weight === "15Kg"
-                          )?.quantity || 0) - 1,
-                          0
-                        ),
-                        9000
-                      )
-                    }
-                  >
-                    -
-                  </button>
-                  <span className={styles.number}>
-                    {selectedLuggage.return.find(
-                      (luggage) => luggage.weight === "15Kg"
-                    )?.quantity || 0}
-                  </span>
-                  <button
-                    className={styles.plus}
-                    onClick={() =>
-                      handleLuggageChange(
-                        "return",
-                        "15Kg",
-                        (selectedLuggage.return.find(
-                          (luggage) => luggage.weight === "15Kg"
-                        )?.quantity || 0) + 1,
-                        9000
-                      )
-                    }
-                  >
-                    +
-                  </button>
+                          )?.quantity || 0) + 1,
+                          9000
+                        )
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
+                  <span className={styles.bold}>₦9,000</span>{" "}
                 </div>
-                <span className={styles.bold}>₦9,000</span>{" "}
-              </div>
-              <div className={styles.checkDiv3}>
-                <span>20Kg check bag</span>{" "}
-                <div className={styles.spanDiv}>
-                  <button
-                    className={styles.minus}
-                    onClick={() =>
-                      handleLuggageChange(
-                        "return",
-                        "20Kg",
-                        Math.max(
+                <div className={styles.checkDiv3}>
+                  <span>20Kg check bag</span>{" "}
+                  <div className={styles.spanDiv}>
+                    <button
+                      className={styles.minus}
+                      onClick={() =>
+                        handleLuggageChange(
+                          "return",
+                          "20Kg",
+                          Math.max(
+                            (selectedLuggage.return.find(
+                              (luggage) => luggage.weight === "20Kg"
+                            )?.quantity || 0) - 1,
+                            0
+                          ),
+                          12000
+                        )
+                      }
+                    >
+                      -
+                    </button>
+                    <span className={styles.number}>
+                      {selectedLuggage.return.find(
+                        (luggage) => luggage.weight === "20Kg"
+                      )?.quantity || 0}
+                    </span>
+                    <button
+                      className={styles.plus}
+                      onClick={() =>
+                        handleLuggageChange(
+                          "return",
+                          "20Kg",
                           (selectedLuggage.return.find(
                             (luggage) => luggage.weight === "20Kg"
-                          )?.quantity || 0) - 1,
-                          0
-                        ),
-                        12000
-                      )
-                    }
-                  >
-                    -
-                  </button>
-                  <span className={styles.number}>
-                    {selectedLuggage.return.find(
-                      (luggage) => luggage.weight === "20Kg"
-                    )?.quantity || 0}
-                  </span>
-                  <button
-                    className={styles.plus}
-                    onClick={() =>
-                      handleLuggageChange(
-                        "return",
-                        "20Kg",
-                        (selectedLuggage.return.find(
-                          (luggage) => luggage.weight === "20Kg"
-                        )?.quantity || 0) + 1,
-                        12000
-                      )
-                    }
-                  >
-                    +
-                  </button>
+                          )?.quantity || 0) + 1,
+                          12000
+                        )
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
+                  <span className={styles.bold}>₦12,000</span>{" "}
                 </div>
-                <span className={styles.bold}>₦12,000</span>{" "}
               </div>
-            </div>
+            ) : null}
           </div>
         </div>
       ) : (

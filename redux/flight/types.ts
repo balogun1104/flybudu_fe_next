@@ -25,6 +25,19 @@ export interface Airline {
   region: string;
   created_at: string;
   updated_at: string;
+  luggage10: string;
+  luggage15: string;
+  luggage20: string;
+}
+
+export interface Route {
+  id: number;
+  location: string;
+  location_code: string;
+  destination: string;
+  destination_code: string;
+  created_at: string | null;
+  updated_at: string | null;
 }
 
 export interface FlightDetails {
@@ -47,11 +60,10 @@ export interface FlightDetails {
   created_at: string;
   updated_at: string;
   airline: Airline;
-  from: string; // Add this line to resolve the type mismatch
+  route: Route;
 }
 
 export interface Flight {
-  id: string;
   departure: FlightDetails;
   arrival: FlightDetails | null;
 }

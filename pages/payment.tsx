@@ -22,45 +22,58 @@ import Image from "next/image";
 import { useSelector } from "react-redux";
 import { useFlightData } from "@/utils/helper";
 import { RootState } from "../redux/store";
+import axiosInstance from "@/redux/api";
 
 function Payment() {
-
   const { searchCriteria, flightData, loading, totalFlight, totalPassengers } =
-  useFlightData();
-const selectedAirline = useSelector(
-  (state: RootState) => state.flight.selectedFlight
-);
+    useFlightData();
+  const selectedAirline = useSelector(
+    (state: RootState) => state.flight.selectedFlight
+  );
 
+  const arrivalPrice = selectedAirline?.arrival?.price
+    ? Number(selectedAirline.arrival.price)
+    : 0;
+  const departurePrice = selectedAirline?.departure?.price
+    ? Number(selectedAirline.departure.price)
+    : 0;
 
-const arrivalPrice = selectedAirline?.arrival?.price ? Number(selectedAirline.arrival.price) : 0;
-const departurePrice = selectedAirline?.departure?.price ? Number(selectedAirline.departure.price) : 0;
-
-const Addition = arrivalPrice + departurePrice;
-const passenger = searchCriteria.passengers.adults + searchCriteria.passengers.children + searchCriteria.passengers.infants;
-const finalPrice = Addition * passenger;
+  const Addition = arrivalPrice + departurePrice;
+  const passenger =
+    searchCriteria.passengers.adults +
+    searchCriteria.passengers.children +
+    searchCriteria.passengers.infants;
+  const finalPrice = Addition * passenger;
 
   const [isOpen, setIsOpen] = useState(false);
   const formData = useSelector((state: RootState) => state.formData);
+  const { updatedTotalPrice } = formData;
 
   useEffect(() => {
     console.log("Form Data:", formData);
   }, [formData]);
 
+  const handlePaymentSuccess = async () => {
+    try {
+      const response = await axiosInstance.post("flights/submit", formData);
+      console.log("Payment Successful!", response.data);
+      setIsOpen(true);
+    } catch (error) {
+      console.error("Error submitting form data:", error);
+    }
+  };
 
-
-  
   const paystackOptions = {
-    email : formData.email,
-    amount: finalPrice * 100,
-    publicKey: "pk_live_31623679265ad901114d505a0e83109332561007",
+    email: formData.email,
+    amount: updatedTotalPrice * 100,
+    publicKey: "pk_test_198184ef9c4222f0fa560b0791a3a7f342f154cc",
     text: "Pay Now",
-    onSuccess: () => {
-      console.log("Payment Successful!");
-    },
+    onSuccess: handlePaymentSuccess,
     onClose: () => {
       console.log("Payment Closed!");
     },
   };
+
   return (
     <div className={styles.general}>
       <div className={styles.body}>
@@ -131,33 +144,38 @@ const finalPrice = Addition * passenger;
             <p>Choose your preferred method</p>
           </div>
           <div className={styles.generall}>
-      <div className={styles.firstdiv}>
-        <div className={styles.paystackDiv}>
-          {" "}
-          <span>Paystack</span> <Image src={paystack} alt="dsa" />
-        </div>
-        <div className={styles.images}>
-          {" "}
-          <Image src={visa} alt="dsa" /> <Image src={verve} alt="dsa" />{" "}
-          <Image src={masterCard} alt="dsa" />
-        </div>
-        <div className={styles.textDiv}>
-          <span>
-            By selecting 'Pay Now', you confirm reservation of selected service
-            and agree with the condition of carriage and the fare application
-            rules of FlyBudu. You will be redirected to our secure payment
-            checkout page.{" "}
-          </span>
-        </div>
-      </div>
-      <div className={styles.seconddiv}>
-        <div className={styles.payment}>
-          <p>Your full payment is</p>
-          <span>&#8358;  {finalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
-        </div>
-      </div>
-    </div>
-        
+            <div className={styles.firstdiv}>
+              <div className={styles.paystackDiv}>
+                {" "}
+                <span>Paystack</span> <Image src={paystack} alt="dsa" />
+              </div>
+              <div className={styles.images}>
+                {" "}
+                <Image src={visa} alt="dsa" /> <Image src={verve} alt="dsa" />{" "}
+                <Image src={masterCard} alt="dsa" />
+              </div>
+              <div className={styles.textDiv}>
+                <span>
+                  By selecting 'Pay Now', you confirm reservation of selected
+                  service and agree with the condition of carriage and the fare
+                  application rules of FlyBudu. You will be redirected to our
+                  secure payment checkout page.{" "}
+                </span>
+              </div>
+            </div>
+            <div className={styles.seconddiv}>
+              <div className={styles.payment}>
+                <p>Your full payment is</p>
+                <span>
+                  &#8358;{" "}
+                  {updatedTotalPrice
+                    .toFixed(2)
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </span>
+              </div>
+            </div>
+          </div>
+
           <div className={styles.skipDiv}>
             <Link
               href="/travelinformation"
@@ -173,20 +191,9 @@ const finalPrice = Addition * passenger;
               </button>
             </Link>{" "}
             <span className={styles.money}> #172,000</span>
-            {/* <span
-              style={{
-                textDecoration: "none",
-                border: "none",
-                cursor: "pointer",
-              }}
-              onClick={() => setIsOpen(true)}
-              className={styles.save}
-            >
-              Pay Now */}
-          {formData.email && (
-                          <PaystackButton className={styles.save}  {...paystackOptions} />
-          )}
-              {/* </span> */}
+            {formData.email && (
+              <PaystackButton className={styles.save} {...paystackOptions} />
+            )}
           </div>
         </div>
         <div className={styles.secondDiv}>
@@ -202,9 +209,9 @@ const finalPrice = Addition * passenger;
           </div>
         </div>
       </div>
-       {formData.email && (
-                          <PaystackButton className={styles.save}  {...paystackOptions} />
-          )}
+      {formData.email && (
+        <PaystackButton className={styles.save} {...paystackOptions} />
+      )}
       {isOpen && <PaymentApproved setIsOpen={setIsOpen} />}
     </div>
   );

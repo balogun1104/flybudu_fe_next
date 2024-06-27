@@ -241,3 +241,19 @@
     border-radius: 10px;
   }
 }
+
+.luggageBreakdown {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.luggageBreakdown h4 {
+  margin-bottom: 10px;
+}
+
+.luggageBreakdown h5 {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
