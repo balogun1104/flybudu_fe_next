@@ -10,7 +10,7 @@ import Image from "next/image";
   
 function Paystack() {
   return (
-    <div className={styles.general}>
+    <div className={styles.generall}>
       <div className={styles.firstDiv}>
         <div className={styles.paystackDiv}>
           {" "}
