@@ -13,20 +13,66 @@ import Image from "next/image";
 import Link from "next/link";
 import { useFlightData, formatDate } from '@/utils/helper';
 import { AirlineFlights, } from "@/redux/flight/types";
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 const Flight = () => {
   const { searchCriteria, flightData, loading, error, totalFlight, totalPassengers } = useFlightData();
+  const { filter } = useSelector((state: RootState) => state.flight);
 
-console.log(searchCriteria)
-  
-// console.log(searchCriteria)
-// console.log(searchCriteria, "................................");
-  // console.log(flightData, "................................");
   const [visible, setVisible] = useState(false);
   const toggleDivs = () => {
     setVisible(!visible);
   };
   const [openEdit, setOpenEdit] = useState(false);
+
+  // Apply filters to the flightData based on the filter state
+  const filteredFlightData = flightData.filter((airlineFlights) => {
+    const [minPrice, maxPrice] = filter.priceRange;
+    const { selectedAirlines, isRefundable } = filter;
+
+    const flights = Object.values(airlineFlights)[0];
+
+    return flights.some((flight) => {
+      const { departure } = flight;
+
+      // Filter by price range
+      if (departure.price < minPrice || departure.price > maxPrice) {
+        return false;
+      }
+
+      // Filter by selected airlines
+      if (selectedAirlines.length > 0 && !selectedAirlines.includes(departure.airline.company)) {
+        return false;
+      }
+
+      // Filter by refundable
+      if (isRefundable && !departure.is_refundable) {
+        return false;
+      }
+
+      return true;
+    });
+  });
+
+  // Sort the filtered flight data based on the sort option
+  const sortedFlightData = filteredFlightData.sort((a, b) => {
+    const flightsA = Object.values(a)[0];
+    const flightsB = Object.values(b)[0];
+
+    switch (filter.sortOption) {
+      case 'recommended':
+        // Implement your recommended sorting logic
+        return 0;
+      case 'cheapest':
+        return flightsA[0].departure.price - flightsB[0].departure.price;
+      case 'fastest':
+        // Implement your fastest sorting logic
+        return 0;
+      default:
+        return 0;
+    }
+  });
 
   return (
     <div className={styles.flightContainer}>
@@ -103,7 +149,7 @@ console.log(searchCriteria)
               <IoIosArrowForward />
             </div>
 
-            {flightData.map((airlineFlights: AirlineFlights, index: number) => (
+            {sortedFlightData.map((airlineFlights: AirlineFlights, index: number) => (
               <React.Fragment key={index}>
                 {index === 0 && <FlightChunk flightData={airlineFlights} />}
                 {index === 1 && <h4 className={styles.other}>Other Flights Options</h4>}
