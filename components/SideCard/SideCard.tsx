@@ -24,6 +24,7 @@ function SideCard() {
   const selectedAirline = useSelector(
     (state: RootState) => state.flight.selectedFlight
   );
+  const discountValue = useSelector((state: RootState) => state.flight.discountValue);
 
   //formData
   const formData = useSelector((state: RootState) => state.formData);
@@ -68,7 +69,7 @@ function SideCard() {
     searchCriteria.passengers.children +
     searchCriteria.passengers.infants;
   const finalPrice = Addition * passenger;
-  const updatedTotalPrice = finalPrice + totalLuggagePrice;
+  const updatedTotalPrice = finalPrice + totalLuggagePrice - discountValue;
 
   useEffect(() => {
     dispatch(updateFormData({ updatedTotalPrice }));
@@ -231,8 +232,8 @@ function SideCard() {
             </div>
           )}
           <div className={styles.twins}>
-            <p> Discount</p> <span>&#8358; 00.00</span>
-          </div>
+        <p> Discount</p> <span>&#8358; {discountValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+      </div>
           <div className={styles.twins}>
             <p>
               Taxes and fee <span></span>{" "}
@@ -242,7 +243,7 @@ function SideCard() {
           <div className={styles.twins}>
             <p> Total</p>{" "}
             <span className={styles.blue}>
-              &#8358;{" "}
+              
               <span className={styles.blue}>
                 &#8358;{" "}
                 {updatedTotalPrice
