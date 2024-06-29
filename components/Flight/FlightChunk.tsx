@@ -310,14 +310,15 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
         airline_id: departureData.airline.id,
       };
 
-      console.log(searchCriteria, "search criteria in flight chunk to single flight ")
+      
   
       const response = await axiosInstance.post('flights/search', searchCriteria);
       const flightData = response.data;
 
-      console.log(response.data, " result flight data in flight chunk")
+      
   
       dispatch(setFlightData(flightData));
+      dispatch(setSelectedFlight(flightData))
       dispatch(setLoading(false));
   
       router.push('/selectflight');

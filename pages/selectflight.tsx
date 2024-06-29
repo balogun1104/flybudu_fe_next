@@ -31,12 +31,12 @@ function SelectFlightPage() {
     loading,
     error,
   } = useFlightData();
-  const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
+
   const selectedAline = useSelector(
     (state: RootState) => state.flight.selectedFlight
   );
 
- 
+ console.log(selectedAline, "seleced Airleine from  selected flight page")
 
   const [visible, setVisible] = useState(false);
   const toggleDivs = () => {
@@ -51,7 +51,8 @@ function SelectFlightPage() {
     return <div>Error: {error}</div>;
   }
 
-  const { departure, arrival } = selectedAline || {};
+  const { Departures: departure, Arrivals: arrival } = selectedAline || {};
+
 
   return (
     <div className={styles.general}>
@@ -170,7 +171,7 @@ function SelectFlightPage() {
         )}
       </div>
 
-      {arrival && (
+      {/* {arrival && (
         <React.Fragment>
           <div className={styles.flight}>
             <span style={{ fontSize: "20px" }}>Return</span>
@@ -217,10 +218,10 @@ function SelectFlightPage() {
             </div>
           </div>
           <div className={styles.margin}>
-          <SelectFlightComponent flightData={{ departure: arrival }} />
+          <SelectFlightComponent selectedAline={{ departure: arrival }} />
           </div>
         </React.Fragment>
-      )}
+      )} */}
       <div className={styles.finalDiv}>
         <div className={styles.checkBox}>
           <input type="checkbox" />
