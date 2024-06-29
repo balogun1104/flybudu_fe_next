@@ -37,7 +37,7 @@ const initialState: FlightState = {
   error: null,
   selectedFlight: null,
   filter: {
-    priceRange: [0, 500000],
+    priceRange: [0, 200000],
     sortOption: 'recommended',
     selectedAirlines: [],
     isRefundable: false,

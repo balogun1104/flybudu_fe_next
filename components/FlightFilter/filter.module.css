@@ -14,7 +14,7 @@
     font-family: sans-serif;
     font-weight: bold;
     gap: 10px;
-    flex-wrap:wrap
+    /* flex-wrap:wrap */
 }
 
 .rec p{

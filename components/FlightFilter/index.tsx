@@ -128,7 +128,7 @@ function Index({ onApplyFilter }) {
           <Slider
             range
             min={0}
-            max={500000}
+            max={200000}
             value={filterState.priceRange}
             onChange={handlePriceRangeChange}
           />
