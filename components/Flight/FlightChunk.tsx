@@ -18,8 +18,9 @@ import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import Image from "next/image";
 import { AirlineFlights, Flight, FlightDetails } from "@/redux/flight/types";
 import { useDispatch } from "react-redux";
-import { setSelectedFlight } from "@/redux/flight/flightSlice";
+import { setError, setFlightData, setLoading, setSelectedFlight } from "@/redux/flight/flightSlice";
 import { useRouter } from "next/router";
+import axiosInstance from "@/redux/api";
 
 interface FlightChunkProps {
   flightData: AirlineFlights | Flight;
@@ -298,8 +299,35 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
     });
   };
 
+  const handleNaigateToSelectFlight = async () => {
+    try {
+      dispatch(setLoading(true));
+      const searchCriteria = {
+        from: departureData.route.location,
+        to: arrivalData ? arrivalData.route.location : departureData.route.destination,
+        departure_date: departureData.date,
+        arrival_date: arrivalData ? arrivalData.date : '',
+        airline_id: departureData.airline.id,
+      };
+
+      console.log(searchCriteria, "search criteria in flight chunk to single flight ")
+  
+      const response = await axiosInstance.post('flights/search', searchCriteria);
+      const flightData = response.data;
+
+      console.log(response.data, " result flight data in flight chunk")
+  
+      dispatch(setFlightData(flightData));
+      dispatch(setLoading(false));
+  
+      router.push('/selectflight');
+    } catch (error) {
+      dispatch(setError(error.message));
+    }
+  };
+
   return (
-    <div className={styles.container}>
+    <div onClick={handleNaigateToSelectFlight} className={styles.container}>
       <div className={styles.FlightChunkWrapper}>
         <div className={styles.FlightChunkOne}>
           <div className={styles.chunkOne}>

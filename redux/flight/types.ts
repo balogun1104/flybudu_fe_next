@@ -2,6 +2,7 @@
 
 // Request Types
 export interface FlightSearchRequest {
+  departureDate(departureDate: any): unknown;
   from: string;
   to: string;
   departure_date: string;
@@ -41,6 +42,7 @@ export interface Route {
 }
 
 export interface FlightDetails {
+  departure_time: string;
   id: number;
   route_id: string;
   airline_id: string;

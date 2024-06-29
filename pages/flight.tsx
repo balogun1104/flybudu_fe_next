@@ -11,22 +11,120 @@ import MobileNav from "../components/MobileNavBar";
 import FlightFilter from "../components/FlightFilter/index";
 import Image from "next/image";
 import Link from "next/link";
-import { useFlightData, formatDate } from '@/utils/helper';
-import { AirlineFlights, } from "@/redux/flight/types";
+import { useFlightData, formatDate } from "@/utils/helper";
+import { AirlineFlights } from "@/redux/flight/types";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const Flight = () => {
-  const { searchCriteria, flightData, loading, error, totalFlight, totalPassengers } = useFlightData();
+  const {
+    searchCriteria,
+    flightData,
+    loading,
+    error,
+    totalFlight,
+    totalPassengers,
+  } = useFlightData();
+  const { filter } = useSelector((state: RootState) => state.flight);
+  const [selectedDate, setSelectedDate] = useState(
+    formatDate(new Date(searchCriteria.departure_date))
+  );
 
-console.log(searchCriteria)
-  
-// console.log(searchCriteria)
-// console.log(searchCriteria, "................................");
-  // console.log(flightData, "................................");
   const [visible, setVisible] = useState(false);
   const toggleDivs = () => {
     setVisible(!visible);
   };
   const [openEdit, setOpenEdit] = useState(false);
+
+  const handleDateSelection = (formattedDate) => {
+    setSelectedDate(formattedDate);
+  };
+
+  const generateDateOptions = () => {
+    const departureDates = [];
+    const currentDate = new Date(searchCriteria.departure_date);
+    const endDate = new Date(searchCriteria.arrival_date);
+
+    while (currentDate <= endDate) {
+      departureDates.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    return departureDates;
+  };
+
+  const getLowestPrice = (date) => {
+    const formattedDate = formatDate(date);
+    let lowestPrice = Infinity;
+
+    sortedFlightData.forEach((airlineFlights) => {
+      const flights = Object.values(airlineFlights)[0];
+      flights.forEach((flight) => {
+        if (
+          flight.departure.date === formattedDate &&
+          flight.departure.price < lowestPrice
+        ) {
+          lowestPrice = flight.departure.price;
+        }
+      });
+    });
+
+    return lowestPrice !== Infinity ? `₦${lowestPrice.toLocaleString()}` : ""; // Return an empty string instead of "N/A"
+  };
+
+  // Apply filters to the flightData based on the filter state
+  // Apply filters to the flightData based on the filter state
+  const filteredFlightData = Array.isArray(flightData)
+    ? flightData.filter((airlineFlights) => {
+        const [minPrice, maxPrice] = filter.priceRange;
+        const { selectedAirlines, isRefundable } = filter;
+
+        const flights = Object.values(airlineFlights)[0];
+
+        return flights.some((flight) => {
+          const { departure } = flight;
+
+          // Filter by price range
+          if (departure.price < minPrice || departure.price > maxPrice) {
+            return false;
+          }
+
+          // Filter by selected airlines
+          if (
+            selectedAirlines.length > 0 &&
+            !selectedAirlines.includes(departure.airline.company)
+          ) {
+            return false;
+          }
+
+          // Filter by refundable
+          if (isRefundable && !departure.is_refundable) {
+            return false;
+          }
+
+          return true;
+        });
+      })
+    : [];
+  // Sort the filtered flight data based on the sort option
+  // Sort the filtered flight data based on the sort option
+  const sortedFlightData = filteredFlightData.sort((a, b) => {
+    const flightsA = Object.values(a)[0];
+    const flightsB = Object.values(b)[0];
+
+    switch (filter.sortOption) {
+      case "recommended":
+        // Implement your recommended sorting logic
+        return 0;
+      case "cheapest":
+        return flightsA[0].departure.price - flightsB[0].departure.price;
+      case "fastest":
+        // Implement your fastest sorting logic
+        return 0;
+      default:
+        return 0;
+    }
+  });
 
   return (
     <div className={styles.flightContainer}>
@@ -40,9 +138,13 @@ console.log(searchCriteria)
           />
         </Link>
         <div className={styles.navbarText}>
-          <span className={styles.location}>{`${searchCriteria.from} - ${searchCriteria.to}`}</span>
+          <span
+            className={styles.location}
+          >{`${searchCriteria.from} - ${searchCriteria.to}`}</span>
           <span>
-            {`${formatDate(searchCriteria.departure_date)} - ${formatDate(searchCriteria.arrival_date)}, 
+            {`${formatDate(searchCriteria.departure_date)} - ${formatDate(
+              searchCriteria.arrival_date
+            )}, 
             ${totalPassengers} Pass, ${searchCriteria.classType}`}
           </span>
         </div>
@@ -61,7 +163,8 @@ console.log(searchCriteria)
       <div className={styles.flightWrapper}>
         <div style={{ margin: "30px" }}>
           <span className={styles.found}>
-            We Found {totalFlight} Flights From {searchCriteria.from} To {searchCriteria.to}
+            We Found {totalFlight} Flights From {searchCriteria.from} To{" "}
+            {searchCriteria.to}
           </span>
         </div>
 
@@ -71,45 +174,61 @@ console.log(searchCriteria)
           </div>
           <div className={styles.flightContentTwo}>
             <div className={styles.dateDiv}>
-              <IoIosArrowBack />
+              <IoIosArrowBack
+                className={styles.arrow}
+                onClick={() => {
+                  // Implement logic to slide dates to the left
+                }}
+              />
               <div className={styles.opor}>
-                <div className={styles.flexDiv}>
-                  <span>Tue, May 14</span>
-                  <span className={styles.blueText}>#160,000</span>
-                </div>
-                <div className={styles.flexDiv}>
-                  <span>Tue, May 14</span>
-                  <span className={styles.blueText}>#160,000</span>
-                </div>
-                <div className={`${styles.flexDiv} ${styles.display}`}>
-                  <span>Tue, May 14</span>
-                  <span className={`${styles.blueText} ${styles.blue}`}>
-                    #160,000
-                  </span>
-                </div>
-                <div className={styles.flexDiv} style={{ borderLeft: "none" }}>
-                  <span>Tue, May 14</span>
-                  <span className={styles.blueText}>#160,000</span>
-                </div>
-                <div className={styles.flexDiv}>
-                  <span>Tue, May 14</span>
-                  <span className={styles.blueText}>#160,000</span>
-                </div>
-                <div className={`${styles.flexDiv} ${styles.flex}`}>
-                  <span>Tue, May 14</span>
-                  <span className={styles.blueText}>#160,000</span>
-                </div>
+                {generateDateOptions().map((date, index) => (
+                  <div
+                    key={index}
+                    className={`${styles.flexDiv} ${
+                      selectedDate === formatDate(date) ? styles.selected : ""
+                    } ${
+                      formatDate(date) === formatDate(new Date())
+                        ? styles.currentDay
+                        : ""
+                    }`}
+                    onClick={() => handleDateSelection(formatDate(date))}
+                  >
+                    <span>{formatDate(date)}</span>
+                    <span className={styles.blueText}>
+                      {getLowestPrice(date)}
+                    </span>
+                  </div>
+                ))}
               </div>
-              <IoIosArrowForward />
+              <IoIosArrowForward
+                className={styles.arrow}
+                onClick={() => {
+                  // Implement logic to slide dates to the right
+                }}
+              />
             </div>
 
-            {flightData.map((airlineFlights: AirlineFlights, index: number) => (
-              <React.Fragment key={index}>
-                {index === 0 && <FlightChunk flightData={airlineFlights} />}
-                {index === 1 && <h4 className={styles.other}>Other Flights Options</h4>}
-                {index > 0 && <FlightChunk flightData={airlineFlights} />}
-              </React.Fragment>
-            ))}
+            {sortedFlightData.map(
+              (airlineFlights: AirlineFlights, index: number) => (
+                <React.Fragment key={index}>
+                  {index === 0 && (
+                    <FlightChunk
+                      flightData={airlineFlights}
+                      selectedDate={selectedDate}
+                    />
+                  )}
+                  {index === 1 && (
+                    <h4 className={styles.other}>Other Flights Options</h4>
+                  )}
+                  {index > 0 && (
+                    <FlightChunk
+                      flightData={airlineFlights}
+                      selectedDate={selectedDate}
+                    />
+                  )}
+                </React.Fragment>
+              )
+            )}
 
             <div className={styles.loadDiv}>
               <p>Load More Result</p> <Image alt="" src={arrow} />

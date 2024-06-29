@@ -7,6 +7,13 @@ interface FlightState {
   loading: boolean;
   error: string | null;
   selectedFlight: Flight | null;
+  discountValue: number;
+  filter: {
+    priceRange: [number, number];
+    sortOption: string;
+    selectedAirlines: string[];
+    isRefundable: boolean;
+  };
 }
 
 const initialState: FlightState = {
@@ -26,8 +33,15 @@ const initialState: FlightState = {
   },
   flightData: [],
   loading: false,
+  discountValue: 0,
   error: null,
   selectedFlight: null,
+  filter: {
+    priceRange: [0, 200000],
+    sortOption: 'recommended',
+    selectedAirlines: [],
+    isRefundable: false,
+  },
 };
 
 const flightSlice = createSlice({
@@ -52,8 +66,39 @@ const flightSlice = createSlice({
     setSelectedFlight: (state, action: PayloadAction<Flight | null>) => {
       state.selectedFlight = action.payload;
     },
+    setDiscountValue: (state, action: PayloadAction<number>) => {
+      state.discountValue = action.payload;
+    },
+    setPriceRange: (state, action: PayloadAction<[number, number]>) => {
+      state.filter.priceRange = action.payload;
+    },
+    setSortOption: (state, action: PayloadAction<string>) => {
+      state.filter.sortOption = action.payload;
+    },
+    setSelectedAirlines: (state, action: PayloadAction<string[]>) => {
+      state.filter.selectedAirlines = action.payload;
+    },
+    setIsRefundable: (state, action: PayloadAction<boolean>) => {
+      state.filter.isRefundable = action.payload;
+    },
+    resetFilter: (state) => {
+      state.filter = initialState.filter;
+    },
   },
 });
 
-export const { setSearchCriteria, setFlightData, setLoading, setError, setSelectedFlight } = flightSlice.actions;
+export const {
+  setSearchCriteria,
+  setFlightData,
+  setLoading,
+  setError,
+  setSelectedFlight,
+  setDiscountValue,
+  setPriceRange,
+  setSortOption,
+  setSelectedAirlines,
+  setIsRefundable,
+  resetFilter,
+} = flightSlice.actions;
+
 export default flightSlice.reducer;

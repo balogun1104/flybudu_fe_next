@@ -40,4 +40,5 @@ export interface FormData {
   type: string;
   departure: string;
   ticket: string;
+  transaction_ref: string;
 }

@@ -324,3 +324,8 @@ flex-direction: column;
         font-family: 'NeueHaasDisplayBold';
     }
 }
+
+.currentDay {
+    background-color: #06BCE1;
+    color: white;
+  }

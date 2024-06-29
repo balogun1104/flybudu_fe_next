@@ -18,6 +18,9 @@ import { RootState } from "@/redux/store";
 import { Passenger, FormData } from "@/redux/types/formData.types";
 import { setFormData } from "@/redux/flight/formDataSlice";
 import { useRouter } from "next/router";
+import axiosInstance from "@/redux/api";
+import { setDiscountValue } from "@/redux/flight/flightSlice";
+import moment from 'moment';
 
 function CustomerInfo() {
   const router = useRouter();
@@ -56,8 +59,84 @@ function CustomerInfo() {
     departure: "",
     ticket: "",
   });
+  const [discountCode, setDiscountCode] = useState("");
+  const [corporateCode, setCorporateCode] = useState("");
+  const [discountResponse, setDiscountResponse] = useState<{
+    id: number;
+    code: string;
+    percentage_or_price: string;
+    type: string;
+    value: string;
+    created_at: string | null;
+    updated_at: string | null;
+  } | null>(null);
 
-  console.log(formData)
+  const [corporateResponse, setCorporateResponse] = useState<{
+    id: number;
+    code: string;
+    percentage_or_price: string;
+    type: string;
+    value: string;
+    created_at: string | null;
+    updated_at: string | null;
+  } | null>(null);
+  
+
+  const handleDiscountCodeChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setDiscountCode(e.target.value);
+  };
+
+  const handleCorporateCodeChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setCorporateCode(e.target.value);
+  };
+
+  const handleDiscountCodeSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    try {
+      const response = await axiosInstance.post("/vouchers/check", {
+        code: discountCode,
+        type: "Discount",
+      });
+      setDiscountResponse(response.data);
+      setFormDataState((prevState) => ({
+        ...prevState,
+        discount_code: discountCode,
+        discounted_slash: parseFloat(response.data.value),
+      }));
+      dispatch(setDiscountValue(parseFloat(response.data.value)));
+    } catch (error) {
+      console.error("Error checking discount code:", error);
+    }
+  };
+
+  const handleCorporateCodeSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    try {
+      const response = await axiosInstance.post("/vouchers/check", {
+        code: corporateCode,
+        type: "Corporate",
+      });
+      setCorporateResponse(response.data);
+      setFormDataState((prevState) => ({
+        ...prevState,
+        corporate_code: corporateCode,
+        corporate_slash: parseFloat(response.data.value),
+      }));
+      dispatch(setDiscountValue(parseFloat(response.data.value)));
+    } catch (error) {
+      console.error("Error checking corporate code:", error);
+    }
+  };
+
+  console.log(formData);
   useEffect(() => {
     if (selectedAirline && searchCriteria) {
       const departurePrice = parseFloat(
@@ -78,13 +157,16 @@ function CustomerInfo() {
       for (let i = 0; i < infants; i++) {
         passengers.push({ name: "", age: 1, gender: "" });
       }
+      const departureDate = moment(searchCriteria.departureDate).format('YYYY-MM-DD');
+      const departureTime = selectedAirline.departure?.departure_time || "00:00:00";
+      const fullDepartureDatetime = moment(`${departureDate} ${departureTime}`, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
 
       setFormDataState((prevState) => ({
         ...prevState,
         price: totalPrice,
         amount_paid: totalPrice,
         passengers,
-        departure: selectedAirline.departure?.departure || "",
+        departure: fullDepartureDatetime,
         airline_id:
           selectedAirline.departure?.airline_id || prevState.airline_id,
         route_id: selectedAirline.departure?.route_id || prevState.route_id,
@@ -350,14 +432,19 @@ function CustomerInfo() {
                 <IoIosArrowForward />
               </div>
               {isActive && (
-                <input
-                  type="text"
-                  placeholder="Enter Code"
-                  className={styles.code}
-                  name="discount_code"
-                  value={formData.discount_code}
-                  onChange={handleInputChange}
-                />
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Enter Code"
+                    className={styles.code}
+                    value={discountCode}
+                    onChange={handleDiscountCodeChange}
+                  />
+                  <button onClick={handleDiscountCodeSubmit}>Send</button>
+                  {discountResponse && (
+                    <p>Discount Applied: &#8358;{discountResponse.value}</p>
+                  )}
+                </div>
               )}
             </div>
             <div className={styles.codeDiv}>
@@ -373,20 +460,31 @@ function CustomerInfo() {
                 <IoIosArrowForward onClick={toggle} />
               </div>
               {openCode && (
-                <input
-                  type="text"
-                  placeholder="Enter Code"
-                  className={styles.code}
-                  name="corporate_code"
-                  value={formData.corporate_code}
-                  onChange={handleInputChange}
-                />
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Enter Code"
+                    className={styles.code}
+                    value={corporateCode}
+                    onChange={handleCorporateCodeChange}
+                  />
+                  <button onClick={handleCorporateCodeSubmit}>Send</button>
+                  {corporateResponse && (
+                    <p>
+                      Corporate Discount Applied: &#8358;
+                      {corporateResponse.value}
+                    </p>
+                  )}
+                </div>
               )}
             </div>
             <div className={styles.saveDiv}>
               <div className={styles.ilu}>
                 <span className={styles.money}> #160,000</span>
-              <Link href="/flight">  <button className={styles.back}>Back</button></Link>
+                <Link href="/flight">
+                  {" "}
+                  <button className={styles.back}>Back</button>
+                </Link>
                 <button
                   type="button"
                   className={styles.save}

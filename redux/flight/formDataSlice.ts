@@ -29,6 +29,7 @@ const initialState: FormData = {
   type: '',
   departure: '',
   ticket: '',
+  transaction_ref: '',
 };
 
 const formDataSlice = createSlice({
