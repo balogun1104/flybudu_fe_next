@@ -171,7 +171,7 @@ function SelectFlightPage() {
         )}
       </div>
 
-      {/* {arrival && (
+      {arrival && (
         <React.Fragment>
           <div className={styles.flight}>
             <span style={{ fontSize: "20px" }}>Return</span>
@@ -221,7 +221,7 @@ function SelectFlightPage() {
           <SelectFlightComponent selectedAline={{ departure: arrival }} />
           </div>
         </React.Fragment>
-      )} */}
+      )}
       <div className={styles.finalDiv}>
         <div className={styles.checkBox}>
           <input type="checkbox" />

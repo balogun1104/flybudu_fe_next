@@ -6,7 +6,7 @@ import Link from "next/link";
 import Backbutton from "../../public/assets/images/backbutton.png";
 import Image from "next/image";
 function Profile() {
-  function HeroiconsOutlineDotsVertical(props) {
+  function HeroiconsOutlineDotsVertical(props:any) {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -199,7 +199,7 @@ function Profile() {
           <span className={styles.cancel}>Cancel</span>{" "}
         </Link>{" "}
         <Link
-          to="/profile-page"
+          href="/profile-page"
           style={{ color: "black", textDecoration: "none" }}
         >
           <span className={styles.changes}>Save Changes</span>

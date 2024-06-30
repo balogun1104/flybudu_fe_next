@@ -309,21 +309,21 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
         arrival_date: arrivalData ? arrivalData.date : '',
         airline_id: departureData.airline.id,
       };
-
-      
   
       const response = await axiosInstance.post('flights/search', searchCriteria);
       const flightData = response.data;
-
-      
   
       dispatch(setFlightData(flightData));
       dispatch(setSelectedFlight(flightData))
       dispatch(setLoading(false));
   
       router.push('/selectflight');
-    } catch (error) {
-      dispatch(setError(error.message));
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        dispatch(setError(error.message));
+      } else {
+        dispatch(setError('An unknown error occurred'));
+      }
     }
   };
 

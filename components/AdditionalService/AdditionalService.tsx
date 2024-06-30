@@ -31,9 +31,7 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
     (state: RootState) => state.flight.selectedFlight
   );
 
-  const { departure, arrival } = selectedAirline;
 
-  console.log("depart", departure, "arrival", arrival);
 
   const toggleText = () => {
     setIsActive(!isActive);
@@ -267,7 +265,7 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                 <span className={styles.bold}>&#8358;12,000</span>{" "}
               </div>
             </div>
-            {arrival ? (
+            {/* {arrival ? (
               <div className={styles.div1}>
                 <div className={styles.departDiv}>
                   <span>Return</span>{" "}
@@ -406,7 +404,7 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                   <span className={styles.bold}>₦12,000</span>{" "}
                 </div>
               </div>
-            ) : null}
+            ) : null} */}
           </div>
         </div>
       ) : (
