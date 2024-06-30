@@ -8,6 +8,8 @@ import Circle from "@/public/assets/images/circle.png";
 import Image from "next/image";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { StaticImageData } from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 
 interface Airline {
@@ -15,9 +17,13 @@ interface Airline {
   code: string;
 }
 
+
 interface DepartureInfo {
   id: string | number;
-  airline: Airline;
+  airline: {
+    logo: string;
+    code: string;
+  };
   departure: string;
   arrival: string;
   from: string;
@@ -27,6 +33,7 @@ interface DepartureInfo {
 
 interface FlightData {
   departure: DepartureInfo[];
+  arrival?: DepartureInfo[];
 }
 
 interface SelectFlightComponentProps {
@@ -39,6 +46,8 @@ function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
   const [mobileVisible, setMobileVisible] = useState(false);
   const [visible, setVisible] = useState(false);
 
+
+  // console.log(testing, "testing");
   const toggleDivs = () => {
     setVisible(!visible);
   };
@@ -52,9 +61,15 @@ function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
   }
 
 
+  // console.log(flightData, "arrivalData");
 
-  const dataComing = flightData.departure;
-  console.log(dataComing, "dataconin g");
+
+  const dataComing = flightData;
+  // console.log(dataComing, "dataconin g");
+
+  const { departure, arrival } = dataComing;
+
+  console.log(departure, "Departure", arrival, "arrival")
 
   const calculateDuration = (dep: string, arr: string): string => {
     if (!dep || !arr || typeof dep !== "string" || typeof arr !== "string") {
@@ -78,7 +93,7 @@ function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
 
   return (
     <div className={styles.general}>
-     {dataComing.map((departure) => {
+     {departure.map((departure) => {
         const duration = calculateDuration(departure.departure, departure.arrival);
         const arrival = null;
 

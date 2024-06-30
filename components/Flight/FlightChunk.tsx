@@ -18,7 +18,13 @@ import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import Image from "next/image";
 import { AirlineFlights, Flight, FlightDetails } from "@/redux/flight/types";
 import { useDispatch } from "react-redux";
-import { setError, setFlightData, setInitialFlightData, setLoading, setSelectedFlight } from "@/redux/flight/flightSlice";
+import {
+  setError,
+  setFlightData,
+  setInitialFlightData,
+  setLoading,
+  setSelectedFlight,
+} from "@/redux/flight/flightSlice";
 import { useRouter } from "next/router";
 import axiosInstance from "@/redux/api";
 
@@ -50,7 +56,10 @@ const DetailsModal: React.FC<{
 
   const departureData = flightData.departure;
   const arrivalData = flightData.arrival;
-console.log(departureData, "SSssssssssssssssssssssssssssssssssss")
+
+
+
+
   const departureDepartureTime = parseISO(
     `2000-01-01T${departureData.departure}`
   );
@@ -66,8 +75,6 @@ console.log(departureData, "SSssssssssssssssssssssssssssssssssss")
   const departureMinutes = departureDurationInMinutes % 60;
   const formattedDurationForDeparture = `${departureHours} h ${departureMinutes} m`;
 
-  console.log(flightData, "in flight chunck");
-
   const handleBookNow = () => {
     // i was using this to dispach the data to the flight page
     // dispatch(setSelectedFlight(flight));
@@ -82,6 +89,8 @@ console.log(departureData, "SSssssssssssssssssssssssssssssssssss")
     });
   };
 
+
+
   return (
     <div className={styles.modalBackground}>
       <div className={styles.modalContent}>
@@ -92,7 +101,8 @@ console.log(departureData, "SSssssssssssssssssssssssssssssssssss")
         <div className={styles.df}>
           <div className={styles.dfOne}>
             <span style={{ fontWeight: "bold", fontSize: "20px" }}>
-              {departureData.route.location} ({departureData.route.location_code})
+              {departureData.route.location} (
+              {departureData.route.location_code})
             </span>
             <span className={styles.font}>{departureData.airline.company}</span>
             <span className={styles.ip}>
@@ -115,8 +125,10 @@ console.log(departureData, "SSssssssssssssssssssssssssssssssssss")
           </div>
           <div className={styles.dftwo}>
             <span style={{ fontSize: "20px", fontWeight: "bold" }}>
-              {arrivalData ? arrivalData.route.location : departureData.route.location} (
-              {departureData.route.location_code})
+              {arrivalData
+                ? arrivalData.route.location
+                : departureData.route.location}{" "}
+              ({departureData.route.location_code})
             </span>
             <span className={styles.font}>{departureData.airline.company}</span>
             <span className={styles.font}>
@@ -142,7 +154,8 @@ console.log(departureData, "SSssssssssssssssssssssssssssssssssss")
             <div className={styles.df}>
               <div className={styles.dfOne}>
                 <span style={{ fontWeight: "bold", fontSize: "20px" }}>
-                  {arrivalData.route.location} ({arrivalData.route.location_code})
+                  {arrivalData.route.location} (
+                  {arrivalData.route.location_code})
                 </span>
                 <span className={styles.font}>
                   {arrivalData.airline.company}
@@ -167,8 +180,10 @@ console.log(departureData, "SSssssssssssssssssssssssssssssssssss")
               </div>
               <div className={styles.dftwo}>
                 <span style={{ fontSize: "20px", fontWeight: "bold" }}>
-                  {arrivalData ? arrivalData.route.location : departureData.route.location} (
-                  {departureData.route.location_code})
+                  {arrivalData
+                    ? arrivalData.route.location
+                    : departureData.route.location}{" "}
+                  ({departureData.route.location_code})
                 </span>
                 <span className={styles.font}>
                   {departureData.airline.company}
@@ -247,10 +262,6 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
   const ButtonIcon = isModalOpen ? IoIosArrowBack : IoIosArrowForward;
 
   useEffect(() => {
-    console.log("FlightChunk data updated:", flightData);
-  }, [flightData]);
-
-  useEffect(() => {
     // Generate a random number of seats left between 1 and 20
     const randomSeatsLeft = Math.floor(Math.random() * 20) + 1;
     setSeatsLeft(randomSeatsLeft);
@@ -305,25 +316,36 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
       dispatch(setLoading(true));
       const searchCriteria = {
         from: departureData.route.location,
-        to: arrivalData ? arrivalData.route.location : departureData.route.destination,
+        to: arrivalData
+          ? arrivalData.route.location
+          : departureData.route.destination,
         departure_date: departureData.date,
-        arrival_date: arrivalData ? arrivalData.date : '',
+        arrival_date: arrivalData ? arrivalData.date : "",
         airline_id: departureData.airline.id,
       };
-  
-      const response = await axiosInstance.post('flights/search', searchCriteria);
+
+      const response = await axiosInstance.post(
+        "flights/search",
+        searchCriteria
+      );
       const flightData = response.data;
-  
+
+      console.log(flightData, "insude FlightChunk");
+      console.log(searchCriteria, "PAYLOAD__-");
+
       dispatch(setFlightData(flightData));
       dispatch(setSelectedFlight(flightData));
       dispatch(setInitialFlightData(flightData));
       dispatch(setLoading(false));
-  
+
       // Store the search criteria and flight data in localStorage
-      localStorage.setItem('lastSearchCriteria', JSON.stringify(searchCriteria));
-      localStorage.setItem('lastFlightData', JSON.stringify(flightData));
-  
-      router.push('/selectflight');
+      localStorage.setItem(
+        "lastSearchCriteria",
+        JSON.stringify(searchCriteria)
+      );
+      localStorage.setItem("lastFlightData", JSON.stringify(flightData));
+
+      router.push("/selectflight");
     } catch (error) {
       // Error handling...
     }
@@ -369,7 +391,10 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
                 height={30}
                 className={styles.greenSmall}
               />
-              <span onClick={handleNaigateToSelectFlight}  style={{ fontFamily: "sans-serif" }}>
+              <span
+                onClick={handleNaigateToSelectFlight}
+                style={{ fontFamily: "sans-serif" }}
+              >
                 {departureData.airline.company}
               </span>
             </div>
@@ -395,7 +420,8 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
 
           <div className={styles.seven} style={{ paddingBottom: "25px" }}>
             <b className={styles.lagosText}>
-              {departureData.departure} <br />({departureData.route.location_code}){" "}
+              {departureData.departure} <br />(
+              {departureData.route.location_code}){" "}
               <span className={`${styles.little} ${styles.lagos}`}>
                 {departureData.route.location}
               </span>
@@ -414,9 +440,12 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
               </span>
             </div>
             <b className={styles.abujaText}>
-              {departureData.arrival} <br /> ({departureData.route.location_code})
+              {departureData.arrival} <br /> (
+              {departureData.route.location_code})
               <span className={styles.little}>
-                {arrivalData ? arrivalData.route.location : departureData.route.location}
+                {arrivalData
+                  ? arrivalData.route.location
+                  : departureData.route.location}
               </span>
             </b>
           </div>
@@ -424,7 +453,8 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
           {arrivalData ? (
             <div className={styles.seven} style={{ paddingBottom: "25px" }}>
               <b className={styles.lagosText}>
-                {arrivalData.departure} <br />({arrivalData.route.location_code}){" "}
+                {arrivalData.departure} <br />({arrivalData.route.location_code}
+                ){" "}
                 <span className={`${styles.little} ${styles.lagos}`}>
                   {arrivalData.route.location}
                 </span>
@@ -445,7 +475,9 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
               <b className={styles.abujaText}>
                 {arrivalData.arrival} <br /> ({arrivalData.route.location_code})
                 <span className={styles.little}>
-                  {arrivalData ? arrivalData.route.location : departureData.route.location}
+                  {arrivalData
+                    ? arrivalData.route.location
+                    : departureData.route.location}
                 </span>
               </b>
             </div>

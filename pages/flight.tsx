@@ -64,12 +64,15 @@ const Flight = () => {
         // If we have search criteria but no lastSearchedFlightData, fetch new data
         try {
           dispatch(setLoading(true));
-          const response = await axiosInstance.post(
-            "flights/search",
-            searchCriteria
-          );
+        
+
+          
+
+          const response = await axiosInstance.post('flights/search', searchCriteria);
           const flightData = response.data;
 
+      
+          
           dispatch(setFlightData(flightData));
           dispatch(setInitialFlightData(flightData));
           dispatch(setLoading(false));

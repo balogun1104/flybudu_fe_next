@@ -48,14 +48,14 @@ function SideCard() {
 
   const totalLuggagePrice = luggagePrices.depart + luggagePrices.return;
 
-  console.log(
-    selectedAirline,
-    "selctAir",
-    flightData,
-    "FlightData",
-    totalFlight,
-    totalPassengers
-  );
+  // console.log(
+  //   selectedAirline,
+  //   "selctAir",
+  //   flightData,
+  //   "FlightData",
+  //   totalFlight,
+  //   totalPassengers
+  // );
   const arrivalPrice = selectedAirline?.arrival?.price
     ? Number(selectedAirline.arrival.price)
     : 0;

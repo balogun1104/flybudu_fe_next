@@ -19,7 +19,27 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
 interface SelectFlightComponentProps {
-  flightData?: Flight | null;
+  flightData: {
+    departure: DepartureInfo[];
+  };
+}
+
+interface DepartureInfo {
+  id: string | number;
+  airline: {
+    logo: string;
+    code: string;
+  };
+  departure: string;
+  arrival: string;
+  from: string;
+  price: number;
+  available_seats: number;
+}
+
+interface FlightData {
+  departure: DepartureInfo[];
+  arrival?: DepartureInfo[];
 }
 
 function SelectFlightPage() {
@@ -27,16 +47,14 @@ function SelectFlightPage() {
   const { flightId } = router.query;
   const {
     searchCriteria,
-    flightData: flightSearchResponse,
+
     loading,
     error,
   } = useFlightData();
 
-  const selectedAline = useSelector(
+  const selectAirline = useSelector(
     (state: RootState) => state.flight.selectedFlight
-  );
-
- console.log(selectedAline, "seleced Airleine from  selected flight page")
+  ) as FlightData | null;
 
   const [visible, setVisible] = useState(false);
   const toggleDivs = () => {
@@ -51,8 +69,7 @@ function SelectFlightPage() {
     return <div>Error: {error}</div>;
   }
 
-  const { Departures: departure, Arrivals: arrival } = selectedAline || {};
-
+  const { departure, arrival } = selectAirline || {};
 
   return (
     <div className={styles.general}>
@@ -171,57 +188,57 @@ function SelectFlightPage() {
         )}
       </div>
 
-      {arrival && (
-        <React.Fragment>
-          <div className={styles.flight}>
-            <span style={{ fontSize: "20px" }}>Return</span>
-            <div className={styles.Plane}>
-              <Image src={Plane} alt="" />
-              <span
-            className={styles.state}
-          >{`${searchCriteria.to} to ${searchCriteria.from}`}</span>
-            </div>
-          </div>
+      {Array.isArray(arrival) && arrival.length > 0 && (
+  <React.Fragment>
+    <div className={styles.flight}>
+      <span style={{ fontSize: "20px" }}>Return</span>
+      <div className={styles.Plane}>
+        <Image src={Plane} alt="" />
+        <span
+          className={styles.state}
+        >{`${searchCriteria.to} to ${searchCriteria.from}`}</span>
+      </div>
+    </div>
 
-          <div className={styles.margin}>
-            <div className={styles.dateDiv}>
-              <IoIosArrowBack />
-              <div className={styles.opor}>
-                <div className={styles.flexDiv}>
-                  <span>Tue, May 14</span>
-                  <span className={styles.blueText}>#160,000</span>
-                </div>
-                <div className={styles.flexDiv}>
-                  <span>Tue, May 14</span>
-                  <span className={styles.blueText}>#160,000</span>
-                </div>
-                <div className={`${styles.flexDiv} ${styles.display}`}>
-                  <span>Tue, May 14</span>
-                  <span className={`${styles.blueText} ${styles.blue}`}>
-                    #160,000
-                  </span>
-                </div>
-                <div className={styles.flexDiv} style={{ borderLeft: "none" }}>
-                  <span>Tue, May 14</span>
-                  <span className={styles.blueText}>#160,000</span>
-                </div>
-                <div className={styles.flexDiv}>
-                  <span>Tue, May 14</span>
-                  <span className={styles.blueText}>#160,000</span>
-                </div>
-                <div className={`${styles.flexDiv} ${styles.flex}`}>
-                  <span>Tue, May 14</span>
-                  <span className={styles.blueText}>#160,000</span>
-                </div>
-              </div>
-              <IoIosArrowForward />
-            </div>
+    <div className={styles.margin}>
+      <div className={styles.dateDiv}>
+        <IoIosArrowBack />
+        <div className={styles.opor}>
+          <div className={styles.flexDiv}>
+            <span>Tue, May 14</span>
+            <span className={styles.blueText}>#160,000</span>
           </div>
-          <div className={styles.margin}>
-          <SelectFlightComponent selectedAline={{ departure: arrival }} />
+          <div className={styles.flexDiv}>
+            <span>Tue, May 14</span>
+            <span className={styles.blueText}>#160,000</span>
           </div>
-        </React.Fragment>
-      )}
+          <div className={`${styles.flexDiv} ${styles.display}`}>
+            <span>Tue, May 14</span>
+            <span className={`${styles.blueText} ${styles.blue}`}>
+              #160,000
+            </span>
+          </div>
+          <div className={styles.flexDiv} style={{ borderLeft: "none" }}>
+            <span>Tue, May 14</span>
+            <span className={styles.blueText}>#160,000</span>
+          </div>
+          <div className={styles.flexDiv}>
+            <span>Tue, May 14</span>
+            <span className={styles.blueText}>#160,000</span>
+          </div>
+          <div className={`${styles.flexDiv} ${styles.flex}`}>
+            <span>Tue, May 14</span>
+            <span className={styles.blueText}>#160,000</span>
+          </div>
+        </div>
+        <IoIosArrowForward />
+      </div>
+    </div>
+    <div className={styles.margin}>
+      <SelectFlightComponent flightData={{ departure: arrival }} />
+    </div>
+  </React.Fragment>
+)}
       <div className={styles.finalDiv}>
         <div className={styles.checkBox}>
           <input type="checkbox" />
