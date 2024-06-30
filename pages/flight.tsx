@@ -46,8 +46,9 @@ const Flight = () => {
   const datesPerPage = 7;
   const [visible, setVisible] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
-  const { lastSearchedFlightData } = useSelector((state: RootState) => state.flight);
-
+  const { lastSearchedFlightData } = useSelector(
+    (state: RootState) => state.flight
+  );
 
   useEffect(() => {
     const fetchFlightData = async () => {
@@ -55,7 +56,11 @@ const Flight = () => {
         // Use the last searched flight data if available
         dispatch(setFlightData(lastSearchedFlightData));
         dispatch(setInitialFlightData(lastSearchedFlightData));
-      } else if (searchCriteria.from && searchCriteria.to && searchCriteria.departure_date) {
+      } else if (
+        searchCriteria.from &&
+        searchCriteria.to &&
+        searchCriteria.departure_date
+      ) {
         // If we have search criteria but no lastSearchedFlightData, fetch new data
         try {
           dispatch(setLoading(true));
@@ -76,12 +81,14 @@ const Flight = () => {
           if (error instanceof Error) {
             dispatch(setError(error.message));
           } else {
-            dispatch(setError('An unknown error occurred while fetching flight data'));
+            dispatch(
+              setError("An unknown error occurred while fetching flight data")
+            );
           }
         }
       } else {
         // If we don't have lastSearchedFlightData or valid searchCriteria, redirect to search page
-        router.push('/search');
+        router.push("/search");
       }
     };
 
