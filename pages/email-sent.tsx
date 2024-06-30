@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from "react";
 import styles from "../styles/emailSent.module.css";
 import flyBudu from "@/public/assets/images/flybuduLogo.png";

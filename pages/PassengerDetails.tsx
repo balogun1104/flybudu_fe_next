@@ -4,6 +4,8 @@ import styles from "@/styles/passengerdetails.module.css"
 // import { IoIosArrowBack } from 'react-icons/io'
 import Link from 'next/link';
 import Backbutton from "@/public/assets/images/backbutton.png"
+import Image from 'next/image';
+
 function PassengerDetails() {
 
   function HeroiconsOutlineDotsVertical(props) {
@@ -29,7 +31,7 @@ function PassengerDetails() {
 
   return (
     <div className={styles.general}>
-      <div className={styles.navbar}> <Link href="/saved-passenger"> <img src={Backbutton} alt='' /> </Link><span> Passenger Details</span> <HeroiconsOutlineDotsVertical/></div>
+      <div className={styles.navbar}> <Link href="/saved-passenger"> <Image src={Backbutton} alt='' /> </Link><span> Passenger Details</span> <HeroiconsOutlineDotsVertical/></div>
       <div className={styles.mother}>
         <div className={styles.firstLine}>
           <span className={styles.edit}> Edit Passenger</span>

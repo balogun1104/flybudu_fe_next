@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState } from "react";
 import styles from "@/styles/payment.module.css";
 import SideCard from "../components/SideCard/SideCard";

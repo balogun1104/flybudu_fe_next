@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, {useState, useEffect} from 'react'
 import styles from "../styles/login.module.css"
 import Profile from "../components/LoginTab/Tab"
