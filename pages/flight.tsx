@@ -1,22 +1,33 @@
-import React, { useState } from "react";
-import Navbar from "../components/Navbar/indexBlack";
-import styles from "../styles/flight.module.css";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import Image from "next/image";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import FlightChunk from "../components/Flight/FlightChunk";
-import arrow from "@/public/assets/images/double chevron.png";
+import Navbar from "../components/Navbar/indexBlack";
 import Footer from "../components/Footer/index";
-import FilterImg from "@/public/assets/images/filter (2).png";
-import Edit from "@/public/assets/images/Edit.png";
 import MobileNav from "../components/MobileNavBar";
 import FlightFilter from "../components/FlightFilter/index";
-import Image from "next/image";
-import Link from "next/link";
+import FlightChunk from "../components/Flight/FlightChunk";
+import styles from "../styles/flight.module.css";
+import arrow from "@/public/assets/images/double chevron.png";
+import FilterImg from "@/public/assets/images/filter (2).png";
+import Edit from "@/public/assets/images/Edit.png";
+import { RootState } from "@/redux/store";
+import {
+  setFlightData,
+  setInitialFlightData,
+  setLoading,
+  setError,
+} from "@/redux/flight/flightSlice";
 import { useFlightData, formatDate } from "@/utils/helper";
 import { AirlineFlights } from "@/redux/flight/types";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import axiosInstance from "@/redux/api";
 
 const Flight = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const {
     searchCriteria,
     flightData,
@@ -25,38 +36,103 @@ const Flight = () => {
     totalFlight,
     totalPassengers,
   } = useFlightData();
-  const { filter } = useSelector((state: RootState) => state.flight);
-  const [selectedDate, setSelectedDate] = useState(
-    formatDate(new Date(searchCriteria.departure_date))
+  const { filter, initialFlightData } = useSelector(
+    (state: RootState) => state.flight
   );
-
+  const [selectedDate, setSelectedDate] = useState(
+    formatDate(new Date(searchCriteria.departure_date || ""))
+  );
+  const [currentPage, setCurrentPage] = useState(0);
+  const datesPerPage = 7;
   const [visible, setVisible] = useState(false);
-  const toggleDivs = () => {
-    setVisible(!visible);
-  };
   const [openEdit, setOpenEdit] = useState(false);
+  const { lastSearchedFlightData } = useSelector((state: RootState) => state.flight);
 
-  const handleDateSelection = (formattedDate) => {
+
+  useEffect(() => {
+    const fetchFlightData = async () => {
+      if (lastSearchedFlightData) {
+        // Use the last searched flight data if available
+        dispatch(setFlightData(lastSearchedFlightData));
+        dispatch(setInitialFlightData(lastSearchedFlightData));
+      } else if (searchCriteria.from && searchCriteria.to && searchCriteria.departure_date) {
+        // If we have search criteria but no lastSearchedFlightData, fetch new data
+        try {
+          dispatch(setLoading(true));
+          const response = await axiosInstance.post('flights/search', searchCriteria);
+          const flightData = response.data;
+          
+          dispatch(setFlightData(flightData));
+          dispatch(setInitialFlightData(flightData));
+          dispatch(setLoading(false));
+        } catch (error) {
+          dispatch(setLoading(false));
+          if (error instanceof Error) {
+            dispatch(setError(error.message));
+          } else {
+            dispatch(setError('An unknown error occurred while fetching flight data'));
+          }
+        }
+      } else {
+        // If we don't have lastSearchedFlightData or valid searchCriteria, redirect to search page
+        router.push('/search');
+      }
+    };
+
+    fetchFlightData();
+  }, [dispatch, lastSearchedFlightData, searchCriteria, router]);
+
+  useEffect(() => {
+    const departureDateIndex = generateDateOptions().findIndex(
+      (date) =>
+        formatDate(date) ===
+        formatDate(new Date(searchCriteria.departure_date || ""))
+    );
+    if (departureDateIndex !== -1) {
+      setCurrentPage(Math.floor(departureDateIndex / datesPerPage));
+    }
+  }, [searchCriteria.departure_date]);
+
+  const handleDateSelection = (formattedDate: string) => {
     setSelectedDate(formattedDate);
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => (prevPage > 0 ? prevPage - 1 : prevPage));
   };
 
   const generateDateOptions = () => {
     const departureDates = [];
-    const currentDate = new Date(searchCriteria.departure_date);
-    const endDate = new Date(searchCriteria.arrival_date);
-
-    while (currentDate <= endDate) {
-      departureDates.push(new Date(currentDate));
-      currentDate.setDate(currentDate.getDate() + 1);
+    const departureDate = new Date(searchCriteria.departure_date || "");
+    let date = new Date(departureDate);
+    date.setMonth(date.getMonth() - 2);
+    while (date <= departureDate) {
+      departureDates.push(new Date(date));
+      date.setDate(date.getDate() + 1);
     }
-
+    date = new Date(departureDate);
+    date.setDate(date.getDate() + 1);
+    const futureDate = new Date(departureDate);
+    futureDate.setMonth(futureDate.getMonth() + 2);
+    while (date <= futureDate) {
+      departureDates.push(new Date(date));
+      date.setDate(date.getDate() + 1);
+    }
     return departureDates;
   };
 
-  const getLowestPrice = (date) => {
+  const visibleDates = generateDateOptions().slice(
+    currentPage * datesPerPage,
+    (currentPage + 1) * datesPerPage
+  );
+
+  const getLowestPrice = (date: Date) => {
     const formattedDate = formatDate(date);
     let lowestPrice = Infinity;
-
     sortedFlightData.forEach((airlineFlights) => {
       const flights = Object.values(airlineFlights)[0];
       flights.forEach((flight) => {
@@ -68,58 +144,42 @@ const Flight = () => {
         }
       });
     });
-
-    return lowestPrice !== Infinity ? `₦${lowestPrice.toLocaleString()}` : ""; // Return an empty string instead of "N/A"
+    return lowestPrice !== Infinity ? `₦${lowestPrice.toLocaleString()}` : "";
   };
 
-  // Apply filters to the flightData based on the filter state
-  // Apply filters to the flightData based on the filter state
   const filteredFlightData = Array.isArray(flightData)
     ? flightData.filter((airlineFlights) => {
         const [minPrice, maxPrice] = filter.priceRange;
         const { selectedAirlines, isRefundable } = filter;
-
         const flights = Object.values(airlineFlights)[0];
-
         return flights.some((flight) => {
           const { departure } = flight;
-
-          // Filter by price range
           if (departure.price < minPrice || departure.price > maxPrice) {
             return false;
           }
-
-          // Filter by selected airlines
           if (
             selectedAirlines.length > 0 &&
             !selectedAirlines.includes(departure.airline.company)
           ) {
             return false;
           }
-
-          // Filter by refundable
           if (isRefundable && !departure.is_refundable) {
             return false;
           }
-
           return true;
         });
       })
     : [];
-  // Sort the filtered flight data based on the sort option
-  // Sort the filtered flight data based on the sort option
+
   const sortedFlightData = filteredFlightData.sort((a, b) => {
     const flightsA = Object.values(a)[0];
     const flightsB = Object.values(b)[0];
-
     switch (filter.sortOption) {
       case "recommended":
-        // Implement your recommended sorting logic
         return 0;
       case "cheapest":
         return flightsA[0].departure.price - flightsB[0].departure.price;
       case "fastest":
-        // Implement your fastest sorting logic
         return 0;
       default:
         return 0;
@@ -157,9 +217,6 @@ const Flight = () => {
           </Link>
         </div>
       </div>
-
-      {openEdit && <FlightFilter onClick={() => setOpenEdit(false)} />}
-
       <div className={styles.flightWrapper}>
         <div style={{ margin: "30px" }}>
           <span className={styles.found}>
@@ -167,47 +224,40 @@ const Flight = () => {
             {searchCriteria.to}
           </span>
         </div>
-
         <div className={styles.flightContent}>
           <div className={styles.flightContentOne}>
-            <FlightFilter onClick={() => setOpenEdit(false)} />
+            <FlightFilter onApplyFilter={() => setOpenEdit(false)} />
           </div>
           <div className={styles.flightContentTwo}>
             <div className={styles.dateDiv}>
               <IoIosArrowBack
                 className={styles.arrow}
-                onClick={() => {
-                  // Implement logic to slide dates to the left
-                }}
+                onClick={handlePrevPage}
               />
-              <div className={styles.opor}>
-                {generateDateOptions().map((date, index) => (
+              <div className={styles.dateOptions}>
+                {visibleDates.map((date, index) => (
                   <div
                     key={index}
-                    className={`${styles.flexDiv} ${
-                      selectedDate === formatDate(date) ? styles.selected : ""
-                    } ${
-                      formatDate(date) === formatDate(new Date())
-                        ? styles.currentDay
+                    className={`${styles.dateOption} ${
+                      formatDate(date) ===
+                      formatDate(new Date(searchCriteria.departure_date || ""))
+                        ? styles.departureDate
                         : ""
+                    } ${
+                      selectedDate === formatDate(date) ? styles.selected : ""
                     }`}
                     onClick={() => handleDateSelection(formatDate(date))}
                   >
-                    <span>{formatDate(date)}</span>
-                    <span className={styles.blueText}>
-                      {getLowestPrice(date)}
-                    </span>
+                    <p className={styles.date}>{formatDate(date)}</p>
+                    <span className={styles.price}>{getLowestPrice(date)}</span>
                   </div>
                 ))}
               </div>
               <IoIosArrowForward
                 className={styles.arrow}
-                onClick={() => {
-                  // Implement logic to slide dates to the right
-                }}
+                onClick={handleNextPage}
               />
             </div>
-
             {sortedFlightData.map(
               (airlineFlights: AirlineFlights, index: number) => (
                 <React.Fragment key={index}>
@@ -229,14 +279,12 @@ const Flight = () => {
                 </React.Fragment>
               )
             )}
-
             <div className={styles.loadDiv}>
               <p>Load More Result</p> <Image alt="" src={arrow} />
             </div>
           </div>
         </div>
       </div>
-
       <MobileNav />
       <Footer />
     </div>

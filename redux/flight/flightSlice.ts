@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FlightSearchRequest, FlightSearchResponse, Flight } from './types';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { FlightSearchRequest, FlightSearchResponse, Flight } from "./types";
 
 interface FlightState {
   searchCriteria: FlightSearchRequest;
@@ -7,6 +7,7 @@ interface FlightState {
   loading: boolean;
   error: string | null;
   selectedFlight: Flight | null;
+  initialFlightData: FlightSearchResponse | null;
   discountValue: number;
   filter: {
     priceRange: [number, number];
@@ -14,38 +15,41 @@ interface FlightState {
     selectedAirlines: string[];
     isRefundable: boolean;
   };
+  lastSearchedFlightData: FlightSearchResponse | null;
 }
 
 const initialState: FlightState = {
   searchCriteria: {
-    from: '',
-    to: '',
-    departure_date: '',
-    arrival_date: '',
+    from: "",
+    to: "",
+    departure_date: "",
+    arrival_date: "",
     passengers: {
       adults: 1,
       children: 0,
       infants: 0,
     },
-    flightType: 'Local Flights',
-    tripType: 'Round trip',
-    classType: 'Economy',
+    flightType: "Local Flights",
+    tripType: "Round trip",
+    classType: "Economy",
   },
   flightData: [],
+  initialFlightData: null,
   loading: false,
   discountValue: 0,
   error: null,
   selectedFlight: null,
   filter: {
     priceRange: [0, 200000],
-    sortOption: 'recommended',
+    sortOption: "recommended",
     selectedAirlines: [],
     isRefundable: false,
   },
+  lastSearchedFlightData: null,
 };
 
 const flightSlice = createSlice({
-  name: 'flight',
+  name: "flight",
   initialState,
   reducers: {
     setSearchCriteria: (state, action: PayloadAction<FlightSearchRequest>) => {
@@ -53,11 +57,18 @@ const flightSlice = createSlice({
     },
     setFlightData: (state, action: PayloadAction<FlightSearchResponse>) => {
       state.flightData = action.payload;
+      state.initialFlightData = action.payload;
       state.loading = false;
       state.error = null;
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
+    },
+    setInitialFlightData: (
+      state,
+      action: PayloadAction<FlightSearchResponse>
+    ) => {
+      state.initialFlightData = action.payload;
     },
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
@@ -84,6 +95,15 @@ const flightSlice = createSlice({
     resetFilter: (state) => {
       state.filter = initialState.filter;
     },
+    setLastSearchedFlightData: (
+      state,
+      action: PayloadAction<FlightSearchResponse>
+    ) => {
+      state.lastSearchedFlightData = action.payload;
+    },
+    clearLastSearchedFlightData: (state) => {
+      state.lastSearchedFlightData = null;
+    },
   },
 });
 
@@ -98,7 +118,10 @@ export const {
   setSortOption,
   setSelectedAirlines,
   setIsRefundable,
+  setInitialFlightData,
   resetFilter,
+  setLastSearchedFlightData,
+  clearLastSearchedFlightData,
 } = flightSlice.actions;
 
 export default flightSlice.reducer;

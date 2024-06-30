@@ -1,6 +1,15 @@
 // types.ts
 
 // Request Types
+
+export interface FilterState {
+  priceRange: [number, number];
+  sortOption: string;
+  selectedAirlines: string[];
+  isRefundable: boolean;
+}
+
+
 export interface FlightSearchRequest {
   // departureDate(departureDate: any): unknown;
   from: string;
@@ -49,7 +58,7 @@ export interface FlightDetails {
   departure: string;
   arrival: string;
   date: string;
-  price: string;
+  price: number;
   setting_id: string;
   peak_periods: string;
   days: string;
@@ -63,6 +72,7 @@ export interface FlightDetails {
   updated_at: string;
   airline: Airline;
   route: Route;
+  is_refundable: boolean;
 }
 
 export interface Flight {
