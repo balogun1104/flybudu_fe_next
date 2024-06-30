@@ -6,8 +6,36 @@ import Seat from "@/public/assets/images/seats.png";
 import Approved from "@/public/assets/images/Layer 3.png";
 import Circle from "@/public/assets/images/circle.png";
 import Image from "next/image";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { StaticImageData } from "next/image";
 
-function SelectFlightComponent({ flightData }) {
+
+interface Airline {
+  logo: string | StaticImageData;
+  code: string;
+}
+
+interface DepartureInfo {
+  id: string | number;
+  airline: Airline;
+  departure: string;
+  arrival: string;
+  from: string;
+  price: number;
+  available_seats: number;
+}
+
+interface FlightData {
+  departure: DepartureInfo[];
+}
+
+interface SelectFlightComponentProps {
+  flightData: FlightData;
+}
+
+
+
+function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
   const [mobileVisible, setMobileVisible] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -23,17 +51,14 @@ function SelectFlightComponent({ flightData }) {
     return <div>No flight data available</div>;
   }
 
-  // const { departure, arrival } = flightData;
-  const departure = "";
-  const arrival = "";
-  const { MainSelectedFlight } = flightData;
+
 
   const dataComing = flightData.departure;
   console.log(dataComing, "dataconin g");
 
-  const calculateDuration = (dep, arr) => {
+  const calculateDuration = (dep: string, arr: string): string => {
     if (!dep || !arr || typeof dep !== "string" || typeof arr !== "string") {
-      return "N/A"; // Return "N/A" if dep or arr is undefined or not a string
+      return "N/A";
     }
 
     const [depHours, depMinutes] = dep.split(":").map(Number);
@@ -49,168 +74,175 @@ function SelectFlightComponent({ flightData }) {
     return `${durationHours}h ${durationMinutes}m`;
   };
 
-  const duration = calculateDuration(departure.departure, departure.arrival);
+  
 
   return (
     <div className={styles.general}>
-      {dataComing.map((departure) => (
-        <div key={departure.id} className={styles.bodyContianer}>
-          <div className={styles.body}>
-            <div className={styles.firstDiv}>
-              <Image
-                src={departure.airline.logo}
-                className={styles.GreenImg}
-                alt=""
-                width={40}
-                height={40}
-              />
-              <div className={styles.flex}>
-                <span className={styles.time}>{departure.departure}</span>
-                <span style={{ fontSize: "20px" }}>{departure.from}</span>
-              </div>
-              <div className={styles.lineDiv}>
-                <span>{duration}</span>
-                <div className={styles.circle}>
-                  <Image src={Circle} alt="" />
-                  <Image src={Line} alt="" />
-                  <Image src={Circle} alt="" />
+     {dataComing.map((departure) => {
+        const duration = calculateDuration(departure.departure, departure.arrival);
+        const arrival = null;
+
+      return (
+          <div key={departure.id} className={styles.bodyContianer}>
+            <div className={styles.body}>
+              <div className={styles.firstDiv}>
+                <Image
+                  src={departure.airline.logo}
+                  className={styles.GreenImg}
+                  alt=""
+                  width={40}
+                  height={40}
+                />
+                <div className={styles.flex}>
+                  <span className={styles.time}>{departure.departure}</span>
+                  <span style={{ fontSize: "20px" }}>{departure.from}</span>
                 </div>
-                <span>{arrival ? "1 stop" : "Direct"}</span>
+                <div className={styles.lineDiv}>
+                  <span>{duration}</span>
+                  <div className={styles.circle}>
+                    <Image src={Circle} alt="" />
+                    <Image src={Line} alt="" />
+                    <Image src={Circle} alt="" />
+                  </div>
+                  <span>{arrival ? "1 stop" : "Direct"}</span>
+                </div>
+                <div className={styles.flex}>
+                  <span className={styles.time}>{departure.arrival}</span>
+                  <span style={{ fontSize: "20px" }}>
+                    { departure.from}
+                  </span>
+                </div>
+                <div className={styles.extra}>
+                  <span>Flight No</span>
+                  <span style={{ fontWeight: "bold" }}>
+                    {departure.airline?.code || "N/A"}
+                  </span>
+                </div>
+                <div className={styles.extra}>
+                  <span>Type</span>
+                  <span style={{ fontWeight: "bold" }}>
+                    {arrival ? "One Stop" : "Direct"}
+                  </span>
+                </div>
               </div>
-              <div className={styles.flex}>
-                <span className={styles.time}>{departure.arrival}</span>
-                <span style={{ fontSize: "20px" }}>
-                  {arrival ? arrival.from : departure.from}
-                </span>
-              </div>
-              <div className={styles.extra}>
-                <span>Flight No</span>
-                <span style={{ fontWeight: "bold" }}>
-                  {departure.airline?.code || "N/A"}
-                </span>
-              </div>
-              <div className={styles.extra}>
-                <span>Type</span>
-                <span style={{ fontWeight: "bold" }}>
-                  {arrival ? "One Stop" : "Direct"}
-                </span>
+              <div className={styles.secondDiv}>
+                <div className={styles.flex}>
+                  <span>From</span>
+                  <span className={styles.money}> ₦{departure.price}</span>
+                </div>
+                <div className={styles.selectDiv}>
+                  <Image
+                    src={Approved}
+                    alt=""
+                    className={styles.image}
+                    style={{ display: visible ? "flex" : "none" }}
+                  />
+                  <select
+                    className={`${styles.custom} ${styles.selectChange}`}
+                    style={{ display: visible ? "none" : "flex" }}
+                  >
+                    <option>Economy</option>
+                    <option>First Class</option>
+                    <option>Business Class</option>
+                  </select>
+                  <div
+                    className={styles.left}
+                    style={{ display: visible ? "none" : "flex" }}
+                  >
+                    <div className={styles.seat}>
+                      <Image src={Seat} alt="" />
+                      <span>
+                        {departure.available_seats || "N/A"} Seats Left
+                      </span>
+                    </div>
+                    <span className={styles.select} onClick={toggleDivs}>
+                      Select
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className={styles.secondDiv}>
-              <div className={styles.flex}>
-                <span>From</span>
-                <span className={styles.money}> ₦{departure.price}</span>
-              </div>
-              <div className={styles.selectDiv}>
+
+            <div className={styles.mother}>
+              <div className={styles.mobileDiv}>
+                <Image src={GreenImg} className={styles.GreenImg} alt="" />
                 <Image
                   src={Approved}
                   alt=""
                   className={styles.image}
-                  style={{ display: visible ? "flex" : "none" }}
+                  style={{ display: mobileVisible ? "flex" : "none" }}
                 />
                 <select
-                  className={`${styles.custom} ${styles.selectChange}`}
-                  style={{ display: visible ? "none" : "flex" }}
+                  className={styles.selectChange}
+                  style={{ display: mobileVisible ? "none" : "flex" }}
                 >
                   <option>Economy</option>
                   <option>First Class</option>
                   <option>Business Class</option>
                 </select>
-                <div
-                  className={styles.left}
-                  style={{ display: visible ? "none" : "flex" }}
-                >
-                  <div className={styles.seat}>
-                    <Image src={Seat} alt="" />
-                    <span>{departure.available_seats || "N/A"} Seats Left</span>
+              </div>
+              <div className={styles.mobileDiv}>
+                <div className={styles.mobileFlex}>
+                  <span style={{ fontWeight: "bold" }} className={styles.bold}>
+                    {departure.departure}
+                  </span>
+                  <span className={styles.lagos}>{departure.from}</span>
+                </div>
+                <div className={styles.lineDiv}>
+                  <span>{duration}</span>
+                  <div className={styles.circle}>
+                    <Image src={Circle} alt="" />
+                    <Image src={Line} alt="" />
+                    <Image src={Circle} alt="" />
                   </div>
-                  <span className={styles.select} onClick={toggleDivs}>
-                    Select
+                  <span>{arrival ? "1 stop" : "Direct"}</span>
+                </div>
+                <div className={styles.mobileFlex}>
+                  <span style={{ fontWeight: "bold" }} className={styles.bold}>
+                    {departure.arrival}
+                  </span>
+                  <span className={styles.abuja}>
+                    { departure.from}
                   </span>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div className={styles.mother}>
-            <div className={styles.mobileDiv}>
-              <Image src={GreenImg} className={styles.GreenImg} alt="" />
-              <Image
-                src={Approved}
-                alt=""
-                className={styles.image}
-                style={{ display: mobileVisible ? "flex" : "none" }}
-              />
-              <select
-                className={styles.selectChange}
+              <div className={styles.mobileDiv}>
+                <span>Flight No:</span>
+                <span style={{ fontWeight: "bold" }} className={styles.bold}>
+                  {departure.airline?.code || "N/A"}
+                </span>
+              </div>
+              <div className={styles.mobileDiv}>
+                <span>Type:</span>
+                <span style={{ fontWeight: "bold" }} className={styles.bold}>
+                  {arrival ? "One Stop" : "Direct"}
+                </span>
+              </div>
+              <div className={styles.mobileDiv}>
+                <span>From:</span>
+                <span
+                  style={{ fontWeight: "bold", color: "#058EA9" }}
+                  className={styles.monay}
+                >
+                  ₦{departure.price}
+                </span>
+              </div>
+              <div
+                className={styles.mobileDiv}
                 style={{ display: mobileVisible ? "none" : "flex" }}
               >
-                <option>Economy</option>
-                <option>First Class</option>
-                <option>Business Class</option>
-              </select>
-            </div>
-            <div className={styles.mobileDiv}>
-              <div className={styles.mobileFlex}>
-                <span style={{ fontWeight: "bold" }} className={styles.bold}>
-                  {departure.departure}
-                </span>
-                <span className={styles.lagos}>{departure.from}</span>
-              </div>
-              <div className={styles.lineDiv}>
-                <span>{duration}</span>
-                <div className={styles.circle}>
-                  <Image src={Circle} alt="" />
-                  <Image src={Line} alt="" />
-                  <Image src={Circle} alt="" />
+                <div className={styles.seat}>
+                  <Image src={Seat} alt="" />
+                  <span>{departure.available_seats || "N/A"} Seats Left</span>
                 </div>
-                <span>{arrival ? "1 stop" : "Direct"}</span>
-              </div>
-              <div className={styles.mobileFlex}>
-                <span style={{ fontWeight: "bold" }} className={styles.bold}>
-                  {departure.arrival}
-                </span>
-                <span className={styles.abuja}>
-                  {arrival ? arrival.from : departure.from}
+                <span className={styles.select} onClick={toggleMobileDivs}>
+                  Select
                 </span>
               </div>
-            </div>
-            <div className={styles.mobileDiv}>
-              <span>Flight No:</span>
-              <span style={{ fontWeight: "bold" }} className={styles.bold}>
-                {departure.airline?.code || "N/A"}
-              </span>
-            </div>
-            <div className={styles.mobileDiv}>
-              <span>Type:</span>
-              <span style={{ fontWeight: "bold" }} className={styles.bold}>
-                {arrival ? "One Stop" : "Direct"}
-              </span>
-            </div>
-            <div className={styles.mobileDiv}>
-              <span>From:</span>
-              <span
-                style={{ fontWeight: "bold", color: "#058EA9" }}
-                className={styles.monay}
-              >
-                ₦{departure.price}
-              </span>
-            </div>
-            <div
-              className={styles.mobileDiv}
-              style={{ display: mobileVisible ? "none" : "flex" }}
-            >
-              <div className={styles.seat}>
-                <Image src={Seat} alt="" />
-                <span>{departure.available_seats || "N/A"} Seats Left</span>
-              </div>
-              <span className={styles.select} onClick={toggleMobileDivs}>
-                Select
-              </span>
             </div>
           </div>
-        </div>
-      ))}
+         );
+        })}
     </div>
   );
 }

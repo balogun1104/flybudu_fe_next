@@ -182,8 +182,7 @@ const Navbar = () => {
             marginBottom: "10px",
             background: "none",
           }}
-          type="primary"
-          block
+       
           onClick={closePassengerDropdown}
         >
           <span
