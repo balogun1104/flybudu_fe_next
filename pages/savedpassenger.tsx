@@ -29,7 +29,7 @@ function SavedPassenger() {
      
    </div>
    <div className={styles.firstDiv}>
-     <img className={styles.hero} src={hero} alt="" />
+     <Image className={styles.hero} src={hero} alt="" />
      <div className={styles.textDiv}>
        <span className={styles.bigText}> MANAGE BOOKINGS</span>
        <p className={styles.small}>

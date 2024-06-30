@@ -57,7 +57,13 @@ function SelectFlightComponent({ flightData }) {
         <div key={departure.id} className={styles.bodyContianer}>
           <div className={styles.body}>
             <div className={styles.firstDiv}>
-              <Image src={departure.airline.logo} className={styles.GreenImg} alt="" width={40} height={40}/>
+              <Image
+                src={departure.airline.logo}
+                className={styles.GreenImg}
+                alt=""
+                width={40}
+                height={40}
+              />
               <div className={styles.flex}>
                 <span className={styles.time}>{departure.departure}</span>
                 <span style={{ fontSize: "20px" }}>{departure.from}</span>

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from "react";
 import styles from "./nav.module.css";
 import MenuImg from "@/public/assets/svg/menu.svg";

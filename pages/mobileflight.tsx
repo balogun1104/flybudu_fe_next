@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Layout from "../components/Layout";
 import { useState } from "react";
 import styles from "../styles/mobileflight.module.css"
@@ -6,6 +7,7 @@ import Cycle from "../assets/svg/cycle.svg"
 import Dropdown from "../components/Dropdown";
 import calendar from "../assets/svg/date.svg"
 import { useNavigate } from "react-router-dom";
+import Image from "next/image";
 export const FooterComponent = () => {
     const navigate = useNavigate()
     return (
@@ -77,7 +79,7 @@ function MobileFlight() {
                     </div>
                     <div className={styles.form}>
                         <div className={styles.inputgroup}>
-                            <img src={locationpin} alt='pin' className={styles.pin} />
+                            <Image src={locationpin} alt='pin' className={styles.pin} />
                             <div>
                                 <label htmlFor="from">From Where</label>
                                 <input
@@ -97,12 +99,12 @@ function MobileFlight() {
                     
                         {/* <div className={styles.cycle}> */}
                         <div>
-                            <img src={Cycle} className={styles.cycle} alt="cycle" onClick={switchLocations} />
+                            <Image src={Cycle} className={styles.cycle} alt="cycle" onClick={switchLocations} />
                         </div>
                        
                         {/* </div> */}
                         <div className={styles.inputgroup}>
-                            <img src={locationpin} alt='pin' className={styles.pin} />
+                            <Image src={locationpin} alt='pin' className={styles.pin} />
                             <div>
                                 <label htmlFor="to">To Where</label>
 
@@ -124,7 +126,7 @@ function MobileFlight() {
                         </div>
 
                         <div className={styles.inputgroup}>
-                            <img src={calendar} alt='pin' className={styles.pin} />
+                            <Image src={calendar} alt='pin' className={styles.pin} />
                             <div>
                                 <label htmlFor="to">Leaving On</label>
 
@@ -145,7 +147,7 @@ function MobileFlight() {
                         </div>
 
                         <div className={styles.inputgroup}>
-                            <img src={calendar} alt='pin' className={styles.pin} />
+                            <Image src={calendar} alt='pin' className={styles.pin} />
                             <div>
                                 <label htmlFor="to">Returning On</label>
                                 
