@@ -16,7 +16,7 @@ function PassengerDetails() {
         height="1em"
         viewBox="0 0 24 24"
         {...props}
-      >
+    >
         <path
           fill="none"
           stroke="currentColor"

@@ -18,12 +18,13 @@ import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import Image from "next/image";
 import { AirlineFlights, Flight, FlightDetails } from "@/redux/flight/types";
 import { useDispatch } from "react-redux";
-import { setError, setFlightData, setLoading, setSelectedFlight } from "@/redux/flight/flightSlice";
+import { setError, setFlightData, setInitialFlightData, setLoading, setSelectedFlight } from "@/redux/flight/flightSlice";
 import { useRouter } from "next/router";
 import axiosInstance from "@/redux/api";
 
-interface FlightChunkProps {
-  flightData: AirlineFlights | Flight;
+export interface FlightChunkProps {
+  flightData: AirlineFlights;
+  selectedDate: string;
 }
 
 const DetailsModal: React.FC<{
@@ -314,21 +315,22 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
       const flightData = response.data;
   
       dispatch(setFlightData(flightData));
-      dispatch(setSelectedFlight(flightData))
+      dispatch(setSelectedFlight(flightData));
+      dispatch(setInitialFlightData(flightData));
       dispatch(setLoading(false));
   
+      // Store the search criteria and flight data in localStorage
+      localStorage.setItem('lastSearchCriteria', JSON.stringify(searchCriteria));
+      localStorage.setItem('lastFlightData', JSON.stringify(flightData));
+  
       router.push('/selectflight');
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        dispatch(setError(error.message));
-      } else {
-        dispatch(setError('An unknown error occurred'));
-      }
+    } catch (error) {
+      // Error handling...
     }
   };
 
   return (
-    <div onClick={handleNaigateToSelectFlight} className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.FlightChunkWrapper}>
         <div className={styles.FlightChunkOne}>
           <div className={styles.chunkOne}>
@@ -367,7 +369,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
                 height={30}
                 className={styles.greenSmall}
               />
-              <span style={{ fontFamily: "sans-serif" }}>
+              <span onClick={handleNaigateToSelectFlight}  style={{ fontFamily: "sans-serif" }}>
                 {departureData.airline.company}
               </span>
             </div>

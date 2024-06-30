@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./filter.module.css";
 import { IoIosArrowForward } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
@@ -15,20 +15,43 @@ import {
   setIsRefundable,
   resetFilter,
 } from "@/redux/flight/flightSlice";
+import { FilterState } from "@/redux/flight/types";
+import { RootState } from "@/redux/store";
+import axiosInstance from "@/redux/api";
 
-function Index({ onApplyFilter }) {
+interface FlightFilterProps {
+  onApplyFilter: (filter: FilterState) => void;
+}
+
+interface Airline {
+  id: number;
+  company: string;
+  code: string;
+  logo: string;
+  region: string;
+  created_at: string;
+  updated_at: string;
+  luggage10: string;
+  luggage15: string;
+  luggage20: string;
+}
+
+function Index({ onApplyFilter }: FlightFilterProps) {
   const dispatch = useDispatch();
-  const filterState = useSelector((state) => state.flight.filter);
+  const [airlines, setAirlines] = useState<Airline[]>([]);
 
-  const handlePriceRangeChange = (value) => {
-    dispatch(setPriceRange(value));
+  const filterState = useSelector((state: RootState) => state.flight.filter);
+
+  const handlePriceRangeChange = (value: number | number[]) => {
+    if (Array.isArray(value)) {
+      dispatch(setPriceRange(value as [number, number]));
+    }
   };
 
-  const handleSortOptionChange = (option) => {
+  const handleSortOptionChange = (option: string) => {
     dispatch(setSortOption(option));
   };
-
-  const handleAirlineChange = (airline) => {
+  const handleAirlineChange = (airline: string) => {
     const selectedAirlines = filterState.selectedAirlines;
     const updatedAirlines = selectedAirlines.includes(airline)
       ? selectedAirlines.filter((a) => a !== airline)
@@ -47,6 +70,19 @@ function Index({ onApplyFilter }) {
   const handleApplyFilter = () => {
     onApplyFilter(filterState);
   };
+
+  useEffect(() => {
+    const fetchAirlines = async () => {
+      try {
+        const response = await axiosInstance.get("airlines/list");
+        setAirlines(response.data);
+      } catch (error) {
+        console.error("Error fetching airlines:", error);
+      }
+    };
+
+    fetchAirlines();
+  }, []);
 
   return (
     <div className={styles.general}>
@@ -148,24 +184,15 @@ function Index({ onApplyFilter }) {
           <CiSearch style={{ padding: "6px 0" }} />
           <input type="text" placeholder="search airline" />
         </span>
-        {[
-          "Air Peace",
-          "Arik Air",
-          "Dana Air",
-          "Ibom Air",
-          "United Nigeria",
-        ].map((airline) => (
-          <div key={airline} className={styles.airPeace}>
+        {airlines.map((airline) => (
+          <div key={airline.id} className={styles.airPeace}>
             <span>
               <input
                 type="checkbox"
-                checked={filterState.selectedAirlines.includes(airline)}
-                onChange={() => handleAirlineChange(airline)}
+                checked={filterState.selectedAirlines.includes(airline.company)}
+                onChange={() => handleAirlineChange(airline.company)}
               />
-              <p>{airline}</p>
-            </span>
-            <span>
-              From <span style={{ color: "#7A7A7A" }}>#160,000</span>
+              <p>{airline.company}</p>
             </span>
           </div>
         ))}
