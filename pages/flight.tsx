@@ -20,6 +20,7 @@ import {
   setInitialFlightData,
   setLoading,
   setError,
+  setSearchCriteria,
 } from "@/redux/flight/flightSlice";
 import { useFlightData, formatDate } from "@/utils/helper";
 import { AirlineFlights } from "@/redux/flight/types";
@@ -53,7 +54,6 @@ const Flight = () => {
   useEffect(() => {
     const fetchFlightData = async () => {
       if (lastSearchedFlightData) {
-        // Use the last searched flight data if available
         dispatch(setFlightData(lastSearchedFlightData));
         dispatch(setInitialFlightData(lastSearchedFlightData));
       } else if (
@@ -61,18 +61,27 @@ const Flight = () => {
         searchCriteria.to &&
         searchCriteria.departure_date
       ) {
-        // If we have search criteria but no lastSearchedFlightData, fetch new data
         try {
           dispatch(setLoading(true));
-        
+          const formattedDepartureDate = formatDateToYYYYMMDD(
+            searchCriteria.departure_date
+          );
+          const formattedArrivalDate = searchCriteria.arrival_date
+            ? formatDateToYYYYMMDD(searchCriteria.arrival_date)
+            : undefined;
 
-          
+          const formattedSearchCriteria = {
+            ...searchCriteria,
+            departure_date: formattedDepartureDate,
+            arrival_date: formattedArrivalDate,
+          };
 
-          const response = await axiosInstance.post('flights/search', searchCriteria);
+          const response = await axiosInstance.post(
+            "flights/search",
+            formattedSearchCriteria
+          );
           const flightData = response.data;
 
-      
-          
           dispatch(setFlightData(flightData));
           dispatch(setInitialFlightData(flightData));
           dispatch(setLoading(false));
@@ -87,13 +96,12 @@ const Flight = () => {
           }
         }
       } else {
-        // If we don't have lastSearchedFlightData or valid searchCriteria, redirect to search page
         router.push("/search");
       }
     };
 
     fetchFlightData();
-  }, [dispatch, lastSearchedFlightData, searchCriteria, router]);
+  }, [dispatch, lastSearchedFlightData, searchCriteria, router, selectedDate]);
 
   useEffect(() => {
     const departureDateIndex = generateDateOptions().findIndex(
@@ -106,10 +114,52 @@ const Flight = () => {
     }
   }, [searchCriteria.departure_date]);
 
-  const handleDateSelection = (formattedDate: string) => {
-    setSelectedDate(formattedDate);
+  const formatDateToYYYYMMDD = (dateString: string): string => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
   };
 
+  const handleDateSelection = async (formattedDate: string) => {
+    setSelectedDate(formattedDate);
+
+    // Format the date to YYYY-MM-DD for the API
+    const formattedDateYYYYMMDD = formatDateToYYYYMMDD(formattedDate);
+
+    // Create a new search criteria object with the updated departure date
+    const updatedSearchCriteria = {
+      ...searchCriteria,
+      departure_date: formattedDateYYYYMMDD,
+    };
+
+    // Dispatch action to update the search criteria in Redux store
+    dispatch(setSearchCriteria(updatedSearchCriteria));
+
+    // Trigger a new search with the updated criteria
+    try {
+      dispatch(setLoading(true));
+      const response = await axiosInstance.post(
+        "flights/search",
+        updatedSearchCriteria
+      );
+      const flightData = response.data;
+
+      dispatch(setFlightData(flightData));
+      dispatch(setInitialFlightData(flightData));
+      dispatch(setLoading(false));
+    } catch (error) {
+      dispatch(setLoading(false));
+      if (error instanceof Error) {
+        dispatch(setError(error.message));
+      } else {
+        dispatch(
+          setError("An unknown error occurred while fetching flight data")
+        );
+      }
+    }
+  };
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
@@ -143,22 +193,22 @@ const Flight = () => {
     (currentPage + 1) * datesPerPage
   );
 
-  const getLowestPrice = (date: Date) => {
-    const formattedDate = formatDate(date);
-    let lowestPrice = Infinity;
-    sortedFlightData.forEach((airlineFlights) => {
-      const flights = Object.values(airlineFlights)[0];
-      flights.forEach((flight) => {
-        if (
-          flight.departure.date === formattedDate &&
-          flight.departure.price < lowestPrice
-        ) {
-          lowestPrice = flight.departure.price;
-        }
-      });
-    });
-    return lowestPrice !== Infinity ? `₦${lowestPrice.toLocaleString()}` : "";
-  };
+  // const getLowestPrice = (date: Date) => {
+  //   const formattedDate = formatDate(date);
+  //   let lowestPrice = Infinity;
+  //   sortedFlightData.forEach((airlineFlights) => {
+  //     const flights = Object.values(airlineFlights)[0];
+  //     flights.forEach((flight) => {
+  //       if (
+  //         flight.departure.date === formattedDate &&
+  //         flight.departure.price < lowestPrice
+  //       ) {
+  //         lowestPrice = flight.departure.price;
+  //       }
+  //     });
+  //   });
+  //   return lowestPrice !== Infinity ? `₦${lowestPrice.toLocaleString()}` : "";
+  // };
 
   const filteredFlightData = Array.isArray(flightData)
     ? flightData.filter((airlineFlights) => {
@@ -262,7 +312,7 @@ const Flight = () => {
                     onClick={() => handleDateSelection(formatDate(date))}
                   >
                     <p className={styles.date}>{formatDate(date)}</p>
-                    <span className={styles.price}>{getLowestPrice(date)}</span>
+                    {/* <span className={styles.price}>{getLowestPrice(date)}</span> */}
                   </div>
                 ))}
               </div>
