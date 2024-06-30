@@ -189,56 +189,56 @@ function SelectFlightPage() {
       </div>
 
       {Array.isArray(arrival) && arrival.length > 0 && (
-  <React.Fragment>
-    <div className={styles.flight}>
-      <span style={{ fontSize: "20px" }}>Return</span>
-      <div className={styles.Plane}>
-        <Image src={Plane} alt="" />
-        <span
-          className={styles.state}
-        >{`${searchCriteria.to} to ${searchCriteria.from}`}</span>
-      </div>
-    </div>
+        <React.Fragment>
+          <div className={styles.flight}>
+            <span style={{ fontSize: "20px" }}>Return</span>
+            <div className={styles.Plane}>
+              <Image src={Plane} alt="" />
+              <span
+                className={styles.state}
+              >{`${searchCriteria.to} to ${searchCriteria.from}`}</span>
+            </div>
+          </div>
 
-    <div className={styles.margin}>
-      <div className={styles.dateDiv}>
-        <IoIosArrowBack />
-        <div className={styles.opor}>
-          <div className={styles.flexDiv}>
-            <span>Tue, May 14</span>
-            <span className={styles.blueText}>#160,000</span>
+          <div className={styles.margin}>
+            <div className={styles.dateDiv}>
+              <IoIosArrowBack />
+              <div className={styles.opor}>
+                <div className={styles.flexDiv}>
+                  <span>Tue, May 14</span>
+                  <span className={styles.blueText}>#160,000</span>
+                </div>
+                <div className={styles.flexDiv}>
+                  <span>Tue, May 14</span>
+                  <span className={styles.blueText}>#160,000</span>
+                </div>
+                <div className={`${styles.flexDiv} ${styles.display}`}>
+                  <span>Tue, May 14</span>
+                  <span className={`${styles.blueText} ${styles.blue}`}>
+                    #160,000
+                  </span>
+                </div>
+                <div className={styles.flexDiv} style={{ borderLeft: "none" }}>
+                  <span>Tue, May 14</span>
+                  <span className={styles.blueText}>#160,000</span>
+                </div>
+                <div className={styles.flexDiv}>
+                  <span>Tue, May 14</span>
+                  <span className={styles.blueText}>#160,000</span>
+                </div>
+                <div className={`${styles.flexDiv} ${styles.flex}`}>
+                  <span>Tue, May 14</span>
+                  <span className={styles.blueText}>#160,000</span>
+                </div>
+              </div>
+              <IoIosArrowForward />
+            </div>
           </div>
-          <div className={styles.flexDiv}>
-            <span>Tue, May 14</span>
-            <span className={styles.blueText}>#160,000</span>
+          <div className={styles.margin}>
+            <SelectFlightComponent flightData={{ departure: arrival }} />
           </div>
-          <div className={`${styles.flexDiv} ${styles.display}`}>
-            <span>Tue, May 14</span>
-            <span className={`${styles.blueText} ${styles.blue}`}>
-              #160,000
-            </span>
-          </div>
-          <div className={styles.flexDiv} style={{ borderLeft: "none" }}>
-            <span>Tue, May 14</span>
-            <span className={styles.blueText}>#160,000</span>
-          </div>
-          <div className={styles.flexDiv}>
-            <span>Tue, May 14</span>
-            <span className={styles.blueText}>#160,000</span>
-          </div>
-          <div className={`${styles.flexDiv} ${styles.flex}`}>
-            <span>Tue, May 14</span>
-            <span className={styles.blueText}>#160,000</span>
-          </div>
-        </div>
-        <IoIosArrowForward />
-      </div>
-    </div>
-    <div className={styles.margin}>
-      <SelectFlightComponent flightData={{ departure: arrival }} />
-    </div>
-  </React.Fragment>
-)}
+        </React.Fragment>
+      )}
       <div className={styles.finalDiv}>
         <div className={styles.checkBox}>
           <input type="checkbox" />

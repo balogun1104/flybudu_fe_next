@@ -11,12 +11,10 @@ import { StaticImageData } from "next/image";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
-
 interface Airline {
   logo: string | StaticImageData;
   code: string;
 }
-
 
 interface DepartureInfo {
   id: string | number;
@@ -40,12 +38,9 @@ interface SelectFlightComponentProps {
   flightData: FlightData;
 }
 
-
-
 function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
   const [mobileVisible, setMobileVisible] = useState(false);
   const [visible, setVisible] = useState(false);
-
 
   // console.log(testing, "testing");
   const toggleDivs = () => {
@@ -60,16 +55,14 @@ function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
     return <div>No flight data available</div>;
   }
 
-
   // console.log(flightData, "arrivalData");
-
 
   const dataComing = flightData;
   // console.log(dataComing, "dataconin g");
 
   const { departure, arrival } = dataComing;
 
-  console.log(departure, "Departure", arrival, "arrival")
+  console.log(departure, "Departure", arrival, "arrival");
 
   const calculateDuration = (dep: string, arr: string): string => {
     if (!dep || !arr || typeof dep !== "string" || typeof arr !== "string") {
@@ -89,15 +82,16 @@ function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
     return `${durationHours}h ${durationMinutes}m`;
   };
 
-  
-
   return (
     <div className={styles.general}>
-     {departure.map((departure) => {
-        const duration = calculateDuration(departure.departure, departure.arrival);
+      {departure.map((departure) => {
+        const duration = calculateDuration(
+          departure.departure,
+          departure.arrival
+        );
         const arrival = null;
 
-      return (
+        return (
           <div key={departure.id} className={styles.bodyContianer}>
             <div className={styles.body}>
               <div className={styles.firstDiv}>
@@ -123,9 +117,7 @@ function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
                 </div>
                 <div className={styles.flex}>
                   <span className={styles.time}>{departure.arrival}</span>
-                  <span style={{ fontSize: "20px" }}>
-                    { departure.from}
-                  </span>
+                  <span style={{ fontSize: "20px" }}>{departure.from}</span>
                 </div>
                 <div className={styles.extra}>
                   <span>Flight No</span>
@@ -216,9 +208,7 @@ function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
                   <span style={{ fontWeight: "bold" }} className={styles.bold}>
                     {departure.arrival}
                   </span>
-                  <span className={styles.abuja}>
-                    { departure.from}
-                  </span>
+                  <span className={styles.abuja}>{departure.from}</span>
                 </div>
               </div>
               <div className={styles.mobileDiv}>
@@ -256,8 +246,8 @@ function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
               </div>
             </div>
           </div>
-         );
-        })}
+        );
+      })}
     </div>
   );
 }
