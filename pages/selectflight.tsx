@@ -19,24 +19,45 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
 interface SelectFlightComponentProps {
-  flightData?: Flight | null;
+  flightData: {
+    departure: DepartureInfo[];
+  };
 }
+
+interface DepartureInfo {
+  id: string | number;
+  airline: {
+    logo: string;
+    code: string;
+  };
+  departure: string;
+  arrival: string;
+  from: string;
+  price: number;
+  available_seats: number;
+}
+
+interface FlightData {
+  departure: DepartureInfo[];
+  arrival?: DepartureInfo[];
+}
+
 
 function SelectFlightPage() {
   const router = useRouter();
   const { flightId } = router.query;
   const {
     searchCriteria,
-    flightData: flightSearchResponse,
+    
     loading,
     error,
   } = useFlightData();
 
-  const selectedAline = useSelector(
+  const selectAirline = useSelector(
     (state: RootState) => state.flight.selectedFlight
-  );
+  ) as FlightData | null;
 
- console.log(selectedAline, "seleced Airleine from  selected flight page")
+
 
   const [visible, setVisible] = useState(false);
   const toggleDivs = () => {
@@ -51,7 +72,9 @@ function SelectFlightPage() {
     return <div>Error: {error}</div>;
   }
 
-  const { Departures: departure, Arrivals: arrival } = selectedAline || {};
+  const {  departure,  arrival } = selectAirline || {};
+
+  
 
 
   return (
@@ -218,7 +241,7 @@ function SelectFlightPage() {
             </div>
           </div>
           <div className={styles.margin}>
-          <SelectFlightComponent selectedAline={{ departure: arrival }} />
+          <SelectFlightComponent flightData={{ departure: arrival }} />
           </div>
         </React.Fragment>
       )}
