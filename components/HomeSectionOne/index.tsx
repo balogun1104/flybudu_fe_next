@@ -29,8 +29,8 @@ import Hero3 from "@/public/assets/images/heroBg3.jpeg";
 import BookTravelImg from "@/public/assets/images/BookTravelImg.png";
 import FlyPlane from "@/public/assets/images/planeHero.png";
 import { useMediaQuery } from "react-responsive";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
 import {
   setSearchCriteria,
   setFlightData,
@@ -52,32 +52,29 @@ import { useRouter } from "next/router";
 const HomeSectionOne = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
+  const searchCriteria = useSelector((state: RootState) => state.flight.searchCriteria);
 
-  const [selectedLocation, setSelectedLocation] =
-    useState<string>("City or Airport");
+  const [selectedLocation, setSelectedLocation] = useState(searchCriteria.from || 'City or Airport');
+  const [selectedDestination, setSelectedDestination] = useState(searchCriteria.to || 'City or Airport');
+  const [departureDate, setDepartureDate] = useState(searchCriteria.departure_date || '');
+  const [returnDate, setReturnDate] = useState(searchCriteria.arrival_date || '');
+
   const [local, setLocal] = useState<string[]>([]);
   const [international, setInternational] = useState<string[]>([]);
   const [round, setRound] = useState<string[]>([]);
-  const [selectedDestination, setSelectedDestination] =
-    useState<string>("City or Airport");
+
   const [, setDates] = useState<Date[]>([]);
   const [isPassengerDropdownVisible, setIsPassengerDropdownVisible] =
     useState<boolean>(false);
   const [, setLeaveDate] = useState<string | null>(null);
   const [isRoundTrip, setIsRoundTrip] = useState(true);
 
-  const [departureDate, setDepartureDate] = useState("");
-  const [returnDate, setReturnDate] = useState("");
+
   const [canNavigate, setCanNavigate] = useState(false);
-  const [passengerCounts, setPassengerCounts] = useState<{
-    adults: number;
-    children: number;
-    infants: number;
-  }>({
-    adults: 1,
-    children: 0,
-    infants: 0,
-  });
+const [passengerCounts, setPassengerCounts] = useState(searchCriteria.passengers);
+const [localFlightText, setLocalFlightText] = useState(searchCriteria.flightType);
+const [tripTypeText, setTripTypeText] = useState(searchCriteria.tripType);
+const [classTypeText, setClassTypeText] = useState(searchCriteria.classType);
   const [isDatePickOpen, setIsDatePickOpen] = useState<boolean>(false);
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const [isLoading, setIsLoading] = useState(false);
@@ -89,9 +86,10 @@ const HomeSectionOne = () => {
     passengers?: string;
   }>({});
 
-  const [localFlightText, setLocalFlightText] = useState("Local Flights");
-  const [tripTypeText, setTripTypeText] = useState("Round Trip");
-  const [classTypeText, setClassTypeText] = useState("Economy");
+  // const [localFlightText, setLocalFlightText] = useState("Local Flights");
+  // const [tripTypeText, setTripTypeText] = useState("Round Trip");
+  // const [classTypeText, setClassTypeText] = useState("Economy");
+  
 
   const totalPassengers = Object.values(passengerCounts).reduce(
     (total, count) => total + count,
@@ -102,6 +100,8 @@ const HomeSectionOne = () => {
       import("@react-aria/overlays").then((module) => module.OverlayContainer),
     { ssr: false }
   );
+
+
 
   const [isClient, setIsClient] = useState(false);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
@@ -224,8 +224,7 @@ const HomeSectionOne = () => {
             marginBottom: "10px",
             background: "none",
           }}
-          type="primary"
-          block
+      
           onClick={closePassengerDropdown}
         >
           <span
@@ -380,9 +379,9 @@ const HomeSectionOne = () => {
         children: passengerCounts.children,
         infants: passengerCounts.infants,
       },
-      flightType: localFlightText, // 'Local Flights' or 'International Flights'
-      tripType: tripTypeText, // 'Round trip' or 'One Way'
-      classType: classTypeText, // 'Economy', 'Business', or 'First Class'
+      flightType: localFlightText,
+      tripType: tripTypeText,
+      classType: classTypeText,
     };
   
     // Dispatch the updated search criteria to Redux
@@ -417,7 +416,6 @@ const HomeSectionOne = () => {
       setIsLoading(false);
     }
   };
-
   useEffect(() => {
     if (canNavigate) {
       router.push("/flight");

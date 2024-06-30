@@ -2,7 +2,7 @@
 
 // Request Types
 export interface FlightSearchRequest {
-  departureDate(departureDate: any): unknown;
+  // departureDate(departureDate: any): unknown;
   from: string;
   to: string;
   departure_date: string;
