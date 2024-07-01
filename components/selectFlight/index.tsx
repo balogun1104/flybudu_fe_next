@@ -39,16 +39,22 @@ interface SelectFlightComponentProps {
 }
 
 function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
-  const [mobileVisible, setMobileVisible] = useState(false);
-  const [visible, setVisible] = useState(false);
+  const [mobileisSelected, setMobileisSelected] = useState(false);
+  const [isSelected, setisSelected] = useState(false);
+  const [selectedFlights, setSelectedFlights] = useState<{
+    [key: string]: boolean;
+  }>({});
 
   // console.log(testing, "testing");
-  const toggleDivs = () => {
-    setVisible(!visible);
+  const toggleDivs = (id: string | number) => {
+    setSelectedFlights((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
   };
 
   const toggleMobileDivs = () => {
-    setMobileVisible(!mobileVisible);
+    setMobileisSelected(!mobileisSelected);
   };
 
   if (!flightData) {
@@ -90,6 +96,7 @@ function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
           departure.arrival
         );
         const arrival = null;
+        const isSelected = selectedFlights[departure.id] || false;
 
         return (
           <div key={departure.id} className={styles.bodyContianer}>
@@ -142,11 +149,11 @@ function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
                     src={Approved}
                     alt=""
                     className={styles.image}
-                    style={{ display: visible ? "flex" : "none" }}
+                    style={{ display: isSelected ? "flex" : "none" }}
                   />
                   <select
                     className={`${styles.custom} ${styles.selectChange}`}
-                    style={{ display: visible ? "none" : "flex" }}
+                    style={{ display: isSelected ? "none" : "flex" }}
                   >
                     <option>Economy</option>
                     <option>First Class</option>
@@ -154,7 +161,7 @@ function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
                   </select>
                   <div
                     className={styles.left}
-                    style={{ display: visible ? "none" : "flex" }}
+                    style={{ display: isSelected ? "none" : "flex" }}
                   >
                     <div className={styles.seat}>
                       <Image src={Seat} alt="" />
@@ -162,7 +169,10 @@ function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
                         {departure.available_seats || "N/A"} Seats Left
                       </span>
                     </div>
-                    <span className={styles.select} onClick={toggleDivs}>
+                    <span
+                      className={styles.select}
+                      onClick={() => toggleDivs(departure.id)}
+                    >
                       Select
                     </span>
                   </div>
@@ -177,11 +187,11 @@ function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
                   src={Approved}
                   alt=""
                   className={styles.image}
-                  style={{ display: mobileVisible ? "flex" : "none" }}
+                  style={{ display: mobileisSelected ? "flex" : "none" }}
                 />
                 <select
                   className={styles.selectChange}
-                  style={{ display: mobileVisible ? "none" : "flex" }}
+                  style={{ display: mobileisSelected ? "none" : "flex" }}
                 >
                   <option>Economy</option>
                   <option>First Class</option>
@@ -234,7 +244,7 @@ function SelectFlightComponent({ flightData }: SelectFlightComponentProps) {
               </div>
               <div
                 className={styles.mobileDiv}
-                style={{ display: mobileVisible ? "none" : "flex" }}
+                style={{ display: mobileisSelected ? "none" : "flex" }}
               >
                 <div className={styles.seat}>
                   <Image src={Seat} alt="" />
