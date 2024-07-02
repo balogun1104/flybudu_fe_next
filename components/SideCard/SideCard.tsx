@@ -24,7 +24,12 @@ function SideCard() {
   const selectedAirline = useSelector(
     (state: RootState) => state.flight.selectedFlight
   );
-  const discountValue = useSelector((state: RootState) => state.flight.discountValue);
+
+  console.log(selectedAirline, "selectedAirline");
+
+  const discountValue = useSelector(
+    (state: RootState) => state.flight.discountValue
+  );
 
   //formData
   const formData = useSelector((state: RootState) => state.formData);
@@ -130,7 +135,7 @@ function SideCard() {
           <div className={styles.triplet}>
             <div className={styles.lagos}>
               <span className={styles.abujaText}>{searchCriteria.from}</span>
-              <p> {selectedAirline?.departure.route.location_code}</p>
+              <p> {selectedAirline?.departure?.route.location_code}</p>
               <p className={styles.time}>
                 {selectedAirline?.departure.departure}
               </p>
@@ -140,7 +145,7 @@ function SideCard() {
             </div>
             <div className={styles.abuja}>
               <span className={styles.abujaText}>{searchCriteria.to}</span>
-              <p> {selectedAirline?.arrival.route.location_code}</p>
+              <p> {selectedAirline?.arrival?.route.location_code}</p>
               <p className={styles.time}>
                 {selectedAirline?.arrival.departure}
               </p>
@@ -232,8 +237,12 @@ function SideCard() {
             </div>
           )}
           <div className={styles.twins}>
-        <p> Discount</p> <span>&#8358; {discountValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
-      </div>
+            <p> Discount</p>{" "}
+            <span>
+              &#8358;{" "}
+              {discountValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </span>
+          </div>
           <div className={styles.twins}>
             <p>
               Taxes and fee <span></span>{" "}
@@ -243,7 +252,6 @@ function SideCard() {
           <div className={styles.twins}>
             <p> Total</p>{" "}
             <span className={styles.blue}>
-              
               <span className={styles.blue}>
                 &#8358;{" "}
                 {updatedTotalPrice

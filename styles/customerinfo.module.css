@@ -80,6 +80,21 @@
   background: #fff;
   border-radius: 12px;
   outline: none;
+  display: flex;
+  justify-content: space-between;
+}
+.codeSend{
+  border: none;
+  background-color: #06bce1;
+  padding: 10px;
+  border-radius: 10px;
+  color: white
+
+}
+.codeInput{
+  border: none;
+  width: 70% ;
+  outline: none
 }
 .ilu{
   display: flex;

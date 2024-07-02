@@ -432,20 +432,22 @@ function CustomerInfo() {
                 <IoIosArrowForward />
               </div>
               {isActive && (
-                <div>
+                <div  className={styles.code}> 
                   <input
                     type="text"
                     placeholder="Enter Code"
-                    className={styles.code}
+                    className={styles.codeInput}
                     value={discountCode}
                     onChange={handleDiscountCodeChange}
+                    
                   />
-                  <button onClick={handleDiscountCodeSubmit}>Send</button>
-                  {discountResponse && (
-                    <p>Discount Applied: &#8358;{discountResponse.value}</p>
-                  )}
+                  <button   className={styles.codeSend} onClick={handleDiscountCodeSubmit}>Send</button>
+                 
                 </div>
               )}
+               {discountResponse && (
+                    <p>Discount Applied: &#8358;{discountResponse.value}</p>
+                  )}
             </div>
             <div className={styles.codeDiv}>
               <div
@@ -460,23 +462,24 @@ function CustomerInfo() {
                 <IoIosArrowForward onClick={toggle} />
               </div>
               {openCode && (
-                <div>
+                <div className={styles.code}>
                   <input
                     type="text"
                     placeholder="Enter Code"
-                    className={styles.code}
+                    className={styles.codeInput}
                     value={corporateCode}
                     onChange={handleCorporateCodeChange}
                   />
-                  <button onClick={handleCorporateCodeSubmit}>Send</button>
-                  {corporateResponse && (
+                  <button onClick={handleCorporateCodeSubmit} className={styles.codeSend}>Send</button>
+                
+                </div>
+              )}
+                {corporateResponse && (
                     <p>
                       Corporate Discount Applied: &#8358;
                       {corporateResponse.value}
                     </p>
                   )}
-                </div>
-              )}
             </div>
             <div className={styles.saveDiv}>
               <div className={styles.ilu}>
