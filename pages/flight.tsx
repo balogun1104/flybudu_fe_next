@@ -96,7 +96,7 @@ const Flight = () => {
           }
         }
       } else {
-        router.push("/search");
+        router.push("/");
       }
     };
 
