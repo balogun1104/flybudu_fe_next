@@ -149,8 +149,8 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
               <div className={styles.departDiv}>
                 <span>Depart</span>
                 <span className={styles.lagos}>
-                  {selectedAirline?.departure?.from_city} to{" "}
-                  {selectedAirline?.departure?.to_city}
+                  {selectedAirline?.departure?.route.destination} to{" "}
+                  {selectedAirline?.departure?.route.location}
                 </span>
               </div>
               {["10Kg", "15Kg", "20Kg"].map((weight) => (
@@ -211,8 +211,8 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                 <div className={styles.departDiv}>
                   <span>Return</span>
                   <span className={styles.lagos}>
-                    {selectedAirline.arrival.from_city} to{" "}
-                    {selectedAirline.arrival.to_city}
+                    {selectedAirline?.departure?.route.destination} to{" "}
+                    {selectedAirline?.departure?.route.location}
                   </span>
                 </div>
                 {["10Kg", "15Kg", "20Kg"].map((weight) => (
