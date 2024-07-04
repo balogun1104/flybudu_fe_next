@@ -1,6 +1,6 @@
 // formDataSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FormData } from "../types/formData.types";
+import { FormData, Luggage } from "../types/formData.types";
 
 const initialState: FormData = {
   title: "",
@@ -48,10 +48,16 @@ const formDataSlice = createSlice({
         ...action.payload,
       };
     },
+    setLuggage: (
+      state,
+      action: PayloadAction<{ depart: Luggage[]; return: Luggage[] }>
+    ) => {
+      state.luggages = action.payload;
+    },
     clearFormData: () => initialState,
   },
 });
 
-export const { setFormData, updateFormData, clearFormData } =
+export const { setFormData, updateFormData, clearFormData, setLuggage } =
   formDataSlice.actions;
 export default formDataSlice.reducer;
