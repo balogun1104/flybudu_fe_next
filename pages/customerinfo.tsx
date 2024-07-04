@@ -1,97 +1,62 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import Image from "next/image";
 import styles from "../styles/customerinfo.module.css";
+import { RootState } from "@/redux/store";
+import { setFormData } from "@/redux/flight/formDataSlice";
+import { FormData } from "@/redux/types/formData.types";
 import Header from "@/components/header/header";
+import SideCard from "../components/SideCard/SideCard";
+import { IoIosArrowForward } from "react-icons/io";
+import axiosInstance from "@/redux/api";
+
+// Import your images
 import Padlock from "@/public/assets/images/lock 1.png";
 import error from "@/public/assets/images/error (2) 1.png";
-import SideCard from "../components/SideCard/SideCard";
 import customerSupport from "@/public/assets/images/customer-support (1) 1.png";
 import BackButton from "@/public/assets/images/backbutton.png";
 import support from "@/public/assets/images/customer-support (1) 1.png";
-import Link from "next/link";
-import { IoIosArrowForward } from "react-icons/io";
 import Approved from "@/public/assets/images/Layer 3.png";
-import Image from "next/image";
-import { useFlightData } from "@/utils/helper";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "@/redux/store";
-import { Passenger, FormData } from "@/redux/types/formData.types";
-import { setFormData } from "@/redux/flight/formDataSlice";
-import { useRouter } from "next/router";
-import axiosInstance from "@/redux/api";
-import { setDiscountValue } from "@/redux/flight/flightSlice";
-import moment from "moment";
 
 function CustomerInfo() {
   const router = useRouter();
-  const { searchCriteria, flightData, loading, totalFlight, totalPassengers } =
-    useFlightData();
-  const selectedAirline = useSelector(
-    (state: RootState) => state.flight.selectedFlight
-  );
   const dispatch = useDispatch();
+  const storedFormData = useSelector((state: RootState) => state.formData);
 
+  const [formData, setFormDataState] = useState<FormData>(storedFormData);
   const [isActive, setIsActive] = useState(false);
   const [openCode, setOpenCode] = useState(false);
-  const [formData, setFormDataState] = useState<FormData>({
-    title: "",
-    surname: "",
-    first_name: "",
-    middle_name: "",
-    email: "",
-    phone: "",
-    nationality: "Nigeria",
-    gender: "",
-    DOB: "",
-    passengers: [],
-    price: 0,
-    discount_code: "",
-    discounted_slash: 0,
-    corporate_code: "",
-    corporate_slash: 0,
-    amount_paid: 0,
-    user_id: 1,
-    schedule_id: 2,
-    route_id: 3,
-    airline_id: 4,
-    status: "confirmed",
-    type: "regular",
-    departure: "",
-    ticket: "",
-    transaction_ref: "",
-    updatedTotalPrice: 0,
-  });
   const [discountCode, setDiscountCode] = useState("");
   const [corporateCode, setCorporateCode] = useState("");
-  const [discountResponse, setDiscountResponse] = useState<{
-    id: number;
-    code: string;
-    percentage_or_price: string;
-    type: string;
-    value: string;
-    created_at: string | null;
-    updated_at: string | null;
-  } | null>(null);
+  const [discountResponse, setDiscountResponse] = useState<any>(null);
+  const [corporateResponse, setCorporateResponse] = useState<any>(null);
 
-  const [corporateResponse, setCorporateResponse] = useState<{
-    id: number;
-    code: string;
-    percentage_or_price: string;
-    type: string;
-    value: string;
-    created_at: string | null;
-    updated_at: string | null;
-  } | null>(null);
+  useEffect(() => {
+    setFormDataState(storedFormData);
+  }, [storedFormData]);
 
-  const handleDiscountCodeChange = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    const updatedFormData = {
+      ...formData,
+      [name]: value,
+    };
+    setFormDataState(updatedFormData);
+    dispatch(setFormData(updatedFormData));
+  };
+
+  const handleDiscountCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDiscountCode(e.target.value);
   };
 
-  const handleCorporateCodeChange = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
+  const handleCorporateCodeChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setCorporateCode(e.target.value);
   };
 
@@ -110,7 +75,6 @@ function CustomerInfo() {
         discount_code: discountCode,
         discounted_slash: parseFloat(response.data.value),
       }));
-      dispatch(setDiscountValue(parseFloat(response.data.value)));
     } catch (error) {
       console.error("Error checking discount code:", error);
     }
@@ -131,76 +95,22 @@ function CustomerInfo() {
         corporate_code: corporateCode,
         corporate_slash: parseFloat(response.data.value),
       }));
-      dispatch(setDiscountValue(parseFloat(response.data.value)));
     } catch (error) {
       console.error("Error checking corporate code:", error);
     }
   };
 
-  console.log(formData);
-  useEffect(() => {
-    if (selectedAirline && searchCriteria) {
-      const departurePrice = parseFloat(
-        selectedAirline.departure?.price?.toString() || "0"
-      );
-      const arrivalPrice = parseFloat(
-        selectedAirline.arrival?.price.toString() || "0"
-      );
-      const totalPrice = departurePrice + arrivalPrice;
-
-      const passengers: Passenger[] = [];
-      const { adults, children, infants } = searchCriteria.passengers;
-
-      for (let i = 0; i < adults; i++) {
-        passengers.push({ name: "", age: 18, gender: "" });
-      }
-      for (let i = 0; i < children; i++) {
-        passengers.push({ name: "", age: 12, gender: "" });
-      }
-      for (let i = 0; i < infants; i++) {
-        passengers.push({ name: "", age: 1, gender: "" });
-      }
-      const departureDate = moment(searchCriteria.departure_date).format(
-        "YYYY-MM-DD"
-      );
-      const departureTime =
-        selectedAirline.departure?.departure_time || "00:00:00";
-      const fullDepartureDatetime = moment(
-        `${departureDate} ${departureTime}`,
-        "YYYY-MM-DD HH:mm:ss"
-      ).format("YYYY-MM-DD HH:mm:ss");
-
-      setFormDataState((prevState) => ({
-        ...prevState,
-        price: totalPrice,
-        amount_paid: totalPrice,
-        passengers,
-        departure: fullDepartureDatetime,
-        airline_id:
-          selectedAirline.departure?.airline_id || prevState.airline_id,
-        route_id: selectedAirline.departure?.route_id || prevState.route_id,
-      }));
-    }
-  }, [selectedAirline, searchCriteria]);
+  const handleSaveAndContinue = () => {
+    dispatch(setFormData(formData));
+    router.push("/travelinformation");
+  };
 
   const toggle = () => {
     setOpenCode(!openCode);
   };
+
   const toggleText = () => {
     setIsActive(!isActive);
-  };
-
-  const handleInputChange = (e: { target: { name: any; value: any } }) => {
-    const { name, value } = e.target;
-    setFormDataState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSaveAndContinue = () => {
-    dispatch(setFormData(formData));
-    router.push("/travelinformation");
   };
 
   return (
@@ -209,7 +119,7 @@ function CustomerInfo() {
       <div className={styles.secondHeader}>
         <Link href="/selectflight">
           <Image
-            alt="s"
+            alt="Back"
             src={BackButton}
             className={styles.back}
             width={20}
@@ -232,11 +142,11 @@ function CustomerInfo() {
           <div className={styles.niceDiv}>
             <Image src={Approved} alt="" width={20} height={20} />
             <div style={{ textAlign: "start" }}>
-              <p>Nice job! You picked one of the best option. </p>
+              <p>Nice job! You picked one of the best options. </p>
               <span>Book Now so you don't miss out on this price.</span>
             </div>
           </div>
-          <span className={styles.who}>Who is travelling to Abuja?</span>
+          <span className={styles.who}>Who is travelling?</span>
           <form>
             <div className={styles.generall}>
               <div className={styles.detailsDiv}>
@@ -257,16 +167,7 @@ function CustomerInfo() {
               </div>
               <div className={styles.mother}>
                 <div className={styles.adult}>
-                  <span>Passenger 1(Adult-Primary Contact)</span>
-                  <label className={styles.label}>
-                    <select className={styles.select}>
-                      <option>Saved Passenger </option>
-                      <option>Tiamiyu Wasiu Oladimeji</option>
-                      <option>Olaniyan Tunde Bushran</option>
-                      <option>Ogenenchukwo Ifeomalu</option>
-                      <option>Taiye Taiwo</option>
-                    </select>
-                  </label>
+                  <span>Passenger 1 (Adult-Primary Contact)</span>
                 </div>
                 <div className={styles.fatherVerified}>
                   <div className={styles.titleDiv}>
@@ -511,7 +412,6 @@ function CustomerInfo() {
               <div className={styles.ilu}>
                 <span className={styles.money}> #160,000</span>
                 <Link href="/flight">
-                  {" "}
                   <button className={styles.back}>Back</button>
                 </Link>
                 <button

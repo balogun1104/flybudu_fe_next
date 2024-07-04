@@ -48,8 +48,10 @@ const formDataSlice = createSlice({
         ...action.payload,
       };
     },
+    clearFormData: () => initialState,
   },
 });
 
-export const { setFormData, updateFormData } = formDataSlice.actions;
+export const { setFormData, updateFormData, clearFormData } =
+  formDataSlice.actions;
 export default formDataSlice.reducer;
