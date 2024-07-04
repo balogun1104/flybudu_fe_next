@@ -57,9 +57,6 @@ const DetailsModal: React.FC<{
   const departureData = flightData.departure;
   const arrivalData = flightData.arrival;
 
-
-
-
   const departureDepartureTime = parseISO(
     `2000-01-01T${departureData.departure}`
   );
@@ -88,8 +85,6 @@ const DetailsModal: React.FC<{
       query: { flightId: flight.departure.id },
     });
   };
-
-
 
   return (
     <div className={styles.modalBackground}>
@@ -210,9 +205,11 @@ const DetailsModal: React.FC<{
           <span>
             &#8358;
             {arrivalData
-              ? parseFloat(departureData.price) + parseFloat(arrivalData.price)
+              ? (departureData.price + arrivalData.price)
+                  .toFixed(2)
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
               : departureData.price
-                  .toString()
+                  .toFixed(2)
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </span>
         </div>

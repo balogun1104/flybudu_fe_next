@@ -2,10 +2,10 @@
 import { Layout, Dropdown } from "antd";
 import { useState } from "react";
 import styles from "../styles/mobileflight.module.css";
-import locationpin from "../assets/svg/locationpin.svg";
-import Cycle from "../assets/svg/cycle.svg";
+import locationpin from "@/public/assets/images/location pin.png";
+import Cycle from "@/public/assets/svg/cycle.svg";
 
-import calendar from "../assets/svg/date.svg";
+import calendar from "@/public/assets/svg/date.svg";
 import { useRouter } from "next/router";
 import Image from "next/image";
 export const FooterComponent = () => {
@@ -27,15 +27,22 @@ export const FooterComponent = () => {
     </div>
   );
 };
+
+interface DropdownProps {
+  title: string;
+  // add other props as needed
+}
+
 function MobileFlight() {
   const [from, setFrom] = useState("");
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
   const [to, setTo] = useState("");
 
-  const [returnDate, setReturnDate] = useState(null);
+  const [returnDate, setReturnDate] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenTwo, setIsOpenTwo] = useState(false);
   const [leavingDate, setLeavingDate] = useState("");
+
   //const [returnDate, setReturnDate] = useState("")
   const switchLocations = () => {
     setFrom(to);
@@ -60,21 +67,19 @@ function MobileFlight() {
     },
   ];
 
-  const handleButtonClick = (id) => {
+  const handleButtonClick = (id: number) => {
     setSelectedId(id);
   };
 
   return (
     <div className={styles.general}>
       <Layout
-        // headerColor={"#333333"}
-        // header={"Find Flights"}
-        // footer={<FooterComponent />}
+      // headerColor={"#333333"}
+      // header={"Find Flights"}
+      // footer={<FooterComponent />}
       >
         <div className={styles.flightcard}>
-          <div>
-            <Dropdown title={"Local Flights"} />
-          </div>
+          <div>{/* <Dropdown title={"Local Flights"} /> */}</div>
           <div className={styles.buttondiv}>
             {flightTrips.map((item) => (
               <button
@@ -181,7 +186,7 @@ function MobileFlight() {
             </div>
 
             <div className={styles.economy}>
-              <Dropdown title={"Economy"} />
+              {/* <Dropdown title={"Economy"} /> */}
             </div>
             <div></div>
             <div className={styles.Letgo}>

@@ -39,8 +39,16 @@ function TravelInformation() {
     };
   }, []);
 
-  const handleLuggageSelect = (selectedLuggage: Luggage[]) => {
-    dispatch(setFormData({ ...formData, luggages: selectedLuggage }));
+  const handleLuggageSelect = (selectedLuggage: {
+    depart: Luggage[];
+    return: Luggage[];
+  }) => {
+    dispatch(
+      setFormData({
+        ...formData,
+        luggages: selectedLuggage,
+      })
+    );
   };
 
   const handleSaveAndContinue = () => {
@@ -135,8 +143,7 @@ function TravelInformation() {
               <Link
                 className={styles.link}
                 href="/side-card"
-                
-                style={{ textDecoration: "none", }}
+                style={{ textDecoration: "none" }}
               >
                 {" "}
                 <span className={styles.save}>Save & Continue</span>
@@ -144,7 +151,12 @@ function TravelInformation() {
             ) : (
               <button
                 className={styles.link}
-                style={{ textDecoration: "none", border:"none", outline:"none", background:"none" }}
+                style={{
+                  textDecoration: "none",
+                  border: "none",
+                  outline: "none",
+                  background: "none",
+                }}
                 onClick={handleSaveAndContinue}
               >
                 {" "}

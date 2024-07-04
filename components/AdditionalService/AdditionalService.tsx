@@ -31,8 +31,6 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
     (state: RootState) => state.flight.selectedFlight
   );
 
-
-
   const toggleText = () => {
     setIsActive(!isActive);
   };

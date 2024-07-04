@@ -51,7 +51,7 @@ function Payment() {
 
   const [showPaystackButton, setShowPaystackButton] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     console.log("Form Data:", formData);
@@ -71,25 +71,35 @@ function Payment() {
     }
   }, [isOpen]);
 
-  const handlePaymentSuccess = (reference) => {
+  const handlePaymentSuccess = (reference: {
+    reference: any;
+    status: any;
+    transaction: any;
+    trxref: any;
+  }) => {
     setIsLoading(true);
     console.log("Paystack Reference:", reference);
-  
+
     // Extract relevant information from the reference object
-    const { reference: transactionNumber, status, transaction, trxref } = reference;
-  
+    const {
+      reference: transactionNumber,
+      status,
+      transaction,
+      trxref,
+    } = reference;
+
     console.log("Transaction Number:", transactionNumber);
     console.log("Transaction Status:", status);
     console.log("Transaction Details:", transaction);
     console.log("Transaction Reference:", trxref);
-  
+
     // Include the transaction number in the form data
     const updatedFormData = {
       ...formData,
       // transactionNumber,
-      transaction_ref: transactionNumber
+      transaction_ref: transactionNumber,
     };
-  
+
     axiosInstance
       .post("flights/submit", updatedFormData)
       .then((response) => {
@@ -237,15 +247,14 @@ function Payment() {
             <span className={styles.money}> #172,000</span>
             {formData.email && (
               <PaystackButton
-              className={styles.save}
-              {...paystackOptions}
-              onSuccess={handlePaymentSuccess}
-              onClose={() => {
-                setIsLoading(false);
-                console.log("Payment closed");
-              }}
-              onClick={handlePayNowClick}
-            />
+                className={styles.save}
+                {...paystackOptions}
+                onSuccess={handlePaymentSuccess}
+                onClose={() => {
+                  setIsLoading(false);
+                  console.log("Payment closed");
+                }}
+              />
             )}
           </div>
         </div>

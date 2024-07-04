@@ -1,19 +1,35 @@
-import React from 'react'
-import styles from "./quote.module.css"
-import QuoteImg from "@/public/assets/images/Quote.png"
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-function QuoteBar({setIsOpen}) {  
-  const router = useRouter()
+import React, { Dispatch, SetStateAction } from "react";
+import styles from "./quote.module.css";
+import QuoteImg from "@/public/assets/images/Quote.png";
+import { useRouter } from "next/navigation";
+
+import Image from "next/image";
+
+interface QuoteBarProps {
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+function QuoteBar({ setIsOpen }: QuoteBarProps) {
+  const router = useRouter();
   return (
-    <div className={styles.darkBG} onClick={()=> setIsOpen(false)}>
-    <div className={styles.centered}>
-    <div className={styles.body}>
-<Image src={QuoteImg} alt='' className={styles.imgDiv}/>
-<div className={styles.inputDiv}>
-<div className={styles.clearDiv}>  <span className={styles.booking}>Get a Quote For Your Booking</span>
-      <span className={styles.clear} onClick={()=> setIsOpen(false)} style={{cursor:"pointer"}}>X</span>
- </div>
+    <div className={styles.darkBG} onClick={() => setIsOpen(false)}>
+      <div className={styles.centered}>
+        <div className={styles.body}>
+          <Image src={QuoteImg} alt="" className={styles.imgDiv} />
+          <div className={styles.inputDiv}>
+            <div className={styles.clearDiv}>
+              {" "}
+              <span className={styles.booking}>
+                Get a Quote For Your Booking
+              </span>
+              <span
+                className={styles.clear}
+                onClick={() => setIsOpen(false)}
+                style={{ cursor: "pointer" }}
+              >
+                X
+              </span>
+            </div>
             <div className={styles.messageInput}>
               {" "}
               <p>
@@ -77,23 +93,34 @@ function QuoteBar({setIsOpen}) {
             <textarea
               id="text"
               name="text"
-              rows="4"
-              cols="50"
+              rows={4}
+              cols={50}
               placeholder="Enter your message here"
               className={styles.textArea}
             />
-            <div className={styles.lastDiv}>  
-            <div className={styles.checkbox}> <input type='checkbox' className={styles.check}/> <span>By clicking this box, you agree to our opt-in privacy</span></div>
-            <span className={styles.quote}
-             onClick={()=> {router.push("/")}}
-            >Get a quote</span>
+            <div className={styles.lastDiv}>
+              <div className={styles.checkbox}>
+                {" "}
+                <input type="checkbox" className={styles.check} />{" "}
+                <span>
+                  By clicking this box, you agree to our opt-in privacy
+                </span>
+              </div>
+              <span
+                className={styles.quote}
+                onClick={() => {
+                  router.push("/");
+                }}
+              >
+                Get a quote
+              </span>
             </div>
             {/* <span onClick={() => setIsOpen(true)} className={styles.send}>Send Message</span> */}
           </div>
-       </div>
+        </div>
+      </div>
     </div>
-    </div>
-  )
+  );
 }
 
-export default QuoteBar
+export default QuoteBar;

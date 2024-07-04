@@ -20,7 +20,7 @@ import { setFormData } from "@/redux/flight/formDataSlice";
 import { useRouter } from "next/router";
 import axiosInstance from "@/redux/api";
 import { setDiscountValue } from "@/redux/flight/flightSlice";
-import moment from 'moment';
+import moment from "moment";
 
 function CustomerInfo() {
   const router = useRouter();
@@ -58,6 +58,8 @@ function CustomerInfo() {
     type: "regular",
     departure: "",
     ticket: "",
+    transaction_ref: "",
+    updatedTotalPrice: 0,
   });
   const [discountCode, setDiscountCode] = useState("");
   const [corporateCode, setCorporateCode] = useState("");
@@ -80,7 +82,6 @@ function CustomerInfo() {
     created_at: string | null;
     updated_at: string | null;
   } | null>(null);
-  
 
   const handleDiscountCodeChange = (e: {
     target: { value: React.SetStateAction<string> };
@@ -140,9 +141,11 @@ function CustomerInfo() {
   useEffect(() => {
     if (selectedAirline && searchCriteria) {
       const departurePrice = parseFloat(
-        selectedAirline.departure?.price || "0"
+        selectedAirline.departure?.price?.toString() || "0"
       );
-      const arrivalPrice = parseFloat(selectedAirline.arrival?.price || "0");
+      const arrivalPrice = parseFloat(
+        selectedAirline.arrival?.price.toString() || "0"
+      );
       const totalPrice = departurePrice + arrivalPrice;
 
       const passengers: Passenger[] = [];
@@ -157,9 +160,15 @@ function CustomerInfo() {
       for (let i = 0; i < infants; i++) {
         passengers.push({ name: "", age: 1, gender: "" });
       }
-      const departureDate = moment(searchCriteria.departureDate).format('YYYY-MM-DD');
-      const departureTime = selectedAirline.departure?.departure_time || "00:00:00";
-      const fullDepartureDatetime = moment(`${departureDate} ${departureTime}`, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+      const departureDate = moment(searchCriteria.departure_date).format(
+        "YYYY-MM-DD"
+      );
+      const departureTime =
+        selectedAirline.departure?.departure_time || "00:00:00";
+      const fullDepartureDatetime = moment(
+        `${departureDate} ${departureTime}`,
+        "YYYY-MM-DD HH:mm:ss"
+      ).format("YYYY-MM-DD HH:mm:ss");
 
       setFormDataState((prevState) => ({
         ...prevState,
@@ -432,22 +441,30 @@ function CustomerInfo() {
                 <IoIosArrowForward />
               </div>
               {isActive && (
-                <div  className={styles.code}> 
+                <div className={styles.code}>
                   <input
                     type="text"
                     placeholder="Enter Code"
                     className={styles.codeInput}
                     value={discountCode}
                     onChange={handleDiscountCodeChange}
-                    
                   />
-                  <button   className={styles.codeSend} onClick={handleDiscountCodeSubmit}>Send</button>
-                 
+                  <button
+                    type="button"
+                    className={styles.codeSend}
+                    onClick={(e) =>
+                      handleDiscountCodeSubmit(
+                        e as any as React.FormEvent<HTMLFormElement>
+                      )
+                    }
+                  >
+                    Send
+                  </button>
                 </div>
               )}
-               {discountResponse && (
-                    <p>Discount Applied: &#8358;{discountResponse.value}</p>
-                  )}
+              {discountResponse && (
+                <p>Discount Applied: &#8358;{discountResponse.value}</p>
+              )}
             </div>
             <div className={styles.codeDiv}>
               <div
@@ -470,16 +487,25 @@ function CustomerInfo() {
                     value={corporateCode}
                     onChange={handleCorporateCodeChange}
                   />
-                  <button onClick={handleCorporateCodeSubmit} className={styles.codeSend}>Send</button>
-                
+                  <button
+                    type="button"
+                    className={styles.codeSend}
+                    onClick={(e) =>
+                      handleCorporateCodeSubmit(
+                        e as any as React.FormEvent<HTMLFormElement>
+                      )
+                    }
+                  >
+                    Send
+                  </button>
                 </div>
               )}
-                {corporateResponse && (
-                    <p>
-                      Corporate Discount Applied: &#8358;
-                      {corporateResponse.value}
-                    </p>
-                  )}
+              {corporateResponse && (
+                <p>
+                  Corporate Discount Applied: &#8358;
+                  {corporateResponse.value}
+                </p>
+              )}
             </div>
             <div className={styles.saveDiv}>
               <div className={styles.ilu}>

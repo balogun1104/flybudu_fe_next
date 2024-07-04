@@ -41,4 +41,5 @@ export interface FormData {
   departure: string;
   ticket: string;
   transaction_ref: string;
+  updatedTotalPrice: number;
 }
