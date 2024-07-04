@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['res.cloudinary.com'],
+    disableStaticImages: false,
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
@@ -15,7 +16,6 @@ const nextConfig = {
     }
     return config;
   },
-
   transpilePackages: [
     "antd",
     "@ant-design",
@@ -27,7 +27,6 @@ const nextConfig = {
     "rc-tree",
     "rc-table",
   ],
-
   env: {
     API_KEY: process.env.API_KEY,
     SECRET_KEY: process.env.SECRET_KEY,

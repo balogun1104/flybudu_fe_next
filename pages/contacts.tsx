@@ -22,12 +22,8 @@ import final3 from "@/public/assets/images/uptodate3.png";
 import Blueplane from "@/public/assets/images/curvedPlane.png";
 import ContactApproved from "../components/ContactApproved/ContactApproved";
 import MobileNav from "../components/MobileNavBar";
-import Subscribe from "@/public/assets/images/Paper Plane.png"
+import Subscribe from "@/public/assets/images/Paper Plane.png";
 import Image from "next/image";
-
-
-
-
 
 import Menu from "@/public/assets/images/menu 1.png";
 import Quote from "@/public/assets/svg/Payment.svg";
@@ -41,15 +37,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 function Contacts() {
-
-
-
-
-
-
-
-
-
   const [isOpe, setIsOpe] = useState(false);
   const router = useRouter();
 
@@ -76,111 +63,88 @@ function Contacts() {
     router.push("/");
   };
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
 
+    handleResize(); // Check initial size
+    window.addEventListener("resize", handleResize);
 
-
-
-
-
-
-
-
-
-  const [isMobile, setIsMobile] = useState(false)
-  useEffect(() =>{
-   const handleResize = () => {
-     setIsMobile(window.innerWidth <= 768);
-   };
-
-   handleResize(); // Check initial size
-   window.addEventListener('resize', handleResize);
-
-   return () => {
-     window.removeEventListener('resize', handleResize);
-   };
- }, []);
-  const [isOpen, setIsOpen] = useState(false)
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={styles.general}>
-     
-     
-
-
-
-
-
-
-     <div>
-      <div className={styles.NavtwoContainer}>
-        <div className={styles.navcon}>
-          <div className={styles.navbarWrapBlack}>
-          <div
-              style={{ background: "none", border: "none", cursor: "pointer" }}
-              onClick={handleLogoClick}
-            >
-              {isMobile ? (
-                <Image
-                  className={styles.flybudu}
-                  src={flyBudu2}
-                  alt=""
-                />
-              ) : (
-                <Image
-                  className={styles.flybudu}
-                  src={Logo}
-                  alt=""
-                />
-              )}
-            </div>
-
-            <div>
-              <div className={styles.navbar}>
-                <Link href="/flight">
-                  flight
-                </Link>
-                <Link  href="/destinations">Destinations</Link>
-                <Link href="/featuredflights">Featured Flights</Link>
-                <Link  className={styles.active} href="/contacts">Contact</Link>
-              </div>
-            </div>
-            <input
-              type="text"
-              placeholder="Search Flights"
-              className={styles.searchInput}
-            />
-            <div className={styles.quoteWrap}>
+      <div>
+        <div className={styles.NavtwoContainer}>
+          <div className={styles.navcon}>
+            <div className={styles.navbarWrapBlack}>
               <div
-                onClick={() => {
-                  setIsOpen(true);
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
                 }}
-                style={{ cursor: "pointer" }}
-                className={styles.quote}
+                onClick={handleLogoClick}
               >
-                <span>Corporate Booking</span>
-                <span>
-                  <Image src={Quote} alt="" />
-                </span>
+                {isMobile ? (
+                  <Image className={styles.flybudu} src={flyBudu2} alt="" />
+                ) : (
+                  <Image className={styles.flybudu} src={Logo} alt="" />
+                )}
               </div>
-              <Image alt="" className={styles.avatar} src={avatar} />
-              {isMobile ? (
-                <Image
-                  src={WhiteLogo}
-                  alt=""
-                  className={styles.quoteImg}
-                  onClick={() => setOpenMenu(!openMenu)}
-                />
-              ) : (
-                <Image
-                  src={Menu}
-                  alt=""
-                 
-                  onClick={() => setOpenMenu(!openMenu)}
-                />
-              )}
-            </div>
-          </div>
 
-          {/* <div className={styles.NavTwo}>
+              <div>
+                <div className={styles.navbar}>
+                  <Link href="/flight">flight</Link>
+                  <Link href="/destinations">Destinations</Link>
+                  <Link href="/featuredflights">Featured Flights</Link>
+                  <Link className={styles.active} href="/contacts">
+                    Contact
+                  </Link>
+                </div>
+              </div>
+              <input
+                type="text"
+                placeholder="Search Flights"
+                className={styles.searchInput}
+              />
+              <div className={styles.quoteWrap}>
+                <div
+                  onClick={() => {
+                    setIsOpen(true);
+                  }}
+                  style={{ cursor: "pointer" }}
+                  className={styles.quote}
+                >
+                  <span>Corporate Booking</span>
+                  <span>
+                    <Image src={Quote} alt="" />
+                  </span>
+                </div>
+                <Image alt="" className={styles.avatar} src={avatar} />
+                {isMobile ? (
+                  <Image
+                    src={WhiteLogo}
+                    alt=""
+                    className={styles.quoteImg}
+                    onClick={() => setOpenMenu(!openMenu)}
+                  />
+                ) : (
+                  <Image
+                    src={Menu}
+                    alt=""
+                    onClick={() => setOpenMenu(!openMenu)}
+                  />
+                )}
+              </div>
+            </div>
+
+            {/* <div className={styles.NavTwo}>
           <div className={styles.nvTwo}>
             <span style={{fontWeight:"bold"}}>Lagos(LOS)</span>
             <Image src={Arrow} alt="" />
@@ -194,29 +158,22 @@ function Contacts() {
             <button className={styles.edit}>Edit Search</button>
           </div>
         </div> */}
+          </div>
+
+          {openMenu && <MobileNavScreen onClick={() => setOpenMenu(false)} />}
         </div>
-
-        {openMenu && <MobileNavScreen onClick={() => setOpenMenu(false)} />}
+        {isOpen && <QuoteBar setIsOpen={setIsOpen} />}
       </div>
-      {isOpen && <QuoteBar setIsOpen={setIsOpen} />}
-    </div>
-
-
-
-
-
-
-
-
-
-
 
       <div className={styles.firstDiv}>
         <Image className={styles.hero} src={hero} alt="" />
         <div className={styles.taye}>
           {" "}
           <div className={styles.textDiv}>
-            <span className={styles.bigText}> CONTACT <p>  US</p></span>
+            <span className={styles.bigText}>
+              {" "}
+              CONTACT <p> US</p>
+            </span>
             <p className={styles.small}>
               Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
               vulputate libero et velit interdum, ac aliquet odio mattis.
@@ -232,7 +189,7 @@ function Contacts() {
       </div>
       <div className={styles.secondDiv}>
         <Image alt="dsfs" className={styles.plane} src={plane} />
-        <Image alt="dfs" className={styles.curved} src={Blueplane}/>
+        <Image alt="dfs" className={styles.curved} src={Blueplane} />
         <div className={styles.talkDiv}>
           <span className={styles.talk}>Talk to us</span>
           <span className={styles.FAQ}>Frequently Asked Questions</span>
@@ -303,12 +260,14 @@ function Contacts() {
             <textarea
               id="text"
               name="text"
-              rows="4"
-              cols="50"
+              rows={4}
+              cols={50}
               placeholder="Enter your message here"
               className={styles.textArea}
             />
-            <span onClick={() => setIsOpen(true)} className={styles.send}>Send Message</span>
+            <span onClick={() => setIsOpen(true)} className={styles.send}>
+              Send Message
+            </span>
           </div>
           <div className={styles.mailDiv}>
             <Image src={mailImg} alt="slap" />
@@ -338,8 +297,8 @@ function Contacts() {
         <div className={styles.uptoDate}>
           <p className={styles.be}>Be Up To Date</p>
           <p className={styles.sub}>
-          Subscribe to our newsletter and never miss our latest news and
-              promotions. Our newsletter is sent once a week, every Tuesday
+            Subscribe to our newsletter and never miss our latest news and
+            promotions. Our newsletter is sent once a week, every Tuesday
           </p>
           <div className={styles.subscribe}>
             <input
@@ -349,14 +308,19 @@ function Contacts() {
               placeholder="Enter Email Address"
               className={styles.subscribeInput}
             />
-            <button  className={styles.subscribeButton}>{ isMobile ?  <Image src={Subscribe} alt=""/> : <span >Subscribe</span> }</button>
+            <button className={styles.subscribeButton}>
+              {isMobile ? (
+                <Image src={Subscribe} alt="" />
+              ) : (
+                <span>Subscribe</span>
+              )}
+            </button>
           </div>
         </div>
       </div>
-      <MobileNav/>
+      <MobileNav />
       <Footer />
-      {isOpen && <ContactApproved   setIsOpen={setIsOpen}/>}
-
+      {isOpen && <ContactApproved setIsOpen={setIsOpen} />}
     </div>
   );
 }

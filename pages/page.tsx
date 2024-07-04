@@ -1,14 +1,12 @@
-'use client';
+"use client";
 
-import { DatePicker } from '@nextui-org/date-picker';
-import { DateValue, parseAbsoluteToLocal } from '@internationalized/date';
-import { I18nProvider } from '@react-aria/i18n';
-import { useState } from 'react';
+import { DatePicker } from "@nextui-org/date-picker";
+import { DateValue } from "@internationalized/date";
+import { I18nProvider } from "@react-aria/i18n";
+import { useState } from "react";
 
 export default function App() {
-  let [date, setDate] = useState<DateValue>(
-    parseAbsoluteToLocal('2021-04-07T18:45:22Z')
-  );
+  const [date, setDate] = useState<DateValue | null>(null);
 
   return (
     <div className="flex flex-col gap-4">
@@ -17,8 +15,8 @@ export default function App() {
           showMonthAndYearPickers
           variant="flat"
           label="Date"
-          value={date}
-          onChange={setDate}
+          value={date as any}
+          onChange={(newDate: any) => setDate(newDate)}
         />
       </I18nProvider>
     </div>

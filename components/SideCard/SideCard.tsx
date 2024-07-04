@@ -96,10 +96,10 @@ function SideCard() {
         <div className={styles.img}>
           <Image
             className={styles.img}
-            src={selectedAirline?.departure.airline.logo}
+            src={selectedAirline?.departure.airline.logo as string}
             width={360}
             height={120}
-            alt="erjok"
+            alt="airline logo"
           />
         </div>
         <div className={styles.seconddiv}>
@@ -147,7 +147,7 @@ function SideCard() {
               <span className={styles.abujaText}>{searchCriteria.to}</span>
               <p> {selectedAirline?.arrival?.route.location_code}</p>
               <p className={styles.time}>
-                {selectedAirline?.arrival.departure}
+                {/* {selectedAirline?.arrival.departure} */}
               </p>
             </div>
           </div>
