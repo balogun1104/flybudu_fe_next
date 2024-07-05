@@ -5,6 +5,19 @@ export interface Passenger {
   gender: string;
 }
 
+export interface Passenger {
+  type: string;
+  title: string;
+  surname: string;
+  first_name: string;
+  middle_name: string;
+  nationality: string;
+  gender: string;
+  DOB: string;
+  name: string; // Added this
+  age: number; // Added this
+}
+
 export interface Luggage {
   weight: string;
   price: number;

@@ -168,7 +168,9 @@ function CustomerInfo() {
               <div className={styles.mother}>
                 <div className={styles.adult}>
                   <span>Passenger 1 (Adult-Primary Contact)</span>
+                   <p>Saved Passenger</p>
                 </div>
+               
                 <div className={styles.fatherVerified}>
                   <div className={styles.titleDiv}>
                     <div className={styles.omo}>
