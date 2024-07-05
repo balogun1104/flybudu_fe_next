@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styles from "@/styles/payment.module.css";
 import SideCard from "../components/SideCard/SideCard";
 import { PaystackButton } from "react-paystack";
+import { format } from "date-fns";
 import paystack from "@/public/assets/images/Frame 48097430.png";
 import flutterwave from "@/public/assets/images/Frame 48097430 (2).png";
 import visa from "@/public/assets/images/Frame 48097430 (1).png";
@@ -20,11 +21,15 @@ import BackButton from "@/public/assets/images/backbutton.png";
 import support from "@/public/assets/images/customer-support (1) 1.png";
 import Image from "next/image";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useFlightData } from "@/utils/helper";
 import { RootState } from "../redux/store";
 import axiosInstance from "@/redux/api";
+import { clearInitialState } from "@/redux/flight/flightSlice";
+import { clearFormData } from "@/redux/flight/formDataSlice";
 
 function Payment() {
+  const dispatch = useDispatch();
   const { searchCriteria, flightData, loading, totalFlight, totalPassengers } =
     useFlightData();
   const selectedAirline = useSelector(
@@ -98,14 +103,33 @@ function Payment() {
       ...formData,
       // transactionNumber,
       transaction_ref: transactionNumber,
+      user_id: 1,
+      schedule_id: 2,
+      route_id: selectedAirline?.departure.route.id,
+      airline_id: selectedAirline?.departure.airline.id,
+      status: "confirmed",
+      type: "regular",
+      departure:
+        selectedAirline?.departure.date && selectedAirline?.departure.departure
+          ? format(
+              new Date(
+                `${selectedAirline.departure.date}T${selectedAirline.departure.departure}`
+              ),
+              "yyyy-MM-dd HH:mm:ss"
+            )
+          : null,
     };
 
+    console.log(updatedFormData);
     axiosInstance
       .post("flights/submit", updatedFormData)
       .then((response) => {
         console.log("Payment Successful!", response.data);
         setIsLoading(false);
         setIsOpen(true);
+        // Clear all store data
+        dispatch(clearInitialState());
+        dispatch(clearFormData());
       })
       .catch((error) => {
         console.error("Error submitting form data:", error);

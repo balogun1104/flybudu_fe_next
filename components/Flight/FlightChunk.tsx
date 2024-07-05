@@ -205,10 +205,13 @@ const DetailsModal: React.FC<{
           <span>
             &#8358;
             {arrivalData
-              ? (departureData.price + arrivalData.price)
+              ? (
+                  (Number(departureData.price) || 0) +
+                  (Number(arrivalData.price) || 0)
+                )
                   .toFixed(2)
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-              : departureData.price
+              : (Number(departureData.price) || 0)
                   .toFixed(2)
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </span>
@@ -371,10 +374,17 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
             </div> */}
           </div>
           <span className={styles.money}>
-            ₦
-            {departureData.price
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            &#8358;
+            {arrivalData
+              ? (
+                  (Number(departureData.price) || 0) +
+                  (Number(arrivalData.price) || 0)
+                )
+                  .toFixed(2)
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              : (Number(departureData.price) || 0)
+                  .toFixed(2)
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </span>
         </div>
 
@@ -485,8 +495,8 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
           <div className={styles.bkmr}>
             <span className={styles.price}>
               ₦
-              {departureData.price
-                .toString()
+              {Number(departureData.price)
+                .toFixed(2)
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </span>
 
