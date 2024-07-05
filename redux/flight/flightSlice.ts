@@ -104,6 +104,9 @@ const flightSlice = createSlice({
     clearLastSearchedFlightData: (state) => {
       state.lastSearchedFlightData = null;
     },
+    clearInitialState: (state) => {
+      Object.assign(state, initialState);
+    },
   },
 });
 
@@ -122,6 +125,7 @@ export const {
   resetFilter,
   setLastSearchedFlightData,
   clearLastSearchedFlightData,
+  clearInitialState,
 } = flightSlice.actions;
 
 export default flightSlice.reducer;
