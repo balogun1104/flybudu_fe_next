@@ -329,10 +329,10 @@
   font-family: sans-serif;
   text-align: start;
 }
-.passportDiv span {
+/* .passportDiv span {
 }
 .details {
-}
+} */
 .input {
   padding: 10px 5px;
   border: 1px solid rgb(173, 168, 168);
@@ -388,10 +388,10 @@
   background-repeat: no-repeat; /* Prevent arrow from repeating */
   background-position: right 10px center; /* Position the arrow on the right */
 }
-.adult span {
+/* .adult span {
 }
 .mother {
-}
+} */
 .father {
   gap: 2em;
   background: rgb(236, 234, 234);
