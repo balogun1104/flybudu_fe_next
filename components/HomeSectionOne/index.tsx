@@ -42,9 +42,6 @@ import {
   FlightSearchResponse,
 } from "@/redux/flight/types";
 
-// import { OverlayContainer } from "@react-aria/overlays";
-import { DateRangePicker } from "@/utils/DateRangePicker";
-import { today, getLocalTimeZone } from "@internationalized/date";
 import dynamic from "next/dynamic";
 import axiosInstance from "@/redux/api";
 import { useRouter } from "next/router";
@@ -52,12 +49,22 @@ import { useRouter } from "next/router";
 const HomeSectionOne = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
-  const searchCriteria = useSelector((state: RootState) => state.flight.searchCriteria);
+  const searchCriteria = useSelector(
+    (state: RootState) => state.flight.searchCriteria
+  );
 
-  const [selectedLocation, setSelectedLocation] = useState(searchCriteria.from || 'City or Airport');
-  const [selectedDestination, setSelectedDestination] = useState(searchCriteria.to || 'City or Airport');
-  const [departureDate, setDepartureDate] = useState(searchCriteria.departure_date || '');
-  const [returnDate, setReturnDate] = useState(searchCriteria.arrival_date || '');
+  const [selectedLocation, setSelectedLocation] = useState(
+    searchCriteria.from || "City or Airport"
+  );
+  const [selectedDestination, setSelectedDestination] = useState(
+    searchCriteria.to || "City or Airport"
+  );
+  const [departureDate, setDepartureDate] = useState(
+    searchCriteria.departure_date || ""
+  );
+  const [returnDate, setReturnDate] = useState(
+    searchCriteria.arrival_date || ""
+  );
 
   const [local, setLocal] = useState<string[]>([]);
   const [international, setInternational] = useState<string[]>([]);
@@ -69,12 +76,15 @@ const HomeSectionOne = () => {
   const [, setLeaveDate] = useState<string | null>(null);
   const [isRoundTrip, setIsRoundTrip] = useState(true);
 
-
   const [canNavigate, setCanNavigate] = useState(false);
-const [passengerCounts, setPassengerCounts] = useState(searchCriteria.passengers);
-const [localFlightText, setLocalFlightText] = useState(searchCriteria.flightType);
-const [tripTypeText, setTripTypeText] = useState(searchCriteria.tripType);
-const [classTypeText, setClassTypeText] = useState(searchCriteria.classType);
+  const [passengerCounts, setPassengerCounts] = useState(
+    searchCriteria.passengers
+  );
+  const [localFlightText, setLocalFlightText] = useState(
+    searchCriteria.flightType
+  );
+  const [tripTypeText, setTripTypeText] = useState(searchCriteria.tripType);
+  const [classTypeText, setClassTypeText] = useState(searchCriteria.classType);
   const [isDatePickOpen, setIsDatePickOpen] = useState<boolean>(false);
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const [isLoading, setIsLoading] = useState(false);
@@ -86,11 +96,6 @@ const [classTypeText, setClassTypeText] = useState(searchCriteria.classType);
     passengers?: string;
   }>({});
 
-  // const [localFlightText, setLocalFlightText] = useState("Local Flights");
-  // const [tripTypeText, setTripTypeText] = useState("Round Trip");
-  // const [classTypeText, setClassTypeText] = useState("Economy");
-  
-
   const totalPassengers = Object.values(passengerCounts).reduce(
     (total, count) => total + count,
     0
@@ -100,8 +105,6 @@ const [classTypeText, setClassTypeText] = useState(searchCriteria.classType);
       import("@react-aria/overlays").then((module) => module.OverlayContainer),
     { ssr: false }
   );
-
-
 
   const [isClient, setIsClient] = useState(false);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
@@ -125,6 +128,19 @@ const [classTypeText, setClassTypeText] = useState(searchCriteria.classType);
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    // Update local state if searchCriteria changes
+    setSelectedLocation(searchCriteria.from || "City or Airport");
+    setSelectedDestination(searchCriteria.to || "City or Airport");
+    setDepartureDate(searchCriteria.departure_date || "");
+    setReturnDate(searchCriteria.arrival_date || "");
+    setPassengerCounts(searchCriteria.passengers);
+    setLocalFlightText(searchCriteria.flightType);
+    setTripTypeText(searchCriteria.tripType);
+    setClassTypeText(searchCriteria.classType);
+  }, [searchCriteria]);
+
 
   const handleDatePickerToggle = () => {
     setIsDatePickerOpen(!isDatePickerOpen);
@@ -224,7 +240,6 @@ const [classTypeText, setClassTypeText] = useState(searchCriteria.classType);
             marginBottom: "10px",
             background: "none",
           }}
-      
           onClick={closePassengerDropdown}
         >
           <span
@@ -343,7 +358,7 @@ const [classTypeText, setClassTypeText] = useState(searchCriteria.classType);
 
   const handleLetGoClick = async () => {
     setErrors({});
-  
+
     // Validate fields
     let newErrors: { [key: string]: string } = {};
     if (!selectedLocation || selectedLocation === "City or Airport") {
@@ -361,13 +376,13 @@ const [classTypeText, setClassTypeText] = useState(searchCriteria.classType);
     if (totalPassengers === 0) {
       newErrors.passengers = "Please select passengers";
     }
-  
+
     // If there are errors, set them and return false
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return false;
     }
-  
+
     // Prepare the search criteria
     const updatedSearchCriteria: FlightSearchRequest = {
       from: selectedLocation.split(",")[0],
@@ -383,31 +398,31 @@ const [classTypeText, setClassTypeText] = useState(searchCriteria.classType);
       tripType: tripTypeText,
       classType: classTypeText,
     };
-  
+
     // Dispatch the updated search criteria to Redux
     dispatch(setSearchCriteria(updatedSearchCriteria));
-  
+
     // Set loading state
     dispatch(setLoading(true));
     setIsLoading(true);
-  
+
     try {
       const response = await axiosInstance.post<FlightSearchResponse>(
         "flights/search",
         updatedSearchCriteria
       );
-  
+
       // Dispatch the flight data to Redux
       dispatch(setFlightData(response.data));
-  
+
       // Set canNavigate to true
       setCanNavigate(true);
-  
+
       return true;
     } catch (error) {
       // Dispatch error to Redux
       dispatch(setError("Failed to fetch flight data"));
-  
+
       // Handle the error as needed
       console.error("Error fetching flight data:", error);
       return false;
@@ -416,6 +431,8 @@ const [classTypeText, setClassTypeText] = useState(searchCriteria.classType);
       setIsLoading(false);
     }
   };
+
+  
   useEffect(() => {
     if (canNavigate) {
       router.push("/flight");
