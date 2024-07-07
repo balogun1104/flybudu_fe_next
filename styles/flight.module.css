@@ -375,6 +375,7 @@ flex-direction: column;
   
   .date {
     font-size: 16px;
+    text-wrap: nowrap;
     padding: 20px;
     
   }

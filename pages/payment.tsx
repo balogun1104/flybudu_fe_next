@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styles from "@/styles/payment.module.css";
 import SideCard from "../components/SideCard/SideCard";
 import { PaystackButton } from "react-paystack";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 import paystack from "@/public/assets/images/Frame 48097430.png";
 import flutterwave from "@/public/assets/images/Frame 48097430 (2).png";
 import visa from "@/public/assets/images/Frame 48097430 (1).png";
@@ -111,7 +111,8 @@ function Payment() {
       type: "regular",
       departure:
         selectedAirline?.departure.date && selectedAirline?.departure.departure
-          ? format(
+         ? //  format(
+         (
               new Date(
                 `${selectedAirline.departure.date}T${selectedAirline.departure.departure}`
               ),

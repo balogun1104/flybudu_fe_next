@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import { parseISO, differenceInMinutes } from "date-fns";
-import { parseISO, differenceInMinutes } from "date-fns";
+ import { parseISO, differenceInMinutes } from "date-fns";
 
 import styles from "./flight.module.css";
 import Star from "@/public/assets/images/star.png";
@@ -116,7 +116,7 @@ const DetailsModal: React.FC<{
             </span>
           </div>
           <div>
-            <Image src={Plane} alt="" />
+            <Image src={Plane}   alt="" />
           </div>
           <div className={styles.dftwo}>
             <span style={{ fontSize: "20px", fontWeight: "bold" }}>
@@ -435,7 +435,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
             </b>
             <div>
               <span className={styles.onehr}>
-                {formattedDurationForDeparture}
+                 {formattedDurationForDeparture} 
               </span>
               <div className={styles.imgWrap}>
                 <Image className={styles.imgOne} src={Circle} alt="" />
@@ -468,7 +468,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
               </b>
               <div>
                 <span className={styles.onehr}>
-                  {formattedDurationForDeparture}
+                  {formattedDurationForDeparture} 
                 </span>
                 <div className={styles.imgWrap}>
                   <Image className={styles.imgOne} src={Circle} alt="" />
