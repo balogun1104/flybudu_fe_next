@@ -63,7 +63,10 @@ const formDataSlice = createSlice({
     ) => {
       const { index, passenger } = action.payload;
       if (state.passengers[index]) {
-        state.passengers[index] = { ...state.passengers[index], ...passenger };
+        state.passengers[index] = {
+          ...state.passengers[index],
+          ...passenger,
+        } as Passenger;
       }
     },
     clearFormData: () => initialState,

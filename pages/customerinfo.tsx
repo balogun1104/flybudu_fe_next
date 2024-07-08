@@ -7,7 +7,6 @@ import Image from "next/image";
 import styles from "../styles/customerinfo.module.css";
 import { RootState } from "@/redux/store";
 import { setFormData } from "@/redux/flight/formDataSlice";
-import { FormData } from "@/redux/types/formData.types";
 import Header from "@/components/header/header";
 import SideCard from "../components/SideCard/SideCard";
 import { IoIosArrowForward } from "react-icons/io";
@@ -19,67 +18,130 @@ import customerSupport from "@/public/assets/images/customer-support (1) 1.png";
 import BackButton from "@/public/assets/images/backbutton.png";
 import support from "@/public/assets/images/customer-support (1) 1.png";
 import Approved from "@/public/assets/images/Layer 3.png";
+import { Passenger } from "@/redux/types/formData.types";
+
+interface ErrorState {
+  [key: number]: {
+    [key: string]: string;
+  };
+}
+
+interface DiscountResponse {
+  value: number;
+}
 
 function CustomerInfo() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const storedFormData = useSelector((state: RootState) => state.formData);
+  const [errors, setErrors] = useState<ErrorState>({});
+  const { adults, children, infants } = useSelector(
+    (state: RootState) => state.flight.searchCriteria.passengers
+  );
 
-  const [formData, setFormDataState] = useState<FormData>(storedFormData);
+  const currentPassengers = useSelector(
+    (state: RootState) => state.formData.passengers
+  );
+
+  const totalPassengers = adults + children + infants;
+
+  // const [formData, setFormDataState] = useState<Array<Passenger>>(() =>
+  //   Array(totalPassengers).fill({
+  //     title: "",
+  //     surname: "",
+  //     first_name: "",
+  //     middle_name: "",
+  //     nationality: "",
+  //     gender: "",
+  //     DOB: "",
+  //     email: "",
+  //     phone: "",
+  //   })
+  // );
+
+  const passengers = useSelector(
+    (state: RootState) => state.formData.passengers
+  );
+
   const [isActive, setIsActive] = useState(false);
   const [openCode, setOpenCode] = useState(false);
   const [discountCode, setDiscountCode] = useState("");
   const [corporateCode, setCorporateCode] = useState("");
-  const [discountResponse, setDiscountResponse] = useState<any>(null);
-  const [corporateResponse, setCorporateResponse] = useState<any>(null);
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
-  useEffect(() => {
-    setFormDataState(storedFormData);
-  }, [storedFormData]);
+  const [discountResponse, setDiscountResponse] =
+    useState<DiscountResponse | null>(null);
+  const [corporateResponse, setCorporateResponse] =
+    useState<DiscountResponse | null>(null);
 
   const validateForm = () => {
-    const newErrors: { [key: string]: string } = {};
+    const newErrors: ErrorState = {};
     const requiredFields = [
       "title",
       "surname",
       "first_name",
-      "middle_name",
       "nationality",
       "gender",
       "DOB",
-      "email",
-      "phone",
     ];
 
-    requiredFields.forEach((field) => {
-      if (!formData[field as keyof FormData]) {
-        newErrors[field] = "This field is required";
+    let isValid = true;
+
+    passengers.forEach((passenger, index) => {
+      newErrors[index] = {};
+      requiredFields.forEach((field) => {
+        if (!passenger[field as keyof Passenger]) {
+          newErrors[index][field] = "This field is required";
+          isValid = false;
+          console.log(
+            `Validation failed for passenger ${index + 1}, field: ${field}`
+          );
+        }
+      });
+
+      // Only validate email and phone for the first passenger (adult)
+      if (index === 0) {
+        if (!passenger.email) {
+          newErrors[index].email = "This field is required";
+          isValid = false;
+          console.log(`Validation failed for passenger 1, field: email`);
+        }
+        if (!passenger.phone) {
+          newErrors[index].phone = "This field is required";
+          isValid = false;
+          console.log(`Validation failed for passenger 1, field: phone`);
+        }
       }
     });
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+
+    if (!isValid) {
+      console.log("Form validation failed. Errors:", newErrors);
+    } else {
+      console.log("Form validation passed");
+    }
+
+    return isValid;
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    passengerIndex: number
   ) => {
     const { name, value } = e.target;
-    const updatedFormData = {
-      ...formData,
-      [name]: value,
-    };
-    setFormDataState(updatedFormData);
-    dispatch(setFormData(updatedFormData));
 
-    if (errors[name]) {
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors[name];
-        return newErrors;
-      });
-    }
+    const updatedPassengers = passengers.map((passenger, index) =>
+      index === passengerIndex ? { ...passenger, [name]: value } : passenger
+    );
+
+    dispatch(setFormData({ passengers: updatedPassengers }));
+
+    // Clear error for this field if it exists
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      if (newErrors[passengerIndex] && newErrors[passengerIndex][name]) {
+        delete newErrors[passengerIndex][name];
+      }
+      return newErrors;
+    });
   };
 
   const handleDiscountCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,11 +164,6 @@ function CustomerInfo() {
         type: "Discount",
       });
       setDiscountResponse(response.data);
-      setFormDataState((prevState) => ({
-        ...prevState,
-        discount_code: discountCode,
-        discounted_slash: parseFloat(response.data.value),
-      }));
     } catch (error) {
       console.error("Error checking discount code:", error);
     }
@@ -122,11 +179,6 @@ function CustomerInfo() {
         type: "Corporate",
       });
       setCorporateResponse(response.data);
-      setFormDataState((prevState) => ({
-        ...prevState,
-        corporate_code: corporateCode,
-        corporate_slash: parseFloat(response.data.value),
-      }));
     } catch (error) {
       console.error("Error checking corporate code:", error);
     }
@@ -134,8 +186,15 @@ function CustomerInfo() {
 
   const handleSaveAndContinue = () => {
     if (validateForm()) {
-      dispatch(setFormData(formData));
-      router.push("/travelinformation");
+      // No need to dispatch here as the state is already up-to-date
+      router
+        .push("/travelinformation")
+        .then(() => {
+          console.log("Navigation completed");
+        })
+        .catch((err) => {
+          console.error("Navigation failed:", err);
+        });
     } else {
       const firstErrorField = document.querySelector(".error-field");
       if (firstErrorField) {
@@ -187,243 +246,303 @@ function CustomerInfo() {
           </div>
           <span className={styles.who}>Who is travelling?</span>
           <form>
-            <div className={styles.generall}>
-              <div className={styles.detailsDiv}>
-                <span className={styles.details}>Enter your Details</span>
-                <div className={styles.lock}>
-                  <span className={styles.personal}>
-                    Your Personal data is protected{" "}
+            {passengers.map((passenger, index) => (
+              <div key={index} className={styles.generall}>
+                <div className={styles.detailsDiv}>
+                  <span className={styles.details}>
+                    Enter Passenger {index + 1} Details
                   </span>
-                  <Image src={Padlock} alt="" width={20} height={20} />
+                  <div className={styles.lock}>
+                    <span className={styles.personal}>
+                      Your Personal data is protected{" "}
+                    </span>
+                    <Image src={Padlock} alt="" width={20} height={20} />
+                  </div>
                 </div>
-              </div>
-              <div className={styles.passportDiv}>
-                <Image src={error} alt="" width={20} height={20} />
-                <span>
-                  Use all given names and surnames exactly as they appear on
-                  your passport/ID to avoid complications.
-                </span>
-              </div>
-              <div className={styles.mother}>
-                <div className={styles.adult}>
-                  <span>Passenger 1 (Adult-Primary Contact)</span>
-                  <p>Saved Passenger</p>
+                <div className={styles.passportDiv}>
+                  <Image src={error} alt="" width={20} height={20} />
+                  <span>
+                    Use all given names and surnames exactly as they appear on
+                    your passport/ID to avoid complications.
+                  </span>
                 </div>
-                <div className={styles.fatherVerified}>
-                  <div className={styles.titleDiv}>
-                    <div className={styles.omo}>
-                      <label>
-                        Title{" "}
-                        <span style={{ color: "rgba(239, 12, 12, 1)" }}>*</span>
-                      </label>
-                      <label>
-                        Surname{" "}
-                        <span style={{ color: "rgba(239, 12, 12, 1)" }}>*</span>
-                      </label>
+                <div className={styles.mother}>
+                  <div className={styles.adult}>
+                    <span>
+                      Passenger {index + 1} (
+                      {index < adults
+                        ? "Adult"
+                        : index < adults + children
+                        ? "Child"
+                        : "Infant"}
+                      )
+                    </span>
+                    {index === 0 && <p>Primary Contact</p>}
+                  </div>
+                  <div className={styles.fatherVerified}>
+                    <div className={styles.titleDiv}>
+                      <div className={styles.omo}>
+                        <label>
+                          Title{" "}
+                          <span style={{ color: "rgba(239, 12, 12, 1)" }}>
+                            *
+                          </span>
+                        </label>
+                        <label>
+                          Surname{" "}
+                          <span style={{ color: "rgba(239, 12, 12, 1)" }}>
+                            *
+                          </span>
+                        </label>
+                      </div>
+                      <div className={styles.surnameDiv}>
+                        <select
+                          className={`${styles.select1} ${
+                            errors[index]?.title ? "error-field" : ""
+                          }`}
+                          name="title"
+                          value={passenger.title}
+                          onChange={(e) => handleInputChange(e, index)}
+                          style={
+                            errors[index]?.title ? { borderColor: "red" } : {}
+                          }
+                        >
+                          <option value="">Title </option>
+                          <option value="Mr">Mr</option>
+                          <option value="Mrs">Mrs</option>
+                          <option value="Miss">Miss</option>
+                          <option value="Master">Master</option>
+                        </select>
+                        {errors[index]?.title && (
+                          <p className={styles.errorText}>
+                            {errors[index].title}
+                          </p>
+                        )}
+                        <input
+                          className={`${styles.input1} ${
+                            errors[index]?.surname ? "error-field" : ""
+                          }`}
+                          type="text"
+                          placeholder="Enter surname here"
+                          name="surname"
+                          value={passenger.surname}
+                          onChange={(e) => handleInputChange(e, index)}
+                          style={
+                            errors[index]?.surname ? { borderColor: "red" } : {}
+                          }
+                        />
+                        {errors[index]?.surname && (
+                          <p className={styles.errorText}>
+                            {errors[index].surname}
+                          </p>
+                        )}
+                      </div>
                     </div>
-                    <div className={styles.surnameDiv}>
-                      <select
-                        className={`${styles.select1} ${
-                          errors.title ? "error-field" : ""
-                        }`}
-                        name="title"
-                        value={formData.title}
-                        onChange={handleInputChange}
-                        style={errors.title ? { borderColor: "red" } : {}}
-                      >
-                        <option value="">Title </option>
-                        <option value="Mr">Mr</option>
-                        <option value="Mrs">Mrs</option>
-                        <option value="Miss">Miss</option>
-                        <option value="Master">Master</option>
-                      </select>
-                      {errors.title && (
-                        <p className={styles.errorText}>{errors.title}</p>
-                      )}
+                    <div className={styles.firstDiv}>
+                      <label>
+                        First Name{" "}
+                        <span style={{ color: "rgba(239, 12, 12, 1)" }}>*</span>
+                      </label>
                       <input
-                        className={`${styles.input1} ${
-                          errors.surname ? "error-field" : ""
+                        className={`${styles.input} ${
+                          errors[index]?.first_name ? "error-field" : ""
                         }`}
                         type="text"
-                        placeholder="Enter surname here"
-                        name="surname"
-                        value={formData.surname}
-                        onChange={handleInputChange}
-                        style={errors.surname ? { borderColor: "red" } : {}}
+                        placeholder="Enter name here"
+                        name="first_name"
+                        value={passenger.first_name}
+                        onChange={(e) => handleInputChange(e, index)}
+                        style={
+                          errors[index]?.first_name
+                            ? { borderColor: "red" }
+                            : {}
+                        }
                       />
-                      {errors.surname && (
-                        <p className={styles.errorText}>{errors.surname}</p>
+                      {errors[index]?.first_name && (
+                        <p className={styles.errorText}>
+                          {errors[index].first_name}
+                        </p>
                       )}
                     </div>
-                  </div>
-                  <div className={styles.firstDiv}>
-                    <label>
-                      First Name{" "}
-                      <span style={{ color: "rgba(239, 12, 12, 1)" }}>*</span>
-                    </label>
-                    <input
-                      className={`${styles.input} ${
-                        errors.first_name ? "error-field" : ""
-                      }`}
-                      type="text"
-                      placeholder="Enter name here"
-                      name="first_name"
-                      value={formData.first_name}
-                      onChange={handleInputChange}
-                      style={errors.first_name ? { borderColor: "red" } : {}}
-                    />
-                    {errors.first_name && (
-                      <p className={styles.errorText}>{errors.first_name}</p>
-                    )}
-                  </div>
-                  <div className={styles.middle}>
-                    <label>
-                      Middle Name{" "}
-                      <span style={{ color: "rgba(239, 12, 12, 1)" }}>*</span>
-                    </label>
-                    <input
-                      className={`${styles.input} ${
-                        errors.middle_name ? "error-field" : ""
-                      }`}
-                      type="text"
-                      placeholder="Enter middlename here"
-                      name="middle_name"
-                      value={formData.middle_name}
-                      onChange={handleInputChange}
-                      style={errors.middle_name ? { borderColor: "red" } : {}}
-                    />
-                    {errors.middle_name && (
-                      <p className={styles.errorText}>{errors.middle_name}</p>
-                    )}
-                  </div>
-                  <div className={styles.nationality}>
-                    <label>
-                      Nationality{" "}
-                      <span style={{ color: "rgba(239, 12, 12, 1)" }}>*</span>
-                    </label>
-                    <select
-                      className={`${styles.select} ${
-                        errors.nationality ? "error-field" : ""
-                      }`}
-                      name="nationality"
-                      value={formData.nationality}
-                      onChange={handleInputChange}
-                      style={errors.nationality ? { borderColor: "red" } : {}}
-                    >
-                      <option value="">Select Nationality</option>
-                      <option value="Nigeria">Nigeria </option>
-                      <option value="Brazil">Brazil</option>
-                      <option value="Austria">Austria</option>
-                      <option value="China">China</option>
-                    </select>
-                    {errors.nationality && (
-                      <p className={styles.errorText}>{errors.nationality}</p>
-                    )}
-                  </div>
-                  <div className={styles.gender}>
-                    <label>
-                      Gender{" "}
-                      <span style={{ color: "rgba(239, 12, 12, 1)" }}>*</span>
-                    </label>
-                    <select
-                      className={`${styles.select} ${
-                        errors.gender ? "error-field" : ""
-                      }`}
-                      name="gender"
-                      value={formData.gender}
-                      onChange={handleInputChange}
-                      style={errors.gender ? { borderColor: "red" } : {}}
-                    >
-                      <option value="">Select Gender </option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                    </select>
-                    {errors.gender && (
-                      <p className={styles.errorText}>{errors.gender}</p>
-                    )}
-                  </div>
-                  <div className={styles.DOB}>
-                    <label>
-                      Date of Birth{" "}
-                      <span style={{ color: "rgba(239, 12, 12, 1)" }}>*</span>
-                    </label>
-                    <input
-                      type="date"
-                      name="DOB"
-                      value={formData.DOB}
-                      onChange={handleInputChange}
-                      className={`${styles.input} ${
-                        errors.DOB ? "error-field" : ""
-                      }`}
-                      style={errors.DOB ? { borderColor: "red" } : {}}
-                    />
-                    {errors.DOB && (
-                      <p className={styles.errorText}>{errors.DOB}</p>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className={styles.thirdNla}>
-                <span className={styles.confirm}>
-                  Passenger 1 contact confirmation?
-                </span>
-                <div className={styles.firstDivk}>
-                  <div className={styles.firstDiv}>
-                    <label className={styles.bold}>
-                      Email{" "}
-                      <span style={{ color: "rgba(239, 12, 12, 1)" }}>*</span>
-                    </label>
-                    <input
-                      className={`${styles.input} ${
-                        errors.email ? "error-field" : ""
-                      }`}
-                      placeholder="Enter Email Address"
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      style={errors.email ? { borderColor: "red" } : {}}
-                    />
-                    {errors.email && (
-                      <p className={styles.errorText}>{errors.email}</p>
-                    )}
-                  </div>
-                  <div className={styles.titleDiv}>
-                    <label className={`${styles.bold} ${styles.bigger}`}>
-                      Phone Number{" "}
-                      <span style={{ color: "rgba(239, 12, 12, 1)" }}>*</span>
-                    </label>
-                    <div className={styles.sigh}>
+                    <div className={styles.middle}>
+                      <label>
+                        Middle Name{" "}
+                        <span style={{ color: "rgba(239, 12, 12, 1)" }}>*</span>
+                      </label>
                       <input
-                        className={`${styles.input1} ${
-                          errors.phone ? "error-field" : ""
+                        className={`${styles.input} ${
+                          errors[index]?.middle_name ? "error-field" : ""
                         }`}
-                        type="tel"
-                        placeholder="Phone Number"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        style={errors.phone ? { borderColor: "red" } : {}}
+                        type="text"
+                        placeholder="Enter middlename here"
+                        name="middle_name"
+                        value={passenger.middle_name}
+                        onChange={(e) => handleInputChange(e, index)}
+                        style={
+                          errors[index]?.middle_name
+                            ? { borderColor: "red" }
+                            : {}
+                        }
                       />
-                      {errors.phone && (
-                        <p className={styles.errorText}>{errors.phone}</p>
+                      {errors[index]?.middle_name && (
+                        <p className={styles.errorText}>
+                          {errors[index].middle_name}
+                        </p>
+                      )}
+                    </div>
+                    <div className={styles.nationality}>
+                      <label>
+                        Nationality{" "}
+                        <span style={{ color: "rgba(239, 12, 12, 1)" }}>*</span>
+                      </label>
+                      <select
+                        className={`${styles.select} ${
+                          errors[index]?.nationality ? "error-field" : ""
+                        }`}
+                        name="nationality"
+                        value={passenger.nationality}
+                        onChange={(e) => handleInputChange(e, index)}
+                        style={
+                          errors[index]?.nationality
+                            ? { borderColor: "red" }
+                            : {}
+                        }
+                      >
+                        <option value="">Select Nationality</option>
+                        <option value="Nigeria">Nigeria </option>
+                        <option value="Brazil">Brazil</option>
+                        <option value="Austria">Austria</option>
+                        <option value="China">China</option>
+                      </select>
+                      {errors[index]?.nationality && (
+                        <p className={styles.errorText}>
+                          {errors[index].nationality}
+                        </p>
+                      )}
+                    </div>
+                    <div className={styles.gender}>
+                      <label>
+                        Gender{" "}
+                        <span style={{ color: "rgba(239, 12, 12, 1)" }}>*</span>
+                      </label>
+                      <select
+                        className={`${styles.select} ${
+                          errors[index]?.gender ? "error-field" : ""
+                        }`}
+                        name="gender"
+                        value={passenger.gender}
+                        onChange={(e) => handleInputChange(e, index)}
+                        style={
+                          errors[index]?.gender ? { borderColor: "red" } : {}
+                        }
+                      >
+                        <option value="">Select Gender </option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                      </select>
+                      {errors[index]?.gender && (
+                        <p className={styles.errorText}>
+                          {errors[index].gender}
+                        </p>
+                      )}
+                    </div>
+                    <div className={styles.DOB}>
+                      <label>
+                        Date of Birth{" "}
+                        <span style={{ color: "rgba(239, 12, 12, 1)" }}>*</span>
+                      </label>
+                      <input
+                        type="date"
+                        name="DOB"
+                        value={passenger.DOB}
+                        onChange={(e) => handleInputChange(e, index)}
+                        className={`${styles.input} ${
+                          errors[index]?.DOB ? "error-field" : ""
+                        }`}
+                        style={errors[index]?.DOB ? { borderColor: "red" } : {}}
+                      />
+                      {errors[index]?.DOB && (
+                        <p className={styles.errorText}>{errors[index].DOB}</p>
                       )}
                     </div>
                   </div>
                 </div>
-                <div className={styles.checkbox2}>
-                  <div className={styles.checkbox}>
-                    <input type="checkbox" />
-                    <p>Save this passenger to my FlyBudu Account</p>
+                {index === 0 && (
+                  <div className={styles.thirdNla}>
+                    <span className={styles.confirm}>
+                      Passenger 1 contact confirmation?
+                    </span>
+                    <div className={styles.firstDivk}>
+                      <div className={styles.firstDiv}>
+                        <label className={styles.bold}>
+                          Email{" "}
+                          <span style={{ color: "rgba(239, 12, 12, 1)" }}>
+                            *
+                          </span>
+                        </label>
+                        <input
+                          className={`${styles.input} ${
+                            errors[index]?.email ? "error-field" : ""
+                          }`}
+                          placeholder="Enter Email Address"
+                          type="email"
+                          name="email"
+                          value={passenger.email}
+                          onChange={(e) => handleInputChange(e, index)}
+                          style={
+                            errors[index]?.email ? { borderColor: "red" } : {}
+                          }
+                        />
+                        {errors[index]?.email && (
+                          <p className={styles.errorText}>
+                            {errors[index].email}
+                          </p>
+                        )}
+                      </div>
+                      <div className={styles.titleDiv}>
+                        <label className={`${styles.bold} ${styles.bigger}`}>
+                          Phone Number{" "}
+                          <span style={{ color: "rgba(239, 12, 12, 1)" }}>
+                            *
+                          </span>
+                        </label>
+                        <div className={styles.sigh}>
+                          <input
+                            className={`${styles.input1} ${
+                              errors[index]?.phone ? "error-field" : ""
+                            }`}
+                            type="tel"
+                            placeholder="Phone Number"
+                            name="phone"
+                            value={passenger.phone}
+                            onChange={(e) => handleInputChange(e, index)}
+                            style={
+                              errors[index]?.phone ? { borderColor: "red" } : {}
+                            }
+                          />
+                          {errors[index]?.phone && (
+                            <p className={styles.errorText}>
+                              {errors[index].phone}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles.checkbox2}>
+                      <div className={styles.checkbox}>
+                        <input type="checkbox" />
+                        <p>Save this passenger to my FlyBudu Account</p>
+                      </div>
+                      <div className={styles.checkbox}>
+                        <input type="checkbox" />
+                        <p>Get Booking and Payment confirmation</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className={styles.checkbox}>
-                    <input type="checkbox" />
-                    <p>Get Booking and Payment confirmation</p>
-                  </div>
-                </div>
+                )}
               </div>
-            </div>
+            ))}
             <div className={styles.codeDiv}>
               <div
                 style={{
