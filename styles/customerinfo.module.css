@@ -139,7 +139,7 @@
 .father {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
 }
 .customerDiv {
   margin: 3em 0;
@@ -163,7 +163,8 @@
   height: 50px;
 }
 .second {
-  margin-top: 100px;
+  /* margin-top: 100px; */
+  margin-top: 12em;
   width: 30%;
 }
 .first {

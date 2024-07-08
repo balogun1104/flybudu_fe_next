@@ -6,7 +6,6 @@ export interface Passenger {
 }
 
 export interface Passenger {
-  type: string;
   title: string;
   surname: string;
   first_name: string;
@@ -14,8 +13,9 @@ export interface Passenger {
   nationality: string;
   gender: string;
   DOB: string;
-  name: string; // Added this
-  age: number; // Added this
+  email: string;
+  phone: string;
+  [key: string]: string | number;
 }
 
 export interface Luggage {
