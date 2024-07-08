@@ -158,11 +158,11 @@ function CustomerInfo() {
       <div className={styles.secondHeader}>
         <Link href="/selectflight">
           <Image
+          // width={0}
             alt="Back"
             src={BackButton}
-            className={styles.back}
-            width={20}
-            height={20}
+            className={styles.backbutton}
+            
           />
         </Link>
         <span style={{ fontWeight: "bold" }}>
