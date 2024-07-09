@@ -336,6 +336,18 @@
     .special{
         font-size: 17px;
     }
+    .more{
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        color: black;
+        background-color: rgba(236, 248, 250, 1);
+        padding: 12px 24px;
+        border: none;
+        align-items: center;
+        border-radius: 8px;
+        cursor: pointer;
+    }
     .lagos{
         display: flex;
         justify-content: left;
