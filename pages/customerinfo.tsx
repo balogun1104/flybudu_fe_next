@@ -42,26 +42,32 @@ function CustomerInfo() {
     (state: RootState) => state.formData.passengers
   );
 
-  const totalPassengers = adults + children + infants;
-
-  // const [formData, setFormDataState] = useState<Array<Passenger>>(() =>
-  //   Array(totalPassengers).fill({
-  //     title: "",
-  //     surname: "",
-  //     first_name: "",
-  //     middle_name: "",
-  //     nationality: "",
-  //     gender: "",
-  //     DOB: "",
-  //     email: "",
-  //     phone: "",
-  //   })
-  // );
+  
 
   const passengers = useSelector(
     (state: RootState) => state.formData.passengers
   );
 
+
+  useEffect(() => {
+    const totalPassengers = adults + children + infants;
+    if (passengers.length !== totalPassengers) {
+      const initialPassengers = Array(totalPassengers).fill({
+        title: "",
+        surname: "",
+        first_name: "",
+        middle_name: "",
+        nationality: "",
+        gender: "",
+        DOB: "",
+        email: "",
+        phone: "",
+      });
+      dispatch(setFormData({ passengers: initialPassengers }));
+    }
+  }, [adults, children, infants, passengers.length, dispatch]);
+
+  
   const [isActive, setIsActive] = useState(false);
   const [openCode, setOpenCode] = useState(false);
   const [discountCode, setDiscountCode] = useState("");
