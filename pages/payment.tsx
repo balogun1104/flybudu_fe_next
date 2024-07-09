@@ -59,14 +59,14 @@ function Payment() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log("Form Data:", formData);
-  }, [formData]);
-
-  useEffect(() => {
-    if (formData.email) {
+    if (
+      formData.passengers &&
+      formData.passengers.length > 0 &&
+      formData.passengers[0].email
+    ) {
       setShowPaystackButton(true);
     }
-  }, [formData.email]);
+  }, [formData.passengers]);
 
   useEffect(() => {
     if (isOpen) {
@@ -85,7 +85,6 @@ function Payment() {
     setIsLoading(true);
     console.log("Paystack Reference:", reference);
 
-    // Extract relevant information from the reference object
     const {
       reference: transactionNumber,
       status,
@@ -98,10 +97,14 @@ function Payment() {
     console.log("Transaction Details:", transaction);
     console.log("Transaction Reference:", trxref);
 
-    // Include the transaction number in the form data
+    // Get the first passenger's data
+    const firstPassenger =
+      formData.passengers && formData.passengers.length > 0
+        ? formData.passengers[0]
+        : null;
+
     const updatedFormData = {
       ...formData,
-      // transactionNumber,
       transaction_ref: transactionNumber,
       user_id: 1,
       schedule_id: 2,
@@ -118,9 +121,28 @@ function Payment() {
               "yyyy-MM-dd HH:mm:ss"
             )
           : null,
+      // Use first passenger's data for these fields
+      first_name: firstPassenger?.first_name || "",
+      email: firstPassenger?.email || "",
+      gender: firstPassenger?.gender || "",
+      DOB: firstPassenger?.DOB || "",
+      middle_name: firstPassenger?.middle_name || "",
+      nationality: firstPassenger?.nationality || "",
+      phone: firstPassenger?.phone || "",
+      surname: firstPassenger?.surname || "",
+      title: firstPassenger?.title || "",
+      // Keep the existing luggages data
+      luggages: formData.luggages,
+      // Keep the existing price
+      price: formData.price || 0,
+      // Keep passengers array as is
+      passengers: formData.passengers,
     };
 
-    console.log(updatedFormData);
+    // useEffect(() => {
+    //   console.log(updatedFormData);
+    // }, [updatedFormData]);
+
     axiosInstance
       .post("flights/submit", updatedFormData)
       .then((response) => {
@@ -139,9 +161,11 @@ function Payment() {
         );
       });
   };
-
   const paystackOptions = {
-    email: formData.email,
+    email:
+      formData.passengers && formData.passengers.length > 0
+        ? formData.passengers[0].email
+        : "",
     amount: updatedTotalPrice * 100,
     publicKey: "pk_test_198184ef9c4222f0fa560b0791a3a7f342f154cc",
     text: "Pay Now",
@@ -151,6 +175,10 @@ function Payment() {
       setIsLoading(false);
     },
   };
+
+  // useEffect(() => {
+  //   console.log("Form Data:", updatedFormData);
+  // }, [updatedFormData]);
 
   const handlePayNowClick = () => {
     setIsLoading(true);
@@ -269,17 +297,19 @@ function Payment() {
               </button>
             </Link>
             <span className={styles.money}> #172,000</span>
-            {formData.email && (
-              <PaystackButton
-                className={styles.save}
-                {...paystackOptions}
-                onSuccess={handlePaymentSuccess}
-                onClose={() => {
-                  setIsLoading(false);
-                  console.log("Payment closed");
-                }}
-              />
-            )}
+            {formData.passengers &&
+              formData.passengers.length > 0 &&
+              formData.passengers[0].email && (
+                <PaystackButton
+                  className={styles.save}
+                  {...paystackOptions}
+                  onSuccess={handlePaymentSuccess}
+                  onClose={() => {
+                    setIsLoading(false);
+                    console.log("Payment closed");
+                  }}
+                />
+              )}
           </div>
         </div>
         <div className={styles.secondDiv}>
