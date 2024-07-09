@@ -4,6 +4,7 @@ import styles from "@/styles/payment.module.css";
 import SideCard from "../components/SideCard/SideCard";
 import { PaystackButton } from "react-paystack";
 import { format } from "date-fns";
+import flutterwave from "@/public/assets/images/Frame 48097430 (2).png";
 import paystack from "@/public/assets/images/Frame 48097430.png";
 import visa from "@/public/assets/images/Frame 48097430 (1).png";
 import masterCard from "@/public/assets/images/Frame 48097434.png";
