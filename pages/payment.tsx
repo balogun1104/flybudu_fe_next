@@ -5,7 +5,6 @@ import SideCard from "../components/SideCard/SideCard";
 import { PaystackButton } from "react-paystack";
 import { format } from "date-fns";
 import paystack from "@/public/assets/images/Frame 48097430.png";
-import flutterwave from "@/public/assets/images/Frame 48097430 (2).png";
 import visa from "@/public/assets/images/Frame 48097430 (1).png";
 import masterCard from "@/public/assets/images/Frame 48097434.png";
 import flybudu from "@/public/assets/images/flybuduLogo.png";
@@ -112,15 +111,24 @@ function Payment() {
       airline_id: selectedAirline?.departure.airline.id,
       status: "confirmed",
       type: "regular",
-      departure:
-        selectedAirline?.departure.date && selectedAirline?.departure.departure
-          ? format(
-              new Date(
-                `${selectedAirline.departure.date}T${selectedAirline.departure.departure}`
-              ),
-              "yyyy-MM-dd HH:mm:ss"
-            )
-          : null,
+      departure: (() => {
+        const date = selectedAirline?.departure.date;
+        const time = selectedAirline?.departure.departure;
+
+        if (date && time) {
+          return format(new Date(`${date}T${time}`), "yyyy-MM-dd HH:mm:ss");
+        } else if (date) {
+          return format(new Date(date), "yyyy-MM-dd 00:00:00");
+        } else if (time) {
+          const today = new Date();
+          return format(
+            new Date(`${today.toISOString().split("T")[0]}T${time}`),
+            "yyyy-MM-dd HH:mm:ss"
+          );
+        } else {
+          return format(new Date(), "yyyy-MM-dd HH:mm:ss");
+        }
+      })(),
       // Use first passenger's data for these fields
       first_name: firstPassenger?.first_name || "",
       email: firstPassenger?.email || "",
@@ -161,6 +169,14 @@ function Payment() {
         );
       });
   };
+
+  useEffect(() => {
+    // console.log(updatedFormData.departure);
+    console.log(
+      selectedAirline?.departure.date && selectedAirline?.departure.departure,
+      "Testint"
+    );
+  }, [selectedAirline]);
   const paystackOptions = {
     email:
       formData.passengers && formData.passengers.length > 0
