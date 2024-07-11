@@ -60,6 +60,9 @@
      flex-direction: column;
      gap: 1em;
  }
+ .emailDivName{
+    font-size: 14px;
+ }
  .email{
      width: 100%;
      outline: none;

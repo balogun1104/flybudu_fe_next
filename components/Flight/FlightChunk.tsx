@@ -450,9 +450,8 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
               {departureData.arrival} <br /> (
               {departureData.route.location_code})
               <span className={styles.little}>
-                {arrivalData
-                  ? arrivalData.route.location
-                  : departureData.route.location}
+               
+                  {departureData.route.destination}
               </span>
             </b>
           </div>
@@ -482,9 +481,8 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
               <b className={styles.abujaText}>
                 {arrivalData.arrival} <br /> ({arrivalData.route.location_code})
                 <span className={styles.little}>
-                  {arrivalData
-                    ? arrivalData.route.location
-                    : departureData.route.location}
+                  { arrivalData.route.destination}
+                   
                 </span>
               </b>
             </div>

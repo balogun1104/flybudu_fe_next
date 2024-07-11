@@ -319,11 +319,11 @@ function CustomerInfo() {
                           <option value="Miss">Miss</option>
                           <option value="Master">Master</option>
                         </select>
-                        {errors[index]?.title && (
+                        {/* {errors[index]?.title && (
                           <p className={styles.errorText}>
                             {errors[index].title}
                           </p>
-                        )}
+                        )} */}
                         <input
                           className={`${styles.input1} ${
                             errors[index]?.surname ? "error-field" : ""

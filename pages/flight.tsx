@@ -210,6 +210,8 @@ const Flight = () => {
   //   return lowestPrice !== Infinity ? `₦${lowestPrice.toLocaleString()}` : "";
   // };
 
+  // console.log(flightData, "flightDataTest")
+
   const filteredFlightData = Array.isArray(flightData)
     ? flightData.filter((airlineFlights) => {
         const [minPrice, maxPrice] = filter.priceRange;
@@ -342,9 +344,15 @@ const Flight = () => {
                 </React.Fragment>
               )
             )}
-            <div className={styles.loadDiv}>
-              <p>Load More Result</p> <Image alt="" src={arrow} />
-            </div>
+            {sortedFlightData.length >= 2 ? (
+              <div className={styles.loadDiv}>
+                <p>Load More Result</p> <Image alt="" src={arrow} />
+              </div>
+            ) : sortedFlightData.length === 1 ? (
+              <p>Only one airline available</p>
+            ) : (
+              <p>No flights available</p>
+            )}
           </div>
         </div>
       </div>
