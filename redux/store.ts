@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage for
 import authReducer from './auth/authslice';
 import flightReducer from './flight/flightSlice';
 import formDataReducer from './flight/formDataSlice';
+import bookingReducer from './flight/bookingSlice';
 
 const persistConfig = {
   key: 'root',
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   flight: flightReducer,
   formData: formDataReducer,
+  booking: bookingReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

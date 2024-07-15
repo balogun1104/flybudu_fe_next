@@ -1,107 +1,175 @@
-.general{
-   
+.general {
 }
-.mother{
-    background: #fff;
-    padding: 10px 10px 0 10px;
-    display: flex;
-    flex-direction: column;
-   gap: 1em;
-    /* width: 98%; */
+.mother {
+  background: #fff;
+  padding: 10px 10px 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  /* width: 98%; */
 }
-.iconDiv{
-    width: 10px;
-    gap: 0.1em;
-    display: flex;
-    flex-direction: column;
+.iconDiv {
+  width: 10px;
+  gap: 0.1em;
+  display: flex;
+  flex-direction: column;
 }
-.firstDiv{
-    font-weight: bold;
-    display: flex;
-    /* width: 90%; */
-    justify-content: space-between;
+.firstDiv {
+  font-weight: bold;
+  display: flex;
+  /* width: 90%; */
+  justify-content: space-between;
 }
-.iconSpan{
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
+.iconSpan {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 }
-.first{
-    display: flex;
-    gap: 1em;
-    margin-right: 50px;
+.first {
+  display: flex;
+  gap: 1em;
+  margin-right: 50px;
 }
-.sameDiv{
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgb(114, 114, 114);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: 500;
-    /* margin-bottom: 30px;
+.sameDiv {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(114, 114, 114);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+  /* margin-bottom: 30px;
     border-bottom: 1px solid black; */
+}
+.imageDiv {
+  display: flex;
+  align-items: center;
+}
+.routeDiv {
+  display: flex;
+  flex-direction: column;
+}
+.togeda {
+  display: flex;
+  gap: 1em;
+}
 
+.juju {
+  visibility: hidden;
 }
-.imageDiv{
-    display: flex;
-    align-items: center;
+.mobileMother {
+  /* width: 100%; */
+  background: #fff;
+  padding: 5px 20px;
+  display: none;
+  border-radius: 8px;
+  /* display: flex; */
+  justify-content: space-between;
 }
-.routeDiv{
-    display: flex;
-    flex-direction: column;
+.firstDate,
+.secondDate {
+  display: flex;
+  gap: 1em;
+  /* width: 50%; */
+  align-items: center;
+  /* justify-content: center; */
 }
-.togeda{
-    display: flex;
-    gap: 1em;
+.secondDate {
+  justify-content: flex-end;
+  width: 45%;
+  border-left: 1px solid;
+  /* padding-left: 1em; */
 }
+.firstDate,
+.secondDate {
+  padding: 10px 0;
+}
+@media (max-width: 500px) {
+  .firstDate,
+  .secondDate {
+    gap: 5px;
+    font-size: 14px;
+  }
 
-.juju{
-visibility: hidden;
-}
-.mobileMother{
-    /* width: 100%; */
-    background: #fff;
-    padding: 5px 20px;
-    display: none;
-    border-radius: 8px;
-    /* display: flex; */
-    justify-content: space-between;
-}
-.firstDate, .secondDate{
-    display: flex;
-    gap: 1em;
-    /* width: 50%; */
-    align-items: center;
-    /* justify-content: center; */
-    
-}
-.secondDate{
-    justify-content: flex-end;
-width: 45%;
-border-left: 1px solid ;
-/* padding-left: 1em; */
-}
-.firstDate, .secondDate{
-    padding: 10px 0;
-}
-@media (max-width:500px) {
-    .firstDate, .secondDate{
-        gap: 5px;
-        font-size: 14px;
-    }
-    
-    /* .mobileMother{
+  /* .mobileMother{
         padding: 10px;
     } */
 }
-@media (max-width:850px) {
-    .firstDiv, .sameDiv{
-        display: none;
-    }
-    .mobileMother{
-        display: flex;
-    }
-    .mother{
-        background: none;
-    }
+@media (max-width: 850px) {
+  .firstDiv,
+  .sameDiv {
+    display: none;
+  }
+  .mobileMother {
+    display: flex;
+  }
+  .mother {
+    background: none;
+  }
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.bookingTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bookingTable th,
+.bookingTable td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.bookingTable th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.bookingRow {
+  cursor: pointer;
+}
+
+.bookingRow:hover {
+  background-color: #f5f5f5;
+}
+
+.airlineInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.iconDiv {
+  display: inline-flex;
+  flex-direction: column;
+  margin-left: 5px;
+  position: relative;
+  bottom: 5px;
+}
+
+.confirmedStatus {
+  color: rgba(30, 222, 141, 1);
+}
+
+.pendingStatus {
+  color: red;
+}
+
+.currency {
+  font-weight: bold;
+  margin-right: 2px;
+}
+
+/* Add responsive styles for mobile view */
+@media (max-width: 768px) {
+  .mobileMother {
+    display: block;
+  }
+
+  .tableContainer {
+    display: none;
+  }
 }
