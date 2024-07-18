@@ -359,4 +359,72 @@ width: 90%; */
   .body {
     display: none;
   }
+
+  .dateDiv{
+    border-radius: 0;
+}
+}
+
+
+.dateDiv{
+  padding: 10px;
+  align-items: center;
+  display: flex;
+  background: #FFFFFF;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  /* background-color: #1D1D1D; */
+  padding: 0
+}
+
+.arrow {
+  font-size: 24px;
+  color: #1e88e5;
+  cursor: pointer;
+}
+
+
+.dateOptions {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* padding: 10px; */
+}
+
+.dateOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* padding: 10px; */
+  margin-right: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.departureDate {
+  background-color: transparent;
+  
+}
+
+.selected {
+  background-color: #06BCE1;
+  color: #fff
+}
+
+.currentDay {
+  font-weight: bold;
+}
+
+.date {
+  font-size: 16px;
+  text-wrap: nowrap;
+  padding: 20px;
+  
 }

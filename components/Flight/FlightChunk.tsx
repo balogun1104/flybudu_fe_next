@@ -86,6 +86,47 @@ const DetailsModal: React.FC<{
     });
   };
 
+
+  const handleNaigateToSelectFlight = async () => {
+    try {
+      dispatch(setLoading(true));
+      const searchCriteria = {
+        from: departureData.route.location,
+        to: arrivalData
+          ? arrivalData.route.location
+          : departureData.route.destination,
+        departure_date: departureData.date,
+        arrival_date: arrivalData ? arrivalData.date : "",
+        airline_id: departureData.airline.id,
+      };
+
+      const response = await axiosInstance.post(
+        "flights/search",
+        searchCriteria
+      );
+      const flightData = response.data;
+
+      console.log(flightData, "insude FlightChunk");
+      console.log(searchCriteria, "PAYLOAD__-");
+
+      dispatch(setFlightData(flightData));
+      dispatch(setSelectedFlight(flightData));
+      dispatch(setInitialFlightData(flightData));
+      dispatch(setLoading(false));
+
+      // Store the search criteria and flight data in localStorage
+      localStorage.setItem(
+        "lastSearchCriteria",
+        JSON.stringify(searchCriteria)
+      );
+      localStorage.setItem("lastFlightData", JSON.stringify(flightData));
+
+      router.push("/selectflight");
+    } catch (error) {
+      // Error handling...
+    }
+  };
+
   return (
     <div className={styles.modalBackground}>
       <div className={styles.modalContent}>
@@ -120,17 +161,17 @@ const DetailsModal: React.FC<{
           </div>
           <div className={styles.dftwo}>
             <span style={{ fontSize: "20px", fontWeight: "bold" }}>
-              {arrivalData
-                ? arrivalData.route.location
-                : departureData.route.location}{" "}
-              ({departureData.route.location_code})
+              
+              
+                { departureData.route.destination}{" "}
+              ({departureData.route.destination_code})
             </span>
             <span className={styles.font}>{departureData.airline.company}</span>
             <span className={styles.font}>
-              <Image src="" alt="" /> PASSENGER 1
+              <Image src="" alt="" />
             </span>
             <span>{/* Add duration if available */}</span>
-            <span className={styles.font}>{departureData.repeats}</span>
+            <span className={styles.font}></span>
             <span style={{ fontWeight: "bold" }} className={styles.font}>
               {departureData.available_seats || "12"} Seats Left
             </span>
@@ -184,7 +225,7 @@ const DetailsModal: React.FC<{
                   {departureData.airline.company}
                 </span>
                 <span className={styles.font}>
-                  <Image src="" alt="" /> PASSENGER 1
+                  <Image src="" alt="" /> 
                 </span>
                 <span>{/* Add duration if available */}</span>
                 <span className={styles.font}>{arrivalData.repeats}</span>
@@ -242,6 +283,18 @@ const DetailsModal: React.FC<{
           >
             Book Now
           </button>
+
+          <button
+            onClick={() => {
+              // onClose();
+              handleNaigateToSelectFlight();
+            }}
+            className={styles.more}
+          >
+            Schedule
+          </button>
+
+          
         </div>
       </div>
     </div>
@@ -448,7 +501,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
             </div>
             <b className={styles.abujaText}>
               {departureData.arrival} <br /> (
-              {departureData.route.location_code})
+              {departureData.route.destination_code})
               <span className={styles.little}>
                
                   {departureData.route.destination}

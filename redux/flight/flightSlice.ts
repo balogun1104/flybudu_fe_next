@@ -6,7 +6,10 @@ interface FlightState {
   flightData: FlightSearchResponse;
   loading: boolean;
   error: string | null;
-  selectedFlight: Flight | null;
+  selectedFlight: {
+    departure: Flight | null;
+    arrival: Flight | null;
+  };
   initialFlightData: FlightSearchResponse | null;
   discountValue: number;
   filter: {
@@ -38,7 +41,10 @@ const initialState: FlightState = {
   loading: false,
   discountValue: 0,
   error: null,
-  selectedFlight: null,
+  selectedFlight: {
+    departure: null,
+    arrival: null,
+  },
   filter: {
     priceRange: [0, 200000],
     sortOption: "recommended",
@@ -74,7 +80,13 @@ const flightSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
-    setSelectedFlight: (state, action: PayloadAction<Flight | null>) => {
+    setSelectedFlight: (
+      state,
+      action: PayloadAction<{
+        departure: Flight | null;
+        arrival: Flight | null;
+      }>
+    ) => {
       state.selectedFlight = action.payload;
     },
     setDiscountValue: (state, action: PayloadAction<number>) => {

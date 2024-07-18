@@ -51,69 +51,6 @@ const Flight = () => {
     (state: RootState) => state.flight
   );
 
-  useEffect(() => {
-    const fetchFlightData = async () => {
-      if (lastSearchedFlightData) {
-        dispatch(setFlightData(lastSearchedFlightData));
-        dispatch(setInitialFlightData(lastSearchedFlightData));
-      } else if (
-        searchCriteria.from &&
-        searchCriteria.to &&
-        searchCriteria.departure_date
-      ) {
-        try {
-          dispatch(setLoading(true));
-          const formattedDepartureDate = formatDateToYYYYMMDD(
-            searchCriteria.departure_date
-          );
-          const formattedArrivalDate = searchCriteria.arrival_date
-            ? formatDateToYYYYMMDD(searchCriteria.arrival_date)
-            : undefined;
-
-          const formattedSearchCriteria = {
-            ...searchCriteria,
-            departure_date: formattedDepartureDate,
-            arrival_date: formattedArrivalDate,
-          };
-
-          const response = await axiosInstance.post(
-            "flights/search",
-            formattedSearchCriteria
-          );
-          const flightData = response.data;
-
-          dispatch(setFlightData(flightData));
-          dispatch(setInitialFlightData(flightData));
-          dispatch(setLoading(false));
-        } catch (error) {
-          dispatch(setLoading(false));
-          if (error instanceof Error) {
-            dispatch(setError(error.message));
-          } else {
-            dispatch(
-              setError("An unknown error occurred while fetching flight data")
-            );
-          }
-        }
-      } else {
-        router.push("/");
-      }
-    };
-
-    fetchFlightData();
-  }, [dispatch, lastSearchedFlightData, searchCriteria, router, selectedDate]);
-
-  useEffect(() => {
-    const departureDateIndex = generateDateOptions().findIndex(
-      (date) =>
-        formatDate(date) ===
-        formatDate(new Date(searchCriteria.departure_date || ""))
-    );
-    if (departureDateIndex !== -1) {
-      setCurrentPage(Math.floor(departureDateIndex / datesPerPage));
-    }
-  }, [searchCriteria.departure_date]);
-
   const formatDateToYYYYMMDD = (dateString: string): string => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -250,6 +187,69 @@ const Flight = () => {
         return 0;
     }
   });
+
+  useEffect(() => {
+    const fetchFlightData = async () => {
+      if (lastSearchedFlightData) {
+        dispatch(setFlightData(lastSearchedFlightData));
+        dispatch(setInitialFlightData(lastSearchedFlightData));
+      } else if (
+        searchCriteria.from &&
+        searchCriteria.to &&
+        searchCriteria.departure_date
+      ) {
+        try {
+          dispatch(setLoading(true));
+          const formattedDepartureDate = formatDateToYYYYMMDD(
+            searchCriteria.departure_date
+          );
+          const formattedArrivalDate = searchCriteria.arrival_date
+            ? formatDateToYYYYMMDD(searchCriteria.arrival_date)
+            : undefined;
+
+          const formattedSearchCriteria = {
+            ...searchCriteria,
+            departure_date: formattedDepartureDate,
+            arrival_date: formattedArrivalDate,
+          };
+
+          const response = await axiosInstance.post(
+            "flights/search",
+            formattedSearchCriteria
+          );
+          const flightData = response.data;
+
+          dispatch(setFlightData(flightData));
+          dispatch(setInitialFlightData(flightData));
+          dispatch(setLoading(false));
+        } catch (error) {
+          dispatch(setLoading(false));
+          if (error instanceof Error) {
+            dispatch(setError(error.message));
+          } else {
+            dispatch(
+              setError("An unknown error occurred while fetching flight data")
+            );
+          }
+        }
+      } else {
+        router.push("/");
+      }
+    };
+
+    fetchFlightData();
+  }, [dispatch, lastSearchedFlightData, searchCriteria, router, selectedDate]);
+
+  useEffect(() => {
+    const departureDateIndex = generateDateOptions().findIndex(
+      (date) =>
+        formatDate(date) ===
+        formatDate(new Date(searchCriteria.departure_date || ""))
+    );
+    if (departureDateIndex !== -1) {
+      setCurrentPage(Math.floor(departureDateIndex / datesPerPage));
+    }
+  }, [searchCriteria.departure_date]);
 
   return (
     <div className={styles.flightContainer}>
