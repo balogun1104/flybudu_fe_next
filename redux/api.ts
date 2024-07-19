@@ -14,11 +14,11 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const hardCodedToken = "4|bPcDBy2VqvxecKscG7CmWaIKDaa8AMSViFizhzqd49d2b08b";
+    
     const token = selectAuthToken(store.getState());
     if (token) {
-      // config.headers["Authorization"] = `Bearer ${token}`;
-      config.headers["Authorization"] = `Bearer ${hardCodedToken}`;
+      config.headers["Authorization"] = `Bearer ${token}`;
+      // config.headers["Authorization"] = `Bearer ${hardCodedToken}`;
     }
 
     console.log("Request Body:", config.data);

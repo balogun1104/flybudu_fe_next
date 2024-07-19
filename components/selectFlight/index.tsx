@@ -95,6 +95,11 @@ function SelectFlightComponent({
     return flights.map((flight) => {
       const duration = calculateDuration(flight.departure, flight.arrival);
       const isSelected = isFlightSelected(flight, type);
+      
+      const formatPrice = (price: number): string => {
+        return '₦' + Math.round(price).toLocaleString('en-NG');
+      };
+
 
       return (
         <div key={flight.id} className={styles.bodyContianer}>
@@ -142,7 +147,7 @@ function SelectFlightComponent({
             <div className={styles.secondDiv}>
               <div className={styles.flex}>
                 <span>From</span>
-                <span className={styles.money}> ₦{flight.price}</span>
+                 <span className={styles.money}>{formatPrice(flight.price)}</span>
               </div>
               <div className={styles.selectDiv}>
                 {isSelected ? (
@@ -249,7 +254,7 @@ function SelectFlightComponent({
                 style={{ fontWeight: "bold", color: "#058EA9" }}
                 className={styles.monay}
               >
-                ₦{flight.price}
+                 <span className={styles.money}>{formatPrice(flight.price)}</span>
               </span>
             </div>
             <div

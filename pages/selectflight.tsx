@@ -102,6 +102,9 @@ function SelectFlightPage() {
     return `${year}-${month}-${day}`;
   };
 
+
+  
+
   const handleDateSelection = async (formattedDate: string) => {
     setSelectedDate(formattedDate);
 
