@@ -1,4 +1,3 @@
-// AdditionalService.tsx
 import React, { useState, useEffect } from "react";
 import styles from "./additionalservice.module.css";
 import briefcase from "@/public/assets/images/suitcase 1.png";
@@ -36,25 +35,32 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
     return: storedLuggage?.return || [],
   });
 
-  useEffect(() => {
-    if (storedLuggage) {
-      setSelectedLuggage({
-        depart: storedLuggage.depart || [],
-        return: storedLuggage.return || [],
-      });
-    }
-  }, [storedLuggage]);
-
   const toggleText = () => {
     setIsActive(!isActive);
+  };
+
+  const getLuggagePrice = (type: "depart" | "return", weight: string): number => {
+    const airline = type === "depart" ? selectedAirline?.departure?.airline : selectedAirline?.arrival?.airline;
+    if (!airline) return 0;
+
+    switch (weight) {
+      case "10Kg":
+        return parseFloat(airline.luggage10);
+      case "15Kg":
+        return parseFloat(airline.luggage15);
+      case "20Kg":
+        return parseFloat(airline.luggage20);
+      default:
+        return 0;
+    }
   };
 
   const handleLuggageChange = (
     type: "depart" | "return",
     weight: string,
-    quantity: number,
-    price: number
+    quantity: number
   ) => {
+    const price = getLuggagePrice(type, weight);
     const updatedLuggage = {
       ...selectedLuggage,
       [type]: selectedLuggage[type].map((luggage) => ({ ...luggage })),
@@ -95,6 +101,68 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
     );
   };
 
+  useEffect(() => {
+    if (storedLuggage) {
+      setSelectedLuggage({
+        depart: storedLuggage.depart || [],
+        return: storedLuggage.return || [],
+      });
+    }
+  }, [storedLuggage]);
+
+  const renderLuggageOptions = (type: "depart" | "return") => {
+    const flightData = type === "depart" ? selectedAirline?.departure : selectedAirline?.arrival;
+    if (!flightData) return null;
+
+    return (
+      <div className={styles.div1}>
+        <div className={styles.departDiv}>
+          <span>{type === "depart" ? "Depart" : "Return"}</span>
+          <span className={styles.lagos}>
+            {flightData.route.location} to {flightData.route.destination}
+          </span>
+        </div>
+        {["10Kg", "15Kg", "20Kg"].map((weight) => (
+          <div key={weight} className={styles.checkDiv}>
+            <span>{weight} check bag</span>
+            <div className={styles.spanDiv}>
+              <button
+                className={styles.minus}
+                onClick={() =>
+                  handleLuggageChange(
+                    type,
+                    weight,
+                    Math.max(getLuggageQuantity(type, weight) - 1, 0)
+                  )
+                }
+              >
+                -
+              </button>
+              <span className={styles.number}>
+                {getLuggageQuantity(type, weight)}
+              </span>
+              <button
+                className={styles.plus}
+                onClick={() =>
+                  handleLuggageChange(
+                    type,
+                    weight,
+                    getLuggageQuantity(type, weight) + 1
+                  )
+                }
+              >
+                +
+              </button>
+            </div>
+            <span className={styles.bold}>
+              &#8358;{getLuggagePrice(type, weight).toLocaleString()}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className={styles.general}>
       <div className={styles.firstDiv} onClick={toggleText}>
@@ -115,7 +183,7 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                 </span>
                 <p>
                   <span className={styles.none}>Starting from </span>{" "}
-                  &#8358;6,000
+                  &#8358;{getLuggagePrice("depart", "10Kg").toLocaleString()}
                 </p>
               </div>
             </div>
@@ -127,7 +195,7 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                 </span>
                 <p>
                   <span className={styles.none}>Starting from </span>{" "}
-                  &#8358;9,000
+                  &#8358;{getLuggagePrice("depart", "15Kg").toLocaleString()}
                 </p>
               </div>
             </div>
@@ -139,139 +207,14 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                 </span>
                 <p>
                   <span className={styles.none}>Starting from </span>{" "}
-                  &#8358;12,000
+                  &#8358;{getLuggagePrice("depart", "20Kg").toLocaleString()}
                 </p>
               </div>
             </div>
           </div>
           <div className={styles.thirdDiv}>
-            <div className={styles.div1}>
-              <div className={styles.departDiv}>
-                <span>Depart</span>
-                <span className={styles.lagos}>
-                  {selectedAirline?.departure?.route.destination} to{" "}
-                  {selectedAirline?.departure?.route.location}
-                </span>
-              </div>
-              {["10Kg", "15Kg", "20Kg"].map((weight) => (
-                <div key={weight} className={styles.checkDiv}>
-                  <span>{weight} check bag</span>
-                  <div className={styles.spanDiv}>
-                    <button
-                      className={styles.minus}
-                      onClick={() =>
-                        handleLuggageChange(
-                          "depart",
-                          weight,
-                          Math.max(getLuggageQuantity("depart", weight) - 1, 0),
-                          weight === "10Kg"
-                            ? 6000
-                            : weight === "15Kg"
-                            ? 9000
-                            : 12000
-                        )
-                      }
-                    >
-                      -
-                    </button>
-                    <span className={styles.number}>
-                      {getLuggageQuantity("depart", weight)}
-                    </span>
-                    <button
-                      className={styles.plus}
-                      onClick={() =>
-                        handleLuggageChange(
-                          "depart",
-                          weight,
-                          getLuggageQuantity("depart", weight) + 1,
-                          weight === "10Kg"
-                            ? 6000
-                            : weight === "15Kg"
-                            ? 9000
-                            : 12000
-                        )
-                      }
-                    >
-                      +
-                    </button>
-                  </div>
-                  <span className={styles.bold}>
-                    &#8358;
-                    {weight === "10Kg"
-                      ? "6,000"
-                      : weight === "15Kg"
-                      ? "9,000"
-                      : "12,000"}
-                  </span>
-                </div>
-              ))}
-            </div>
-            {selectedAirline?.arrival && (
-              <div className={styles.div1}>
-                <div className={styles.departDiv}>
-                  <span>Return</span>
-                  <span className={styles.lagos}>
-                    {selectedAirline?.departure?.route.destination} to{" "}
-                    {selectedAirline?.departure?.route.location}
-                  </span>
-                </div>
-                {["10Kg", "15Kg", "20Kg"].map((weight) => (
-                  <div key={weight} className={styles.checkDiv}>
-                    <span>{weight} check bag</span>
-                    <div className={styles.spanDiv}>
-                      <button
-                        className={styles.minus}
-                        onClick={() =>
-                          handleLuggageChange(
-                            "return",
-                            weight,
-                            Math.max(
-                              getLuggageQuantity("return", weight) - 1,
-                              0
-                            ),
-                            weight === "10Kg"
-                              ? 6000
-                              : weight === "15Kg"
-                              ? 9000
-                              : 12000
-                          )
-                        }
-                      >
-                        -
-                      </button>
-                      <span className={styles.number}>
-                        {getLuggageQuantity("return", weight)}
-                      </span>
-                      <button
-                        className={styles.plus}
-                        onClick={() =>
-                          handleLuggageChange(
-                            "return",
-                            weight,
-                            getLuggageQuantity("return", weight) + 1,
-                            weight === "10Kg"
-                              ? 6000
-                              : weight === "15Kg"
-                              ? 9000
-                              : 12000
-                          )
-                        }
-                      >
-                        +
-                      </button>
-                    </div>
-                    <span className={styles.bold}>
-                      &#8358;
-                      {weight === "10Kg"
-                        ? "6,000"
-                        : weight === "15Kg"
-                        ? "9,000"
-                        : "12,000"}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
+            {renderLuggageOptions("depart")}
+            {selectedAirline?.arrival && renderLuggageOptions("return")}
           </div>
         </div>
       )}

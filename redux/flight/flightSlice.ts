@@ -61,11 +61,13 @@ const flightSlice = createSlice({
     setSearchCriteria: (state, action: PayloadAction<FlightSearchRequest>) => {
       state.searchCriteria = action.payload;
     },
-    setFlightData: (state, action: PayloadAction<FlightSearchResponse>) => {
+   setFlightData: (state, action: PayloadAction<FlightSearchResponse>) => {
+      console.log("Setting flight data in reducer:", action.payload);
       state.flightData = action.payload;
       state.initialFlightData = action.payload;
       state.loading = false;
       state.error = null;
+      console.log("Updated state:", state.flightData);
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;

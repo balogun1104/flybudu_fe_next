@@ -19,13 +19,21 @@ import { RootState } from "../redux/store";
 import { setFormData } from "@/redux/flight/formDataSlice";
 import { Luggage } from "@/redux/types/formData.types";
 import { useRouter } from "next/router";
+import { updateFormData } from "@/redux/flight/formDataSlice";
+import { calculateTotalPrice, formatPrice } from "@/utils/CalculateTotalPrice";
 
 function TravelInformation() {
   const router = useRouter();
   const dispatch = useDispatch();
   const formData = useSelector((state: RootState) => state.formData);
+  const selectedFlight = useSelector((state: RootState) => state.flight.selectedFlight);
+const searchCriteria = useSelector((state: RootState) => state.flight.searchCriteria);
+const discountValue = useSelector((state: RootState) => state.flight.discountValue);
 
   const [isMobile, setIsMobile] = useState(false);
+
+
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -38,6 +46,19 @@ function TravelInformation() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+
+  const { updatedTotalPrice } = calculateTotalPrice(
+    selectedFlight,
+    searchCriteria,
+    formData.luggages,
+    discountValue
+  );
+
+
+  useEffect(() => {
+    dispatch(updateFormData({ updatedTotalPrice }));
+  }, [dispatch, updatedTotalPrice]);
 
   const handleLuggageSelect = (selectedLuggage: {
     depart: Luggage[];
@@ -138,7 +159,7 @@ function TravelInformation() {
               {" "}
               <span className={styles.skip}>Skip Step</span>
             </Link>
-            <span className={styles.money}> #160,000</span>
+            <span className={styles.money}>  &#8358; {formatPrice(updatedTotalPrice)}</span>
             {isMobile ? (
               <Link
                 className={styles.link}

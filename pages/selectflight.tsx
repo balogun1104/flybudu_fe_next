@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
@@ -58,7 +58,7 @@ function SelectFlightPage() {
     dispatch(setSelectedFlight(newSelectedFlight));
   };
 
-  const generateDateOptions = () => {
+  const generateDateOptions = useCallback(() => {
     const departureDates = [];
     const departureDate = new Date(searchCriteria.departure_date || "");
     let date = new Date(departureDate);
@@ -76,6 +76,15 @@ function SelectFlightPage() {
       date.setDate(date.getDate() + 1);
     }
     return departureDates;
+  }, [searchCriteria.departure_date]);
+
+  const formatCurrency = (amount: number): string => {
+    return new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
   };
 
   const visibleDates = generateDateOptions().slice(
@@ -92,7 +101,7 @@ function SelectFlightPage() {
     if (departureDateIndex !== -1) {
       setCurrentPage(Math.floor(departureDateIndex / datesPerPage));
     }
-  }, [searchCriteria.departure_date]);
+  }, [generateDateOptions, searchCriteria.departure_date]);
 
   const formatDateToYYYYMMDD = (dateString: string): string => {
     const date = new Date(dateString);
@@ -101,9 +110,6 @@ function SelectFlightPage() {
     const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
-
-
-  
 
   const handleDateSelection = async (formattedDate: string) => {
     setSelectedDate(formattedDate);
@@ -291,9 +297,10 @@ function SelectFlightPage() {
 
       <div className={styles.sigh}>
         <span className={styles.money}>
-          #
-          {(selectedFlight?.departure?.price || 0) +
-            (selectedFlight?.arrival?.price || 0)}
+          {formatCurrency(
+            (selectedFlight?.departure?.price || 0) +
+              (selectedFlight?.arrival?.price || 0)
+          )}
         </span>
         <Link
           className={styles.link}

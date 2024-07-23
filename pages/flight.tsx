@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -15,6 +16,7 @@ import arrow from "@/public/assets/images/double chevron.png";
 import FilterImg from "@/public/assets/images/filter (2).png";
 import Edit from "@/public/assets/images/Edit.png";
 import { RootState } from "@/redux/store";
+import noFlightFound from "@/public/assets/images/noFlightfound.png";
 import {
   setFlightData,
   setInitialFlightData,
@@ -59,22 +61,31 @@ const Flight = () => {
     return `${year}-${month}-${day}`;
   };
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const handleDateSelection = async (formattedDate: string) => {
     setSelectedDate(formattedDate);
 
-    // Format the date to YYYY-MM-DD for the API
     const formattedDateYYYYMMDD = formatDateToYYYYMMDD(formattedDate);
 
-    // Create a new search criteria object with the updated departure date
     const updatedSearchCriteria = {
       ...searchCriteria,
       departure_date: formattedDateYYYYMMDD,
     };
 
-    // Dispatch action to update the search criteria in Redux store
     dispatch(setSearchCriteria(updatedSearchCriteria));
 
-    // Trigger a new search with the updated criteria
     try {
       dispatch(setLoading(true));
       const response = await axiosInstance.post(
@@ -97,6 +108,7 @@ const Flight = () => {
       }
     }
   };
+
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
@@ -129,25 +141,6 @@ const Flight = () => {
     currentPage * datesPerPage,
     (currentPage + 1) * datesPerPage
   );
-
-  // const getLowestPrice = (date: Date) => {
-  //   const formattedDate = formatDate(date);
-  //   let lowestPrice = Infinity;
-  //   sortedFlightData.forEach((airlineFlights) => {
-  //     const flights = Object.values(airlineFlights)[0];
-  //     flights.forEach((flight) => {
-  //       if (
-  //         flight.departure.date === formattedDate &&
-  //         flight.departure.price < lowestPrice
-  //       ) {
-  //         lowestPrice = flight.departure.price;
-  //       }
-  //     });
-  //   });
-  //   return lowestPrice !== Infinity ? `₦${lowestPrice.toLocaleString()}` : "";
-  // };
-
-  // console.log(flightData, "flightDataTest")
 
   const filteredFlightData = Array.isArray(flightData)
     ? flightData.filter((airlineFlights) => {
@@ -285,8 +278,9 @@ const Flight = () => {
       <div className={styles.flightWrapper}>
         <div style={{ margin: "30px" }}>
           <span className={styles.found}>
-            We Found {totalFlight} Flights From {searchCriteria.from} To{" "}
-            {searchCriteria.to}
+            {sortedFlightData.length > 0
+              ? `We Found ${totalFlight} Flights From ${searchCriteria.from} To ${searchCriteria.to}`
+              : `No flights found from ${searchCriteria.from} to ${searchCriteria.to}`}
           </span>
         </div>
         <div className={styles.flightContent}>
@@ -294,70 +288,124 @@ const Flight = () => {
             <FlightFilter onApplyFilter={() => setOpenEdit(false)} />
           </div>
           <div className={styles.flightContentTwo}>
-            <div className={styles.dateDiv}>
-              <IoIosArrowBack
-                className={styles.arrow}
-                onClick={handlePrevPage}
-              />
-              <div className={styles.dateOptions}>
-                {visibleDates.map((date, index) => (
-                  <div
-                    key={index}
-                    className={`${styles.dateOption} ${
-                      formatDate(date) ===
-                      formatDate(new Date(searchCriteria.departure_date || ""))
-                        ? styles.departureDate
-                        : ""
-                    } ${
-                      selectedDate === formatDate(date) ? styles.selected : ""
-                    }`}
-                    onClick={() => handleDateSelection(formatDate(date))}
-                  >
-                    <p className={styles.date}>{formatDate(date)}</p>
-                    {/* <span className={styles.price}>{getLowestPrice(date)}</span> */}
+            {sortedFlightData.length > 0 ? (
+              <>
+                <div className={styles.dateDiv}>
+                  <IoIosArrowBack
+                    className={styles.arrow}
+                    onClick={handlePrevPage}
+                  />
+                  <div className={styles.dateOptions}>
+                    {visibleDates.map((date, index) => (
+                      <div
+                        key={index}
+                        className={`${styles.dateOption} ${
+                          formatDate(date) ===
+                          formatDate(
+                            new Date(searchCriteria.departure_date || "")
+                          )
+                            ? styles.departureDate
+                            : ""
+                        } ${
+                          selectedDate === formatDate(date)
+                            ? styles.selected
+                            : ""
+                        }`}
+                        onClick={() => handleDateSelection(formatDate(date))}
+                      >
+                        <p className={styles.date}>{formatDate(date)}</p>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-              <IoIosArrowForward
-                className={styles.arrow}
-                onClick={handleNextPage}
-              />
-            </div>
-            {sortedFlightData.map(
-              (airlineFlights: AirlineFlights, index: number) => (
-                <React.Fragment key={index}>
-                  {index === 0 && (
-                    <FlightChunk
-                      flightData={airlineFlights}
-                      selectedDate={selectedDate}
-                    />
-                  )}
-                  {index === 1 && (
-                    <h4 className={styles.other}>Other Flights Options</h4>
-                  )}
-                  {index > 0 && (
-                    <FlightChunk
-                      flightData={airlineFlights}
-                      selectedDate={selectedDate}
-                    />
-                  )}
-                </React.Fragment>
-              )
-            )}
-            {sortedFlightData.length >= 2 ? (
-              <div className={styles.loadDiv}>
-                <p>Load More Result</p> <Image alt="" src={arrow} />
-              </div>
-            ) : sortedFlightData.length === 1 ? (
-              <p>Only one airline available</p>
+                  <IoIosArrowForward
+                    className={styles.arrow}
+                    onClick={handleNextPage}
+                  />
+                </div>
+                {sortedFlightData.map(
+                  (airlineFlights: AirlineFlights, index: number) => (
+                    <React.Fragment key={index}>
+                      {index === 0 && (
+                        <FlightChunk
+                          flightData={airlineFlights}
+                          selectedDate={selectedDate}
+                        />
+                      )}
+                      {index === 1 && (
+                        <h4 className={styles.other}>Other Flights Options</h4>
+                      )}
+                      {index > 0 && (
+                        <FlightChunk
+                          flightData={airlineFlights}
+                          selectedDate={selectedDate}
+                        />
+                      )}
+                    </React.Fragment>
+                  )
+                )}
+                {sortedFlightData.length >= 2 && (
+                  <div className={styles.loadDiv}>
+                    <p>Load More Result</p> <Image alt="" src={arrow} />
+                  </div>
+                )}
+              </>
             ) : (
-              <p>No flights available</p>
+              <div className={styles.noFlightFound}>
+                <div className={styles.noFlightFoundOpps}>
+                  <p className={styles.noFlightFoundOppsText}>
+                    Ooops Budu Can't Find Your Flight
+                  </p>
+
+                  {isMobile && (
+                    <div className={styles.noFlightFoundDivTwoMoble}>
+                      <Image
+                        className={styles.noFlightFoundDivTwoImage}
+                        src={noFlightFound}
+                        alt=""
+                        width={700}
+                        height={480}
+                      />
+                    </div>
+                  )}
+                  <p className={styles.sohere}>
+                    <span className={styles.sohereSpan}>Hey there! </span>
+                    <br />
+                    So, here's the deal: Budu tried hard to find your flight. He
+                    climbed Everest, looked everywhere, but could only find suck
+                    and slippers! Now, he's stuck on Everest, missing home.
+                    <br />
+                    <span className={styles.sohereSpan}>
+                      {" "}
+                      You can check your spelling or try a different time and
+                      location.{" "}
+                    </span>
+                    Please allow him to go back home.
+                  </p>
+
+                  <Link href="/">
+                    {" "}
+                    <button className={styles.sohereButton}>
+                      Go Back Home{" "}
+                    </button>{" "}
+                  </Link>
+                </div>
+
+                <div className={styles.noFlightFoundDivTwo}>
+                  <Image
+                    className={styles.noFlightFoundDivTwoImage}
+                    src={noFlightFound}
+                    alt=""
+                    width={700}
+                    height={480}
+                  />
+                </div>
+              </div>
             )}
           </div>
         </div>
       </div>
       <MobileNav />
-      <Footer />
+      {!isMobile && <Footer />}
     </div>
   );
 };

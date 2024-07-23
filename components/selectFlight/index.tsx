@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import styles from "./select.module.css";
 import Line from "@/public/assets/images/Line.png";
@@ -49,7 +49,14 @@ function SelectFlightComponent({
   selectedDeparture,
   selectedArrival,
 }: SelectFlightComponentProps) {
+  console.log("SelectFlightComponent received flightData:", flightData);
+
+  useEffect(() => {
+    console.log("FlightData changed in SelectFlightComponent:", flightData);
+  }, [flightData]);
+
   if (!flightData || !flightData.departure) {
+    console.log("No flight data available");
     return <div>No flight data available</div>;
   }
 
@@ -95,11 +102,10 @@ function SelectFlightComponent({
     return flights.map((flight) => {
       const duration = calculateDuration(flight.departure, flight.arrival);
       const isSelected = isFlightSelected(flight, type);
-      
-      const formatPrice = (price: number): string => {
-        return '₦' + Math.round(price).toLocaleString('en-NG');
-      };
 
+      const formatPrice = (price: number): string => {
+        return "₦" + Math.round(price).toLocaleString("en-NG");
+      };
 
       return (
         <div key={flight.id} className={styles.bodyContianer}>
@@ -147,7 +153,9 @@ function SelectFlightComponent({
             <div className={styles.secondDiv}>
               <div className={styles.flex}>
                 <span>From</span>
-                 <span className={styles.money}>{formatPrice(flight.price)}</span>
+                <span className={styles.money}>
+                  {formatPrice(flight.price)}
+                </span>
               </div>
               <div className={styles.selectDiv}>
                 {isSelected ? (
@@ -254,7 +262,9 @@ function SelectFlightComponent({
                 style={{ fontWeight: "bold", color: "#058EA9" }}
                 className={styles.monay}
               >
-                 <span className={styles.money}>{formatPrice(flight.price)}</span>
+                <span className={styles.money}>
+                  {formatPrice(flight.price)}
+                </span>
               </span>
             </div>
             <div
@@ -293,22 +303,7 @@ function SelectFlightComponent({
     type: "departure" | "arrival"
   ) => {
     return (
-      <div className={styles.flightSection}>
-        <div className={styles.flight}>
-          <span style={{ fontSize: "20px" }}>
-            {type === "departure" ? "Departure" : "Return"}
-          </span>
-          <div className={styles.Plane}>
-            <Image src={Plane} alt="Plane" />
-            <span className={styles.state}>
-              {type === "departure"
-                ? `${flights[0]?.from} to ${flights[0]?.route.destination}`
-                : `${flights[0]?.route.destination} to ${flights[0]?.from}`}
-            </span>
-          </div>
-        </div>
-        {renderFlights(flights, type)}
-      </div>
+      <div className={styles.flightSection}>{renderFlights(flights, type)}</div>
     );
   };
 

@@ -6,6 +6,7 @@ import styles from "./sidecard.module.css";
 import { RootState } from "@/redux/store";
 import { useFlightData } from "@/utils/helper";
 import { updateFormData } from "@/redux/flight/formDataSlice";
+import { calculateTotalPrice, formatPrice } from "@/utils/CalculateTotalPrice";
 
 import greenImg from "@/public/assets/images/greenAfrica.png";
 import star from "@/public/assets/svg/Star.svg";
@@ -28,39 +29,17 @@ function SideCard() {
   );
   const formData = useSelector((state: RootState) => state.formData);
 
-  const luggagePrices = {
-    depart:
-      formData.luggages && formData.luggages.depart
-        ? formData.luggages.depart.reduce(
-            (total, luggage) => total + luggage.price * luggage.quantity,
-            0
-          )
-        : 0,
-    return:
-      formData.luggages && formData.luggages.return
-        ? formData.luggages.return.reduce(
-            (total, luggage) => total + luggage.price * luggage.quantity,
-            0
-          )
-        : 0,
-  };
-
-  const totalLuggagePrice = luggagePrices.depart + luggagePrices.return;
-
-  const arrivalPrice = selectedAirline?.arrival?.price
-    ? Number(selectedAirline.arrival.price)
-    : 0;
-  const departurePrice = selectedAirline?.departure?.price
-    ? Number(selectedAirline.departure.price)
-    : 0;
-
-  const Addition = arrivalPrice + departurePrice;
-  const passenger =
-    searchCriteria.passengers.adults +
-    searchCriteria.passengers.children +
-    searchCriteria.passengers.infants;
-  const finalPrice = Addition * passenger;
-  const updatedTotalPrice = finalPrice + totalLuggagePrice - discountValue;
+  const {
+    baseFare,
+    totalLuggagePrice,
+    updatedTotalPrice,
+    luggagePrices
+  } = calculateTotalPrice(
+    selectedAirline,
+    searchCriteria,
+    formData.luggages,
+    discountValue
+  );
 
   useEffect(() => {
     dispatch(updateFormData({ updatedTotalPrice }));
@@ -174,20 +153,14 @@ function SideCard() {
           </div>
           <div className={styles.twins}>
             <p>Base Fare</p>
-            <span>
-              &#8358;{" "}
-              {finalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            </span>
+            <span>&#8358; {formatPrice(baseFare)}</span>
           </div>
           <div className={styles.twins}>
             <p>Luggage</p>
             <span
               onClick={() => setShowLuggageBreakdown(!showLuggageBreakdown)}
             >
-              &#8358;{" "}
-              {totalLuggagePrice
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              &#8358; {formatPrice(totalLuggagePrice)}
             </span>
           </div>
           {showLuggageBreakdown && (
@@ -198,9 +171,7 @@ function SideCard() {
                 <div key={index}>
                   <p>
                     {luggage.weight} x {luggage.quantity}: &#8358;{" "}
-                    {(luggage.price * luggage.quantity)
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    {formatPrice(luggage.price * luggage.quantity)}
                   </p>
                 </div>
               ))}
@@ -211,9 +182,7 @@ function SideCard() {
                     <div key={index}>
                       <p>
                         {luggage.weight} x {luggage.quantity}: &#8358;{" "}
-                        {(luggage.price * luggage.quantity)
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                        {formatPrice(luggage.price * luggage.quantity)}
                       </p>
                     </div>
                   ))}
@@ -223,10 +192,7 @@ function SideCard() {
           )}
           <div className={styles.twins}>
             <p>Discount</p>
-            <span>
-              &#8358;{" "}
-              {discountValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            </span>
+            <span>&#8358; {formatPrice(discountValue)}</span>
           </div>
           <div className={styles.twins}>
             <p>Taxes and fee</p>
@@ -235,10 +201,7 @@ function SideCard() {
           <div className={styles.twins}>
             <p>Total</p>
             <span className={styles.blue}>
-              &#8358;{" "}
-              {updatedTotalPrice
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              &#8358; {formatPrice(updatedTotalPrice)}
             </span>
           </div>
           <div className={styles.priceDiv}>
@@ -250,8 +213,7 @@ function SideCard() {
         </div>
         <div className={styles.skipDiv}>
           <span className={styles.money}>
-            &#8358;{" "}
-            {updatedTotalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            &#8358; {formatPrice(updatedTotalPrice)}
           </span>
           <Link
             href="/payment"

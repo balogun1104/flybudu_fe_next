@@ -310,7 +310,9 @@ function Payment() {
                 Go Back
               </button>
             </Link>
-            <span className={styles.money}> #172,000</span>
+            <span className={styles.money}>
+  &#8358;{updatedTotalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+</span>
             {formData.passengers &&
               formData.passengers.length > 0 &&
               formData.passengers[0].email && (

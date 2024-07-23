@@ -400,6 +400,10 @@
         align-items: center;
         gap: 5px;
     }
+
+    .note{
+        display: none
+    }
 .ip img{
 display: none;
 }

@@ -377,6 +377,7 @@
   border: 1px solid rgb(173, 168, 168);
   outline: none;
   width: 260px;
+  
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-top-right-radius: 7px;
@@ -516,6 +517,7 @@
   display: flex;
   font-size: 14px;
   font-family: myFont;
+  gap: 10px
 }
 .bold {
   /* font-weight: 100; */

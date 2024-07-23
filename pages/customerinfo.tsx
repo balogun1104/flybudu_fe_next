@@ -19,6 +19,11 @@ import BackButton from "@/public/assets/images/backbutton.png";
 import support from "@/public/assets/images/customer-support (1) 1.png";
 import Approved from "@/public/assets/images/Layer 3.png";
 import { Passenger } from "@/redux/types/formData.types";
+import { calculateTotalPrice } from "@/utils/calculateTotalPrice";
+
+
+
+
 
 interface ErrorState {
   [key: number]: {
@@ -34,6 +39,10 @@ function CustomerInfo() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [errors, setErrors] = useState<ErrorState>({});
+  const selectedAirline = useSelector((state: RootState) => state.flight.selectedFlight);
+const searchCriteria = useSelector((state: RootState) => state.flight.searchCriteria);
+const formData = useSelector((state: RootState) => state.formData);
+const discountValue = useSelector((state: RootState) => state.flight.discountValue);
   const { adults, children, infants } = useSelector(
     (state: RootState) => state.flight.searchCriteria.passengers
   );
@@ -48,6 +57,13 @@ function CustomerInfo() {
     (state: RootState) => state.formData.passengers
   );
 
+
+  const { updatedTotalPrice } = calculateTotalPrice(
+    selectedAirline,
+    searchCriteria,
+    formData.luggages,
+    discountValue
+  );
 
   useEffect(() => {
     const totalPassengers = adults + children + infants;
@@ -629,7 +645,7 @@ function CustomerInfo() {
             </div>
             <div className={styles.saveDiv}>
               <div className={styles.ilu}>
-                <span className={styles.money}> #160,000</span>
+                <span className={styles.money}> &#8358; {updatedTotalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </span>
                 <Link href="/flight">
                   <button className={styles.back}>Back</button>
                 </Link>

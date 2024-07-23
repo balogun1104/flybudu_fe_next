@@ -257,7 +257,7 @@ const DetailsModal: React.FC<{
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </span>
         </div>
-        <span style={{ fontWeight: "bold", color: "red" }}>PLEASE NOTE</span>
+        <span  className={styles.note} style={{ fontWeight: "bold", color: "red" }}>PLEASE NOTE</span>
         <div
           style={{
             display: "flex",
@@ -266,7 +266,7 @@ const DetailsModal: React.FC<{
             alignItems: "center",
           }}
         >
-          <div>
+          <div  className={styles.note} >
             <span style={{ fontWeight: "bold" }}> *Non Refundable.</span>
             <span style={{ fontWeight: "bold" }}>
               *Total fare displayed has been rounded off and may thus show a

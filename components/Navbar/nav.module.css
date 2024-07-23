@@ -11,12 +11,12 @@
 }
 
 .edit{
-  color: black;
+  color: rgba(6, 188, 225, 1);
   display: flex;
     align-items: center;
     background-color: #fff;
     padding: 8px 24px 8px 24px;
-    border: 1px solid #0E90AA;
+    border: 1px solid rgba(6, 188, 225, 1);
     border-radius: 32px;
     cursor: pointer;
 }
@@ -109,7 +109,7 @@
   .NavtwoContainer{
     background-color: rgba(247, 247, 247, 1);
   
-    padding: 30px 30px 30px 30px;
+    padding: 30px 30px 0px 30px;
   }
 
 
@@ -307,3 +307,8 @@ background: white;
   margin-right: 10px;
 }
 
+
+.passengerSelected{
+  font-weight:  500;
+  font-family: "NeueHaasDisplayLight";
+}

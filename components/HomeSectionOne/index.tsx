@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
@@ -89,7 +89,7 @@ const HomeSectionOne = () => {
 
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
-  const updateSearchCriteria = () => {
+  const updateSearchCriteria = useCallback(() => {
     const updatedCriteria: FlightSearchRequest = {
       from: selectedLocation,
       to: selectedDestination,
@@ -101,7 +101,17 @@ const HomeSectionOne = () => {
       classType: classTypeText,
     };
     dispatch(setSearchCriteria(updatedCriteria));
-  };
+  }, [
+    selectedLocation,
+    selectedDestination,
+    departureDate,
+    returnDate,
+    passengerCounts,
+    localFlightText,
+    tripTypeText,
+    classTypeText,
+    dispatch,
+  ]);
 
   useEffect(() => {
     updateSearchCriteria();
@@ -114,6 +124,7 @@ const HomeSectionOne = () => {
     localFlightText,
     tripTypeText,
     classTypeText,
+    updateSearchCriteria,
   ]);
 
   const formatDate = (date: Date): string => {
@@ -451,7 +462,7 @@ const HomeSectionOne = () => {
       content: (
         <div className={styles.contWrap}>
           <p className={styles.beci}>
-            Because It's More
+            Because It&apos;s More
             <br className={styles.br} /> Than{" "}
             <span style={{ color: "#12B4D5" }}>Travel</span>
           </p>
