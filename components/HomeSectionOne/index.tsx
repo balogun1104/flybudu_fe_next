@@ -174,16 +174,16 @@ const HomeSectionOne = () => {
   };
 
   const handleInternational = (info: any) => {
-    setLocalFlightText(internationalTrip[info.key]);
+    setLocalFlightText(internationalTrip[Number(info.key)]);
   };
 
   const handleRoundTrip = (info: any) => {
-    setTripTypeText(roundTrip[info.key]);
-    setIsRoundTrip(roundTrip[info.key] === "Round trip");
+    setTripTypeText(roundTrip[Number(info.key)]);
+    setIsRoundTrip(roundTrip[Number(info.key)] === "Round trip");
   };
 
   const handleLocalFlight = (info: any) => {
-    setClassTypeText(localFlight[info.key]);
+    setClassTypeText(localFlight[Number(info.key)]);
   };
 
   const handleLetGoClick = async () => {
@@ -262,7 +262,7 @@ const HomeSectionOne = () => {
 
   const locationMenu = (
     <Menu
-      onClick={(info) => handleLocationChange(locations[info.key])}
+    onClick={(info) => handleLocationChange(locations[(info.key as unknown as number)])}
       className={styles.locationWrapper}
     >
       {locations.map((location, index) => (
@@ -285,7 +285,7 @@ const HomeSectionOne = () => {
 
   const destinationMenu = (
     <Menu
-      onClick={(info) => handleDestinationChange(locations[info.key])}
+    onClick={(info: { key: string }) => handleDestinationChange(locations[Number(info.key)])}
       className={styles.locationWrapper}
     >
       {locations.map((location, index) => (
