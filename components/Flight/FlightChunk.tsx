@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import { parseISO, differenceInMinutes } from "date-fns";
- import { parseISO, differenceInMinutes } from "date-fns";
+import { parseISO, differenceInMinutes } from "date-fns";
 
 import styles from "./flight.module.css";
 import Star from "@/public/assets/images/star.png";
@@ -73,19 +73,17 @@ const DetailsModal: React.FC<{
   const formattedDurationForDeparture = `${departureHours} h ${departureMinutes} m`;
 
   const handleBookNow = () => {
-    // i was using this to dispach the data to the flight page
-    // dispatch(setSelectedFlight(flight));
-    // router.push({
-    //   pathname: "/customerinfo",
-    //   query: { flightId: flight.departure.id },
-    // });
-    dispatch(setSelectedFlight(flight));
+    dispatch(
+      setSelectedFlight({
+        departure: flight.departure,
+        arrival: flight.arrival,
+      })
+    );
     router.push({
       pathname: "/customerinfo",
       query: { flightId: flight.departure.id },
     });
   };
-
 
   const handleNaigateToSelectFlight = async () => {
     try {
@@ -157,14 +155,12 @@ const DetailsModal: React.FC<{
             </span>
           </div>
           <div>
-            <Image src={Plane}   alt="" />
+            <Image src={Plane} alt="" />
           </div>
           <div className={styles.dftwo}>
             <span style={{ fontSize: "20px", fontWeight: "bold" }}>
-              
-              
-                { departureData.route.destination}{" "}
-              ({departureData.route.destination_code})
+              {departureData.route.destination} (
+              {departureData.route.destination_code})
             </span>
             <span className={styles.font}>{departureData.airline.company}</span>
             <span className={styles.font}>
@@ -225,7 +221,7 @@ const DetailsModal: React.FC<{
                   {departureData.airline.company}
                 </span>
                 <span className={styles.font}>
-                  <Image src="" alt="" /> 
+                  <Image src="" alt="" />
                 </span>
                 <span>{/* Add duration if available */}</span>
                 <span className={styles.font}>{arrivalData.repeats}</span>
@@ -257,7 +253,12 @@ const DetailsModal: React.FC<{
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </span>
         </div>
-        <span  className={styles.note} style={{ fontWeight: "bold", color: "red" }}>PLEASE NOTE</span>
+        <span
+          className={styles.note}
+          style={{ fontWeight: "bold", color: "red" }}
+        >
+          PLEASE NOTE
+        </span>
         <div
           style={{
             display: "flex",
@@ -266,7 +267,7 @@ const DetailsModal: React.FC<{
             alignItems: "center",
           }}
         >
-          <div  className={styles.note} >
+          <div className={styles.note}>
             <span style={{ fontWeight: "bold" }}> *Non Refundable.</span>
             <span style={{ fontWeight: "bold" }}>
               *Total fare displayed has been rounded off and may thus show a
@@ -293,8 +294,6 @@ const DetailsModal: React.FC<{
           >
             Schedule
           </button>
-
-          
         </div>
       </div>
     </div>
@@ -351,13 +350,12 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
   }
 
   const handleBookNow = () => {
-    // i was using this to dispach the data to the flight page
-    // dispatch(setSelectedFlight(flight));
-    // router.push({
-    //   pathname: "/customerinfo",
-    //   query: { flightId: flight.departure.id },
-    // });
-    dispatch(setSelectedFlight(flight));
+    dispatch(
+      setSelectedFlight({
+        departure: flight.departure,
+        arrival: flight.arrival,
+      })
+    );
     router.push({
       pathname: "/customerinfo",
       query: { flightId: flight.departure.id },
@@ -488,7 +486,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
             </b>
             <div>
               <span className={styles.onehr}>
-                 {formattedDurationForDeparture} 
+                {formattedDurationForDeparture}
               </span>
               <div className={styles.imgWrap}>
                 <Image className={styles.imgOne} src={Circle} alt="" />
@@ -503,8 +501,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
               {departureData.arrival} <br /> (
               {departureData.route.destination_code})
               <span className={styles.little}>
-               
-                  {departureData.route.destination}
+                {departureData.route.destination}
               </span>
             </b>
           </div>
@@ -520,7 +517,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
               </b>
               <div>
                 <span className={styles.onehr}>
-                  {formattedDurationForDeparture} 
+                  {formattedDurationForDeparture}
                 </span>
                 <div className={styles.imgWrap}>
                   <Image className={styles.imgOne} src={Circle} alt="" />
@@ -534,8 +531,7 @@ const FlightChunk: React.FC<FlightChunkProps> = ({ flightData }) => {
               <b className={styles.abujaText}>
                 {arrivalData.arrival} <br /> ({arrivalData.route.location_code})
                 <span className={styles.little}>
-                  { arrivalData.route.destination}
-                   
+                  {arrivalData.route.destination}
                 </span>
               </b>
             </div>

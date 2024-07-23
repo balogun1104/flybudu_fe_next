@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FlightSearchRequest, FlightSearchResponse, Flight } from "./types";
+import {
+  FlightSearchRequest,
+  FlightSearchResponse,
+  Flight,
+  FlightDetails,
+} from "./types";
 
 interface FlightState {
   searchCriteria: FlightSearchRequest;
@@ -7,8 +12,8 @@ interface FlightState {
   loading: boolean;
   error: string | null;
   selectedFlight: {
-    departure: Flight | null;
-    arrival: Flight | null;
+    departure: FlightDetails | null;
+    arrival: FlightDetails | null;
   };
   initialFlightData: FlightSearchResponse | null;
   discountValue: number;
@@ -61,7 +66,7 @@ const flightSlice = createSlice({
     setSearchCriteria: (state, action: PayloadAction<FlightSearchRequest>) => {
       state.searchCriteria = action.payload;
     },
-   setFlightData: (state, action: PayloadAction<FlightSearchResponse>) => {
+    setFlightData: (state, action: PayloadAction<FlightSearchResponse>) => {
       console.log("Setting flight data in reducer:", action.payload);
       state.flightData = action.payload;
       state.initialFlightData = action.payload;
@@ -85,8 +90,8 @@ const flightSlice = createSlice({
     setSelectedFlight: (
       state,
       action: PayloadAction<{
-        departure: Flight | null;
-        arrival: Flight | null;
+        departure: FlightDetails;
+        arrival: FlightDetails | null;
       }>
     ) => {
       state.selectedFlight = action.payload;

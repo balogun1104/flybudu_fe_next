@@ -9,6 +9,7 @@ import { Luggage } from "@/redux/types/formData.types";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setLuggage } from "@/redux/flight/formDataSlice";
+import { Flight, FlightDetails } from "@/redux/flight/types";
 
 interface AdditionalServiceProps {
   onLuggageSelect: (selectedLuggage: {
@@ -22,7 +23,7 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
   const [isActive, setIsActive] = useState(false);
   const selectedAirline = useSelector(
     (state: RootState) => state.flight.selectedFlight
-  );
+  ) as unknown as Flight | undefined;
   const storedLuggage = useSelector(
     (state: RootState) => state.formData.luggages
   );
@@ -39,17 +40,21 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
     setIsActive(!isActive);
   };
 
-  const getLuggagePrice = (type: "depart" | "return", weight: string): number => {
-    const airline = type === "depart" ? selectedAirline?.departure?.airline : selectedAirline?.arrival?.airline;
-    if (!airline) return 0;
+  const getLuggagePrice = (
+    type: "depart" | "return",
+    weight: string
+  ): number => {
+    const flightDetails =
+      type === "depart" ? selectedAirline?.departure : selectedAirline?.arrival;
+    if (!flightDetails) return 0;
 
     switch (weight) {
       case "10Kg":
-        return parseFloat(airline.luggage10);
+        return parseFloat(flightDetails.airline.luggage10);
       case "15Kg":
-        return parseFloat(airline.luggage15);
+        return parseFloat(flightDetails.airline.luggage15);
       case "20Kg":
-        return parseFloat(airline.luggage20);
+        return parseFloat(flightDetails.airline.luggage20);
       default:
         return 0;
     }
@@ -111,7 +116,8 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
   }, [storedLuggage]);
 
   const renderLuggageOptions = (type: "depart" | "return") => {
-    const flightData = type === "depart" ? selectedAirline?.departure : selectedAirline?.arrival;
+    const flightData =
+      type === "depart" ? selectedAirline?.departure : selectedAirline?.arrival;
     if (!flightData) return null;
 
     return (
@@ -182,8 +188,8 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                   10Kg <span className={styles.none}>checked bag</span>
                 </span>
                 <p>
-                  <span className={styles.none}>Starting from </span>{" "}
-                  &#8358;{getLuggagePrice("depart", "10Kg").toLocaleString()}
+                  <span className={styles.none}>Starting from </span> &#8358;
+                  {getLuggagePrice("depart", "10Kg").toLocaleString()}
                 </p>
               </div>
             </div>
@@ -194,8 +200,8 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                   15Kg <span className={styles.none}> checked bag </span>
                 </span>
                 <p>
-                  <span className={styles.none}>Starting from </span>{" "}
-                  &#8358;{getLuggagePrice("depart", "15Kg").toLocaleString()}
+                  <span className={styles.none}>Starting from </span> &#8358;
+                  {getLuggagePrice("depart", "15Kg").toLocaleString()}
                 </p>
               </div>
             </div>
@@ -206,8 +212,8 @@ function AdditionalService({ onLuggageSelect }: AdditionalServiceProps) {
                   20Kg <span className={styles.none}> checked bag</span>
                 </span>
                 <p>
-                  <span className={styles.none}>Starting from </span>{" "}
-                  &#8358;{getLuggagePrice("depart", "20Kg").toLocaleString()}
+                  <span className={styles.none}>Starting from </span> &#8358;
+                  {getLuggagePrice("depart", "20Kg").toLocaleString()}
                 </p>
               </div>
             </div>
