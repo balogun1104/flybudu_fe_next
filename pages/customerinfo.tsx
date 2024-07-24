@@ -19,6 +19,10 @@ import BackButton from "@/public/assets/images/backbutton.png";
 import support from "@/public/assets/images/customer-support (1) 1.png";
 import Approved from "@/public/assets/images/Layer 3.png";
 import { Passenger } from "@/redux/types/formData.types";
+import {
+  calculateTotalPrice,
+  convertFlightSearchRequestToSearchCriteria,
+} from "@/utils/CalculateTotalPrice";
 
 interface ErrorState {
   [key: number]: {
@@ -34,20 +38,34 @@ function CustomerInfo() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [errors, setErrors] = useState<ErrorState>({});
+  const selectedAirline = useSelector(
+    (state: RootState) => state.flight.selectedFlight
+  );
+  const flightSearchRequest = useSelector(
+    (state: RootState) => state.flight.searchCriteria
+  );
+  const formData = useSelector((state: RootState) => state.formData);
+  const discountValue = useSelector(
+    (state: RootState) => state.flight.discountValue
+  );
   const { adults, children, infants } = useSelector(
     (state: RootState) => state.flight.searchCriteria.passengers
   );
-
-  const currentPassengers = useSelector(
-    (state: RootState) => state.formData.passengers
-  );
-
-  
 
   const passengers = useSelector(
     (state: RootState) => state.formData.passengers
   );
 
+  const searchCriteria =
+    convertFlightSearchRequestToSearchCriteria(flightSearchRequest);
+
+  const luggages = formData.luggages || { depart: [], return: [] };
+  const { updatedTotalPrice } = calculateTotalPrice(
+    selectedAirline,
+    searchCriteria,
+    luggages,
+    discountValue
+  );
 
   useEffect(() => {
     const totalPassengers = adults + children + infants;
@@ -67,7 +85,6 @@ function CustomerInfo() {
     }
   }, [adults, children, infants, passengers.length, dispatch]);
 
-  
   const [isActive, setIsActive] = useState(false);
   const [openCode, setOpenCode] = useState(false);
   const [discountCode, setDiscountCode] = useState("");
@@ -102,7 +119,6 @@ function CustomerInfo() {
         }
       });
 
-      // Only validate email and phone for the first passenger (adult)
       if (index === 0) {
         if (!passenger.email) {
           newErrors[index].email = "This field is required";
@@ -140,7 +156,6 @@ function CustomerInfo() {
 
     dispatch(setFormData({ passengers: updatedPassengers }));
 
-    // Clear error for this field if it exists
     setErrors((prev) => {
       const newErrors = { ...prev };
       if (newErrors[passengerIndex] && newErrors[passengerIndex][name]) {
@@ -192,7 +207,6 @@ function CustomerInfo() {
 
   const handleSaveAndContinue = () => {
     if (validateForm()) {
-      // No need to dispatch here as the state is already up-to-date
       router
         .push("/travelinformation")
         .then(() => {
@@ -222,13 +236,7 @@ function CustomerInfo() {
       <Header />
       <div className={styles.secondHeader}>
         <Link href="/selectflight">
-          <Image
-          // width={0}
-            alt="Back"
-            src={BackButton}
-            className={styles.backbutton}
-            
-          />
+          <Image alt="Back" src={BackButton} className={styles.backbutton} />
         </Link>
         <span style={{ fontWeight: "bold" }}>
           Customer Info <span className={styles.specialText}> 2/4</span>
@@ -319,11 +327,6 @@ function CustomerInfo() {
                           <option value="Miss">Miss</option>
                           <option value="Master">Master</option>
                         </select>
-                        {/* {errors[index]?.title && (
-                          <p className={styles.errorText}>
-                            {errors[index].title}
-                          </p>
-                        )} */}
                         <input
                           className={`${styles.input1} ${
                             errors[index]?.surname ? "error-field" : ""
@@ -629,7 +632,12 @@ function CustomerInfo() {
             </div>
             <div className={styles.saveDiv}>
               <div className={styles.ilu}>
-                <span className={styles.money}> #160,000</span>
+                <span className={styles.money}>
+                  &#8358;{" "}
+                  {updatedTotalPrice
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </span>
                 <Link href="/flight">
                   <button className={styles.back}>Back</button>
                 </Link>

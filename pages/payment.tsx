@@ -83,7 +83,6 @@ function Payment() {
     trxref: any;
   }) => {
     setIsLoading(true);
-    console.log("Paystack Reference:", reference);
 
     const {
       reference: transactionNumber,
@@ -91,11 +90,6 @@ function Payment() {
       transaction,
       trxref,
     } = reference;
-
-    console.log("Transaction Number:", transactionNumber);
-    console.log("Transaction Status:", status);
-    console.log("Transaction Details:", transaction);
-    console.log("Transaction Reference:", trxref);
 
     // Get the first passenger's data
     const firstPassenger =
@@ -108,13 +102,13 @@ function Payment() {
       transaction_ref: transactionNumber,
       user_id: 1,
       schedule_id: 2,
-      route_id: selectedAirline?.departure.route.id,
-      airline_id: selectedAirline?.departure.airline.id,
+      route_id: selectedAirline?.departure?.route.id,
+      airline_id: selectedAirline?.departure?.airline.id,
       status: "confirmed",
       type: "regular",
       departure: (() => {
-        const date = selectedAirline?.departure.date;
-        const time = selectedAirline?.departure.departure;
+        const date = selectedAirline?.departure?.date;
+        const time = selectedAirline?.departure?.departure;
 
         if (date && time) {
           return format(new Date(`${date}T${time}`), "yyyy-MM-dd HH:mm:ss");
@@ -155,7 +149,6 @@ function Payment() {
     axiosInstance
       .post("flights/submit", updatedFormData)
       .then((response) => {
-        console.log("Payment Successful!", response.data);
         setIsLoading(false);
         setIsOpen(true);
         // Clear all store data
@@ -163,7 +156,6 @@ function Payment() {
         dispatch(clearFormData());
       })
       .catch((error) => {
-        console.error("Error submitting form data:", error);
         setIsLoading(false);
         setError(
           "An error occurred while processing your payment. Please try again."
@@ -171,13 +163,13 @@ function Payment() {
       });
   };
 
-  useEffect(() => {
-    // console.log(updatedFormData.departure);
-    console.log(
-      selectedAirline?.departure.date && selectedAirline?.departure.departure,
-      "Testint"
-    );
-  }, [selectedAirline]);
+  // useEffect(() => {
+  //   // console.log(updatedFormData.departure);
+  //   console.log(
+  //     selectedAirline?.departure.date && selectedAirline?.departure.departure,
+  //     "Testint"
+  //   );
+  // }, [selectedAirline]);
   const paystackOptions = {
     email:
       formData.passengers && formData.passengers.length > 0
@@ -188,7 +180,6 @@ function Payment() {
     text: "Pay Now",
     onSuccess: handlePaymentSuccess,
     onClose: () => {
-      console.log("Payment Closed!");
       setIsLoading(false);
     },
   };
@@ -313,7 +304,12 @@ function Payment() {
                 Go Back
               </button>
             </Link>
-            <span className={styles.money}> #172,000</span>
+            <span className={styles.money}>
+              &#8358;
+              {updatedTotalPrice
+                .toFixed(2)
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </span>
             {formData.passengers &&
               formData.passengers.length > 0 &&
               formData.passengers[0].email && (
@@ -323,7 +319,6 @@ function Payment() {
                   onSuccess={handlePaymentSuccess}
                   onClose={() => {
                     setIsLoading(false);
-                    console.log("Payment closed");
                   }}
                 />
               )}

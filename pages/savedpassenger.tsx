@@ -15,7 +15,18 @@ import profileImg from "@/public/assets/images/Layer 2.png";
 import savedImg from "@/public/assets/images/savedpassengerwhite.png";
 import logoutImg from "@/public/assets/images/Wallet.png";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { BookingData } from "@/redux/flight/bookingTypes.type";
 function SavedPassenger() {
+  const { bookingData, loading, error } = useSelector((state: RootState) => state.booking) as {
+    bookingData: BookingData;
+    loading: boolean;
+    error: string;
+  };
+  
+  const user = bookingData.regular[0];
+
   return (
     <div className={styles.general}>
       <div className={styles.header}>
@@ -58,7 +69,7 @@ function SavedPassenger() {
                 Nationality: <b>Nigerian</b>
               </span>
               <span>
-                Gender:<b>Male</b>
+            Gender: <b>{user.gender}</b>
               </span>
               <span>
                 Date of Birth <b>Mar. 23, 2024</b>
@@ -66,9 +77,9 @@ function SavedPassenger() {
             </div>
 
             <div className={styles.nameDiv}>
-              <span>Unknown user</span>
-              <p>090xxxxxxxx</p>
-              <p>Unknown@gmail.com</p>
+              <span> {user.title} {user.first_name} {user.surname}</span>
+              <p>{user.phone}</p>
+              <p>{user.email}</p>
             </div>
             <div className={styles.listDiv}>
               <div className={styles.fourDiv}>
@@ -155,7 +166,7 @@ function SavedPassenger() {
           </div>
 
           <PassengerList />
-          <div className={styles.tooMuch}>
+          {/* <div className={styles.tooMuch}>
             <div>
               <div style={{ visibility: "hidden" }}>
                 <span>6</span>{" "}
@@ -174,7 +185,7 @@ function SavedPassenger() {
                 Page <span className={styles.special}>1</span> Of2
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <MobileNav />

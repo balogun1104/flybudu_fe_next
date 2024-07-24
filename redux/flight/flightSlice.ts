@@ -1,12 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FlightSearchRequest, FlightSearchResponse, Flight } from "./types";
+import {
+  FlightSearchRequest,
+  FlightSearchResponse,
+  Flight,
+  FlightDetails,
+} from "./types";
 
 interface FlightState {
   searchCriteria: FlightSearchRequest;
   flightData: FlightSearchResponse;
   loading: boolean;
   error: string | null;
-  selectedFlight: Flight | null;
+  selectedFlight: {
+    departure: FlightDetails | null;
+    arrival: FlightDetails | null;
+  };
   initialFlightData: FlightSearchResponse | null;
   discountValue: number;
   filter: {
@@ -33,12 +41,18 @@ const initialState: FlightState = {
     tripType: "Round trip",
     classType: "Economy",
   },
-  flightData: [],
+  flightData: {
+    departure: [],
+    arrival: []
+  },
   initialFlightData: null,
   loading: false,
   discountValue: 0,
   error: null,
-  selectedFlight: null,
+  selectedFlight: {
+    departure: null,
+    arrival: null,
+  },
   filter: {
     priceRange: [0, 200000],
     sortOption: "recommended",
@@ -56,10 +70,12 @@ const flightSlice = createSlice({
       state.searchCriteria = action.payload;
     },
     setFlightData: (state, action: PayloadAction<FlightSearchResponse>) => {
+      console.log("Setting flight data in reducer:", action.payload);
       state.flightData = action.payload;
       state.initialFlightData = action.payload;
       state.loading = false;
       state.error = null;
+      console.log("Updated state:", state.flightData);
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
@@ -74,7 +90,13 @@ const flightSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
-    setSelectedFlight: (state, action: PayloadAction<Flight | null>) => {
+    setSelectedFlight: (
+      state,
+      action: PayloadAction<{
+        departure: FlightDetails | null;
+        arrival: FlightDetails | null;
+      }>
+    ) => {
       state.selectedFlight = action.payload;
     },
     setDiscountValue: (state, action: PayloadAction<number>) => {

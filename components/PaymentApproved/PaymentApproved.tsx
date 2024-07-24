@@ -50,7 +50,7 @@ const PaymentApproved: React.FC<PaymentApprovedProps> = ({ setIsOpen }) => {
             </Link>
             <Link
               className={styles.link}
-              href="/managebooking"
+              href="/login"
               style={{ textDecoration: "none" }}
             >
               {" "}

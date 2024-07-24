@@ -41,15 +41,16 @@ const Navbar = () => {
   const toggleDivs = () => {
     setVisible(!visible);
   };
-  
 
-  const [selectedLocation, setSelectedLocation] =
-    useState<string>(`${searchCriteria.from}, Nigeria`);
+  const [selectedLocation, setSelectedLocation] = useState<string>(
+    `${searchCriteria.from}, Nigeria`
+  );
   const [local, setLocal] = useState<string[]>([]);
   const [international, setInternational] = useState<string[]>([]);
   const [round, setRound] = useState<string[]>([]);
-  const [selectedDestination, setSelectedDestination] =
-    useState<string>(`${searchCriteria.to}, Nigeria`);
+  const [selectedDestination, setSelectedDestination] = useState<string>(
+    `${searchCriteria.to}, Nigeria`
+  );
   const [, setDates] = useState<Date[]>([]);
   const [isPassengerDropdownVisible, setIsPassengerDropdownVisible] =
     useState<boolean>(false);
@@ -182,7 +183,6 @@ const Navbar = () => {
             marginBottom: "10px",
             background: "none",
           }}
-       
           onClick={closePassengerDropdown}
         >
           <span
@@ -236,6 +236,17 @@ const Navbar = () => {
     "Local Flights",
     "International Flights",
   ];
+
+  function formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date
+      .toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+      .replace(/(\w+)\s(\d+)\s(\d+)/, "$1. $2, $3");
+  }
 
   const internationalTripMenu = (
     <Menu onClick={handleInternational}>
@@ -404,10 +415,15 @@ const Navbar = () => {
             <span style={{ fontWeight: "bold" }}>{`${searchCriteria.to}`}</span>
           </div>
           <div className={styles.border}>
-            <p>{`${searchCriteria.arrival_date}  - ${searchCriteria.departure_date}`}</p>
+            <p className={styles.passengerSelected}>
+              {" "}
+              {`${formatDate(searchCriteria.departure_date)} - ${formatDate(
+  searchCriteria.arrival_date ?? ''
+)}`}
+            </p>
           </div>
           <div className={styles.nvTwo}>
-            <p>
+            <p className={styles.passengerSelected}>
               {searchCriteria.passengers.children +
                 searchCriteria.passengers.adults +
                 searchCriteria.passengers.infants}{" "}
@@ -469,7 +485,13 @@ const Navbar = () => {
                 </button>
               </Dropdown>
             </div>
-            <span onClick={toggleDivs} style={{cursor:"pointer"}} className={styles.cancel}>x</span>
+            <span
+              onClick={toggleDivs}
+              style={{ cursor: "pointer" }}
+              className={styles.cancel}
+            >
+              x
+            </span>
           </div>
           <div className={styles.searchForm}>
             <div
@@ -613,9 +635,7 @@ const Navbar = () => {
               </div>
             </div>
             <Link href="selectflight">
-              <span  className={styles.let}>
-                Let's Go
-              </span>
+              <span className={styles.let}>Let's Go</span>
             </Link>
           </div>
         </div>

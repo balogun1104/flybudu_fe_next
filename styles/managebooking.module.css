@@ -208,7 +208,7 @@
 .graph{
   text-align: center;
   font-family: sans-serif;
-  width: 200px;
+  width: 318px;
   padding: 30px;
   background: white;
   display: flex;
@@ -216,6 +216,7 @@
   align-items: center;
   font-weight: bold;
   border-radius: 10px;
+  
 }
 .graph span{
   font-size: 24px;
@@ -225,6 +226,22 @@
   justify-content: space-between;
   margin: 30px 0;
 }
+
+.graphText{
+display: flex;
+justify-content: flex-start;
+text-align: start;
+flex-direction: column;
+}
+
+.graphText p{
+  font-weight: 500;
+  padding-bottom: 5px;
+  font-size: 15px;
+  color: #545E5E
+
+}
+
 .prev{
   color: #fff;
   background: #D3D3D3;

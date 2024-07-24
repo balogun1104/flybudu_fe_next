@@ -1,35 +1,14 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/no-unescaped-entities */
-import React, { useEffect, useState } from "react";
-import Navbar from "@/components/Navbar";
+import React, { useState, useEffect, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Image from "next/image";
-
-import styles from "./hero.module.css";
-import FLy from "@/public/assets/svg/fly.svg";
-import TheArt from "@/public/assets/images/theArt.png";
-import EleWon from "@/public/assets/images/elewon.png";
-import Plane from "@/public/assets/svg/Plane.svg";
-import People from "@/public/assets/svg/people.svg";
-import Destination from "@/public/assets/svg/destination.svg";
-import FlyUP from "@/public/assets/svg/fly-up.svg";
-import Travel from "@/public/assets/svg/Travel.svg";
-import SmallFly from "@/public/assets/svg/buttonFly.svg";
-import ArrowDown from "@/public/assets/svg/arrowDown.svg";
-import Cycle from "@/public/assets/svg/cycle.svg";
-import { Dropdown, Menu, Button } from "antd";
 import Link from "next/link";
-import cloud from "@/public/assets/svg/Vector.png";
-// import { FlightCard } from "../SwitchableInputs";
-import LocationPin from "@/public/assets/images/location pin.png";
-import Calendar from "@/public/assets/images/calendar.png";
-import Passenger from "@/public/assets/images/account.png";
-import Hero1 from "@/public/assets/images/hero.png";
-import Hero2 from "@/public/assets/images/heroBg2.jpeg";
-import Hero3 from "@/public/assets/images/heroBg3.jpeg";
-import BookTravelImg from "@/public/assets/images/BookTravelImg.png";
-import FlyPlane from "@/public/assets/images/planeHero.png";
+import { useRouter } from "next/router";
+import { Dropdown, Menu, Button } from "antd";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useMediaQuery } from "react-responsive";
-import { useDispatch, useSelector } from "react-redux";
+import styles from "./hero.module.css";
+
 import { AppDispatch, RootState } from "@/redux/store";
 import {
   setSearchCriteria,
@@ -41,10 +20,29 @@ import {
   FlightSearchRequest,
   FlightSearchResponse,
 } from "@/redux/flight/types";
-
-import dynamic from "next/dynamic";
 import axiosInstance from "@/redux/api";
-import { useRouter } from "next/router";
+
+import Navbar from "@/components/Navbar";
+import FLy from "@/public/assets/svg/fly.svg";
+import TheArt from "@/public/assets/images/theArt.png";
+import EleWon from "@/public/assets/images/elewon.png";
+import Plane from "@/public/assets/svg/Plane.svg";
+import People from "@/public/assets/svg/people.svg";
+import Destination from "@/public/assets/svg/destination.svg";
+import FlyUP from "@/public/assets/svg/fly-up.svg";
+import Travel from "@/public/assets/svg/Travel.svg";
+import SmallFly from "@/public/assets/svg/buttonFly.svg";
+import ArrowDown from "@/public/assets/svg/arrowDown.svg";
+import Cycle from "@/public/assets/svg/cycle.svg";
+import LocationPin from "@/public/assets/images/location pin.png";
+import Calendar from "@/public/assets/images/calendar.png";
+import Passenger from "@/public/assets/images/account.png";
+import Hero1 from "@/public/assets/images/hero.png";
+import Hero2 from "@/public/assets/images/heroBg2.jpeg";
+import Hero3 from "@/public/assets/images/heroBg3.jpeg";
+import BookTravelImg from "@/public/assets/images/BookTravelImg.png";
+import FlyPlane from "@/public/assets/images/planeHero.png";
+import cloud from "@/public/assets/svg/Vector.png";
 
 const HomeSectionOne = () => {
   const router = useRouter();
@@ -59,24 +57,14 @@ const HomeSectionOne = () => {
   const [selectedDestination, setSelectedDestination] = useState(
     searchCriteria.to || "City or Airport"
   );
-  const [departureDate, setDepartureDate] = useState(
-    searchCriteria.departure_date || ""
+  const [departureDate, setDepartureDate] = useState<Date | null>(
+    searchCriteria.departure_date
+      ? new Date(searchCriteria.departure_date)
+      : null
   );
-  const [returnDate, setReturnDate] = useState(
-    searchCriteria.arrival_date || ""
+  const [returnDate, setReturnDate] = useState<Date | null>(
+    searchCriteria.arrival_date ? new Date(searchCriteria.arrival_date) : null
   );
-
-  const [local, setLocal] = useState<string[]>([]);
-  const [international, setInternational] = useState<string[]>([]);
-  const [round, setRound] = useState<string[]>([]);
-
-  const [, setDates] = useState<Date[]>([]);
-  const [isPassengerDropdownVisible, setIsPassengerDropdownVisible] =
-    useState<boolean>(false);
-  const [, setLeaveDate] = useState<string | null>(null);
-  const [isRoundTrip, setIsRoundTrip] = useState(true);
-
-  const [canNavigate, setCanNavigate] = useState(false);
   const [passengerCounts, setPassengerCounts] = useState(
     searchCriteria.passengers
   );
@@ -85,8 +73,11 @@ const HomeSectionOne = () => {
   );
   const [tripTypeText, setTripTypeText] = useState(searchCriteria.tripType);
   const [classTypeText, setClassTypeText] = useState(searchCriteria.classType);
-  const [isDatePickOpen, setIsDatePickOpen] = useState<boolean>(false);
-  const isMobile = useMediaQuery({ maxWidth: 767 });
+
+  const [isRoundTrip, setIsRoundTrip] = useState(tripTypeText === "Round trip");
+  const [isPassengerDropdownVisible, setIsPassengerDropdownVisible] =
+    useState(false);
+  const [canNavigate, setCanNavigate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{
     from?: string;
@@ -96,54 +87,67 @@ const HomeSectionOne = () => {
     passengers?: string;
   }>({});
 
-  const totalPassengers = Object.values(passengerCounts).reduce(
-    (total, count) => total + count,
-    0
-  );
-  const OverlayContainer = dynamic(
-    () =>
-      import("@react-aria/overlays").then((module) => module.OverlayContainer),
-    { ssr: false }
-  );
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
-  const [isClient, setIsClient] = useState(false);
-  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-
-  const handleInternational = (info: any) => {
-    setInternational([internationalTrip[info.key]]);
-    setLocalFlightText(internationalTrip[info.key]);
-  };
-
-  const handleRoundTrip = (info: any) => {
-    setRound([roundTrip[info.key]]);
-    setTripTypeText(roundTrip[info.key]);
-    setIsRoundTrip(roundTrip[info.key] === "Round trip");
-  };
-
-  const handleLocalFlight = (info: any) => {
-    setLocal([localFlight[info.key]]);
-    setClassTypeText(localFlight[info.key]);
-  };
+  const updateSearchCriteria = useCallback(() => {
+    const updatedCriteria: FlightSearchRequest = {
+      from: selectedLocation,
+      to: selectedDestination,
+      departure_date: departureDate ? formatDate(departureDate) : "",
+      arrival_date: returnDate ? formatDate(returnDate) : undefined,
+      passengers: passengerCounts,
+      flightType: localFlightText,
+      tripType: tripTypeText,
+      classType: classTypeText,
+    };
+    dispatch(setSearchCriteria(updatedCriteria));
+  }, [
+    selectedLocation,
+    selectedDestination,
+    departureDate,
+    returnDate,
+    passengerCounts,
+    localFlightText,
+    tripTypeText,
+    classTypeText,
+    dispatch,
+  ]);
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    updateSearchCriteria();
+  }, [
+    selectedLocation,
+    selectedDestination,
+    departureDate,
+    returnDate,
+    passengerCounts,
+    localFlightText,
+    tripTypeText,
+    classTypeText,
+    updateSearchCriteria,
+  ]);
 
-  useEffect(() => {
-    // Update local state if searchCriteria changes
-    setSelectedLocation(searchCriteria.from || "City or Airport");
-    setSelectedDestination(searchCriteria.to || "City or Airport");
-    setDepartureDate(searchCriteria.departure_date || "");
-    setReturnDate(searchCriteria.arrival_date || "");
-    setPassengerCounts(searchCriteria.passengers);
-    setLocalFlightText(searchCriteria.flightType);
-    setTripTypeText(searchCriteria.tripType);
-    setClassTypeText(searchCriteria.classType);
-  }, [searchCriteria]);
+  const formatDate = (date: Date): string => {
+    return date.toISOString().split("T")[0];
+  };
 
+  const handleDepartureDateChange = (date: Date | null) => {
+    setDepartureDate(date);
+    if (returnDate && date && returnDate < date) {
+      setReturnDate(null);
+    }
+  };
 
-  const handleDatePickerToggle = () => {
-    setIsDatePickerOpen(!isDatePickerOpen);
+  const handleReturnDateChange = (date: Date | null) => {
+    setReturnDate(date);
+  };
+
+  const handleLocationChange = (location: string) => {
+    setSelectedLocation(location);
+  };
+
+  const handleDestinationChange = (destination: string) => {
+    setSelectedDestination(destination);
   };
 
   const handlePassengerChange = (
@@ -153,12 +157,9 @@ const HomeSectionOne = () => {
     setPassengerCounts((prevCounts) => {
       const newValue =
         operation === "increment" ? prevCounts[type] + 1 : prevCounts[type] - 1;
-
-      // Ensure the count never goes below 0
       if (newValue < 0) {
         return prevCounts;
       }
-
       return {
         ...prevCounts,
         [type]: newValue,
@@ -166,11 +167,208 @@ const HomeSectionOne = () => {
     });
   };
 
-  const closePassengerDropdown = (e: any) => {
-    e.preventDefault(); // Prevent default form submission
-    e.stopPropagation(); // Stop click event from reaching the Dropdown
+  const closePassengerDropdown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     setIsPassengerDropdownVisible(false);
   };
+
+  const handleInternational = (info: any) => {
+    setLocalFlightText(internationalTrip[Number(info.key)]);
+  };
+
+  const handleRoundTrip = (info: any) => {
+    setTripTypeText(roundTrip[Number(info.key)]);
+    setIsRoundTrip(roundTrip[Number(info.key)] === "Round trip");
+  };
+
+  const handleLocalFlight = (info: any) => {
+    setClassTypeText(localFlight[Number(info.key)]);
+  };
+
+  const handleLetGoClick = async () => {
+    setErrors({});
+
+    let newErrors: { [key: string]: string } = {};
+    if (!selectedLocation || selectedLocation === "City or Airport") {
+      newErrors.from = "Please select a departure location";
+    }
+    if (!selectedDestination || selectedDestination === "City or Airport") {
+      newErrors.to = "Please select a destination";
+    }
+    if (!departureDate) {
+      newErrors.departureDate = "Please select a departure date";
+    }
+    if (isRoundTrip && !returnDate) {
+      newErrors.returnDate = "Please select a return date";
+    }
+    if (Object.values(passengerCounts).reduce((a, b) => a + b, 0) === 0) {
+      newErrors.passengers = "Please select passengers";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return false;
+    }
+
+    const updatedSearchCriteria: FlightSearchRequest = {
+      from: selectedLocation.split(",")[0],
+      to: selectedDestination.split(",")[0],
+      departure_date: formatDate(departureDate!),
+      arrival_date: isRoundTrip ? formatDate(returnDate!) : undefined,
+      passengers: passengerCounts,
+      flightType: localFlightText,
+      tripType: tripTypeText,
+      classType: classTypeText,
+    };
+
+    dispatch(setSearchCriteria(updatedSearchCriteria));
+    dispatch(setLoading(true));
+    setIsLoading(true);
+
+    try {
+      const response = await axiosInstance.post<FlightSearchResponse>(
+        "flights/search",
+        updatedSearchCriteria
+      );
+      dispatch(setFlightData(response.data));
+      setCanNavigate(true);
+      return true;
+    } catch (error) {
+      dispatch(setError("Failed to fetch flight data"));
+      console.error("Error fetching flight data:", error);
+      return false;
+    } finally {
+      dispatch(setLoading(false));
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (canNavigate) {
+      router.push("/flight");
+    }
+  }, [canNavigate, router]);
+
+  const locations = [
+    "Lagos, Nigeria",
+    "Abuja, Nigeria",
+    "Port Harcourt, Nigeria",
+    "Kano, Nigeria",
+    "Calabar, Nigeria",
+    "Enugu, Nigeria",
+    "Jos, Nigeria",
+  ];
+
+  const locationMenu = (
+    <Menu
+    onClick={(info) => handleLocationChange(locations[(info.key as unknown as number)])}
+      className={styles.locationWrapper}
+    >
+      {locations.map((location, index) => (
+        <Menu.Item key={index} style={{ backgroundColor: "#fff" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            {location} <span>Los</span>
+          </div>
+        </Menu.Item>
+      ))}
+    </Menu>
+  );
+
+  const destinationMenu = (
+    <Menu
+    onClick={(info: { key: string }) => handleDestinationChange(locations[Number(info.key)])}
+      className={styles.locationWrapper}
+    >
+      {locations.map((location, index) => (
+        <Menu.Item key={index} style={{ backgroundColor: "#fff" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            {location} <span>Los</span>
+          </div>
+        </Menu.Item>
+      ))}
+    </Menu>
+  );
+
+  const internationalTrip = ["Local Flights", "International Flights"];
+  const roundTrip = ["Round trip", "One Way"];
+  const localFlight = ["Economy", "Business", "First Class"];
+
+  const internationalTripMenu = (
+    <Menu onClick={handleInternational}>
+      {internationalTrip.map((trip, index) => (
+        <Menu.Item key={index} style={{ background: "fff" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              justifyContent: "flex-start",
+              width: "200px",
+            }}
+          >
+            {trip}
+          </div>
+        </Menu.Item>
+      ))}
+    </Menu>
+  );
+
+  const roundTripMenu = (
+    <Menu onClick={handleRoundTrip}>
+      {roundTrip.map((trip, index) => (
+        <Menu.Item key={index} style={{ background: "fff" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              justifyContent: "flex-start",
+              width: "200px",
+            }}
+          >
+            {trip}
+          </div>
+        </Menu.Item>
+      ))}
+    </Menu>
+  );
+
+  const LocalFlightMenu = (
+    <Menu onClick={handleLocalFlight}>
+      {localFlight.map((flight, index) => (
+        <Menu.Item key={index} style={{ background: "fff" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              justifyContent: "flex-start",
+              width: "200px",
+            }}
+          >
+            {flight}
+          </div>
+        </Menu.Item>
+      ))}
+    </Menu>
+  );
 
   const passengersMenu = (
     <Menu className={styles.menuover} style={{ position: "relative" }}>
@@ -258,250 +456,81 @@ const HomeSectionOne = () => {
     </Menu>
   );
 
-  const handleDatesChange = (dates: Date[], dateStrings: [string, string]) => {
-    setDates(dates);
-    setLeaveDate(dateStrings[0]);
-    setReturnDate(dateStrings[1]);
-
-    // Check if both leaving and returning dates are selected
-    if (dates && dates.length === 2) {
-      setIsDatePickOpen(false); // Close the date picker
-    }
-  };
-
-  const handleMenuClick = (info: any) => {
-    setSelectedLocation(locations[info.key]);
-  };
-
-  const handleDestinationClick = (info: any) => {
-    setSelectedDestination(locations[info.key]);
-  };
-
-  const internationalTrip: string[] = [
-    "Local Flights",
-    "International Flights",
+  const heroData = [
+    {
+      background: Hero1,
+      content: (
+        <div className={styles.contWrap}>
+          <p className={styles.beci}>
+            Because It&apos;s More
+            <br className={styles.br} /> Than{" "}
+            <span style={{ color: "#12B4D5" }}>Travel</span>
+          </p>
+          <Image src={Travel} alt="Travel" className={styles.TravelImg} />
+          <p className={styles.crafts}>
+            Craft Priceless Moments with Family and Friends.
+          </p>
+        </div>
+      ),
+    },
+    {
+      background: Hero2,
+      content: (
+        <div className={styles.contWrap}>
+          <p className={styles.beci}>
+            Search Fligh
+            <br />
+            <span style={{ color: "#12B4D5" }}> Book </span> Easily
+          </p>
+          <Image
+            src={BookTravelImg}
+            alt="Travel"
+            className={styles.bookTravelImg}
+          />
+          <Image src={FlyPlane} alt="Travel" className={styles.FlyPlane} />
+          <p className={styles.crafts}>
+            Let Fly Budu Be Your Gateway to Seamless Travel.
+          </p>
+        </div>
+      ),
+    },
+    {
+      background: Hero3,
+      content: (
+        <div className={styles.contWrap}>
+          {isMobile ? (
+            <p className={styles.becidiff} style={{ fontSize: 30 }}>
+              Beautiful
+              <br />
+              Destinations Awaits <br />
+              Your<span style={{ color: "#12B4D5" }}> Arrival </span>
+            </p>
+          ) : (
+            <p className={styles.becidiff}>
+              Beautiful Destinations
+              <br />
+              Awaits Your<span style={{ color: "#12B4D5" }}> Arrival </span>
+            </p>
+          )}
+          <Image
+            src={BookTravelImg}
+            alt="Travel"
+            className={styles.arivalTravelImg}
+          />
+          <p className={styles.crafts}>
+            Let Fly Budu Be Your Gateway to Seamless Travel.
+          </p>
+        </div>
+      ),
+    },
   ];
 
-  const internationalTripMenu = (
-    <Menu onClick={handleInternational}>
-      {internationalTrip.map((trip, index) => (
-        <Menu.Item key={index} style={{ background: "fff" }}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              justifyContent: "flex-start",
-              width: "200px",
-            }}
-          >
-            {/* <Image src=""/> */}
-            {trip}
-          </div>
-        </Menu.Item>
-      ))}
-    </Menu>
-  );
+  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
 
-  const roundTrip: string[] = ["Round trip", "One Way"];
-
-  const roundTripMenu = (
-    <Menu onClick={handleRoundTrip}>
-      {roundTrip.map((trip, index) => (
-        <Menu.Item key={index} style={{ background: "fff" }}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              justifyContent: "flex-start",
-              width: "200px",
-            }}
-          >
-            {/* <Image src=""/> */}
-            {trip}
-          </div>
-        </Menu.Item>
-      ))}
-    </Menu>
-  );
-  const localFlight: string[] = ["Economy", "Business", "First Class"];
-
-  const LocalFlightMenu = (
-    <Menu onClick={handleLocalFlight}>
-      {localFlight.map((flight, index) => (
-        <Menu.Item key={index} style={{ background: "fff" }}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              justifyContent: "flex-start",
-              width: "200px",
-            }}
-          >
-            {/* <Image src=""/> */}
-            {flight}
-          </div>
-        </Menu.Item>
-      ))}
-    </Menu>
-  );
-
-  const handleButtonClick = async (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent default navigation
-    const isValid = await handleLetGoClick();
-    if (isValid) {
-      setCanNavigate(true);
-    }
-  };
-
-  const handleLetGoClick = async () => {
-    setErrors({});
-
-    // Validate fields
-    let newErrors: { [key: string]: string } = {};
-    if (!selectedLocation || selectedLocation === "City or Airport") {
-      newErrors.from = "Please select a departure location";
-    }
-    if (!selectedDestination || selectedDestination === "City or Airport") {
-      newErrors.to = "Please select a destination";
-    }
-    if (!departureDate) {
-      newErrors.departureDate = "Please select a departure date";
-    }
-    if (isRoundTrip && !returnDate) {
-      newErrors.returnDate = "Please select a return date";
-    }
-    if (totalPassengers === 0) {
-      newErrors.passengers = "Please select passengers";
-    }
-
-    // If there are errors, set them and return false
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return false;
-    }
-
-    // Prepare the search criteria
-    const updatedSearchCriteria: FlightSearchRequest = {
-      from: selectedLocation.split(",")[0],
-      to: selectedDestination.split(",")[0],
-      departure_date: departureDate,
-      arrival_date: isRoundTrip ? returnDate : undefined,
-      passengers: {
-        adults: passengerCounts.adults,
-        children: passengerCounts.children,
-        infants: passengerCounts.infants,
-      },
-      flightType: localFlightText,
-      tripType: tripTypeText,
-      classType: classTypeText,
-    };
-
-    // Dispatch the updated search criteria to Redux
-    dispatch(setSearchCriteria(updatedSearchCriteria));
-
-    // Set loading state
-    dispatch(setLoading(true));
-    setIsLoading(true);
-
-    try {
-      const response = await axiosInstance.post<FlightSearchResponse>(
-        "flights/search",
-        updatedSearchCriteria
-      );
-
-      // Dispatch the flight data to Redux
-      dispatch(setFlightData(response.data));
-
-      // Set canNavigate to true
-      setCanNavigate(true);
-
-      return true;
-    } catch (error) {
-      // Dispatch error to Redux
-      dispatch(setError("Failed to fetch flight data"));
-
-      // Handle the error as needed
-      console.error("Error fetching flight data:", error);
-      return false;
-    } finally {
-      dispatch(setLoading(false));
-      setIsLoading(false);
-    }
-  };
-
-  
-  useEffect(() => {
-    if (canNavigate) {
-      router.push("/flight");
-    }
-  }, [canNavigate]);
-
-  const locations = [
-    "Lagos, Nigeria",
-    "Abuja, Nigeria",
-    "Port Harcourt, Nigeria",
-    "Kano, Nigeria",
-    "Calabar, Nigeria",
-    "Enugu, Nigeria",
-    "Jos, Nigeria",
-  ];
-
-  const locationMenu = (
-    <Menu onClick={handleMenuClick} className={styles.locationWrapper}>
-      {locations.map((location, index) => (
-        <Menu.Item key={index} style={{ backgroundColor: "#fff" }}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              width: "100%",
-            }}
-          >
-            {location} <span>Los</span>
-          </div>
-        </Menu.Item>
-      ))}
-    </Menu>
-  );
-
-  const destinationMenu = (
-    <Menu onClick={handleDestinationClick} className={styles.locationWrapper}>
-      {locations.map((location, index) => (
-        <Menu.Item key={index} style={{ backgroundColor: "#fff" }}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              width: "100%",
-            }}
-          >
-            {location} <span>Los</span>
-          </div>
-        </Menu.Item>
-      ))}
-    </Menu>
-  );
-
-  const handleHeroSectionChange = (index: number) => {
-    setCurrentHeroIndex(index);
-  };
-
-  interface HeroSectionProps {
+  const HeroSection: React.FC<{
     backgroundImage: any;
     content: React.ReactNode;
-  }
-
-  const HeroSection: React.FC<HeroSectionProps> = ({
-    backgroundImage,
-    content,
-  }) => {
+  }> = ({ backgroundImage, content }) => {
     return (
       <div
         className={`${styles.hero} ${styles.fadeTransition}`}
@@ -633,29 +662,27 @@ const HomeSectionOne = () => {
                     <div className={styles.datePickerHeaders}>
                       <div>
                         <label className={styles.label}>Leaving On</label>
-                        <input
-                          type="date"
-                          value={departureDate}
-                          onChange={(e) => setDepartureDate(e.target.value)}
+                        <DatePicker
+                          selected={departureDate}
+                          onChange={handleDepartureDateChange}
+                          minDate={new Date()}
+                          placeholderText={
+                            errors.departureDate || "Select date"
+                          }
                           className={styles.dateInput}
-                          placeholder={errors.departureDate || "Select date"}
+                          dateFormat="yyyy-MM-dd"
                         />
                       </div>
                       {isRoundTrip && (
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "flex-start",
-                            flexDirection: "column",
-                          }}
-                        >
+                        <div>
                           <label className={styles.label}>Returning On</label>
-                          <input
-                            type="date"
-                            value={returnDate}
-                            onChange={(e) => setReturnDate(e.target.value)}
+                          <DatePicker
+                            selected={returnDate}
+                            onChange={handleReturnDateChange}
+                            minDate={departureDate || new Date()}
+                            placeholderText={errors.returnDate || "Select date"}
                             className={styles.dateInput}
-                            placeholder={errors.returnDate || "Select date"}
+                            dateFormat="yyyy-MM-dd"
                           />
                         </div>
                       )}
@@ -683,8 +710,16 @@ const HomeSectionOne = () => {
                     >
                       <Button className={styles.inputField}>
                         {errors.passengers ||
-                          `${totalPassengers} Passenger${
-                            totalPassengers > 1 ? "s" : ""
+                          `${Object.values(passengerCounts).reduce(
+                            (a, b) => a + b,
+                            0
+                          )} Passenger${
+                            Object.values(passengerCounts).reduce(
+                              (a, b) => a + b,
+                              0
+                            ) > 1
+                              ? "s"
+                              : ""
                           }`}
                       </Button>
                     </Dropdown>
@@ -704,7 +739,7 @@ const HomeSectionOne = () => {
               <Link href={canNavigate ? "/flight" : "#"} passHref>
                 <button
                   className={styles.LegoButton}
-                  onClick={handleButtonClick}
+                  onClick={handleLetGoClick}
                   disabled={isLoading}
                 >
                   {isLoading ? "Processing..." : "Let's Go"}
@@ -723,87 +758,6 @@ const HomeSectionOne = () => {
     );
   };
 
-  const heroData = [
-    {
-      background: Hero1,
-      content: (
-        <div className={styles.contWrap}>
-          <p className={styles.beci}>
-            Because It's More
-            <br className={styles.br} /> Than{" "}
-            <span style={{ color: "#12B4D5" }}>Travel</span>
-          </p>
-          <Image src={Travel} alt="Travel" className={styles.TravelImg} />
-          <p className={styles.crafts}>
-            Craft Priceless Moments with Family and Friends.
-          </p>
-        </div>
-      ),
-    },
-    {
-      background: Hero2,
-      content: (
-        <div className={styles.contWrap}>
-          <p className={styles.beci}>
-            Search Fligh
-            <br />
-            <span style={{ color: "#12B4D5" }}> Book </span> Easily
-          </p>
-          <Image
-            src={BookTravelImg}
-            alt="Travel"
-            className={styles.bookTravelImg}
-          />
-          <Image src={FlyPlane} alt="Travel" className={styles.FlyPlane} />
-          <p className={styles.crafts}>
-            Let Fly Budu Be Your Gateway to Seamless Travel.
-          </p>
-        </div>
-      ),
-    },
-    {
-      background: Hero3,
-      content: (
-        <div className={styles.contWrap}>
-          {isMobile ? (
-            <p className={styles.becidiff} style={{ fontSize: 30 }}>
-              Beautiful
-              <br />
-              Destinations Awaits <br />
-              Your<span style={{ color: "#12B4D5" }}> Arival </span>
-            </p>
-          ) : (
-            <p className={styles.becidiff}>
-              Beautiful Destinations
-              <br />
-              Awaits Your<span style={{ color: "#12B4D5" }}> Arival </span>
-            </p>
-          )}
-          <Image
-            src={BookTravelImg}
-            alt="Travel"
-            className={styles.arivalTravelImg}
-          />
-          <p className={styles.crafts}>
-            Let Fly Budu Be Your Gateway to Seamless Travel.
-          </p>
-        </div>
-      ),
-    },
-  ];
-
-  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
-
-  //   useEffect(() => {
-  //     const interval = setInterval(() => {
-  //       setCurrentHeroIndex((prevIndex) => (prevIndex + 1) % heroData.length);
-  //     }, 5000);
-
-  //     return () => {
-  //       clearInterval(interval);
-  //     };
-  //   }, []);
-
   return (
     <>
       <div className={styles.HomeSectionOne}>
@@ -814,24 +768,6 @@ const HomeSectionOne = () => {
           />
         </div>
 
-        {/* <div className={styles.general}>
-          {heroData.map((hero, index) => (
-            <div
-              key={index}
-              onClick={() => handleHeroSectionChange(index)}
-              s
-              style={{ cursor: "pointer" }}
-            >
-              {index === currentHeroIndex && (
-                <HeroSection
-                  backgroundImage={hero.background}
-                  content={hero.content}
-                />
-              )}
-            </div>
-          ))}
-        </div> */}
-        <div>{/* <FlightCard /> */}</div>
         <div className={styles.theArtContainer}>
           <Image src={FLy} className={styles.fly} alt="fly" />
           <p className={styles.theArtText2}>
@@ -923,8 +859,6 @@ const HomeSectionOne = () => {
             <Image src={cloud} alt="dfs" />
           </div>
         </div>
-
-        {/* <Image src={Curve} alt="" width="100%" /> */}
       </div>
     </>
   );

@@ -208,6 +208,7 @@
     border: 1px solid black;
     border-radius: 32px;
     cursor: pointer;
+    flex-wrap: nowrap
 }
 
 .total {
@@ -398,6 +399,10 @@
         display: flex;
         align-items: center;
         gap: 5px;
+    }
+
+    .note{
+        display: none
     }
 .ip img{
 display: none;

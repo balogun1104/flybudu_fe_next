@@ -5,6 +5,7 @@
     border-radius: 12px;
     background: #fff;
     display: flex;
+    margin-bottom: 1em
 }
 /* .greenImg{
  
@@ -140,7 +141,7 @@ align-items: center;
 @media (max-width:768px) {
     
     .mother{
-        margin: 0 10px;
+        margin: 15px 10px;
     }
     .select{
 padding: 10px 30px;
@@ -180,3 +181,24 @@ padding: 10px 30px;
     flex-direction: column;
     gap: 2em;
 }
+
+
+.flightSection {
+    margin-bottom: 20px; /* Adjust as needed */
+  }
+  
+  .flight {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Adjust as needed */
+  }
+  
+  .Plane {
+    display: flex;
+    align-items: center;
+    margin-left: 10px; /* Adjust as needed */
+  }
+  
+  .state {
+    margin-left: 5px; /* Adjust as needed */
+  }

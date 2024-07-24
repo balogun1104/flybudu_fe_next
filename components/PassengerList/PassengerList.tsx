@@ -1,7 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./passengerlist.module.css";
 import { Link } from "@nextui-org/react";
+import axiosInstance from "@/redux/api"; // Ensure this path is correct
+
+interface Passenger {
+  id: number;
+  title: string;
+  surname: string;
+  first_name: string;
+  middle_name: string | null;
+  nationality: string;
+  gender: string;
+  DOB: string;
+  user_id: string;
+  email: string | null;
+  phone: string | null;
+}
+
 function PassengerList() {
+  const [passengers, setPassengers] = useState<Passenger[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPassengers = async () => {
+      try {
+        const response = await axiosInstance.get<{ data: Passenger[] }>(
+          "/savedPassengers/list"
+        );
+        setPassengers(response.data.data);
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to fetch passengers");
+        setLoading(false);
+      }
+    };
+
+    fetchPassengers();
+  }, []);
+
   function HeroiconsOutlineDotsVertical(
     props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
   ) {
@@ -25,6 +62,9 @@ function PassengerList() {
     );
   }
 
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
     <div className={styles.general}>
       <div className={styles.mother}>
@@ -38,132 +78,29 @@ function PassengerList() {
             </tr>
           </thead>
           <tbody className={styles.tbody}>
-            <tr className={styles.tr}>
-              <td className={styles.td}>01</td>
-              <td className={styles.td}>
-                {" "}
-                <span className={styles.nameCircle}>AG</span> Unknown User
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>
-                unknown@gmail.com.com
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>080xxxxxxx</td>
-              <td colSpan={4} className={`${styles.none} ${styles.td}`}>
-                {" "}
-                <HeroiconsOutlineDotsVertical />
-              </td>
-            </tr>
-            <tr className={styles.tr}>
-              <Link href="/">
-                {" "}
-                <td className={styles.td}>02</td>
-              </Link>
-              <td className={styles.td}>
-                {" "}
-                <span className={styles.nameCircle}>AG</span> Unknown User
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>
-                unknown@gmail.com.com
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>080xxxxxxx</td>
-              <td colSpan={4} className={`${styles.none} ${styles.td}`}>
-                {" "}
-                <HeroiconsOutlineDotsVertical />
-              </td>
-            </tr>{" "}
-            <tr className={styles.tr}>
-              <td className={styles.td}>03</td>
-              <td className={styles.td}>
-                {" "}
-                <span className={styles.nameCircle}>AG</span> Unknown User
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>
-                unknown@gmail.com.com
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>080xxxxxxx</td>
-              <td colSpan={4} className={`${styles.none} ${styles.td}`}>
-                {" "}
-                <HeroiconsOutlineDotsVertical />
-              </td>
-            </tr>{" "}
-            <tr className={styles.tr}>
-              <td className={styles.td}>04</td>
-              <td className={styles.td}>
-                {" "}
-                <span className={styles.nameCircle}>AG</span> Unknown User
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>
-                unknown@gmail.com.com
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>080xxxxxxx</td>
-              <td colSpan={4} className={`${styles.none} ${styles.td}`}>
-                {" "}
-                <HeroiconsOutlineDotsVertical />
-              </td>
-            </tr>{" "}
-            <tr className={styles.tr}>
-              <td className={styles.td}>05</td>
-              <td className={styles.td}>
-                {" "}
-                <span className={styles.nameCircle}>AG</span> Unknown User
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>
-                unknown@gmail.com.com
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>080xxxxxxx</td>
-              <td colSpan={4} className={`${styles.none} ${styles.td}`}>
-                {" "}
-                <HeroiconsOutlineDotsVertical />
-              </td>
-            </tr>
-            <tr className={styles.tr}>
-              <td className={styles.td}>06</td>
-              <td className={styles.td}>
-                {" "}
-                <span className={styles.nameCircle}>AG</span> Unknown User
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>
-                unknown@gmail.com.com
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>080xxxxxxx</td>
-              <td colSpan={4} className={`${styles.none} ${styles.td}`}>
-                {" "}
-                <HeroiconsOutlineDotsVertical />
-              </td>
-            </tr>
-            <tr className={styles.tr}>
-              <td className={styles.td}>07</td>
-              <td className={styles.td}>
-                {" "}
-                <span className={styles.nameCircle}>AG</span> Unknown User
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>
-                unknown@gmail.com.com
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>080xxxxxxx</td>
-              <td colSpan={4} className={`${styles.none} ${styles.td}`}>
-                {" "}
-                <HeroiconsOutlineDotsVertical />
-              </td>
-            </tr>
-            <tr className={styles.tr}>
-              <Link href="/PassengerDetails">
-                {" "}
-                <td className={styles.td}>08</td>
-              </Link>
-              <td className={styles.td}>
-                {" "}
-                <span className={styles.nameCircle}>AG</span> Unknown User
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>
-                unknown@gmail.com.com
-              </td>
-              <td className={`${styles.none} ${styles.td}`}>080xxxxxxx</td>
-              <td colSpan={4} className={`${styles.none} ${styles.td}`}>
-                {" "}
-                <HeroiconsOutlineDotsVertical />
-              </td>
-            </tr>
+            {passengers.map((passenger, index) => (
+              <tr key={passenger.id} className={styles.tr}>
+                <td className={styles.td}>
+                  {String(index + 1).padStart(2, "0")}
+                </td>
+                <td className={styles.td}>
+                  <span className={styles.nameCircle}>
+                    {passenger.first_name[0]}
+                    {passenger.surname[0]}
+                  </span>
+                  {`${passenger.title} ${passenger.first_name} ${passenger.surname}`}
+                </td>
+                <td className={`${styles.none} ${styles.td}`}>
+                  {passenger.email || "N/A"}
+                </td>
+                <td className={`${styles.none} ${styles.td}`}>
+                  {passenger.phone || "N/A"}
+                </td>
+                <td colSpan={4} className={`${styles.none} ${styles.td}`}>
+                  <HeroiconsOutlineDotsVertical />
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

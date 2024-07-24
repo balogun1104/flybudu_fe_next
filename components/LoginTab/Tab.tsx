@@ -1,18 +1,21 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
 import styles from "./login.module.css";
 import Link from "next/link";
 import { IoLogoApple, IoLogoGoogle } from "react-icons/io";
 import { useRouter } from 'next/router';
-import axiosInstance from "@/redux/api"; // Ensure this path is correct
-import { showToast } from "@/utils/useToast"; // Ensure this path is correct
+import axiosInstance from "@/redux/api"; 
+import { showToast } from "@/utils/useToast"; 
+import { loginSuccess } from '@/redux/auth/authslice';
 
 function Tab() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -23,6 +26,8 @@ function Tab() {
       });
 
       if (response.data && response.data.token) {
+        const { data, token } = response.data;
+        dispatch(loginSuccess({ user: data, token: token.access_token }));
         localStorage.setItem("userToken", response.data.token);
         showToast("Login successful!", "success");
         router.push("/managebooking");

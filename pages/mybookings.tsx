@@ -74,7 +74,7 @@ function Mybookings() {
           </div>
           <div className={styles.together}>
             <div className={styles.booking}>
-              <Information />
+              {/* <Information booking={booking}/> */}
             </div>
             <div className={styles.greenDiv}>
               <Image src={GreenImg} className={styles.greenImg} alt="dfs" />
