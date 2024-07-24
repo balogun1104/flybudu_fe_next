@@ -9,7 +9,11 @@ import { RootState } from "@/redux/store";
 import { updateUserProfile } from "@/redux/flight/bookingSlice";
 import { Booking } from "@/redux/flight/bookingTypes.type";
 
-function Profile() {
+interface ProfileProps {
+  userData: Booking;
+}
+
+const Profile: React.FC<ProfileProps> = ({ userData }) => {
   const dispatch = useDispatch();
   const { bookingData } = useSelector((state: RootState) => state.booking);
   const user = bookingData?.regular[0];

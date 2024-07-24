@@ -418,8 +418,8 @@ const Navbar = () => {
             <p className={styles.passengerSelected}>
               {" "}
               {`${formatDate(searchCriteria.departure_date)} - ${formatDate(
-                searchCriteria.arrival_date
-              )}`}
+  searchCriteria.arrival_date ?? ''
+)}`}
             </p>
           </div>
           <div className={styles.nvTwo}>

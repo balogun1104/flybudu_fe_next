@@ -41,7 +41,10 @@ const initialState: FlightState = {
     tripType: "Round trip",
     classType: "Economy",
   },
-  flightData: [],
+  flightData: {
+    departure: [],
+    arrival: []
+  },
   initialFlightData: null,
   loading: false,
   discountValue: 0,
@@ -90,7 +93,7 @@ const flightSlice = createSlice({
     setSelectedFlight: (
       state,
       action: PayloadAction<{
-        departure: FlightDetails;
+        departure: FlightDetails | null;
         arrival: FlightDetails | null;
       }>
     ) => {

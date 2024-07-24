@@ -17,11 +17,14 @@ import logoutImg from "@/public/assets/images/Wallet.png";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { BookingData } from "@/redux/flight/bookingTypes.type";
 function SavedPassenger() {
-  const { bookingData, loading, error } = useSelector(
-    (state: RootState) => state.booking
-  );
-
+  const { bookingData, loading, error } = useSelector((state: RootState) => state.booking) as {
+    bookingData: BookingData;
+    loading: boolean;
+    error: string;
+  };
+  
   const user = bookingData.regular[0];
 
   return (

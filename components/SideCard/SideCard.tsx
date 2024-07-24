@@ -6,7 +6,11 @@ import styles from "./sidecard.module.css";
 import { RootState } from "@/redux/store";
 import { useFlightData } from "@/utils/helper";
 import { updateFormData } from "@/redux/flight/formDataSlice";
-import { calculateTotalPrice, formatPrice } from "@/utils/CalculateTotalPrice";
+import { 
+  calculateTotalPrice, 
+  formatPrice, 
+  convertFlightSearchRequestToSearchCriteria 
+} from "@/utils/CalculateTotalPrice";
 
 import greenImg from "@/public/assets/images/greenAfrica.png";
 import star from "@/public/assets/svg/Star.svg";
@@ -19,7 +23,7 @@ import Increase from "@/public/assets/images/increase 1.png";
 function SideCard() {
   const dispatch = useDispatch();
   const [showLuggageBreakdown, setShowLuggageBreakdown] = useState(false);
-  const { searchCriteria } = useFlightData();
+  const { searchCriteria: flightSearchRequest } = useFlightData();
 
   const selectedAirline = useSelector(
     (state: RootState) => state.flight.selectedFlight
@@ -29,17 +33,15 @@ function SideCard() {
   );
   const formData = useSelector((state: RootState) => state.formData);
 
-  const {
-    baseFare,
-    totalLuggagePrice,
-    updatedTotalPrice,
-    luggagePrices
-  } = calculateTotalPrice(
-    selectedAirline,
-    searchCriteria,
-    formData.luggages,
-    discountValue
-  );
+  const searchCriteria = convertFlightSearchRequestToSearchCriteria(flightSearchRequest);
+
+  const { baseFare, totalLuggagePrice, updatedTotalPrice, luggagePrices } =
+    calculateTotalPrice(
+      selectedAirline,
+      searchCriteria,
+      formData.luggages ? formData.luggages : { depart: [], return: [] },
+      discountValue
+    );
 
   useEffect(() => {
     dispatch(updateFormData({ updatedTotalPrice }));
@@ -100,7 +102,7 @@ function SideCard() {
           </div>
           <div className={styles.triplet}>
             <div className={styles.lagos}>
-              <span className={styles.abujaText}>{searchCriteria.from}</span>
+              <span className={styles.abujaText}>{searchCriteria.origin}</span>
               <p>{selectedAirline.departure?.route.location_code}</p>
               <p className={styles.time}>
                 {selectedAirline.departure?.departure}
@@ -110,7 +112,7 @@ function SideCard() {
               <Image src={plane} alt="Plane" />
             </div>
             <div className={styles.abuja}>
-              <span className={styles.abujaText}>{searchCriteria.to}</span>
+              <span className={styles.abujaText}>{searchCriteria.destination}</span>
               <p>{selectedAirline.departure?.route.destination_code}</p>
               <p className={styles.time}>
                 {selectedAirline.departure?.arrival}
@@ -128,7 +130,7 @@ function SideCard() {
             </div>
             <div className={styles.triplet}>
               <div>
-                <span className={styles.abujaText}>{searchCriteria.to}</span>
+                <span className={styles.abujaText}>{searchCriteria.destination}</span>
                 <p>{selectedAirline.arrival.route?.location_code}</p>
                 <p className={styles.time}>
                   {selectedAirline.arrival.departure}
@@ -138,7 +140,7 @@ function SideCard() {
                 <Image src={plane} alt="Plane" />
               </div>
               <div className={styles.abuja}>
-                <span className={styles.abujaText}>{searchCriteria.from}</span>
+                <span className={styles.abujaText}>{searchCriteria.origin}</span>
                 <p>{selectedAirline.arrival.route?.destination_code}</p>
                 <p className={styles.time}>{selectedAirline.arrival.arrival}</p>
               </div>
@@ -149,7 +151,7 @@ function SideCard() {
           <span className={styles.base}>Flight Base Fare</span>
           <p>Adult x{searchCriteria.passengers.adults}</p>
           <div className={styles.twins}>
-            <p>Class</p> <span>Economy</span>
+            <p>Class</p> <span>{searchCriteria.cabinClass}</span>
           </div>
           <div className={styles.twins}>
             <p>Base Fare</p>

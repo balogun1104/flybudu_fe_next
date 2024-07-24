@@ -9,7 +9,6 @@ export interface FilterState {
   isRefundable: boolean;
 }
 
-
 export interface FlightSearchRequest {
   // departureDate(departureDate: any): unknown;
   from: string;
@@ -73,6 +72,7 @@ export interface FlightDetails {
   airline: Airline;
   route: Route;
   is_refundable: boolean;
+  from: string;
 }
 
 export interface Flight {
@@ -81,7 +81,65 @@ export interface Flight {
 }
 
 export interface AirlineFlights {
-  [airlineName: string]: Flight[];
+  [airlineName: string]: {
+    departure: FlightDetails;
+    arrival: FlightDetails | null;
+  }[];
 }
 
-export type FlightSearchResponse = AirlineFlights[];
+export interface DepartureInfo {
+  id: string | number;
+  airline: {
+    logo: string;
+    code: string;
+    company: string;
+  };
+  departure: string;
+  arrival: string;
+  from: string;
+  price: number;
+  available_seats: number | null; // Change this to match FlightDetails
+  route: {
+    location: string;
+    location_code: string;
+    destination: string;
+    destination_code: string;
+  };
+  date: string;
+}
+
+export interface FlightSearchResponse {
+  departure: DepartureInfo[];
+  arrival?: DepartureInfo[];
+}
+
+export type SearchCriteria = {
+  passengers: {
+    adults: number;
+    children: number;
+    infants: number;
+  };
+  tripType: "oneWay" | "roundTrip" | "multiCity";
+  origin: string;
+  destination: string;
+  departureDate: string; // ISO date string format
+  returnDate?: string; // Optional for round trips, ISO date string format
+  cabinClass: "economy" | "premiumEconomy" | "business" | "firstClass";
+  directFlights: boolean;
+  flexibleDates: boolean;
+  preferredAirlines?: string[]; // Array of airline codes
+  loyaltyProgram?: string;
+  currencyCode: string; // e.g., 'USD', 'EUR', 'GBP'
+  maxPrice?: number; // Maximum price for the entire trip
+  stops?: number; // Maximum number of stops
+  departureTimeRange?: {
+    start: string; // Time in 24-hour format, e.g., '06:00'
+    end: string; // Time in 24-hour format, e.g., '22:00'
+  };
+  returnTimeRange?: {
+    start: string; // Time in 24-hour format, e.g., '06:00'
+    end: string; // Time in 24-hour format, e.g., '22:00'
+  };
+  baggageIncluded: boolean;
+  specialAssistance?: string[]; // e.g., ['wheelchair', 'visuallyImpaired', 'hearingImpaired']
+}

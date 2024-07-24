@@ -82,7 +82,7 @@ function SideCard() {
         <div className={styles.img}>
           <Image
             className={styles.img}
-            src={selectedAirline?.departure.airline.logo as string}
+            src={selectedAirline?.departure?.airline?.logo as string}
             width={360}
             height={120}
             alt="airline logo"
@@ -91,7 +91,7 @@ function SideCard() {
         <div className={styles.seconddiv}>
           <div className={styles.greenAfrica}>
             <p className={styles.greenText}>
-              {selectedAirline?.departure.airline.company}
+              {selectedAirline?.departure?.airline.company}
             </p>
             <Image src={star} alt="otilor" />
             <span className={styles.bold}>5.0</span>
@@ -108,7 +108,7 @@ function SideCard() {
           <div className={styles.departDiv}>
             <p className={styles.depart}>Depart</p>
             <span className={styles.date}>
-              {selectedAirline?.departure.date}
+              {selectedAirline?.departure?.date}
             </span>
             <span className={styles.stop}>
               {selectedAirline?.arrival ? "1 Stop" : "0 Stop"}
@@ -119,7 +119,7 @@ function SideCard() {
               <span className={styles.abujaText}>{searchCriteria.from}</span>
               <p>{selectedAirline?.departure?.route.location_code}</p>
               <p className={styles.time}>
-                {selectedAirline?.departure.departure}
+                {selectedAirline?.departure?.departure}
               </p>
             </div>
             <div className={styles.plane}>

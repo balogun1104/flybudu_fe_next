@@ -6,26 +6,35 @@ import Seat from "@/public/assets/images/seats.png";
 import Approved from "@/public/assets/images/Layer 3.png";
 import Circle from "@/public/assets/images/circle.png";
 import Plane from "@/public/assets/images/BlueSmallPlane.png";
+import { FlightSearchResponse } from "@/redux/flight/types";
 
-interface DepartureInfo {
+interface Airline {
+  logo: string;
+  code: string;
+  company: string;
+}
+
+interface Route {
+  location: string;
+  location_code: string;
+  destination: string;
+  destination_code: string;
+}
+
+interface FlightDetails {
   id: string | number;
-  airline: {
-    logo: string;
-    code: string;
-    company: string;
-  };
+  airline: Airline;
   departure: string;
   arrival: string;
-  from: string;
   price: number;
-  available_seats: number;
-  route: {
-    location: string;
-    location_code: string;
-    destination: string;
-    destination_code: string;
-  };
+  available_seats: number | null;
+  route: Route;
   date: string;
+}
+
+interface DepartureInfo extends FlightDetails {
+  from: string;
+  available_seats: number | null;
 }
 
 interface FlightData {
@@ -34,7 +43,7 @@ interface FlightData {
 }
 
 interface SelectFlightComponentProps {
-  flightData: FlightData;
+  flightData: FlightSearchResponse;
   onSelectFlight: (
     flight: DepartureInfo,
     type: "departure" | "arrival"
@@ -42,6 +51,8 @@ interface SelectFlightComponentProps {
   selectedDeparture: DepartureInfo | null;
   selectedArrival: DepartureInfo | null;
 }
+
+
 
 function SelectFlightComponent({
   flightData,

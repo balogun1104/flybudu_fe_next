@@ -25,7 +25,7 @@ import {
   setSearchCriteria,
 } from "@/redux/flight/flightSlice";
 import { useFlightData, formatDate } from "@/utils/helper";
-import { AirlineFlights } from "@/redux/flight/types";
+import type { AirlineFlights, Flight } from "@/redux/flight/types";
 import axiosInstance from "@/redux/api";
 
 const Flight = () => {
@@ -43,7 +43,9 @@ const Flight = () => {
     (state: RootState) => state.flight
   );
   const [selectedDate, setSelectedDate] = useState(
-    formatDate(new Date(searchCriteria.departure_date || ""))
+    formatDate(
+      new Date(searchCriteria.departure_date || "").toISOString().split("T")[0]
+    )
   );
   const [currentPage, setCurrentPage] = useState(0);
   const datesPerPage = 7;
@@ -143,43 +145,53 @@ const Flight = () => {
   );
 
   const filteredFlightData = Array.isArray(flightData)
-    ? flightData.filter((airlineFlights) => {
+    ? flightData.filter((airlineFlights: AirlineFlights) => {
         const [minPrice, maxPrice] = filter.priceRange;
         const { selectedAirlines, isRefundable } = filter;
-        const flights = Object.values(airlineFlights)[0];
-        return flights.some((flight) => {
+        const flights = Object.values(airlineFlights)[0] as Flight[];
+        return flights.some((flight: Flight) => {
           const { departure } = flight;
+
+          // Price filter
           if (departure.price < minPrice || departure.price > maxPrice) {
             return false;
           }
+
+          // Airline filter
           if (
             selectedAirlines.length > 0 &&
             !selectedAirlines.includes(departure.airline.company)
           ) {
             return false;
           }
+
+          // Refundable filter
           if (isRefundable && !departure.is_refundable) {
             return false;
           }
+
+          // If all conditions pass, include this flight
           return true;
         });
       })
     : [];
 
-  const sortedFlightData = filteredFlightData.sort((a, b) => {
-    const flightsA = Object.values(a)[0];
-    const flightsB = Object.values(b)[0];
-    switch (filter.sortOption) {
-      case "recommended":
-        return 0;
-      case "cheapest":
-        return flightsA[0].departure.price - flightsB[0].departure.price;
-      case "fastest":
-        return 0;
-      default:
-        return 0;
+  const sortedFlightData = filteredFlightData.sort(
+    (a: AirlineFlights, b: AirlineFlights) => {
+      const flightsA = Object.values(a)[0] as Flight[];
+      const flightsB = Object.values(b)[0] as Flight[];
+      switch (filter.sortOption) {
+        case "recommended":
+          return 0;
+        case "cheapest":
+          return flightsA[0].departure.price - flightsB[0].departure.price;
+        case "fastest":
+          return 0;
+        default:
+          return 0;
+      }
     }
-  });
+  );
 
   useEffect(() => {
     const fetchFlightData = async () => {
@@ -259,12 +271,13 @@ const Flight = () => {
           <span
             className={styles.location}
           >{`${searchCriteria.from} - ${searchCriteria.to}`}</span>
-          <span>
-            {`${formatDate(searchCriteria.departure_date)} - ${formatDate(
-              searchCriteria.arrival_date
-            )}, 
-            ${totalPassengers} Pass, ${searchCriteria.classType}`}
-          </span>
+          {searchCriteria.arrival_date && (
+            <span>
+              {`${formatDate(searchCriteria.departure_date)} - ${formatDate(
+                searchCriteria.arrival_date
+              )}, `}
+            </span>
+          )}
         </div>
         <div className={styles.imgDiv}>
           <Link href="/mobileflight">

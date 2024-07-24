@@ -83,7 +83,6 @@ function Payment() {
     trxref: any;
   }) => {
     setIsLoading(true);
-    
 
     const {
       reference: transactionNumber,
@@ -91,8 +90,6 @@ function Payment() {
       transaction,
       trxref,
     } = reference;
-
-
 
     // Get the first passenger's data
     const firstPassenger =
@@ -105,13 +102,13 @@ function Payment() {
       transaction_ref: transactionNumber,
       user_id: 1,
       schedule_id: 2,
-      route_id: selectedAirline?.departure.route.id,
-      airline_id: selectedAirline?.departure.airline.id,
+      route_id: selectedAirline?.departure?.route.id,
+      airline_id: selectedAirline?.departure?.airline.id,
       status: "confirmed",
       type: "regular",
       departure: (() => {
-        const date = selectedAirline?.departure.date;
-        const time = selectedAirline?.departure.departure;
+        const date = selectedAirline?.departure?.date;
+        const time = selectedAirline?.departure?.departure;
 
         if (date && time) {
           return format(new Date(`${date}T${time}`), "yyyy-MM-dd HH:mm:ss");
@@ -152,7 +149,6 @@ function Payment() {
     axiosInstance
       .post("flights/submit", updatedFormData)
       .then((response) => {
-       
         setIsLoading(false);
         setIsOpen(true);
         // Clear all store data
@@ -160,7 +156,6 @@ function Payment() {
         dispatch(clearFormData());
       })
       .catch((error) => {
-        
         setIsLoading(false);
         setError(
           "An error occurred while processing your payment. Please try again."
@@ -185,7 +180,6 @@ function Payment() {
     text: "Pay Now",
     onSuccess: handlePaymentSuccess,
     onClose: () => {
-      
       setIsLoading(false);
     },
   };
@@ -311,8 +305,11 @@ function Payment() {
               </button>
             </Link>
             <span className={styles.money}>
-  &#8358;{updatedTotalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-</span>
+              &#8358;
+              {updatedTotalPrice
+                .toFixed(2)
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </span>
             {formData.passengers &&
               formData.passengers.length > 0 &&
               formData.passengers[0].email && (
@@ -322,7 +319,6 @@ function Payment() {
                   onSuccess={handlePaymentSuccess}
                   onClose={() => {
                     setIsLoading(false);
-                    
                   }}
                 />
               )}

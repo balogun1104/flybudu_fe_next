@@ -28,6 +28,7 @@ import support from "@/public/assets/images/customer-support (1) 1.png";
 import Plane from "@/public/assets/images/BlueSmallPlane.png";
 import SelectFlightComponent from "@/components/selectFlight";
 import Footer from "@/components/Footer";
+import { DepartureInfo, FlightDetails } from "@/redux/flight/types";
 
 function SelectFlightPage() {
   const router = useRouter();
@@ -161,6 +162,15 @@ function SelectFlightPage() {
   if (error) {
     return <div>Error: {error}</div>;
   }
+  const mapFlightDetailsToDepartureInfo = (
+    flightDetails: FlightDetails[]
+  ): DepartureInfo[] => {
+    return flightDetails.map((flight) => ({
+      ...flight,
+      from: flight.route.location,
+      available_seats: flight.available_seats || 0, // Convert null to 0
+    }));
+  };
 
   return (
     <div className={styles.general}>
@@ -262,11 +272,8 @@ function SelectFlightPage() {
 
       <div className={styles.margin}>
         <SelectFlightComponent
-          flightData={{
-            departure: flightData.departure || [],
-            arrival: flightData.arrival || [],
-          }}
-          onSelectFlight={handleSelectFlight}
+          flightData={flightData}
+          onSelectFlight={(flight, type) => handleSelectFlight(flight, type)}
           selectedDeparture={selectedFlight?.departure}
           selectedArrival={selectedFlight?.arrival}
         />
