@@ -66,7 +66,6 @@ const Flight = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    console.log(flightData, "getting length of flight");
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };

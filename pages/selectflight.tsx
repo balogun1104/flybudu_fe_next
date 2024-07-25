@@ -39,6 +39,9 @@ function SelectFlightPage() {
     (state: RootState) => state.flight.selectedFlight
   );
 
+  const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const [showTermsError, setShowTermsError] = useState(false);
+
   const [currentPage, setCurrentPage] = useState(0);
   const datesPerPage = 7;
   const [selectedDate, setSelectedDate] = useState(
@@ -92,6 +95,20 @@ function SelectFlightPage() {
     currentPage * datesPerPage,
     (currentPage + 1) * datesPerPage
   );
+
+  const handleTermsCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsTermsChecked(event.target.checked);
+    if (event.target.checked) {
+      setShowTermsError(false);
+    }
+  };
+
+  const handleContinueClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isTermsChecked) {
+      event.preventDefault();
+      setShowTermsError(true);
+    }
+  };
 
   useEffect(() => {
     const departureDateIndex = generateDateOptions().findIndex(
@@ -281,7 +298,15 @@ function SelectFlightPage() {
 
       <div className={styles.finalDiv}>
         <div className={styles.checkBox}>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={isTermsChecked}
+            onChange={handleTermsCheck}
+            style={{
+              border: showTermsError ? "2px solid red" : "",
+              outline: showTermsError ? "1px solid red" : "",
+            }}
+          />
           <span>
             By submitting your flight request, you agree to our{" "}
             <span style={{ fontWeight: "bold", color: "#06BCE1" }}>
@@ -294,9 +319,20 @@ function SelectFlightPage() {
             and to receive further communications regarding your flight.
           </span>
         </div>
+        {showTermsError && (
+          <p style={{ color: "red", marginTop: "5px" }}>
+            Please accept the terms and conditions to continue.
+          </p>
+        )}
         <Link
           href="/customerinfo"
-          style={{ color: "white", textDecoration: "none" }}
+          style={{
+            color: "white",
+            textDecoration: "none",
+            pointerEvents: isTermsChecked ? "auto" : "none",
+            opacity: isTermsChecked ? 1 : 0.5,
+          }}
+          onClick={handleContinueClick}
         >
           <span className={styles.continue}>Continue</span>
         </Link>
