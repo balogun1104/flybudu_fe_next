@@ -9,12 +9,14 @@ import savedImg from "@/public/assets/images/Currency Exchange.png";
 import logoutImg from "@/public/assets/images/Wallet.png";
 import Link from "next/link";
 import Image from "next/image";
-import { RootState } from "@/redux/store"; // Adjust the import path as needed
+import { RootState } from "@/redux/store"; 
+import { useAuth } from '@/hooks/useAuth';
 
 function About() {
   const { bookingData, loading, error } = useSelector(
     (state: RootState) => state.booking
   );
+  const { isAuthenticated, user } = useAuth();
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -22,7 +24,7 @@ function About() {
     return <div>No booking data available</div>;
 
   // Assuming we're using the first regular booking for user info
-  const user = bookingData.regular[0];
+  
 
   return (
     <div className={styles.genera}>
@@ -36,15 +38,15 @@ function About() {
         </Link>
       </div>
 
-      <div className={styles.relax}>
+      {/* <div className={styles.relax}>
         <span style={{ fontWeight: "bold" }}>
-          {user.title} {user.first_name} {user.surname}
+         {user?.name} {user?.last_name}
         </span>
         <span>
-          Phone: <b>{user.phone}</b>
+          Phone: <b>{user?.phone}</b>
         </span>
         <span>
-          Email: <b>{user.email}</b>
+          Email: <b>{user?.email}</b>
         </span>
         <span>
           Nationality: <b>{user.nationality}</b>
@@ -62,14 +64,14 @@ function About() {
             })}
           </b>
         </span>
-      </div>
+      </div> */}
 
       <div className={styles.nameDiv}>
         <span>
-          {user.first_name} {user.surname}
+        {user?.name} {user?.last_name}
         </span>
-        <p>{user.phone}</p>
-        <p>{user.email}</p>
+        <p>{user?.phone}</p>
+        <p>{user?.email}</p>
       </div>
 
       <div className={styles.listDiv}>

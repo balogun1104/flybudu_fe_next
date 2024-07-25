@@ -1,7 +1,9 @@
-import React, { useEffect, useMemo } from "react";
+/* eslint-disable react/no-unescaped-entities */
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import axiosInstance from "@/redux/api";
 import styles from "../styles/managebooking.module.css";
@@ -11,6 +13,7 @@ import {
   setError,
 } from "@/redux/flight/bookingSlice";
 import { RootState } from "@/redux/store";
+import { useAuth } from "@/hooks/useAuth";
 
 import Navbar from "../components/NavbarSecond/navbar";
 import About from "../components/About/About";
@@ -33,24 +36,37 @@ interface NavButton {
 
 const ManageBooking: React.FC = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
+  const { isAuthenticated, user } = useAuth();
+  const [showModal, setShowModal] = useState(false);
   const { bookingData, loading, error } = useSelector(
     (state: RootState) => state.booking
   );
 
   useEffect(() => {
-    const fetchBookings = async () => {
-      dispatch(setLoading(true));
-      try {
-        const response = await axiosInstance.get("/manage/booking");
-        dispatch(setBookingData(response.data.data));
-      } catch (error) {
-        console.error("Error fetching bookings:", error);
-        dispatch(setError("Failed to fetch bookings"));
-      }
-    };
+    if (!isAuthenticated) {
+      setShowModal(true);
+    } else {
+      const fetchBookings = async () => {
+        dispatch(setLoading(true));
+        try {
+          const response = await axiosInstance.get("/manage/booking");
+          dispatch(setBookingData(response.data.data));
+        } catch (error) {
+          console.error("Error fetching bookings:", error);
+          dispatch(setError("Failed to fetch bookings"));
+        } finally {
+          dispatch(setLoading(false));
+        }
+      };
 
-    fetchBookings();
-  }, [dispatch]);
+      fetchBookings();
+    }
+  }, [dispatch, isAuthenticated]);
+
+  const handleProceedToLogin = () => {
+    router.push("/login");
+  };
 
   const MobileNavButtons: NavButton[] = useMemo(
     () => [
@@ -91,8 +107,9 @@ const ManageBooking: React.FC = () => {
       <div className={styles.textDiv}>
         <h1 className={styles.bigText}>MANAGE BOOKINGS</h1>
         <p className={styles.small}>
-          Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-          vulputate libero et velit interdum, ac aliquet odio mattis.
+          Take control of your travel plans. View, modify, or cancel your
+          bookings with ease. Fly Budu puts you in the pilot's seat of your
+          journey.
         </p>
       </div>
     </div>
@@ -138,7 +155,36 @@ const ManageBooking: React.FC = () => {
     </div>
   );
 
-  if (loading) return <div>Loading...</div>;
+  const renderModal = () => {
+    if (!showModal) return null;
+
+    return (
+      <div className={styles.modalOverlay}>
+        <div className={styles.modalContent}>
+          <h2 className={styles.modalTitle}>Login Required</h2>
+          <p className={styles.modalText}>
+            Please login to manage your bookings and access your travel
+            information.
+          </p>
+          <div className={styles.modalButtons}>
+            <button
+              className={styles.modalButtonPrimary}
+              onClick={handleProceedToLogin}
+            >
+              Proceed to Login
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderLoading = () => (
+    <div className={styles.loaderOverlay}>
+      <div className={styles.loader}></div>
+    </div>
+  );
+
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -146,30 +192,43 @@ const ManageBooking: React.FC = () => {
       {renderHeader()}
       {renderHeroSection()}
       <div className={styles.secondDiv}>
-        <div className={styles.about}>
-          <About />
-        </div>
-        <div className={styles.bookingDiv}>
-          <div className={styles.pass}>
-            <span className={styles.passenger}>My Bookings</span>
-            <Link href="/savedpassenger" className={styles.passengerLink}>
-              <span>Passengers</span>
-            </Link>
-          </div>
-          <div className={styles.book}>
-            <span className={styles.none}>Bookings</span>
-            <div className={styles.blueDiv}>
-              <span className={styles.blue}>Get My Ticket</span>
-              <span className={styles.blue}>Request Refund</span>
-              <span className={styles.white}>Make Changes on Ticket</span>
+        {isAuthenticated ? (
+          <>
+            <div className={styles.about}>
+              <About />
             </div>
+            <div className={styles.bookingDiv}>
+              <div className={styles.pass}>
+                <span className={styles.passenger}>My Bookings</span>
+                <Link href="/savedpassenger" className={styles.passengerLink}>
+                  <span>Passengers</span>
+                </Link>
+              </div>
+              <div className={styles.book}>
+                <span className={styles.none}>Bookings</span>
+                <div className={styles.blueDiv}>
+                  <span className={styles.blue}>Get My Ticket</span>
+                  <span className={styles.blue}>Request Refund</span>
+                  <span className={styles.white}>Make Changes on Ticket</span>
+                </div>
+              </div>
+
+              {renderBookingStats()}
+              <Airline />
+            </div>
+          </>
+        ) : (
+          <div className={styles.unauthenticatedMessage}>
+            Please login to view and manage your bookings. Access your travel
+            itineraries, make changes to your flights, and get up-to-date
+            information about your upcoming trips.
           </div>
-          {renderBookingStats()}
-          <Airline />
-        </div>
+        )}
       </div>
       {renderMobileNavigation()}
       <Footer />
+      {renderModal()}
+      {loading && renderLoading()}
     </div>
   );
 };
