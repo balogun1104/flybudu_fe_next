@@ -66,6 +66,7 @@ const Flight = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    console.log(flightData, "getting length of flight");
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -292,7 +293,7 @@ const Flight = () => {
         <div style={{ margin: "30px" }}>
           <span className={styles.found}>
             {sortedFlightData.length > 0
-              ? `We Found ${totalFlight} Flights From ${searchCriteria.from} To ${searchCriteria.to}`
+              ? `We Found ${sortedFlightData.length} Flights From ${searchCriteria.from} To ${searchCriteria.to}`
               : `No flights found from ${searchCriteria.from} to ${searchCriteria.to}`}
           </span>
         </div>
