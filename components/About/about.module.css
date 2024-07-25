@@ -119,3 +119,25 @@
         border-radius: 12px;
     }
 }
+
+
+.userInitials {
+    width: 100px;
+    height: 100px;
+    background-color: #06BCE1;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    font-weight: bold;
+  }
+  
+  .avatarImg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Adjust other styles as needed */

@@ -3,7 +3,7 @@
 export interface User {
   id: number;
   name: string;
-  last_name: string | null;
+  last_name: string  | undefined;
   other_name: string | null;
   email: string;
   email_verified_at: string;
