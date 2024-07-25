@@ -312,3 +312,18 @@ background: white;
   font-weight:  500;
   font-family: "NeueHaasDisplayLight";
 }
+
+
+.userInitials {
+  width: 40px;
+  height: 40px;
+  background-color: #06BCE1;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
