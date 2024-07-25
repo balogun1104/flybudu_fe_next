@@ -292,7 +292,7 @@ const DetailsModal: React.FC<{
             }}
             className={styles.more}
           >
-            Schedule
+            Schedules
           </button>
         </div>
       </div>
