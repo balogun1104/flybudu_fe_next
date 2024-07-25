@@ -539,18 +539,6 @@ align-items: center;
   100% { transform: rotate(360deg); }
 }
 
-.userInitials {
-  width: 40px;
-  height: 40px;
-  background-color: #0596b3;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  font-weight: bold;
-  margin-right: 10px;
-}
+
 
 /* Adjust other styles as needed */

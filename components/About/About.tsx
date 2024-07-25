@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styles from "./about.module.css";
-import avatar from "@/public/assets/images/whatsaap.jpg";
 import booking from "@/public/assets/images/Vector.png";
 import notification from "@/public/assets/images/Group 2.png";
 import profileImg from "@/public/assets/images/Layer 2.png";
@@ -9,8 +8,8 @@ import savedImg from "@/public/assets/images/Currency Exchange.png";
 import logoutImg from "@/public/assets/images/Wallet.png";
 import Link from "next/link";
 import Image from "next/image";
-import { RootState } from "@/redux/store"; 
-import { useAuth } from '@/hooks/useAuth';
+import { RootState } from "@/redux/store";
+import { useAuth } from "@/hooks/useAuth";
 
 function About() {
   const { bookingData, loading, error } = useSelector(
@@ -18,18 +17,49 @@ function About() {
   );
   const { isAuthenticated, user } = useAuth();
 
+  console.log("User data:", user); // Debugging: Log user data
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!bookingData || bookingData.regular.length === 0)
     return <div>No booking data available</div>;
 
-  // Assuming we're using the first regular booking for user info
-  
+  const renderUserAvatar = () => {
+    if (user?.name || user?.last_name) {
+      const initials = getInitials(user?.name, user.last_name);
+      console.log("Generated initials:", initials);
+      return <div className={styles.userInitials}>{initials}</div>;
+    }
+    return <div className={styles.userInitials}>NA</div>;
+  };
 
+  const getInitials = (
+    firstName: string | undefined,
+    lastName: string | undefined
+  ) => {
+    if (firstName && lastName) {
+      return `${firstName.charAt(0).toUpperCase()}${lastName
+        .charAt(0)
+        .toUpperCase()}`;
+    } else if (firstName) {
+      return firstName.length > 1
+        ? `${firstName.charAt(0).toUpperCase()}${firstName
+            .charAt(1)
+            .toLowerCase()}`
+        : firstName.toUpperCase();
+    } else if (lastName) {
+      return lastName.length > 1
+        ? `${lastName.charAt(0).toUpperCase()}${lastName
+            .charAt(1)
+            .toLowerCase()}`
+        : lastName.toUpperCase();
+    }
+    return "NA";
+  };
   return (
     <div className={styles.genera}>
       <div className={styles.avatarImg}>
-        <Image src={avatar} className={styles.avatar} alt="User Avatar" />
+        {renderUserAvatar()}
         <Link
           style={{ textDecoration: "none", color: "black" }}
           href="/profile"
@@ -38,37 +68,9 @@ function About() {
         </Link>
       </div>
 
-      {/* <div className={styles.relax}>
-        <span style={{ fontWeight: "bold" }}>
-         {user?.name} {user?.last_name}
-        </span>
-        <span>
-          Phone: <b>{user?.phone}</b>
-        </span>
-        <span>
-          Email: <b>{user?.email}</b>
-        </span>
-        <span>
-          Nationality: <b>{user.nationality}</b>
-        </span>
-        <span>
-          Gender: <b>{user.gender}</b>
-        </span>
-        <span>
-          Date of Birth:{" "}
-          <b>
-            {new Date(user.DOB).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })}
-          </b>
-        </span>
-      </div> */}
-
       <div className={styles.nameDiv}>
         <span>
-        {user?.name} {user?.last_name}
+          {user?.name} {user?.last_name}
         </span>
         <p>{user?.phone}</p>
         <p>{user?.email}</p>
