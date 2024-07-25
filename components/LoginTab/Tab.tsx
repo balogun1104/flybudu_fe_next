@@ -1,12 +1,14 @@
+// Tab.tsx
+
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import styles from "./login.module.css";
 import Link from "next/link";
-import { IoLogoApple, IoLogoGoogle } from "react-icons/io";
-import { useRouter } from 'next/router';
-import axiosInstance from "@/redux/api"; 
-import { showToast } from "@/utils/useToast"; 
-import { loginSuccess } from '@/redux/auth/authslice';
+import { useRouter } from "next/router";
+import axiosInstance from "@/redux/api";
+import { showToast } from "@/utils/useToast";
+import { loginSuccess, setUserData } from "@/redux/auth/authslice";
+import { LoginResponse, UserResponse } from "@/redux/auth/auth.types";
 
 function Tab() {
   const router = useRouter();
@@ -15,28 +17,42 @@ function Tab() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = async (e: { preventDefault: () => void; }) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const response = await axiosInstance.post("/login", {
+      const response = await axiosInstance.post<LoginResponse>("/login", {
         email,
-        password
+        password,
       });
 
       if (response.data && response.data.token) {
-        const { data, token } = response.data;
-        dispatch(loginSuccess({ user: data, token: token.access_token }));
-        localStorage.setItem("userToken", response.data.token);
-        showToast("Login successful!", "success");
+        const { token } = response.data;
+        dispatch(loginSuccess({ token: token.access_token }));
+        localStorage.setItem("userToken", token.access_token);
+
+        // Fetch user data
+        const userResponse = await axiosInstance.get<UserResponse>("/user", {
+          headers: {
+            Authorization: `Bearer ${token.access_token}`,
+          },
+        });
+
+        if (userResponse.data && userResponse.data.status) {
+          dispatch(setUserData(userResponse.data.data));
+        }
+
         router.push("/managebooking");
       } else {
         showToast("Login failed. Please try again.", "error");
       }
     } catch (error) {
       console.error("Login error:", error);
-      showToast("Login failed. Please check your credentials and try again.", "error");
+      showToast(
+        "Login failed. Please check your credentials and try again.",
+        "error"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -46,15 +62,6 @@ function Tab() {
     <div className={styles.general}>
       <div className={styles.body}>
         <span className={styles.welcome}>Welcome To Fly Budu</span>
-        <div className={styles.joinDiv}>
-          {" "}
-          <button>Join with <IoLogoGoogle /> </button> <button>Join with <IoLogoApple /> </button>
-        </div>
-        <div className={styles.lineDiv}>
-          <div className={styles.leftLine}></div> <span>or</span>{" "}
-          <div className={styles.rightLine}></div>
-        </div>
-        <span className={styles.fill}>Fill in your details</span>
         <form onSubmit={handleLogin}>
           <div className={styles.emailDiv}>
             <span>Email</span>
