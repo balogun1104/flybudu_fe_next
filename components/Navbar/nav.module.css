@@ -227,8 +227,8 @@ background: white;
 
 .cycle {
   position: absolute;
-  left: 22%;
-  top: 23%;
+  left: 17.2em;
+  top: 12.5em;
 }
 
 .inputGroup:nth-child(1) {
@@ -254,12 +254,14 @@ background: white;
   
 .let{
   color: white;
-  padding: 20px 20px;
-  width: 100%;
+  padding: 15px 45px;
+  border: none;
+  /* width: 100%; */
   display: flex;
   text-wrap: nowrap;
-  border-radius: 8px;
+  border-radius: 32px;
   background: rgba(6, 188, 225, 1) !important;
+  text-align: center
 }
 .firstDiv{
   display: flex;
@@ -311,4 +313,51 @@ background: white;
 .passengerSelected{
   font-weight:  500;
   font-family: "NeueHaasDisplayLight";
+}
+
+
+.userInitials {
+  width: 40px;
+  height: 40px;
+  background-color: #06BCE1;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+/* style for the date */
+
+.datePickerHeaders {
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+
+.label {
+  font-size: 12px;
+  color: #555;
+  display: block;
+  margin-left: 15px;
+}
+
+
+.dateInput {
+  border: none;
+  outline: none;
+  padding: 10px;
+  background: transparent;
+  font-size: 14px;
+  color: #000;
+  font-weight: bold;
+}
+
+.dateInput::placeholder {
+  color: inherit;
+  opacity: 1;
 }

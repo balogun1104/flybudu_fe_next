@@ -18,6 +18,7 @@ import {
 import { FilterState } from "@/redux/flight/types";
 import { RootState } from "@/redux/store";
 import axiosInstance from "@/redux/api";
+import rangeIcon from "@/public/assets/images/fliterPriceIcon.png";
 
 interface FlightFilterProps {
   onApplyFilter: (filter: FilterState) => void;
@@ -41,6 +42,7 @@ function Index({ onApplyFilter }: FlightFilterProps) {
   const [airlines, setAirlines] = useState<Airline[]>([]);
 
   const filterState = useSelector((state: RootState) => state.flight.filter);
+  const [isMobile, setIsMobile] = useState(false);
 
   const handlePriceRangeChange = (value: number | number[]) => {
     if (Array.isArray(value)) {
@@ -72,6 +74,17 @@ function Index({ onApplyFilter }: FlightFilterProps) {
   };
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
     const fetchAirlines = async () => {
       try {
         const response = await axiosInstance.get("airlines/list");
@@ -87,12 +100,12 @@ function Index({ onApplyFilter }: FlightFilterProps) {
   return (
     <div className={styles.general}>
       <div className={styles.flg}>
-        <Link href="/flight">
-          <Image src={BackButton} alt="" />
-        </Link>
-        <p className={styles.bold} style={{ fontWeight: "bold" }}>
-          Filter
-        </p>
+        {isMobile && (
+          <Link href="/flight">
+            <Image src={BackButton} alt="" />
+          </Link>
+        )}
+        <p className={styles.bold}>Filter</p>
         <p
           style={{
             cursor: "pointer",
@@ -111,7 +124,7 @@ function Index({ onApplyFilter }: FlightFilterProps) {
         className={styles.flg}
         style={{ paddingTop: "20px", paddingBottom: "20px" }}
       >
-        <p style={{ fontWeight: "600" }}>Sort By</p>
+        <p style={{ fontWeight: "600" }}>Status</p>
         <IoIosArrowForward />
       </div>
       <div className={styles.rec}>
@@ -167,6 +180,36 @@ function Index({ onApplyFilter }: FlightFilterProps) {
             max={200000}
             value={filterState.priceRange}
             onChange={handlePriceRangeChange}
+            styles={{
+              handle: {
+                backgroundColor: "transparent",
+                border: "none",
+                boxShadow: "none",
+                opacity: 1,
+                width: "30px",
+                height: "30px",
+              },
+            }}
+            handleRender={(node, handleProps) => {
+              return (
+                <div
+                  {...node.props}
+                  style={{
+                    ...node.props.style,
+                    backgroundImage: `url(${
+                      handleProps.index === 0
+                        ? rangeIcon.src
+                        : rangeIcon.src
+                    })`,
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    bottom: "-6px",
+                    position: "absolute",
+                  }}
+                />
+              );
+            }}
           />
           <div className={styles.priceValues}>
             <span>₦{filterState.priceRange[0].toLocaleString()}</span>

@@ -122,7 +122,10 @@ outline: none;
     border-radius: 40px;
 }
 .bold{
-    font-size: 20px;
+    font-size: 14px;
+    font-weight: 300 !important;
+    font-family: "NeueHaasDisplayLight" !important;
+    display: none !important;
 }
 .airPeace input, .refund input{
     font-family: sans-serif;

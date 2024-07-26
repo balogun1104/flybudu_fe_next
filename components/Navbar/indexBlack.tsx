@@ -1,47 +1,49 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styles from "./nav.module.css";
 import MenuImg from "@/public/assets/svg/menu.svg";
 import Quote from "@/public/assets/svg/Payment.svg";
 import Logo from "@/public/assets/images/flybuduLogo.png";
 import Arrow from "@/public/assets/images/arrowlr.png";
 import QuoteBar from "../Qoute/quote";
-import FlyUP from "@/public/assets/svg/fly-up.svg";
-import Travel from "@/public/assets/svg/Travel.svg";
 import SmallFly from "@/public/assets/svg/buttonFly.svg";
 import { useMediaQuery } from "react-responsive";
-import { DateRangePicker } from "@/utils/DateRangePicker";
-import { today, getLocalTimeZone } from "@internationalized/date";
-import dynamic from "next/dynamic";
 import { useFlightData, formatDate } from "@/utils/helper";
 import ArrowDown from "@/public/assets/svg/arrowDown.svg";
 import Cycle from "@/public/assets/svg/cycle.svg";
 import { Dropdown, Menu, Button } from "antd";
 import Link from "next/link";
-import cloud from "@/public/assets/svg/Vector.png";
-// import { FlightCard } from "../SwitchableInputs";
 import LocationPin from "@/public/assets/images/location pin.png";
 import Calendar from "@/public/assets/images/calendar.png";
 import Passenger from "@/public/assets/images/account.png";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useAuth } from "@/hooks/useAuth";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import axiosInstance from "@/redux/api";
+import {
+  setSearchCriteria,
+  setFlightData,
+  setLoading,
+  setError,
+} from "@/redux/flight/flightSlice";
+import {
+  FlightSearchRequest,
+  FlightSearchResponse,
+} from "@/redux/flight/types";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const { searchCriteria, flightData, loading, error, totalFlight } =
     useFlightData();
-
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-
-  const handleLogoClick = () => {
-    router.push("/");
-  };
-
+  const { isAuthenticated, user } = useAuth();
   const [visible, setVisible] = useState(false);
-  const toggleDivs = () => {
-    setVisible(!visible);
-  };
-
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState<string>(
     `${searchCriteria.from}, Nigeria`
   );
@@ -51,42 +53,142 @@ const Navbar = () => {
   const [selectedDestination, setSelectedDestination] = useState<string>(
     `${searchCriteria.to}, Nigeria`
   );
-  const [, setDates] = useState<Date[]>([]);
   const [isPassengerDropdownVisible, setIsPassengerDropdownVisible] =
     useState<boolean>(false);
-  const [, setLeaveDate] = useState<string | null>(null);
-  const [, setReturnDate] = useState<string | null>(null);
+  const [departureDate, setDepartureDate] = useState<Date | null>(
+    new Date(searchCriteria.departure_date)
+  );
+  const [returnDate, setReturnDate] = useState<Date | null>(
+    searchCriteria.arrival_date ? new Date(searchCriteria.arrival_date) : null
+  );
+  const [isRoundTrip, setIsRoundTrip] = useState(
+    searchCriteria.tripType === "Round trip"
+  );
   const [passengerCounts, setPassengerCounts] = useState<{
     adults: number;
     children: number;
     infants: number;
   }>({
-    adults: 1,
-    children: 0,
-    infants: 0,
+    adults: searchCriteria.passengers.adults,
+    children: searchCriteria.passengers.children,
+    infants: searchCriteria.passengers.infants,
   });
-  const [isDatePickOpen, setIsDatePickOpen] = useState<boolean>(false);
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
-  const totalPassengers = Object.values(passengerCounts).reduce(
-    (total, count) => total + count,
-    0
-  );
-  const OverlayContainer = dynamic(
-    () =>
-      import("@react-aria/overlays").then((module) => module.OverlayContainer),
-    { ssr: false }
-  );
+  const formatDate = (date: Date | string | null): string => {
+    if (!date) return "";
 
-  const [isClient, setIsClient] = useState(false);
-  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+    if (typeof date === "string") {
+      // If it's already a string, assume it's in the correct format
+      return date.split("T")[0];
+    }
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+    if (date instanceof Date) {
+      // If it's a Date object, convert to ISO string
+      return date.toISOString().split("T")[0];
+    }
 
-  const handleDatePickerToggle = () => {
-    setIsDatePickerOpen(!isDatePickerOpen);
+    // If it's neither a string nor a Date, return an empty string
+    return "";
+  };
+
+  const handleLetGoClick = async () => {
+    setErrors({});
+
+    let newErrors: { [key: string]: string } = {};
+    if (!selectedLocation || selectedLocation === "City or Airport") {
+      newErrors.from = "Please select a departure location";
+    }
+    if (!selectedDestination || selectedDestination === "City or Airport") {
+      newErrors.to = "Please select a destination";
+    }
+    if (!departureDate) {
+      newErrors.departureDate = "Please select a departure date";
+    }
+    if (isRoundTrip && !returnDate) {
+      newErrors.returnDate = "Please select a return date";
+    }
+    if (Object.values(passengerCounts).reduce((a, b) => a + b, 0) === 0) {
+      newErrors.passengers = "Please select passengers";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    const updatedSearchCriteria: FlightSearchRequest = {
+      from: selectedLocation.split(",")[0],
+      to: selectedDestination.split(",")[0],
+      departure_date: formatDate(departureDate),
+      arrival_date: isRoundTrip ? formatDate(returnDate) : undefined,
+      passengers: passengerCounts,
+      flightType: international[0] || "Local Flights",
+      tripType: round[0] || "Round trip",
+      classType: local[0] || "Economy",
+    };
+
+    dispatch(setSearchCriteria(updatedSearchCriteria));
+    dispatch(setLoading(true));
+    setIsLoading(true);
+
+    try {
+      const response = await axiosInstance.post<FlightSearchResponse>(
+        "flights/search",
+        updatedSearchCriteria
+      );
+      dispatch(setFlightData(response.data));
+     
+    } catch (error) {
+      dispatch(setError("Failed to fetch flight data"));
+      console.error("Error fetching flight data:", error);
+    } finally {
+      dispatch(setLoading(false));
+      setIsLoading(false);
+    }
+  };
+
+  const handleLogoClick = () => {
+    router.push("/");
+  };
+
+  const toggleDivs = () => {
+    setVisible(!visible);
+  };
+
+  const getInitials = (
+    firstName: string | undefined,
+    lastName: string | undefined
+  ) => {
+    if (firstName && lastName) {
+      return `${firstName.charAt(0).toUpperCase()}${lastName
+        .charAt(0)
+        .toUpperCase()}`;
+    } else if (firstName) {
+      return firstName.charAt(0).toUpperCase();
+    } else if (lastName) {
+      return lastName.charAt(0).toUpperCase();
+    }
+    return "";
+  };
+
+  const renderUserAvatar = () => {
+    if (isAuthenticated && (user?.name || user?.last_name)) {
+      const initials = getInitials(user?.name, user?.last_name);
+      return (
+        <div className={styles.userInitials} onClick={() => setIsOpen(!isOpen)}>
+          {initials}
+        </div>
+      );
+    }
+    return (
+      <Image
+        src={MenuImg}
+        alt=""
+        className={styles.quoteImg}
+        onClick={() => setIsOpen(!isOpen)}
+      />
+    );
   };
 
   const handlePassengerChange = (
@@ -96,12 +198,9 @@ const Navbar = () => {
     setPassengerCounts((prevCounts) => {
       const newValue =
         operation === "increment" ? prevCounts[type] + 1 : prevCounts[type] - 1;
-
-      // Ensure the count never goes below 0
       if (newValue < 0) {
         return prevCounts;
       }
-
       return {
         ...prevCounts,
         [type]: newValue,
@@ -109,11 +208,63 @@ const Navbar = () => {
     });
   };
 
-  const closePassengerDropdown = (e: any) => {
-    e.preventDefault(); // Prevent default form submission
-    e.stopPropagation(); // Stop click event from reaching the Dropdown
+  const closePassengerDropdown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     setIsPassengerDropdownVisible(false);
   };
+
+  const handleDepartureDateChange = (date: Date | null) => {
+    setDepartureDate(date);
+    if (returnDate && date && date > returnDate) {
+      setReturnDate(null);
+    }
+  };
+
+  const handleReturnDateChange = (date: Date | null) => {
+    setReturnDate(date);
+  };
+
+  const handleInternational = (info: any) => {
+    setInternational([internationalTrip[info.key]]);
+  };
+
+  const handleRoundTrip = (info: any) => {
+    const selectedTripType = roundTrip[info.key];
+    setRound([selectedTripType]);
+    setIsRoundTrip(selectedTripType === "Round trip");
+    if (selectedTripType !== "Round trip") {
+      setReturnDate(null);
+    }
+  };
+
+  const handleLocalFlight = (info: any) => {
+    setLocal([localFlight[info.key]]);
+  };
+
+  const handleMenuClick = (info: any) => {
+    setSelectedLocation(locations[info.key]);
+  };
+
+  const handleDestinationClick = (info: any) => {
+    setSelectedDestination(locations[info.key]);
+  };
+
+  const internationalTrip: string[] = [
+    "Local Flights",
+    "International Flights",
+  ];
+  const roundTrip: string[] = ["Round trip", "One Way"];
+  const localFlight: string[] = ["Economy", "Business", "First Class"];
+  const locations = [
+    "Lagos, Nigeria",
+    "Abuja, Nigeria",
+    "Port Harcourt, Nigeria",
+    "Kano, Nigeria",
+    "Calabar, Nigeria",
+    "Enugu, Nigeria",
+    "Jos, Nigeria",
+  ];
 
   const passengersMenu = (
     <Menu className={styles.menuover} style={{ position: "relative" }}>
@@ -201,53 +352,6 @@ const Navbar = () => {
     </Menu>
   );
 
-  const handleDatesChange = (dates: Date[], dateStrings: [string, string]) => {
-    setDates(dates);
-    setLeaveDate(dateStrings[0]);
-    setReturnDate(dateStrings[1]);
-
-    // Check if both leaving and returning dates are selected
-    if (dates && dates.length === 2) {
-      setIsDatePickOpen(false); // Close the date picker
-    }
-  };
-
-  const handleInternational = (info: any) => {
-    setInternational([internationalTrip[info.key]]);
-  };
-
-  const handleRoundTrip = (info: any) => {
-    setRound([roundTrip[info.key]]);
-  };
-
-  const handleLocalFlight = (info: any) => {
-    setLocal([localFlight[info.key]]);
-  };
-
-  const handleMenuClick = (info: any) => {
-    setSelectedLocation(locations[info.key]);
-  };
-
-  const handleDestinationClick = (info: any) => {
-    setSelectedDestination(locations[info.key]);
-  };
-
-  const internationalTrip: string[] = [
-    "Local Flights",
-    "International Flights",
-  ];
-
-  function formatDate(dateString: string): string {
-    const date = new Date(dateString);
-    return date
-      .toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      })
-      .replace(/(\w+)\s(\d+)\s(\d+)/, "$1. $2, $3");
-  }
-
   const internationalTripMenu = (
     <Menu onClick={handleInternational}>
       {internationalTrip.map((trip, index) => (
@@ -261,15 +365,12 @@ const Navbar = () => {
               width: "200px",
             }}
           >
-            {/* <Image src=""/> */}
             {trip}
           </div>
         </Menu.Item>
       ))}
     </Menu>
   );
-
-  const roundTrip: string[] = ["Round trip", "One Way"];
 
   const roundTripMenu = (
     <Menu onClick={handleRoundTrip}>
@@ -284,14 +385,12 @@ const Navbar = () => {
               width: "200px",
             }}
           >
-            {/* <Image src=""/> */}
             {trip}
           </div>
         </Menu.Item>
       ))}
     </Menu>
   );
-  const localFlight: string[] = ["Economy", "Business", "First Class"];
 
   const LocalFlightMenu = (
     <Menu onClick={handleLocalFlight}>
@@ -306,23 +405,12 @@ const Navbar = () => {
               width: "200px",
             }}
           >
-            {/* <Image src=""/> */}
             {flight}
           </div>
         </Menu.Item>
       ))}
     </Menu>
   );
-
-  const locations = [
-    "Lagos, Nigeria",
-    "Abuja, Nigeria",
-    "Port Harcourt, Nigeria",
-    "Kano, Nigeria",
-    "Calabar, Nigeria",
-    "Enugu, Nigeria",
-    "Jos, Nigeria",
-  ];
 
   const locationMenu = (
     <Menu onClick={handleMenuClick} className={styles.locationWrapper}>
@@ -398,7 +486,7 @@ const Navbar = () => {
               </span>
             </div>
 
-            <Image src={MenuImg} alt="" className={styles.quoteImg} />
+            {renderUserAvatar()}
           </div>
         </div>
 
@@ -417,9 +505,11 @@ const Navbar = () => {
           <div className={styles.border}>
             <p className={styles.passengerSelected}>
               {" "}
-              {`${formatDate(searchCriteria.departure_date)} - ${formatDate(
-  searchCriteria.arrival_date ?? ''
-)}`}
+              {`${formatDate(searchCriteria.departure_date)} - ${
+                searchCriteria.arrival_date
+                  ? formatDate(searchCriteria.arrival_date)
+                  : ""
+              }`}
             </p>
           </div>
           <div className={styles.nvTwo}>
@@ -497,7 +587,6 @@ const Navbar = () => {
             <div
               className={styles.inputGroup}
               style={{ fontFamily: "sans-serif", fontWeight: "600" }}
-              // style={{ width: "23.77%" }}
             >
               <span className={styles.icon}>
                 <Image alt="" src={LocationPin} />
@@ -517,7 +606,7 @@ const Navbar = () => {
                   <input
                     style={{ cursor: "pointer" }}
                     type="text"
-                    placeholder="slap"
+                    placeholder="From"
                     className={styles.inputField}
                     value={selectedLocation}
                     readOnly
@@ -533,10 +622,7 @@ const Navbar = () => {
               </Dropdown>
             </div>
             <Image src={Cycle} className={styles.cycle} alt="cycle" />
-            <div
-              className={styles.inputGroup}
-              // style={{ width: "23.77%" }}
-            >
+            <div className={styles.inputGroup}>
               <span className={styles.icon}>
                 <Image alt="" src={LocationPin} />
               </span>
@@ -546,7 +632,6 @@ const Navbar = () => {
                   trigger={["click"]}
                   placement="bottomRight"
                   overlayClassName={styles.dropdownMenu}
-                  // style={{ position: "relative", right: "200px" }}
                 >
                   <div className={styles.whereDropdown}>
                     <label
@@ -558,7 +643,7 @@ const Navbar = () => {
                     <input
                       style={{ cursor: "pointer" }}
                       type="text"
-                      placeholder="City "
+                      placeholder="To"
                       className={styles.inputField}
                       value={selectedDestination}
                       readOnly
@@ -574,10 +659,7 @@ const Navbar = () => {
                 </Dropdown>
               </div>
             </div>
-            <div
-              className={styles.inputGroup}
-              //  style={{ width: "33.99%" }}
-            >
+            <div className={styles.inputGroup}>
               <span className={styles.icon}>
                 {" "}
                 <Image src={Calendar} alt="" />{" "}
@@ -586,32 +668,32 @@ const Navbar = () => {
                 <div className={styles.datePickerHeaders}>
                   <div>
                     <label className={styles.label}>Leaving On</label>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "flex-start",
-                    }}
-                  >
-                    <label className={styles.label}>Returning On </label>
-                  </div>
-                </div>
-                <button type="button" onClick={handleDatePickerToggle}></button>
-                {isClient && isDatePickerOpen && (
-                  <OverlayContainer>
-                    <DateRangePicker
-                      label="Trip dates"
-                      minValue={today(getLocalTimeZone())}
+                    <DatePicker
+                      selected={departureDate}
+                      onChange={handleDepartureDateChange}
+                      minDate={new Date()}
+                      placeholderText="Select date"
+                      className={styles.dateInput}
+                      dateFormat="yyyy-MM-dd"
                     />
-                  </OverlayContainer>
-                )}
-                <div className="flex flex-col gap-4"></div>
+                  </div>
+                  {isRoundTrip && (
+                    <div>
+                      <label className={styles.label}>Returning On</label>
+                      <DatePicker
+                        selected={returnDate}
+                        onChange={handleReturnDateChange}
+                        minDate={departureDate || new Date()}
+                        placeholderText="Select date"
+                        className={styles.dateInput}
+                        dateFormat="yyyy-MM-dd"
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-            <div
-              className={styles.inputGroup}
-              // style={{ width: "18.47%", cursor: "pointer" }}
-            >
+            <div className={styles.inputGroup}>
               <span className={styles.icon}>
                 <Image src={Passenger} alt="" />
               </span>
@@ -626,17 +708,29 @@ const Navbar = () => {
                   overlayClassName={styles.passengerDropdownMenu}
                 >
                   <Button className={styles.inputField}>
-                    {`${totalPassengers} Passenger${
-                      totalPassengers > 1 ? "s" : ""
+                    {`${
+                      passengerCounts.adults +
+                      passengerCounts.children +
+                      passengerCounts.infants
+                    } Passenger${
+                      passengerCounts.adults +
+                        passengerCounts.children +
+                        passengerCounts.infants >
+                      1
+                        ? "s"
+                        : ""
                     }`}{" "}
-                    {/* <DownOutlined /> */}
                   </Button>
                 </Dropdown>
               </div>
             </div>
-            <Link href="selectflight">
-              <span className={styles.let}>Let's Go</span>
-            </Link>
+            <button
+              className={styles.let}
+              onClick={handleLetGoClick}
+              disabled={isLoading}
+            >
+              {isLoading ? "Updating Flight..." : "Let's Go"}
+            </button>
           </div>
         </div>
       </div>
