@@ -9,6 +9,7 @@ import axiosInstance from "@/redux/api";
 import { showToast } from "@/utils/useToast";
 import { loginSuccess, setUserData } from "@/redux/auth/authslice";
 import { LoginResponse, UserResponse } from "@/redux/auth/auth.types";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
 
 function Tab() {
   const router = useRouter();
@@ -16,6 +17,7 @@ function Tab() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,6 +60,10 @@ function Tab() {
     }
   };
 
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className={styles.general}>
       <div className={styles.body}>
@@ -76,14 +82,23 @@ function Tab() {
           </div>
           <div className={styles.emailDiv}>
             <span>Password</span>
-            <input
-              type="password"
-              className={styles.password}
-              placeholder="Enter your Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className={styles.passwordInputWrapper}>
+              <input
+                type={showPassword ? "text" : "password"}
+                className={styles.password}
+                placeholder="Enter your Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                onClick={toggleShowPassword}
+                className={styles.togglePasswordButton}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
           </div>
           <Link href="/password" className={styles.forgot}>
             <span>Forgot Password?</span>
