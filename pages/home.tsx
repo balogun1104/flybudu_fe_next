@@ -10,16 +10,18 @@ import MobileNav from "@/components/MobileNavBar";
 import Footer from "@/components/Footer";
 
 const HomeLanding = () => {
+ 
   return (
     <div className={styles.HomePage}>
       <HomeSectionOne />
       <HomeSectionTwo />
-      <Corporate/>
+      <Corporate />
       <HomeSectionThree />
       <HomeSectionFour />
       <HomeSectionFive />
-      <MobileNav/>
-      <Footer /> 
+      <MobileNav />
+      <Footer />
+   
     </div>
   );
 };
