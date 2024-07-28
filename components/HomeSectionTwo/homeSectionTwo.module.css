@@ -145,6 +145,7 @@ margin-left: 20%;
   border: 1px solid #c6c6c6;
   box-sizing: border-box;
   color: black;
+  margin-bottom: 20px;
   word-wrap: break-word;
  
   @media(max-width:768px){
