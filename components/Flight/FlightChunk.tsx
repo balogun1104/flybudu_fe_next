@@ -120,9 +120,7 @@ const DetailsModal: React.FC<{
       localStorage.setItem("lastFlightData", JSON.stringify(flightData));
 
       router.push("/selectflight");
-    } catch (error) {
-      // Error handling...
-    }
+    } catch (error) {}
   };
 
   return (

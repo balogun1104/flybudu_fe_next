@@ -1,6 +1,6 @@
 /* General Styles */
 .HomeSectionOne {
-  background-color: #12B4D5;
+  background-color: #12b4d5;
   width: 100%;
   position: relative;
 }
@@ -97,7 +97,7 @@
 
 .buttonTravel {
   padding: 10px;
-  border: 1px solid #E0E0E0;
+  border: 1px solid #e0e0e0;
   background-color: #fff;
   cursor: pointer;
   position: relative;
@@ -138,11 +138,11 @@
   background: #fff;
   height: 66px;
   border-radius: 10px;
-  border: 1px solid #B7B7B7;
+  border: 1px solid #b7b7b7;
   padding: 5px 10px;
   transition: border-color 0.3s ease;
 }
-.inputField::placeholder{
+.inputField::placeholder {
   /* color: #000; */
   font-weight: bold;
 }
@@ -179,20 +179,14 @@
   width: 23.77%;
 }
 
-.inputGroup:nth-child(2) {
- 
-}
-
 .inputGroup:nth-child(3) {
- width: 23.77%;
- 
+  width: 23.77%;
 }
 
 .inputGroup:nth-child(4) {
- width: 33.99%;
- 
+  width: 33.99%;
 }
-.inputGroup:nth-child(5){
+.inputGroup:nth-child(5) {
   width: 18.47%;
 }
 
@@ -225,7 +219,7 @@
   font-weight: 400;
   line-height: 80px;
   position: relative;
-  right:65px;
+  right: 65px;
   top: 1em;
 }
 
@@ -242,15 +236,12 @@
   position: relative;
   right: 6em;
   top: 5em;
-  
-
 }
 
 .plane {
   position: absolute;
   right: 14em;
   bottom: 6em;
-
 }
 
 /* Section Three */
@@ -275,7 +266,7 @@
 }
 
 .secThreeImg {
-  background-color: #00758D;
+  background-color: #00758d;
   border-radius: 5px;
   padding: 5px;
   width: 44px;
@@ -291,7 +282,7 @@
   color: #171717;
   margin: 0;
 }
-.secThreeDown{
+.secThreeDown {
   width: 100%;
 }
 .secThreeMainText {
@@ -314,7 +305,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 540px;
+  /* width: 540px; */
+  width: 130%;
 }
 
 .dropdownMenu ul {
@@ -354,23 +346,23 @@
   width: 100%;
   justify-content: space-between;
 }
-.menuover{
-right: 40px;
-width: 100%;
+.menuover {
+  right: 40px;
+  width: 100%;
 }
 
- .plus{
+.plus {
   width: 24px;
   height: 24px;
-  background: #EEECE1;
+  background: #eeece1;
   text-align: center;
   display: flex;
   align-items: center;
   font-size: 24px;
   justify-content: center;
-  border-radius: 50%; 
-} 
-.minus{
+  border-radius: 50%;
+}
+.minus {
   width: 24px;
   height: 24px;
   border: 1px solid rgb(196, 190, 190);
@@ -378,11 +370,11 @@ width: 100%;
   text-align: center;
   display: flex;
   font-size: 24px;
-text-align: center;
+  text-align: center;
   align-items: center;
   font-weight: bold;
   justify-content: center;
-  border-radius: 50%;  
+  border-radius: 50%;
 }
 /* Let's Go Button */
 .Letgo {
@@ -452,10 +444,10 @@ text-align: center;
   .theArt {
     width: 230px;
   }
-.menuover{
-  right: 0;
-  left: -40px;
-}
+  .menuover {
+    right: 0;
+    left: -40px;
+  }
   .elewon {
     position: relative;
     top: -53px;
@@ -523,7 +515,7 @@ text-align: center;
 
   .crafts {
     margin: 1em 0;
-    font-family: 'NeueHaasDisplayLight';
+    font-family: "NeueHaasDisplayLight";
     font-size: 14px;
     width: 199px;
   }
@@ -569,9 +561,6 @@ text-align: center;
     gap: 6em !important;
     padding-left: 7%;
     padding-top: 3em;
-    
-    
-    
   }
 
   .elewon {
@@ -669,7 +658,6 @@ text-align: center;
     width: 290px;
     font-size: 30px;
     line-height: 40px;
-    ;
   }
 
   .heroMiddleText {
@@ -728,7 +716,7 @@ text-align: center;
     padding-right: 8px;
   }
 
-  .plane{
+  .plane {
     position: relative;
     right: 3.8em;
     bottom: 6em;
@@ -742,10 +730,6 @@ text-align: center;
 }
 
 @media (max-width: 500px) {
-  .theArtText2 {
-    /* font-size: 20px !important; */
-  }
-
   .fly {
     display: none;
   }
@@ -754,7 +738,6 @@ text-align: center;
 @media (max-width: 385px) {
   /* Styles for screens up to 385px wide */
 }
-
 
 .errorMessages {
   margin-top: 10px;
@@ -792,10 +775,13 @@ text-align: center;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-
 
 .inputError {
   border: 1px solid rgb(255, 62, 62) !important;

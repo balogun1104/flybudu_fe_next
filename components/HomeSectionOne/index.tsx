@@ -273,10 +273,10 @@ const HomeSectionOne = () => {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "space-between",
-              width: "100%",
+              width: "130%",
             }}
           >
-            {location} <span>Los</span>
+            {location} 
           </div>
         </Menu.Item>
       ))}
