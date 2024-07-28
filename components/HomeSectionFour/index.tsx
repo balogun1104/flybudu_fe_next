@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import styles from "./homeSectionFour.module.css";
 import Lagos from "@/public/assets/images/lagosIsland.png";
@@ -16,10 +17,10 @@ const HomeSectionFour = () => {
                 JOS
               </p>
               <p className={styles.overflow}>
-                Etiam eu turpis molestie, dictum est a, mattis tellus. Sed
-                dignissim, metus nec fringilla accumsan, risus sem sollicitudin
-                lacus, ut interdum tellus elit sed risus. Maecenas eget
-                condimentum velit, sit amet feugiat lectus
+                Discover the cool climate and stunning rock formations of Jos, 
+                a city on the Jos Plateau in central Nigeria. Known for its tin 
+                mining history, beautiful landscapes, and the famous Shere Hills. 
+                Experience the unique blend of nature and culture in this highland city.
               </p>
             </div>
           </div>
@@ -31,12 +32,12 @@ const HomeSectionFour = () => {
               >
                 Akure
               </p>
-              <Image src={Akure} alt="lagos" className={styles.LagosImage} />
+              <Image src={Akure} alt="Akure" className={styles.LagosImage} />
               <p className={styles.overflow}>
-                Etiam eu turpis molestie, dictum est a, mattis tellus. Sed
-                dignissim, metus nec fringilla accumsan, risus sem sollicitudin
-                lacus, ut interdum tellus elit sed risus. Maecenas eget
-                condimentum velit, sit amet feugiat lectus
+                Experience the rich culture and hospitality of Akure, the capital 
+                city of Ondo State. Explore its ancient palace, vibrant markets, 
+                and the nearby Idanre Hills. Akure offers a perfect blend of 
+                tradition and modernity, making it a must-visit destination.
               </p>
             </div>
           </div>
@@ -50,15 +51,12 @@ const HomeSectionFour = () => {
               >
                 LAGOS
               </p>
-              {/* <p className={styles.lowState} style={{ color: "#fff" }}>
-                Civic Tower Victoria Island
-              </p> */}
-              <Image src={Lagos} alt="lagos" className={styles.LagosImage} />
+              <Image src={Lagos} alt="Lagos" className={styles.LagosImage} />
               <p className={styles.overflow}>
-                Etiam eu turpis molestie, dictum est a, mattis tellus. Sed
-                dignissim, metus nec fringilla accumsan, risus sem sollicitudin
-                lacus, ut interdum tellus elit sed risus. Maecenas eget
-                condimentum velit, sit amet feugiat lectus
+                Immerse yourself in the energy of Lagos, Nigeria's largest city. 
+                From its bustling markets to pristine beaches, Lagos offers a unique 
+                blend of tradition and modernity. Experience the vibrant nightlife, 
+                diverse cuisines, and the famous Lagos hustle. A city that never sleeps!
               </p>
             </div>
           </div>
@@ -66,10 +64,11 @@ const HomeSectionFour = () => {
             <div className={styles.jos}>
               <p className={styles.state}>CALABAR</p>
               <p className={styles.overflow}>
-                Etiam eu turpis molestie, dictum est a, mattis tellus. Sed
-                dignissim, metus nec fringilla accumsan, risus sem sollicitudin
-                lacus, ut interdum tellus elit sed risus. Maecenas eget
-                condimentum velit, sit amet feugiat lectus
+                Enjoy the serenity and rich history of Calabar, often called 
+                Nigeria's tourism capital. Known for its cleanliness, beautiful 
+                beaches, and the famous Calabar Carnival. Explore the Slave History 
+                Museum and indulge in the city's renowned cuisine. A perfect blend 
+                of history, culture, and natural beauty.
               </p>
             </div>
           </div>
@@ -84,10 +83,11 @@ const HomeSectionFour = () => {
                 ABUJA
               </p>
               <p className={styles.overflow}>
-                Etiam eu turpis molestie, dictum est a, mattis tellus. Sed
-                dignissim, metus nec fringilla accumsan, risus sem sollicitudin
-                lacus, ut interdum tellus elit sed risus. Maecenas eget
-                condimentum velit, sit amet feugiat lectus
+                Explore Abuja, Nigeria's purpose-built capital city. Marvel at 
+                its modern architecture, visit the iconic Aso Rock, and enjoy 
+                the city's well-planned layout and greenery. With its numerous 
+                parks, museums, and government buildings, Abuja offers a unique 
+                glimpse into Nigeria's political and cultural heart.
               </p>
             </div>
           </div>
@@ -95,12 +95,13 @@ const HomeSectionFour = () => {
             <div className={styles.eko}>
               <p className={styles.state}>IBADAN</p>
              
-              <Image src={Ibadan} alt="lagos" className={styles.LagosImage} />
+              <Image src={Ibadan} alt="Ibadan" className={styles.LagosImage} />
               <p className={styles.overflow}>
-                Etiam eu turpis molestie, dictum est a, mattis tellus. Sed
-                dignissim, metus nec fringilla accumsan, risus sem sollicitudin
-                lacus, ut interdum tellus elit sed risus. Maecenas eget
-                condimentum velit, sit amet feugiat lectus
+                Discover Ibadan, one of Nigeria's largest cities. Known for its 
+                rich Yoruba culture, historical sites like Mapo Hall, and the 
+                first university in Nigeria. Experience the bustling Oje Market, 
+                climb the mysterious Bower's Tower, and indulge in the city's 
+                famous amala delicacy. A city where tradition meets progress.
               </p>
             </div>
           </div>

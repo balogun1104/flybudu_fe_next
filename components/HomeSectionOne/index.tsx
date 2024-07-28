@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Image from "next/image";
@@ -790,75 +791,76 @@ const HomeSectionOne = () => {
         </div>
 
         <div className={styles.cloudDiv}>
-          <div className={styles.HomeSectionThree}>
-            <div className={styles.secThree}>
-              <div className={styles.secThreeUp}>
-                <div>
-                  <Image src={FlyUP} alt="" className={styles.secThreeImg} />
-                </div>
-                <div>
-                  <p className={styles.secThreeText}>
-                    Top Airline <br /> Companies
-                  </p>
-                </div>
-              </div>
-              <div className={styles.secThreeDown}>
-                <p className={styles.secThreeMainText}>
-                  Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-                  eu turpis molestie, dictum est a, mattis tellus. Sed
-                  dignissim, metus nec fringilla accumsan, risus sem
-                  sollicitudin lacus, ut interdum tellus elit .
-                </p>
-              </div>
-            </div>
-            <div className={styles.secThree}>
-              <div className={styles.secThreeUp}>
-                <div>
-                  <Image
-                    src={Destination}
-                    alt=""
-                    className={styles.secThreeImg}
-                  />
-                </div>
-                <div>
-                  <p className={styles.secThreeText}>
-                    More Than 550 <br />
-                    Destinations
-                  </p>
-                </div>
-              </div>
-              <div className={styles.secThreeDown}>
-                <p className={styles.secThreeMainText}>
-                  Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-                  eu turpis molestie, dictum est a, mattis tellus. Sed
-                  dignissim, metus nec fringilla accumsan, risus sem
-                  sollicitudin lacus.
-                </p>
-              </div>
-            </div>
-            <div className={styles.secThree}>
-              <div className={styles.secThreeUp}>
-                <div>
-                  <Image src={People} alt="" className={styles.secThreeImg} />
-                </div>
-                <p className={styles.secThreeText}>
-                  More 1 Million
-                  <br /> Happy Travelers
-                </p>
-              </div>
-              <div className={styles.secThreeDown}>
-                <p className={styles.secThreeMainText}>
-                  Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-                  eu turpis molestie, dictum est a, mattis tellus. Sed
-                  dignissim, metus nec fringilla accumsan, risus sem.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className={styles.imgDiv}>
-            <Image src={cloud} alt="dfs" />
-          </div>
+  <div className={styles.HomeSectionThree}>
+    <div className={styles.secThree}>
+      <div className={styles.secThreeUp}>
+        <div>
+          <Image src={FlyUP} alt="Airplane icon" className={styles.secThreeImg} />
         </div>
+        <div>
+          <p className={styles.secThreeText}>
+            Top Airline <br /> Companies
+          </p>
+        </div>
+      </div>
+      <div className={styles.secThreeDown}>
+        <p className={styles.secThreeMainText}>
+          We partner with the best airlines in the industry to ensure your 
+          comfort and safety. From local carriers to international giants, 
+          our selection of top airline companies guarantees quality service, 
+          reliability, and the best value for your money on every flight.
+        </p>
+      </div>
+    </div>
+    <div className={styles.secThree}>
+      <div className={styles.secThreeUp}>
+        <div>
+          <Image
+            src={Destination}
+            alt="Destination icon"
+            className={styles.secThreeImg}
+          />
+        </div>
+        <div>
+          <p className={styles.secThreeText}>
+            More Than 550 <br />
+            Destinations
+          </p>
+        </div>
+      </div>
+      <div className={styles.secThreeDown}>
+        <p className={styles.secThreeMainText}>
+          Explore the world with us! We offer flights to over 550 destinations 
+          across Nigeria and beyond. Whether you're planning a domestic getaway 
+          or an international adventure, we have the perfect destination for you. 
+          From bustling cities to serene beaches, the world is at your fingertips.
+        </p>
+      </div>
+    </div>
+    <div className={styles.secThree}>
+      <div className={styles.secThreeUp}>
+        <div>
+          <Image src={People} alt="People icon" className={styles.secThreeImg} />
+        </div>
+        <p className={styles.secThreeText}>
+          More Than 1 Million
+          <br /> Happy Travelers
+        </p>
+      </div>
+      <div className={styles.secThreeDown}>
+        <p className={styles.secThreeMainText}>
+          Join our community of over 1 million satisfied travelers! Our 
+          commitment to exceptional service, competitive prices, and 
+          hassle-free bookings has made us a trusted choice for both leisure 
+          and business travelers. Your journey to happiness starts with us.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div className={styles.imgDiv}>
+    <Image src={cloud} alt="Decorative cloud image" />
+  </div>
+</div>
       </div>
     </>
   );
