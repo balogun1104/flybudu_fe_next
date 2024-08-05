@@ -9,7 +9,7 @@ import green from "@/public/assets/svg/green.svg";
 import star from "@/public/assets/svg/Star.svg";
 import plane from "@/public/assets/images/Aeroplane.png";
 import Advert from "../components/FlightAdvert/FlightAdvert";
-import Subscribe from "@/public/assets/images/Paper Plane.png";
+
 import Prev from "@/public/assets/images/prev.png";
 import Next from "@/public/assets/images/Next.png";
 import leftLine from "@/public/assets/images/leftline.png";
@@ -17,9 +17,7 @@ import leftPlane from "@/public/assets/images/leftplane.png";
 import rightLine from "@/public/assets/images/rightline.png";
 import cloud from "@/public/assets/svg/ffDown.svg";
 import rightPlane from "@/public/assets/images/rightplane.png";
-import final1 from "@/public/assets/images/uptodate1.png";
-import final2 from "@/public/assets/images/uptodate2.png";
-import final3 from "@/public/assets/images/uptodate3.png";
+
 import Footer from "../components/Footer/index";
 import Menu from "@/public/assets/images/menu 1.png";
 import Quote from "@/public/assets/svg/Payment.svg";
@@ -32,6 +30,7 @@ import WhiteLogo from "@/public/assets/images/whiteFlybudu.png";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import BeUptoDate from "@/components/BeUpToDate";
 
 interface FlightData {
   id: number;
@@ -316,9 +315,16 @@ function FeaturedFlights() {
       </div>
 
       <div className={styles.main}>
-        <div className={styles.left}>
-          <Image className={styles.leftPlane} src={leftPlane} alt="" />
-          <Image className={styles.line} src={leftLine} alt="" />
+        <div className={styles.secplanth}>
+          <div className={styles.left}>
+            <Image className={styles.leftPlane} src={leftPlane} alt="" />
+            <Image className={styles.line} src={leftLine} alt="" />
+          </div>
+
+          <div className={styles.right}>
+            <Image className={styles.rightPlane} src={rightPlane} alt="" />
+            <Image src={rightLine} alt="" />
+          </div>
         </div>
         <div className="MiddleDiv">
           <div className={styles.secThreeImg}>
@@ -356,42 +362,9 @@ function FeaturedFlights() {
             </div>
           </div>
         </div>
-        <div className={styles.right}>
-          <Image className={styles.rightPlane} src={rightPlane} alt="" />
-          <Image src={rightLine} alt="" />
-        </div>
       </div>
 
-      <div className={styles.final}>
-        <div className={styles.imageWrapFinal}>
-          <Image src={final1} alt="" className={styles.image1} />
-          <Image src={final2} alt="" className={styles.image2} />
-          <Image src={final3} alt="" className={styles.image3} />
-        </div>
-        <div className={styles.uptoDate}>
-          <p className={styles.be}>Be Up To Date</p>
-          <p className={styles.sub}>
-            Subscribe to our newsletter and never miss our latest news and
-            promotions. Our newsletter is sent once a week, every Tuesday
-          </p>
-          <div className={styles.subscribe}>
-            <input
-              type="text"
-              name=""
-              id=""
-              placeholder="Enter Email Address"
-              className={styles.subscribeInput}
-            />
-            <button className={styles.subscribeButton}>
-              {isMobile ? (
-                <Image src={Subscribe} alt="" />
-              ) : (
-                <span>Subscribe</span>
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
+      <BeUptoDate />
 
       <div className={styles.navba}>
         <div className={styles.buttondiv}>

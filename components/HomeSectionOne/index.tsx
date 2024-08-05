@@ -44,6 +44,13 @@ import Hero3 from "@/public/assets/images/heroBg3.jpeg";
 import BookTravelImg from "@/public/assets/images/BookTravelImg.png";
 import FlyPlane from "@/public/assets/images/planeHero.png";
 import cloud from "@/public/assets/svg/Vector.png";
+import { DateRangePicker, FocusedInputShape } from 'react-dates';
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
+import moment from 'moment';
+
+
+
 
 const HomeSectionOne = () => {
   const router = useRouter();
@@ -80,6 +87,7 @@ const HomeSectionOne = () => {
     useState(false);
   const [canNavigate, setCanNavigate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [focusedInput, setFocusedInput] = useState<FocusedInputShape | null>(null);
   const [errors, setErrors] = useState<{
     from?: string;
     to?: string;
@@ -649,47 +657,48 @@ const HomeSectionOne = () => {
                   </Dropdown>
                 </div>
 
-                <div
-                  className={`${styles.inputGroup} ${
-                    errors.departureDate || errors.returnDate
-                      ? styles.inputError
-                      : ""
-                  }`}
-                >
-                  <span className={styles.icon}>
-                    <Image src={Calendar} alt="" />
-                  </span>
-                  <div>
-                    <div className={styles.datePickerHeaders}>
-                      <div>
-                        <label className={styles.label}>Leaving On</label>
-                        <DatePicker
-                          selected={departureDate}
-                          onChange={handleDepartureDateChange}
-                          minDate={new Date()}
-                          placeholderText={
-                            errors.departureDate || "Select date"
-                          }
-                          className={styles.dateInput}
-                          dateFormat="yyyy-MM-dd"
-                        />
-                      </div>
-                      {isRoundTrip && (
-                        <div>
-                          <label className={styles.label}>Returning On</label>
-                          <DatePicker
-                            selected={returnDate}
-                            onChange={handleReturnDateChange}
-                            minDate={departureDate || new Date()}
-                            placeholderText={errors.returnDate || "Select date"}
-                            className={styles.dateInput}
-                            dateFormat="yyyy-MM-dd"
-                          />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
+                <div className={`${styles.inputGroup} ${
+      errors.departureDate || errors.returnDate ? styles.inputError : ""
+    }`}>
+      <span className={styles.icon}>
+        <Image src={Calendar} alt="" />
+      </span>
+      <div className={styles.datePickerWrapper}>
+        <div className={styles.datePickerHeaders}>
+          <div>
+            <label className={styles.label}>Leaving On</label>
+          </div>
+          {isRoundTrip && (
+            <div>
+              <label className={styles.label}>Returning On</label>
+            </div>
+          )}
+        </div>
+        <DateRangePicker
+  startDate={departureDate ? moment(departureDate) : null}
+  startDateId="departure_date_id"
+  endDate={returnDate ? moment(returnDate) : null}
+  endDateId="return_date_id"
+  onDatesChange={({ startDate, endDate }) => {
+    setDepartureDate(startDate ? startDate.toDate() : null);
+    setReturnDate(endDate ? endDate.toDate() : null);
+  }}
+  focusedInput={focusedInput}
+  onFocusChange={(input) => setFocusedInput(input)}
+  numberOfMonths={1}
+  minimumNights={0}
+  isOutsideRange={(day) => day.isBefore(moment(), 'day')}
+  displayFormat="YYYY-MM-DD"
+  showClearDates={false}
+  disabled={!isRoundTrip}
+  startDatePlaceholderText={errors.departureDate || "Select date"}
+  endDatePlaceholderText={errors.returnDate || "Select date"}
+  customArrowIcon={<span></span>}
+/>
+      </div>
+    </div>
+
+    
 
                 <div
                   className={`${styles.inputGroup} ${

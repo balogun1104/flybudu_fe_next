@@ -75,7 +75,7 @@
   /* white-space: nowrap; */
   gap: 30px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   padding: 40px 0;
 
   align-items: center;
@@ -146,9 +146,9 @@
 .main {
   margin-top: 20px;
   padding: 0 30px;
-  display: flex;
-  align-items: self-start;
-  justify-content: center;
+  /* display: flex; */
+  /* align-items: self-start; */
+  /* justify-content: space-between; */
 }
 
 .rightPlane {
@@ -290,9 +290,23 @@
   padding: 0px 10px;
   width: 45px;
 }
-.right,
+/* .right,
 .left {
   height: 3em;
+} */
+ .left{
+  position: relative;
+  right: 47px;
+ }
+
+ .right{
+  position: relative;
+  left: 75em;
+ }
+.secplanth{
+  position: absolute;
+  display: flex;
+  
 }
 
 @media (max-width: 500px) {
