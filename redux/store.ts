@@ -7,6 +7,7 @@ import flightReducer from "./flight/flightSlice";
 import formDataReducer from "./flight/formDataSlice";
 import bookingReducer from "./flight/bookingSlice";
 import featuredFlightsReducer from "./flight/featuredFlightSclice";
+import notificationReducer from './notification/notificationSlice';
 
 const persistConfig = {
   key: "root",
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   formData: formDataReducer,
   booking: bookingReducer,
   featuredFlights: featuredFlightsReducer,
+  notifications: notificationReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

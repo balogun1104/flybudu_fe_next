@@ -1,29 +1,83 @@
-import React from 'react'
-import styles from "../styles/notification.module.css"
-import Navbar from "../components/NavbarSecond/navbar"
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
+import { fetchNotifications } from "@/redux/notification/notificationSlice";
+import styles from "../styles/notification.module.css";
+import Navbar from "../components/NavbarSecond/navbar";
 import hero from "@/public/assets/images/Hero Illustration.png";
-import About from '../components/About/About';
-import NotificationMessge from '../components/NotificationMessage/NotificationMessge';
-import Footer from "../components/Footer/index"
-import MobileNav from "../components/MobileNavBar/index"
-import Image from 'next/image';
-
-
-
-
-import avatar from "@/public/assets/images/whatsaap.jpg";
-import booking from "@/public/assets/images/managebookingblack.png";
-import notification from "@/public/assets/images/notificationwhite.png";
-import profileImg from "@/public/assets/images/Layer 2.png";
-import savedImg from "@/public/assets/images/Currency Exchange.png";
-import logoutImg from "@/public/assets/images/Wallet.png";
-import Link from "next/link";
+import About from "../components/About/About";
+import Footer from "../components/Footer/index";
+import MobileNav from "../components/MobileNavBar/index";
+import Image from "next/image";
+import NotificationMessage from "@/components/NotificationMessage/NotificationMessge";
 
 function Notification() {
+  const dispatch = useDispatch<AppDispatch>();
+  const { notifications, status, error } = useSelector(
+    (state: RootState) => state.notifications
+  );
+
+  useEffect(() => {
+    dispatch(fetchNotifications());
+  }, [dispatch]);
+
+  const isToday = (date: Date) => {
+    const today = new Date();
+    return (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    );
+  };
+
+  const isYesterday = (date: Date) => {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    return (
+      date.getDate() === yesterday.getDate() &&
+      date.getMonth() === yesterday.getMonth() &&
+      date.getFullYear() === yesterday.getFullYear()
+    );
+  };
+
+  const isLastWeek = (date: Date) => {
+    const lastWeek = new Date();
+    lastWeek.setDate(lastWeek.getDate() - 7);
+    return (
+      date >= lastWeek &&
+      date < new Date(lastWeek.getTime() + 7 * 24 * 60 * 60 * 1000)
+    );
+  };
+
+  const isLastMonth = (date: Date) => {
+    const lastMonth = new Date();
+    lastMonth.setMonth(lastMonth.getMonth() - 1);
+    return (
+      date.getMonth() === lastMonth.getMonth() &&
+      date.getFullYear() === lastMonth.getFullYear()
+    );
+  };
+
+  const renderNotifications = (filterFn: (date: Date) => boolean) => {
+    return notifications
+      .filter((notification) => filterFn(new Date(notification.created_at)))
+      .map((notification) => (
+        <NotificationMessage
+          key={notification.id}
+          notification={notification}
+        />
+      ));
+  };
+
+  const todayNotifications = renderNotifications(isToday);
+  const yesterdayNotifications = renderNotifications(isYesterday);
+  const lastWeekNotifications = renderNotifications(isLastWeek);
+  const lastMonthNotifications = renderNotifications(isLastMonth);
+
   return (
     <div className={styles.general}>
-       <div className={styles.header}>
-        <Navbar/>
+      <div className={styles.header}>
+        <Navbar />
       </div>
       <div className={styles.firstDiv}>
         <Image className={styles.hero} src={hero} alt="" />
@@ -37,134 +91,58 @@ function Notification() {
       </div>
       <div className={styles.secondDiv}>
         <div className={styles.about}>
-       
-       
-
-
-
-
-        <div className={styles.genera}>
-      <div className={styles.avatarImg}>
-        {" "}
-        <Image src={avatar} className={styles.avatar} alt="" />
-        <Link
-          style={{ textDecoration: "none", color: "black" }}
-          href="/profile"
-        >
-          {" "}
-          <span className={styles.edit}>Edit Profile</span>
-        </Link>
-      </div>
-
-      <div className={styles.relax}>
-        <span style={{ fontWeight: "bold" }}> Mr. Unknown Viktim</span>
-        <span>
-          Phone: <b>081xxxxxxx</b>
-        </span>
-        <span>
-          Email: <b>unknown@viktim.com</b>
-        </span>
-        <span>
-          Nationality: <b>Nigerian</b>
-        </span>
-        <span>
-          Gender:<b>Male</b>
-        </span>
-        <span>
-          Date of Birth <b>Mar. 23, 2024</b>
-        </span>
-      </div>
-
-      <div className={styles.nameDiv}>
-        <span>Unknown user</span>
-        <p>090xxxxxxxx33</p>
-        <p>Unknown@gmail.com</p>
-      </div>
-      <div className={styles.listDiv}>
-        <div className={styles.fourDiv}>
-          <Link
-            href="/managebooking"
-            style={{ textDecoration: "none", cursor: "pointer" }}
-          >
-            {" "}
-            <div className={styles.profile}>
-              <Image alt="" src={booking} />
-              <span>My Bookings</span>
-            </div>
-          </Link>
-
-          <Link
-            href="/notification"
-            style={{ textDecoration: "none", cursor: "pointer" }}
-          >
-            {" "}
-            <div className={`${styles.notificatio} ${styles.mybookingDiv}`}>
-              <div className={styles.inner}>
-                <Image alt="" src={notification} />
-                <span>Notifications</span>
-              </div>
-              <p className={styles.red}>7</p>
-            </div>
-          </Link>
-
-          <Link
-            href="/profilepage"
-            style={{ textDecoration: "none", cursor: "pointer" }}
-          >
-            <div className={styles.profile}>
-              <Image alt="" src={profileImg} />
-              <span>Profile</span>
-            </div>
-          </Link>
-
-          <Link
-            href="/savedpassenger"
-            style={{ textDecoration: "none", cursor: "pointer" }}
-          >
-            <div className={styles.profile}>
-              <Image alt="" src={savedImg} />
-              <span>Saved Passengers</span>
-            </div>
-          </Link>
-        </div>
-        <div className={styles.logoutDiv}>
-          <div className={styles.profile}>
-            <Image alt="" src={logoutImg} />
-            <Link
-              style={{ textDecoration: "none", cursor: "pointer" }}
-              href="/login"
-            >
-              {" "}
-              <span>Logout</span>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>o
-
-
-
-
-
+          <About />
         </div>
         <div className={styles.second}>
-            <span className={styles.notification}>Notifications</span>
-            <span className={styles.today}>TODAY</span>
-            <div className={styles.message}>
-            <NotificationMessge/>
-            </div>
-            <div className={styles.yesterdayDiv}>
-            <span className={styles.yesterday}>YESTERDAY</span>
-            </div>
-            <div className={styles.messageBook}>
-            <NotificationMessge/>
-            </div>
+          <span className={styles.notification}>Notifications</span>
+          {status === "loading" && <p>Loading...</p>}
+          {status === "failed" && <p>Error: {error}</p>}
+          {status === "succeeded" && (
+            <>
+              {todayNotifications.length > 0 && (
+                <>
+                  <span className={styles.today}>TODAY</span>
+                  <div className={styles.message}>{todayNotifications}</div>
+                </>
+              )}
+              {yesterdayNotifications.length > 0 && (
+                <>
+                  <div className={styles.yesterdayDiv}>
+                    <span className={styles.yesterday}>YESTERDAY</span>
+                  </div>
+                  <div className={styles.messageBook}>
+                    {yesterdayNotifications}
+                  </div>
+                </>
+              )}
+              {lastWeekNotifications.length > 0 && (
+                <>
+                  <div className={styles.lastWeekDiv}>
+                    <span className={styles.lastWeek}>LAST WEEK</span>
+                  </div>
+                  <div className={styles.messageBook}>
+                    {lastWeekNotifications}
+                  </div>
+                </>
+              )}
+              {lastMonthNotifications.length > 0 && (
+                <>
+                  <div className={styles.lastMonthDiv}>
+                    <span className={styles.lastMonth}>LAST MONTH</span>
+                  </div>
+                  <div className={styles.messageBook}>
+                    {lastMonthNotifications}
+                  </div>
+                </>
+              )}
+            </>
+          )}
         </div>
       </div>
-      <MobileNav/>
-      <Footer/>
+      <MobileNav />
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default Notification
+export default Notification;

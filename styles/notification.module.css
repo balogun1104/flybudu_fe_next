@@ -395,3 +395,66 @@
       border-radius: 12px;
   }
 }
+
+
+.lastWeek, .lastMonth {
+  font-weight: bold;
+  padding: 10px 40px;
+  border-radius: 30px;
+  border: 1px solid;
+  margin-top: 60px;
+  position: relative;
+  flex-direction: column;
+  z-index: 3;
+}
+
+.lastWeekDiv, .lastMonthDiv {
+  margin-top: 70px;
+  position: relative;
+}
+
+.lastWeekDiv::after, .lastMonthDiv::after {
+  display: block;
+  content: '';
+  width: 1px;
+  height: 60px;
+  background: black;
+  position: absolute;
+  left: 4em;
+  top: 2em;
+}
+
+.messageBook {
+  margin-top: 60px;
+  position: relative;
+}
+
+.messageBook::after {
+  display: block;
+  content: '';
+  width: 1px;
+  height: 60px;
+  background: black;
+  position: absolute;
+  left: 4em;
+}
+
+.messageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Adjust this value to increase or decrease the gap between cards */
+}
+
+.messageContainer > div:last-child {
+  margin-bottom: 0; /* Removes bottom margin from the last card */
+}
+
+
+.general {
+  margin-bottom: 15px; /* Adjust this value as needed */
+}
+
+/* Remove margin from the last card */
+.general:last-child {
+  margin-bottom: 0;
+}
