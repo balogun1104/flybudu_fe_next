@@ -807,3 +807,92 @@
   color: inherit;
   opacity: 1;
 }
+
+
+
+/* In your CSS module or global styles */
+.datePickerWrapper {
+  width: 100%;
+}
+
+.datePickerHeaders {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.label {
+  font-size: 12px;
+  color: #555;
+  display: block;
+}
+
+.datePickerWrapper :global(.DateRangePicker) {
+  width: 100%;
+}
+
+.datePickerWrapper :global(.DateRangePickerInput) {
+  border: none;
+  background: transparent;
+  display: flex;
+  justify-content: space-between;
+}
+
+.datePickerWrapper :global(.DateInput) {
+  width: 48%;
+  background: transparent;
+}
+
+.datePickerWrapper :global(.DateInput_input) {
+  font-size: 14px;
+  border: none;
+  background: transparent;
+  color: #000;
+  font-weight: bold;
+  padding: 0;
+}
+
+.datePickerWrapper :global(.DateInput_input::placeholder) {
+  color: #999;
+}
+
+.datePickerWrapper :global(.DateRangePickerInput_arrow) {
+  display: none;
+}
+
+.datePickerWrapper :global(.CalendarDay__selected_span) {
+  background: #a5d7f9;
+  color: #fff;
+  border: 1px solid #89c3f7;
+}
+
+.datePickerWrapper :global(.CalendarDay__selected) {
+  background: #3498db;
+  color: white;
+  border: 1px solid #3498db;
+}
+
+.datePickerWrapper :global(.CalendarDay__selected:hover) {
+  background: #2980b9;
+  color: white;
+  border: 1px solid #2980b9;
+}
+
+.datePickerWrapper :global(.CalendarDay__hovered_span:hover),
+.datePickerWrapper :global(.CalendarDay__hovered_span) {
+  background: #b8dffc;
+}
+
+.datePickerWrapper :global(.DayPickerKeyboardShortcuts_show__bottomRight::before) {
+  border-right: 33px solid #3498db;
+}
+
+@media (max-width: 768px) {
+  .datePickerWrapper :global(.DateRangePicker_picker) {
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 2000;
+  }
+}
