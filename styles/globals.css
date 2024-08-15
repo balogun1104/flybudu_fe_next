@@ -40,39 +40,6 @@
   --card-border-rgb: 131, 134, 135;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-
-    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-    --secondary-glow: linear-gradient(
-      to bottom right,
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0.3)
-    );
-
-    --tile-start-rgb: 2, 13, 46;
-    --tile-end-rgb: 2, 5, 19;
-    --tile-border: conic-gradient(
-      #ffffff80,
-      #ffffff40,
-      #ffffff30,
-      #ffffff20,
-      #ffffff10,
-      #ffffff10,
-      #ffffff80
-    );
-
-    --callout-rgb: 20, 20, 20;
-    --callout-border-rgb: 108, 108, 108;
-    --card-rgb: 100, 100, 100;
-    --card-border-rgb: 200, 200, 200;
-  }
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -100,37 +67,31 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
+/* Your font-face declarations */
 @font-face {
-  font-family: "Light";   /*Can be any text*/
+  font-family: "Light";
   src: local("Wreckout-BWWR8"),
     url("../public/assets/fonts/Wreckout-BWWR8.otf") format("opentype");
 }
 
 @font-face {
-  font-family: "NeueHaasDisplayBold";   /*Can be any text*/
+  font-family: "NeueHaasDisplayBold";
   src: local("NeueHaasDisplay"),
-    url("../public/assets/fonts/NeueHaasDisplayRoman.ttf") format("truetype"),;
+    url("../public/assets/fonts/NeueHaasDisplayRoman.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "NeueHaasDisplayLight";   /*Can be any text*/
+  font-family: "NeueHaasDisplayLight";
   src: local("NeueHaasDisplay"),
-    url("../public/assets/fonts/NeueHaasDisplayThin.ttf") format("truetype"),;
+    url("../public/assets/fonts/NeueHaasDisplayThin.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "RomanLight";   /*Can be any text*/
+  font-family: "RomanLight";
   src: local("NeueHaasDisplay"),
-    url("../public/assets/fonts/NeueHaasDisplayRoman.ttf") format("truetype"),;
+    url("../public/assets/fonts/NeueHaasDisplayRoman.ttf") format("truetype");
 }

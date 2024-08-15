@@ -3,15 +3,20 @@
 }
 .mother{
 background: #fff;
-padding: 20px 20px 0 20px;
+/* padding: 20px 20px 0 20px; */
 
 overflow-y: hidden;
 }
 .nameCircle{
-    font-weight: bold;
-    padding: 5px;
-    background: rgba(97, 205, 227, 1);
-    border-radius: 100px;
+  font-weight: 600;
+  padding-top: 7px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 7px;
+  background: rgba(97, 205, 227, 1);
+  border-radius: 100%;
+  margin-right: 10px;
+  font-size: 14px;
 }
 /* .firstDiv{
     display: flex;
@@ -77,4 +82,73 @@ justify-content: space-between;
         padding-left: 10px;
 
     }
+  }
+
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .paginationButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #06bce1;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .paginationButton:hover:not(:disabled) {
+    background-color: #0594b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .paginationButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #d3d3d3;
+  }
+  
+  .paginationIcon {
+    font-size: 18px;
+    margin-right: 5px;
+  }
+  
+  .paginationButton:last-child .paginationIcon {
+    margin-right: 0;
+    margin-left: 5px;
+  }
+  
+  .pageInfo {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .currentPage {
+    font-size: 24px;
+    font-weight: bold;
+    color: #06bce1;
+    margin-right: 5px;
+  }
+  
+  .totalPages {
+    font-size: 16px;
+    color: #666;
   }

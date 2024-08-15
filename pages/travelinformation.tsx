@@ -147,7 +147,7 @@ function TravelInformation() {
           </div>
           <Additional onLuggageSelect={handleLuggageSelect} />
           <SpecialAssistance />
-          <Seat />
+          {/* <Seat /> */}
           <div className={styles.skipDiv}>
             <Link
               className={styles.none}

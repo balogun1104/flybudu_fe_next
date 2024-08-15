@@ -17,6 +17,7 @@ import { updateFormData } from "@/redux/flight/formDataSlice";
 function SideCard() {
   const dispatch = useDispatch();
   const [showLuggageBreakdown, setShowLuggageBreakdown] = useState(false);
+  const [showPassengerBreakdown, setShowPassengerBreakdown] = useState(false);
   const { searchCriteria, flightData, loading, totalFlight, totalPassengers } =
     useFlightData();
   const selectedAirline = useSelector(
@@ -165,7 +166,21 @@ function SideCard() {
         )}
         <div className={styles.fifthDiv}>
           <span className={styles.base}> Flight Base Fare</span>
-          <p>Adult x{searchCriteria.passengers.adults}</p>
+          <div className={styles.twins}>
+            <p
+              onClick={() => setShowPassengerBreakdown(!showPassengerBreakdown)}
+              style={{ cursor: "pointer", textDecoration: "underline" }}
+            >
+              Total passengers booked: {totalPassengers}
+            </p>
+          </div>
+          {showPassengerBreakdown && (
+            <div className={styles.passengerBreakdown}>
+              <p>Adults: {searchCriteria.passengers.adults}</p>
+              <p>Children: {searchCriteria.passengers.children}</p>
+              <p>Infants: {searchCriteria.passengers.infants}</p>
+            </div>
+          )}
           <div className={styles.twins}>
             <p> Class</p> <span>Economy</span>
           </div>

@@ -289,7 +289,7 @@ const Flight = () => {
         </div>
       </div>
       <div className={styles.flightWrapper}>
-        <div style={{ margin: "30px" }}>
+        <div className={styles.flightFound}>
           <span className={styles.found}>
             {sortedFlightData.length > 0
               ? `We Found ${sortedFlightData.length} Flights From ${searchCriteria.from} To ${searchCriteria.to}`
@@ -356,11 +356,11 @@ const Flight = () => {
                     </React.Fragment>
                   )
                 )}
-                {sortedFlightData.length >= 2 && (
+                {/* {sortedFlightData.length >= 9 && (
                   <div className={styles.loadDiv}>
                     <p>Load More Result</p> <Image alt="" src={arrow} />
                   </div>
-                )}
+                )} */}
               </>
             ) : (
               <div className={styles.noFlightFound}>

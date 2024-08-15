@@ -38,7 +38,7 @@ const initialState: FlightState = {
       infants: 0,
     },
     flightType: "Local Flights",
-    tripType: "Round trip",
+    tripType: "One Way",
     classType: "Economy",
   },
   flightData: {

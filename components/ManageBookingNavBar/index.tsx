@@ -1,3 +1,5 @@
+import React from "react";
+import { useSelector } from "react-redux";
 import styles from "./index.module.css";
 import payment from "@/public/assets/svg/Paymentplain.svg";
 import jet from "@/public/assets/svg/jet.svg";
@@ -15,6 +17,7 @@ import twitter from "@/public/assets/svg/twittermobile.svg";
 import Unknown from "@/public/assets/images/ProfilePic.png";
 import Link from "next/link";
 import Image from "next/image";
+import { RootState } from "@/redux/store";
 
 interface MobileNavScreenProps {
   onClick: () => void;
@@ -23,6 +26,11 @@ interface MobileNavScreenProps {
 export const MobileNavScreen: React.FC<MobileNavScreenProps> = ({
   onClick,
 }) => {
+  const { user } = useSelector((state: RootState) => state.auth);
+  const { notifications } = useSelector(
+    (state: RootState) => state.notifications
+  );
+
   const socialMediaLinks = [
     {
       id: 1,
@@ -45,11 +53,54 @@ export const MobileNavScreen: React.FC<MobileNavScreenProps> = ({
       path: "",
     },
   ];
+
+  const renderUserAvatar = () => {
+    if (user?.image) {
+      return (
+        <Image
+          src={user.image}
+          alt="User Profile"
+          width={30}
+          height={30}
+          className={styles.userAvatar}
+        />
+      );
+    } else if (user?.name || user?.last_name) {
+      const initials = getInitials(user?.name, user?.last_name);
+      return <div className={styles.userInitials}>{initials}</div>;
+    }
+    return <Image src={Unknown} alt="Unknown User" width={30} height={30} />;
+  };
+
+  const getInitials = (
+    firstName: string | undefined,
+    lastName: string | undefined
+  ) => {
+    if (firstName && lastName) {
+      return `${firstName.charAt(0).toUpperCase()}${lastName
+        .charAt(0)
+        .toUpperCase()}`;
+    } else if (firstName) {
+      return firstName.length > 1
+        ? `${firstName.charAt(0).toUpperCase()}${firstName
+            .charAt(1)
+            .toLowerCase()}`
+        : firstName.toUpperCase();
+    } else if (lastName) {
+      return lastName.length > 1
+        ? `${lastName.charAt(0).toUpperCase()}${lastName
+            .charAt(1)
+            .toLowerCase()}`
+        : lastName.toUpperCase();
+    }
+    return "NA";
+  };
+
   const dataForMobile = [
     {
       id: 1,
       title: "Profile",
-      icon: Unknown,
+      icon: renderUserAvatar(),
       navigate: "/profilepage",
     },
     {
@@ -69,6 +120,7 @@ export const MobileNavScreen: React.FC<MobileNavScreenProps> = ({
       title: "Notification",
       icon: fly,
       navigate: "/notification",
+      count: notifications.length,
     },
     {
       id: 5,
@@ -105,14 +157,20 @@ export const MobileNavScreen: React.FC<MobileNavScreenProps> = ({
         <div className={styles.dataContainer}>
           {dataForMobile.map((item) => (
             <div key={item.id} className={styles.innerContainer}>
-              <Image src={item.icon} alt="icons" />
+              {item.id === 1 ? (
+                item.icon
+              ) : (
+                <Image src={item.icon} alt="icons" />
+              )}
               <Link
                 style={{ textDecoration: "none", color: "black" }}
                 href={item.navigate}
               >
-                {" "}
                 <p>{item.title}</p>
               </Link>
+              {item.count !== undefined && (
+                <span className={styles.notificationCount}>{item.count}</span>
+              )}
             </div>
           ))}
         </div>

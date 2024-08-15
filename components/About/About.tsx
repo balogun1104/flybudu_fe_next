@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./about.module.css";
 import booking from "@/public/assets/images/Vector.png";
 import notification from "@/public/assets/images/Group 2.png";
@@ -10,16 +10,25 @@ import Link from "next/link";
 import Image from "next/image";
 import { RootState } from "@/redux/store";
 import { useAuth } from "@/hooks/useAuth";
+import { fetchNotifications } from '@/redux/notification/notificationSlice';
 
 function About() {
+  const dispatch = useDispatch();
   const { bookingData, loading, error } = useSelector(
     (state: RootState) => state.booking
   );
+  const { notifications, status: notificationStatus } = useSelector(
+    (state: RootState) => state.notifications
+  );
   const { isAuthenticated, user } = useAuth();
+
+  useEffect(() => {
+    dispatch(fetchNotifications() as any);
+  }, [dispatch]);
 
   console.log("User data:", user); // Debugging: Log user data
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className={styles.loader}></div>;
   if (error) return <div>Error: {error}</div>;
   if (!bookingData || bookingData.regular.length === 0)
     return <div>No booking data available</div>;
@@ -56,6 +65,7 @@ function About() {
     }
     return "NA";
   };
+
   return (
     <div className={styles.genera}>
       <div className={styles.avatarImg}>
@@ -97,7 +107,11 @@ function About() {
                 <Image alt="Notification Icon" src={notification} />
                 <span>Notifications</span>
               </div>
-              <p className={styles.red}>7</p>
+              {notificationStatus === 'loading' ? (
+                <div className={styles.smallLoader}></div>
+              ) : (
+                <p className={styles.red}>{notifications.length}</p>
+              )}
             </div>
           </Link>
 

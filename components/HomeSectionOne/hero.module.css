@@ -426,6 +426,12 @@
 
 /* Media Queries */
 @media (max-width: 1200px) {
+ 
+  .labelreturn{
+    position: relative;
+    right: 25.3em !important;
+  }
+
   .fly {
     width: 10em;
   }
@@ -733,10 +739,80 @@
   .fly {
     display: none;
   }
+  .dropdownIconImage{
+    width: 10px;
+    height: 10px;
+  }
+  .roundTrip{
+    font-size: 8px;
+    display: flex;
+    align-items: center;
+  }
+  .inputField {
+    font-size: 11px;
+    padding: 8px;
+  }
+
+  .datePickerWrapper :global(.DateInput_input) {
+    font-size: 11px;
+    border: none;
+    background: transparent;
+    color: #000;
+    font-weight: bold;
+    padding: 0;
+  }
+
+  .labelreturn{
+    position: relative;
+    right: 4.8em !important;
+  }
+
+  .inputGroup {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    height: 56px!important;
+    border-radius: 10px;
+    border: 1px solid #b7b7b7;
+    padding: 5px 10px;
+    transition: border-color 0.3s ease;
+  }
+
+  .cycle {
+    top: 23.8em !important;
+    left: 46% !important;
+    height: 32px;
+    width: 32px;
+  }
 }
 
-@media (max-width: 385px) {
-  /* Styles for screens up to 385px wide */
+@media (max-width: 344px) {
+
+  .labelreturn{
+    position: relative;
+    right: 1.8em !important;
+  }
+
+  .roundTrip{
+    font-size: 8px;
+    
+  }
+
+  .dropdownIconImage{
+    width: 10px;
+    height: 10px;
+  }
+
+  .datePickerWrapper :global(.DateInput_input) {
+    font-size: 11px !important;
+    border: none;
+    background: transparent;
+    color: #000;
+    font-weight: bold;
+    padding: 0;
+    padding-left: 15px !important;
+  
+  }
 }
 
 .errorMessages {
@@ -850,6 +926,12 @@
   color: #000;
   font-weight: bold;
   padding: 0;
+  padding-left: 15px !important;
+}
+
+.labelreturn{
+  position: relative;
+  right: 74px;
 }
 
 .datePickerWrapper :global(.DateInput_input::placeholder) {

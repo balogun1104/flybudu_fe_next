@@ -1,6 +1,6 @@
 .body {
-  border-radius: 25px;
-  padding: 2em;
+  border-radius: 15px;
+  padding: 2em 1em;
   color: black;
   /* width: 500px; */
   flex-direction: column;
@@ -14,7 +14,7 @@
 .welcome {
   font-weight: bolder;
   font-size: 35px;
-  font-family: NeueHaasDisplayBold;
+  /* font-family: NeueHaasDisplayBold; */
 }
 .joinDiv {
   display: flex;
@@ -147,6 +147,7 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 1.5em;
+  font-size: 14px;
 }
 @media (max-width: 768px) {
   .body {
