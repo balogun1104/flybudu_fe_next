@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+import TicketRef from "@/components/TicketRef/TicketRef";
 import axiosInstance from "@/redux/api";
 import styles from "../styles/managebooking.module.css";
 import {
@@ -186,6 +186,7 @@ const ManageBooking: React.FC = () => {
   );
 
   if (error) return <div>Error: {error}</div>;
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
@@ -215,9 +216,9 @@ const ManageBooking: React.FC = () => {
                 <div className={styles.book}>
                   <span className={styles.none}>Bookings</span>
                   <div className={styles.blueDiv}>
-                    <span className={styles.blue}>Get My Ticket</span>
-                    <span className={styles.blue}>Request Refund</span>
-                    <span className={styles.white}>Make Changes on Ticket</span>
+                    <span className={styles.blue} onClick={() => setIsOpen(true)}>Get My Ticket</span>
+                    <span className={styles.blue}  onClick={() => setIsOpen(true)}>Request Refund</span>
+                    <span className={styles.white} onClick={() => setIsOpen(true)}>Make Changes on Ticket</span>
                   </div>
                 </div>
 
@@ -239,6 +240,9 @@ const ManageBooking: React.FC = () => {
         {loading && renderLoading()}
       </div>
       <Footer />
+
+      {isOpen && <TicketRef setIsOpen={setIsOpen} />}
+
     </div>
   );
 };
