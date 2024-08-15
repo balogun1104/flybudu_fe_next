@@ -119,7 +119,7 @@ export const MobileNavScreen: React.FC<MobileNavScreenProps> = ({
       </div>
 
       <div className={styles.contactUs}>
-        <p>Contact Us</p>
+        <p className={styles.text}>Contact Us</p>
 
         <div className={styles.contactUsCard}>
           <Image

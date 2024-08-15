@@ -3,7 +3,6 @@
   padding-left: 5rem;
   position: relative;
   color: black;
-  padding-bottom: 17rem;
   z-index: 2;
   font-family: sans-serif;
   top: 0;
@@ -12,9 +11,19 @@
 .trip {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   gap: 3em;
 }
+.questionWrapper{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 1px solid #b7b7b7;
+
+  padding-bottom: 15px;
+}
 .fiveContent {
+  padding-bottom: 0;
   padding-top: 5rem;
 }
 .freq {
@@ -33,13 +42,12 @@
 .bookp {
   margin: 0;
   font-size: 20px;
-  font-family: "san-serif";
+  font-family: 'NeueHaasDisplayBold';
 }
 
 .bookflight {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #b7b7b7;
   flex-direction: column;
   gap: 10px;
   padding-bottom: 15px;
@@ -168,7 +176,6 @@
   .bookflight {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #b7b7b7;
     flex-direction: column;
     gap: 10px;
     width: 100%;
@@ -202,7 +209,6 @@
     width: 100%;
     display: flex;
     gap: 9px;
-    padding-left: 1.5em;
     align-items: flex-end;
   }
   .final {
@@ -267,7 +273,8 @@
     top: 6em;
   }
   .featImgaeWrap {
-    top: -10.4em;
+    top: -9.4em;
+
         left: 2em;
         position: relative;
   }
@@ -284,7 +291,7 @@
 
 @media (max-width:700px) {
     .HomeSectionFive{
-        padding-bottom: 18em;
+        padding-bottom: 0;
     }
 .final{
     width: 90%;

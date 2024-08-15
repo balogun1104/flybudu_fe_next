@@ -19,7 +19,7 @@ import final2 from "@/public/assets/images/uptodate2.png";
 import final3 from "@/public/assets/images/uptodate3.png";
 import Footer from "../components/Footer/index";
 import MobileNav from "../components/MobileNavBar";
-
+import BeUptoDate from "@/components/BeUpToDate";
 import Menu from "@/public/assets/images/menu 1.png";
 import Quote from "@/public/assets/svg/Payment.svg";
 import flyBudu2 from "@/public/assets/images/flybuduLogo2.png";
@@ -78,77 +78,7 @@ function Destinations() {
 
   return (
     <div className={styles.general}>
-      <div>
-        <div className={styles.NavtwoContainer}>
-          <div className={styles.navcon}>
-            <div className={styles.navbarWrapBlack}>
-              <div
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-                onClick={handleLogoClick}
-              >
-                {isMobile ? (
-                  <Image className={styles.flybudu} src={flyBudu2} alt="" />
-                ) : (
-                  <Image className={styles.flybudu} src={Logo} alt="" />
-                )}
-              </div>
-
-              <div>
-                <div className={styles.navbar}>
-                  <Link href="/flight">flight</Link>
-                  <Link className={styles.active} href="/destinations">
-                    Destinations
-                  </Link>
-                  <Link href="/featuredflights">Featured Flights</Link>
-                  <Link href="/contacts">Contact</Link>
-                </div>
-              </div>
-              <input
-                type="text"
-                placeholder="Search Flights"
-                className={styles.searchInput}
-              />
-              <div className={styles.quoteWrap}>
-                <div
-                  onClick={() => {
-                    setIsOpen(true);
-                  }}
-                  style={{ cursor: "pointer" }}
-                  className={styles.quote}
-                >
-                  <span>Corporate Booking</span>
-                  <span>
-                    <Image src={Quote} alt="" />
-                  </span>
-                </div>
-                <Image alt="" className={styles.avatar} src={avatar} />
-                {isMobile ? (
-                  <Image
-                    src={WhiteLogo}
-                    alt=""
-                    className={styles.quoteImg}
-                    onClick={() => setOpenMenu(!openMenu)}
-                  />
-                ) : (
-                  <Image
-                    src={Menu}
-                    alt=""
-                    onClick={() => setOpenMenu(!openMenu)}
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-
-          {openMenu && <MobileNavScreen onClick={() => setOpenMenu(false)} />}
-        </div>
-        {isOpen && <QuoteBar setIsOpen={setIsOpen} />}
-      </div>
-
+     <Navbar/>
       <div className={styles.backgroundDiv}>
         <div className={styles.firstPart}>
           <span>DESTINATIONS</span>
@@ -382,36 +312,7 @@ function Destinations() {
             </span>
           </div>
         </div> */}
-        <div className={styles.final}>
-          <div className={styles.imageWrapFinal}>
-            <Image src={final1} alt="" className={styles.image1} />
-            <Image src={final2} alt="" className={styles.image2} />
-            <Image src={final3} alt="" className={styles.image3} />
-          </div>
-          <div className={styles.uptoDate}>
-            <p className={styles.be}>Be Up To Date</p>
-            <p className={styles.sub}>
-              Subscribe to our newsletter and never miss our latest news and
-              promotions. Our newsletter is sent once a week, every Tuesday
-            </p>
-            <div className={styles.subscribe}>
-              <input
-                type="text"
-                name=""
-                id=""
-                placeholder="Enter Email Address"
-                className={styles.subscribeInput}
-              />
-              <button className={styles.subscribeButton}>
-                {isMobile ? (
-                  <Image src={Subscribe} alt="" />
-                ) : (
-                  <span>Subscribe</span>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
+        <BeUptoDate/>
 
         <div className={styles.navba}>
           <div className={styles.buttondiv}>

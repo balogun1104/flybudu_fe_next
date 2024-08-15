@@ -33,9 +33,7 @@ const HomeSectionFive = () => {
 
           <div className={styles.howBook}>
             <Faq />
-            <Faq />
-            <Faq />
-            <Faq />
+        
             <Image
               src={bookFlight}
               alt="bookFLig"

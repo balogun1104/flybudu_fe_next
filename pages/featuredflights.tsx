@@ -9,7 +9,7 @@ import green from "@/public/assets/svg/green.svg";
 import star from "@/public/assets/svg/Star.svg";
 import plane from "@/public/assets/images/Aeroplane.png";
 import Advert from "../components/FlightAdvert/FlightAdvert";
-
+import Navbar from "@/components/NavbarSecond/navbar";
 import Prev from "@/public/assets/images/prev.png";
 import Next from "@/public/assets/images/Next.png";
 import leftLine from "@/public/assets/images/leftline.png";
@@ -208,77 +208,7 @@ function FeaturedFlights() {
 
   return (
     <div className={styles.general}>
-      <div>
-        <div className={styles.NavtwoContainer}>
-          <div className={styles.navcon}>
-            <div className={styles.navbarWrapBlack}>
-              <div
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-                onClick={handleLogoClick}
-              >
-                {isMobile ? (
-                  <Image className={styles.flybudu} src={flyBudu2} alt="" />
-                ) : (
-                  <Image className={styles.flybudu} src={Logo} alt="" />
-                )}
-              </div>
-
-              <div>
-                <div className={styles.navbar}>
-                  <Link href="/flight">flight</Link>
-                  <Link href="/destinations">Destinations</Link>
-                  <Link className={styles.active} href="/featuredflights">
-                    Featured Flights
-                  </Link>
-                  <Link href="/contacts">Contact</Link>
-                </div>
-              </div>
-              <input
-                type="text"
-                placeholder="Search Flights"
-                className={styles.searchInput}
-              />
-              <div className={styles.quoteWrap}>
-                <div
-                  onClick={() => {
-                    setIsOpen(true);
-                  }}
-                  style={{ cursor: "pointer" }}
-                  className={styles.quote}
-                >
-                  <span>Corporate Booking</span>
-                  <span>
-                    <Image src={Quote} alt="" />
-                  </span>
-                </div>
-                <Image alt="" className={styles.avatar} src={avatar} />
-                {isMobile ? (
-                  <Image
-                    src={WhiteLogo}
-                    alt=""
-                    className={styles.quoteImg}
-                    onClick={() => setOpenMenu(!openMenu)}
-                  />
-                ) : (
-                  <Image
-                    src={Menu}
-                    alt=""
-                    onClick={() => setOpenMenu(!openMenu)}
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-
-          {openMenu && <MobileNavScreen onClick={() => setOpenMenu(false)} />}
-        </div>
-        {isOpen && <QuoteBar setIsOpen={setIsOpen} />}
-      </div>
-
+      <Navbar/>
       <div className={styles.backgroundDiv}>
         <div className={styles.firstPart}>
           <span>FEATURED FLIGHTS</span>
@@ -345,7 +275,7 @@ function FeaturedFlights() {
               ))
             )}
           </div>
-          <div className={styles.tooMuch}>
+          {/* <div className={styles.tooMuch}>
             <Image className={styles.cloud} src={cloud} alt="" />
             <div className={styles.buttonDiv}>
               <button className={styles.prev}>
@@ -360,7 +290,7 @@ function FeaturedFlights() {
                 Page <span className={styles.special}>1</span> Of 2
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 

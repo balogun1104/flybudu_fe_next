@@ -300,11 +300,13 @@
  }
 
  .right{
-  position: relative;
-  left: 75em;
- }
+  position: absolute;
+  height: min-content;
+right: 0; }
 .secplanth{
   position: absolute;
+  width: 96%;
+  z-index: 2;
   display: flex;
   
 }
@@ -623,6 +625,9 @@
 .searchInput {
   display: none;
 }
+.left img:nth-child(2), .right img:nth-child(2){
+  height: 170vh;
+}
 @media (max-width: 1000px) {
   .navbar,
   .quote {
@@ -691,10 +696,13 @@
   }
 }
 .buttondiv {
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   display: flex;
+}
+.secplanth{
+  display: none;
 }
 .buttons {
   outline: none;

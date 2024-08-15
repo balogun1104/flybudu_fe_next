@@ -542,7 +542,7 @@
     width: 230px;
   }
   .card{
-    width: 49%;
+    width: 48.5%;
   }
   .featImgaeOne {
     width: 230px;
@@ -781,7 +781,7 @@
   }
 }
 .buttondiv{
-justify-content: space-evenly;
+justify-content: space-between;
 align-items: center;
   width: 100%;
   display: flex;
