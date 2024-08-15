@@ -1,5 +1,10 @@
-.general {
+.mobileMother {
+  display: none;
 }
+/* .general{
+  padding-left: 10px;
+  padding-right: 10px
+} */
 .mother {
   background: #fff;
   padding: 10px 10px 0 10px;
@@ -57,26 +62,27 @@
   visibility: hidden;
 }
 .mobileMother {
-  /* width: 100%; */
   background: #fff;
   padding: 5px 20px;
-  display: none;
+  /* display: none; */
   border-radius: 8px;
-  /* display: flex; */
+  width: 100%;
+
   justify-content: space-between;
 }
 .firstDate,
 .secondDate {
   display: flex;
-  gap: 1em;
+  /* gap: 1em; */
   /* width: 50%; */
   align-items: center;
+  width: 50%;
   /* justify-content: center; */
 }
 .secondDate {
   justify-content: flex-end;
-  width: 45%;
-  border-left: 1px solid;
+  width: 50%;
+  border-left: 1px solid #bfbfbf;
   /* padding-left: 1em; */
 }
 .firstDate,
@@ -166,10 +172,100 @@
 /* Add responsive styles for mobile view */
 @media (max-width: 768px) {
   .mobileMother {
-    display: block;
+    display: flex;
+    padding: 5px 10px;
+    width: 100%;
+    color: #171717 !important;
+    font-weight: 200;
+    margin-bottom: 10px;
   }
 
   .tableContainer {
     display: none;
   }
+  .firstDate {
+    display: flex;
+    align-items: center;
+  }
+
+  .date {
+    padding-right: 10px;
+  }
+  .secondDate {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .secondText {
+    padding-left: 10px;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  font-family: Arial, sans-serif;
+}
+
+.paginationButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #06bce1;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.paginationButton:hover:not(:disabled) {
+  background-color: #0594b3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.paginationButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #d3d3d3;
+}
+
+.paginationIcon {
+  font-size: 18px;
+  margin-right: 5px;
+}
+
+.paginationButton:last-child .paginationIcon {
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+.pageInfo {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #333;
+  /* margin: 0 20px; */
+}
+
+.currentPage {
+  font-size: 24px;
+  font-weight: bold;
+  color: #06bce1;
+  margin-right: 5px;
+}
+
+.totalPages {
+  font-size: 16px;
+  color: #666;
 }

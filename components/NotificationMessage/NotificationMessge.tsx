@@ -24,7 +24,7 @@ function NotificationMessage({ notification }: NotificationProps) {
         <div className={styles.firstDiv}>
           <span>{time}</span>
           <Image alt="lolipop" src={message} />
-          <div className={styles.greenDiv}>
+          {/* <div className={styles.greenDiv}>
             <Image
               alt=""
               width="40"
@@ -32,7 +32,7 @@ function NotificationMessage({ notification }: NotificationProps) {
               src={greenAfrica}
             />
             <span> Green Africa</span>
-          </div>
+          </div> */}
           <div className={styles.columnDiv}>
             <span className={styles.bold}>
               {notification.headline}

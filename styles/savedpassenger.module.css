@@ -196,7 +196,7 @@
 
 .prev {
   color: #fff;
-  background: #D3D3D3;
+  background: #d3d3d3;
   border: none;
   border-radius: 8px;
   font-weight: bold;
@@ -211,7 +211,6 @@
   border-radius: 8px;
   padding: 10px 20px;
 }
-
 
 .special {
   padding: 7px 15px;
@@ -231,8 +230,7 @@
   gap: 1em;
 }
 
-
-@media (max-width:1200px) {
+@media (max-width: 1200px) {
   .about {
     display: none;
   }
@@ -242,7 +240,7 @@
   }
 }
 
-@media (max-width:768px) {
+@media (max-width: 768px) {
   .firstDiv {
     display: none;
   }
@@ -254,62 +252,74 @@
   .tooMuch {
     display: none;
   }
-  .pass{
+  .pass {
     display: flex !important;
     padding: 10px 32px;
-            display: flex;
-        font-size: 23px;
-        margin-bottom: 20px;
-   
-        justify-content: space-between;
+    display: flex;
+    font-size: 23px;
+    margin-bottom: 20px;
+
+    justify-content: space-between;
   }
-  .passenger{
-    padding-bottom: 10px;
-    border-bottom:  #06BCE1 1px solid;
-  }
-  .saved{
+  .saved {
     display: none;
   }
-  
+
+  .pass {
+    display: flex;
+    padding: 10px 32px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .passOne {
+    width: 50%;
+    text-align: center;
+  }
+  .passTwo {
+    width: 50%;
+    text-align: center;
+    border-bottom: #06bce1 2px solid;
+  }
+  .passenger {
+    margin-bottom: 10px;
+
+    font-size: 12px;
+    font-weight: 900;
+  }
+  .passengerPass {
+    margin-bottom: 10px;
+    color: #545e5e;
+    font-size: 14px;
+  }
 }
-@media (max-width:500px) {
-  .pass{
+@media (max-width: 500px) {
+  .pass {
     font-size: 20px;
     padding: 10px 0;
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-.genera{
+.genera {
   background-color: #fff;
   display: flex;
   flex-direction: column;
   gap: 2em;
   color: black;
-  padding: 20px ;
+  padding: 20px;
   font-family: sans-serif;
   justify-content: center;
   align-items: center;
 }
-.avatar{
+.avatar {
   width: 100px;
   height: 100px;
   border-radius: 50%;
 }
-.avatarImg{
-
+.avatarImg {
 }
-.edit{
+.edit {
   /* position: relative;
   right: 1em; */
   padding: 10px;
@@ -317,100 +327,100 @@
   border: 1px solid;
   border-radius: 10px;
 }
-.nameDiv{
+.nameDiv {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
   justify-content: center;
   text-align: center;
 }
-.nameDiv span{
+.nameDiv span {
   font-size: 30px;
   font-weight: bold;
 }
-.nameDiv p{
+.nameDiv p {
   font-size: 20px;
 }
-.mybookingDiv{
+.mybookingDiv {
   display: flex;
   align-items: center;
   padding: 20px 20px;
-  background:  #06BCE1;
+  background: #06bce1;
   gap: 1em;
   border-radius: 10px;
 }
-.mybookingDiv span{
+.mybookingDiv span {
   font-weight: 600;
   color: #fff;
 }
-.notification{
+.notification {
   display: flex;
   align-items: center;
   padding: 20px 20px;
   justify-content: space-between;
   border-radius: 10px;
 }
-.red{
+.red {
   color: #fff;
   background: red;
   padding: 3px 6px;
   border-radius: 12px;
 }
-.inner{
+.inner {
   display: flex;
   gap: 1em;
 }
-.profile{
+.profile {
   display: flex;
   align-items: center;
   padding: 20px 20px;
- 
+
   gap: 1em;
   border-radius: 10px;
 }
-.pass{
+.pass {
   display: none;
 }
-.fourDiv{
+.fourDiv {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
   padding-bottom: 10px;
   border-bottom: 2px solid rgb(129, 128, 128);
 }
-.listDiv{
+.listDiv {
   width: 100%;
 }
-.relax{
+.relax {
   display: none;
 }
-@media (max-width:768px) {
-  .avatarImg{
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      /* width: 100%; */
-      width: 100%;
-      align-self: flex-end;
-      justify-content: space-between;
+@media (max-width: 768px) {
+  .avatarImg {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    /* width: 100%; */
+    width: 100%;
+    align-self: flex-end;
+    justify-content: space-between;
   }
-  .edit{
-      display: flex;
-      border-radius: 40px;
+  .edit {
+    display: flex;
+    border-radius: 40px;
   }
-  .relax{
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      gap: 1em;
+  .relax {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1em;
   }
-  .nameDiv{
-      display: none;
+  .nameDiv {
+    display: none;
   }
-  .fourDiv a{
-      display: none;
+  .fourDiv a {
+    display: none;
   }
-  .genera{
-      border-radius: 12px;
+  .genera {
+    border-radius: 12px;
   }
 }

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Image from "next/image";
@@ -44,15 +43,17 @@ import Hero3 from "@/public/assets/images/heroBg3.jpeg";
 import BookTravelImg from "@/public/assets/images/BookTravelImg.png";
 import FlyPlane from "@/public/assets/images/planeHero.png";
 import cloud from "@/public/assets/svg/Vector.png";
-import { DateRangePicker, FocusedInputShape } from 'react-dates';
-import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css';
-import moment from 'moment';
-
-
-
+import {
+  DateRangePicker,
+  FocusedInputShape,
+  SingleDatePicker,
+} from "react-dates";
+import "react-dates/initialize";
+import "react-dates/lib/css/_datepicker.css";
+import moment from "moment";
 
 const HomeSectionOne = () => {
+  // State declarations
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const searchCriteria = useSelector(
@@ -87,7 +88,9 @@ const HomeSectionOne = () => {
     useState(false);
   const [canNavigate, setCanNavigate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [focusedInput, setFocusedInput] = useState<FocusedInputShape | null>(null);
+  const [focusedInput, setFocusedInput] = useState<FocusedInputShape | null>(
+    null
+  );
   const [errors, setErrors] = useState<{
     from?: string;
     to?: string;
@@ -95,9 +98,11 @@ const HomeSectionOne = () => {
     returnDate?: string;
     passengers?: string;
   }>({});
+  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
 
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
+  // Function declarations
   const updateSearchCriteria = useCallback(() => {
     const updatedCriteria: FlightSearchRequest = {
       from: selectedLocation,
@@ -120,20 +125,6 @@ const HomeSectionOne = () => {
     tripTypeText,
     classTypeText,
     dispatch,
-  ]);
-
-  useEffect(() => {
-    updateSearchCriteria();
-  }, [
-    selectedLocation,
-    selectedDestination,
-    departureDate,
-    returnDate,
-    passengerCounts,
-    localFlightText,
-    tripTypeText,
-    classTypeText,
-    updateSearchCriteria,
   ]);
 
   const formatDate = (date: Date): string => {
@@ -187,8 +178,36 @@ const HomeSectionOne = () => {
   };
 
   const handleRoundTrip = (info: any) => {
-    setTripTypeText(roundTrip[Number(info.key)]);
-    setIsRoundTrip(roundTrip[Number(info.key)] === "Round trip");
+    // Determine the new trip type based on the selected option
+    const newTripType = roundTrip[Number(info.key)];
+
+    // Update local state
+    setTripTypeText(newTripType);
+    setIsRoundTrip(newTripType === "Round trip");
+
+    // Update the Redux state
+    dispatch(
+      setSearchCriteria({
+        ...searchCriteria,
+        tripType: newTripType,
+
+        arrival_date:
+          newTripType === "One Way" ? "" : searchCriteria.arrival_date,
+      })
+    );
+
+    if (newTripType === "One Way") {
+      setReturnDate(null);
+    }
+
+    if (
+      newTripType === "Round trip" &&
+      departureDate &&
+      returnDate &&
+      departureDate > returnDate
+    ) {
+      setReturnDate(null);
+    }
   };
 
   const handleLocalFlight = (info: any) => {
@@ -253,6 +272,21 @@ const HomeSectionOne = () => {
     }
   };
 
+  // useEffect hooks
+  useEffect(() => {
+    updateSearchCriteria();
+  }, [
+    selectedLocation,
+    selectedDestination,
+    departureDate,
+    returnDate,
+    passengerCounts,
+    localFlightText,
+    tripTypeText,
+    classTypeText,
+    updateSearchCriteria,
+  ]);
+
   useEffect(() => {
     if (canNavigate) {
       router.push("/flight");
@@ -271,7 +305,9 @@ const HomeSectionOne = () => {
 
   const locationMenu = (
     <Menu
-    onClick={(info) => handleLocationChange(locations[(info.key as unknown as number)])}
+      onClick={(info) =>
+        handleLocationChange(locations[info.key as unknown as number])
+      }
       className={styles.locationWrapper}
     >
       {locations.map((location, index) => (
@@ -285,7 +321,7 @@ const HomeSectionOne = () => {
               width: "130%",
             }}
           >
-            {location} 
+            {location}
           </div>
         </Menu.Item>
       ))}
@@ -294,7 +330,9 @@ const HomeSectionOne = () => {
 
   const destinationMenu = (
     <Menu
-    onClick={(info: { key: string }) => handleDestinationChange(locations[Number(info.key)])}
+      onClick={(info: { key: string }) =>
+        handleDestinationChange(locations[Number(info.key)])
+      }
       className={styles.locationWrapper}
     >
       {locations.map((location, index) => (
@@ -308,7 +346,7 @@ const HomeSectionOne = () => {
               width: "100%",
             }}
           >
-            {location} <span>Los</span>
+            {location} 
           </div>
         </Menu.Item>
       ))}
@@ -316,7 +354,7 @@ const HomeSectionOne = () => {
   );
 
   const internationalTrip = ["Local Flights", "International Flights"];
-  const roundTrip = ["Round trip", "One Way"];
+  const roundTrip = ["One Way", "Round trip"];
   const localFlight = ["Economy", "Business", "First Class"];
 
   const internationalTripMenu = (
@@ -349,7 +387,7 @@ const HomeSectionOne = () => {
               flexDirection: "column",
               alignItems: "flex-start",
               justifyContent: "flex-start",
-              width: "200px",
+              width: "150px",
             }}
           >
             {trip}
@@ -534,8 +572,6 @@ const HomeSectionOne = () => {
     },
   ];
 
-  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
-
   const HeroSection: React.FC<{
     backgroundImage: any;
     content: React.ReactNode;
@@ -563,7 +599,7 @@ const HomeSectionOne = () => {
                   </span>
                   {localFlightText}
                   <span className={styles.dropdownIcon}>
-                    <Image src={ArrowDown} alt="flw dow " />
+                    <Image src={ArrowDown} alt="flw dow "  className={styles.dropdownIconImage} />
                   </span>
                 </button>
               </Dropdown>
@@ -576,7 +612,7 @@ const HomeSectionOne = () => {
                   </span>
                   {tripTypeText}
                   <span className={styles.dropdownIcon}>
-                    <Image src={ArrowDown} alt="flw dow " />
+                    <Image src={ArrowDown} alt="flw dow " className={styles.dropdownIconImage} />
                   </span>
                 </button>
               </Dropdown>
@@ -587,7 +623,7 @@ const HomeSectionOne = () => {
                   </span>
                   {classTypeText}
                   <span className={styles.dropdownIcon}>
-                    <Image src={ArrowDown} alt="flw dow " />
+                    <Image src={ArrowDown} alt="flw dow " className={styles.dropdownIconImage}  />
                   </span>
                 </button>
               </Dropdown>
@@ -657,48 +693,84 @@ const HomeSectionOne = () => {
                   </Dropdown>
                 </div>
 
-                <div className={`${styles.inputGroup} ${
-      errors.departureDate || errors.returnDate ? styles.inputError : ""
-    }`}>
-      <span className={styles.icon}>
-        <Image src={Calendar} alt="" />
-      </span>
-      <div className={styles.datePickerWrapper}>
-        <div className={styles.datePickerHeaders}>
-          <div>
-            <label className={styles.label}>Leaving On</label>
-          </div>
-          {isRoundTrip && (
-            <div>
-              <label className={styles.label}>Returning On</label>
-            </div>
-          )}
-        </div>
-        <DateRangePicker
-  startDate={departureDate ? moment(departureDate) : null}
-  startDateId="departure_date_id"
-  endDate={returnDate ? moment(returnDate) : null}
-  endDateId="return_date_id"
-  onDatesChange={({ startDate, endDate }) => {
-    setDepartureDate(startDate ? startDate.toDate() : null);
-    setReturnDate(endDate ? endDate.toDate() : null);
-  }}
-  focusedInput={focusedInput}
-  onFocusChange={(input) => setFocusedInput(input)}
-  numberOfMonths={1}
-  minimumNights={0}
-  isOutsideRange={(day) => day.isBefore(moment(), 'day')}
-  displayFormat="YYYY-MM-DD"
-  showClearDates={false}
-  disabled={!isRoundTrip}
-  startDatePlaceholderText={errors.departureDate || "Select date"}
-  endDatePlaceholderText={errors.returnDate || "Select date"}
-  customArrowIcon={<span></span>}
-/>
-      </div>
-    </div>
-
-    
+                <div
+                  className={`${styles.inputGroup} ${
+                    errors.departureDate || errors.returnDate
+                      ? styles.inputError
+                      : ""
+                  }`}
+                >
+                  <span className={styles.icon}>
+                    <Image src={Calendar} alt="" />
+                  </span>
+                  <div className={styles.datePickerWrapper}>
+                    <div className={styles.datePickerHeaders}>
+                      <div>
+                        <label className={styles.label}>Leaving On</label>
+                      </div>
+                      {isRoundTrip && (
+                        <div>
+                       <label className={`${styles.label} ${styles.labelreturn}`}>Returning On</label>
+                        </div>
+                      )}
+                    </div>
+                    {isRoundTrip ? (
+                      <DateRangePicker
+                        startDate={departureDate ? moment(departureDate) : null}
+                        startDateId="departure_date_id"
+                        endDate={returnDate ? moment(returnDate) : null}
+                        endDateId="return_date_id"
+                        onDatesChange={({ startDate, endDate }) => {
+                          setDepartureDate(
+                            startDate ? startDate.toDate() : null
+                          );
+                          setReturnDate(endDate ? endDate.toDate() : null);
+                          setFocusedInput(null);
+                        }}
+                        focusedInput={focusedInput}
+                        onFocusChange={(input) => setFocusedInput(input)}
+                        numberOfMonths={1}
+                        minimumNights={0}
+                        isOutsideRange={(day) => day.isBefore(moment(), "day")}
+                        displayFormat="YYYY-MM-DD"
+                        showClearDates={false}
+                        startDatePlaceholderText={
+                          errors.departureDate || "Select date"
+                        }
+                        endDatePlaceholderText={
+                          errors.returnDate || "Select date"
+                        }
+                        customArrowIcon={<span></span>}
+                        noBorder
+                        block
+                        keepOpenOnDateSelect
+                        hideKeyboardShortcutsPanel
+                        renderCalendarInfo={() => null}
+                      />
+                    ) : (
+                      <SingleDatePicker
+                        date={departureDate ? moment(departureDate) : null}
+                        onDateChange={(date) => {
+                          setDepartureDate(date ? date.toDate() : null);
+                          setFocusedInput(null); // Close the picker after date selection
+                        }}
+                        focused={focusedInput === "startDate"}
+                        onFocusChange={({ focused }) =>
+                          setFocusedInput(focused ? "startDate" : null)
+                        }
+                        id="departure_date_single"
+                        numberOfMonths={1}
+                        isOutsideRange={(day) => day.isBefore(moment(), "day")}
+                        displayFormat="YYYY-MM-DD"
+                        placeholder={errors.departureDate || "Select date"}
+                        noBorder
+                        block
+                        hideKeyboardShortcutsPanel
+                        renderCalendarInfo={() => null}
+                      />
+                    )}
+                  </div>
+                </div>
 
                 <div
                   className={`${styles.inputGroup} ${
@@ -800,76 +872,87 @@ const HomeSectionOne = () => {
         </div>
 
         <div className={styles.cloudDiv}>
-  <div className={styles.HomeSectionThree}>
-    <div className={styles.secThree}>
-      <div className={styles.secThreeUp}>
-        <div>
-          <Image src={FlyUP} alt="Airplane icon" className={styles.secThreeImg} />
+          <div className={styles.HomeSectionThree}>
+            <div className={styles.secThree}>
+              <div className={styles.secThreeUp}>
+                <div>
+                  <Image
+                    src={FlyUP}
+                    alt="Airplane icon"
+                    className={styles.secThreeImg}
+                  />
+                </div>
+                <div>
+                  <p className={styles.secThreeText}>
+                    Top Airline <br /> Companies
+                  </p>
+                </div>
+              </div>
+              <div className={styles.secThreeDown}>
+                <p className={styles.secThreeMainText}>
+                  We partner with the best airlines in the industry to ensure
+                  your comfort and safety. From local carriers to international
+                  giants, our selection of top airline companies guarantees
+                  quality service, reliability, and the best value for your
+                  money on every flight.
+                </p>
+              </div>
+            </div>
+            <div className={styles.secThree}>
+              <div className={styles.secThreeUp}>
+                <div>
+                  <Image
+                    src={Destination}
+                    alt="Destination icon"
+                    className={styles.secThreeImg}
+                  />
+                </div>
+                <div>
+                  <p className={styles.secThreeText}>
+                    More Than 550 <br />
+                    Destinations
+                  </p>
+                </div>
+              </div>
+              <div className={styles.secThreeDown}>
+                <p className={styles.secThreeMainText}>
+                  Explore the world with us! We offer flights to over 550
+                  destinations across Nigeria and beyond. Whether you're
+                  planning a domestic getaway or an international adventure, we
+                  have the perfect destination for you. From bustling cities to
+                  serene beaches, the world is at your fingertips.
+                </p>
+              </div>
+            </div>
+            <div className={styles.secThree}>
+              <div className={styles.secThreeUp}>
+                <div>
+                  <Image
+                    src={People}
+                    alt="People icon"
+                    className={styles.secThreeImg}
+                  />
+                </div>
+                <p className={styles.secThreeText}>
+                  More Than 1 Million
+                  <br /> Happy Travelers
+                </p>
+              </div>
+              <div className={styles.secThreeDown}>
+                <p className={styles.secThreeMainText}>
+                  Join our community of over 1 million satisfied travelers! Our
+                  commitment to exceptional service, competitive prices, and
+                  hassle-free bookings has made us a trusted choice for both
+                  leisure and business travelers. Your journey to happiness
+                  starts with us.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className={styles.imgDiv}>
+            <Image src={cloud} alt="Decorative cloud image" />
+          </div>
         </div>
-        <div>
-          <p className={styles.secThreeText}>
-            Top Airline <br /> Companies
-          </p>
-        </div>
-      </div>
-      <div className={styles.secThreeDown}>
-        <p className={styles.secThreeMainText}>
-          We partner with the best airlines in the industry to ensure your 
-          comfort and safety. From local carriers to international giants, 
-          our selection of top airline companies guarantees quality service, 
-          reliability, and the best value for your money on every flight.
-        </p>
-      </div>
-    </div>
-    <div className={styles.secThree}>
-      <div className={styles.secThreeUp}>
-        <div>
-          <Image
-            src={Destination}
-            alt="Destination icon"
-            className={styles.secThreeImg}
-          />
-        </div>
-        <div>
-          <p className={styles.secThreeText}>
-            More Than 550 <br />
-            Destinations
-          </p>
-        </div>
-      </div>
-      <div className={styles.secThreeDown}>
-        <p className={styles.secThreeMainText}>
-          Explore the world with us! We offer flights to over 550 destinations 
-          across Nigeria and beyond. Whether you're planning a domestic getaway 
-          or an international adventure, we have the perfect destination for you. 
-          From bustling cities to serene beaches, the world is at your fingertips.
-        </p>
-      </div>
-    </div>
-    <div className={styles.secThree}>
-      <div className={styles.secThreeUp}>
-        <div>
-          <Image src={People} alt="People icon" className={styles.secThreeImg} />
-        </div>
-        <p className={styles.secThreeText}>
-          More Than 1 Million
-          <br /> Happy Travelers
-        </p>
-      </div>
-      <div className={styles.secThreeDown}>
-        <p className={styles.secThreeMainText}>
-          Join our community of over 1 million satisfied travelers! Our 
-          commitment to exceptional service, competitive prices, and 
-          hassle-free bookings has made us a trusted choice for both leisure 
-          and business travelers. Your journey to happiness starts with us.
-        </p>
-      </div>
-    </div>
-  </div>
-  <div className={styles.imgDiv}>
-    <Image src={cloud} alt="Decorative cloud image" />
-  </div>
-</div>
       </div>
     </>
   );

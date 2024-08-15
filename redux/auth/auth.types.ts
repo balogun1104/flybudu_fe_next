@@ -11,6 +11,7 @@ export interface User {
   phone: string | null;
   created_at: string;
   updated_at: string;
+  image: string | null;
 }
 
 export interface AuthState {

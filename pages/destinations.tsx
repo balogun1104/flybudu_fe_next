@@ -365,7 +365,7 @@ function Destinations() {
           </div>
         </div>
 
-        <div className={styles.tooMuch}>
+        {/* <div className={styles.tooMuch}>
           <Image className={styles.cloud} src={cloud} alt="" />
           <div className={styles.buttonDiv}>
             <button className={styles.prev}>
@@ -381,7 +381,7 @@ function Destinations() {
               Page <span className={styles.special}>1</span> Of 2
             </span>
           </div>
-        </div>
+        </div> */}
         <div className={styles.final}>
           <div className={styles.imageWrapFinal}>
             <Image src={final1} alt="" className={styles.image1} />

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import styles from "../styles/savedpassenger.module.css";
 import MobileNav from "../components/MobileNavBar/index";
 import hero from "@/public/assets/images/Hero Illustration.png";
@@ -7,25 +8,59 @@ import { Link } from "@nextui-org/react";
 import Footer from "../components/Footer/index";
 import Navbar from "../components/NavbarSecond/navbar";
 import PassengerList from "@/components/PassengerList/PassengerList";
-
-import avatar from "@/public/assets/images/whatsaap.jpg";
-import booking from "@/public/assets/images/managebookingblack.png";
-import notification from "@/public/assets/images/Group 2.png";
-import profileImg from "@/public/assets/images/Layer 2.png";
-import savedImg from "@/public/assets/images/savedpassengerwhite.png";
-import logoutImg from "@/public/assets/images/Wallet.png";
+import PassengerDetails from "@/components/PassengerDetails/PassengerDetails";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { BookingData } from "@/redux/flight/bookingTypes.type";
+
 function SavedPassenger() {
-  const { bookingData, loading, error } = useSelector((state: RootState) => state.booking) as {
+  const router = useRouter();
+  const [selectedPassenger, setSelectedPassenger] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const { bookingData, loading, error } = useSelector(
+    (state: RootState) => state.booking
+  ) as {
     bookingData: BookingData;
     loading: boolean;
     error: string;
   };
-  
-  const user = bookingData.regular[0];
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (router.query.passenger) {
+      try {
+        const parsedPassenger = JSON.parse(router.query.passenger as string);
+        setSelectedPassenger(parsedPassenger);
+      } catch (error) {
+        console.error("Failed to parse passenger data:", error);
+      }
+    }
+  }, [router.query.passenger]);
+
+  const handlePassengerSelect = (passenger) => {
+    setSelectedPassenger(passenger);
+    if (isMobile) {
+      router.push({
+        pathname: "/passengerdetails",
+        query: { passenger: JSON.stringify(passenger) },
+      });
+    }
+  };
+
+  const handleBackFromDetails = () => {
+    setSelectedPassenger(null);
+    router.push("/savedpassenger", undefined, { shallow: true });
+  };
 
   return (
     <div className={styles.general}>
@@ -37,155 +72,42 @@ function SavedPassenger() {
         <div className={styles.textDiv}>
           <span className={styles.bigText}> MANAGE BOOKINGS</span>
           <p className={styles.small}>
-            Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-            vulputate libero et velit interdum, ac aliquet odio mattis.
+            Take control of your travel plans. View, modify, or cancel your
+            bookings with ease. Fly Budu puts you in the pilot's seat of your
+            journey.
           </p>
         </div>
       </div>
       <div className={styles.secondDiv}>
         <div className={styles.about}>
-          <div className={styles.genera}>
-            <div className={styles.avatarImg}>
-              {" "}
-              <Image src={avatar} className={styles.avatar} alt="" />
-              <Link
-                style={{ textDecoration: "none", color: "black" }}
-                href="/profile"
-              >
-                {" "}
-                <span className={styles.edit}>Edit Profile</span>
-              </Link>
-            </div>
-
-            <div className={styles.relax}>
-              <span style={{ fontWeight: "bold" }}> Mr. Unknown Viktim</span>
-              <span>
-                Phone: <b>081xxxxxxx</b>
-              </span>
-              <span>
-                Email: <b>unknown@viktim.com</b>
-              </span>
-              <span>
-                Nationality: <b>Nigerian</b>
-              </span>
-              <span>
-            Gender: <b>{user.gender}</b>
-              </span>
-              <span>
-                Date of Birth <b>Mar. 23, 2024</b>
-              </span>
-            </div>
-
-            <div className={styles.nameDiv}>
-              <span> {user.title} {user.first_name} {user.surname}</span>
-              <p>{user.phone}</p>
-              <p>{user.email}</p>
-            </div>
-            <div className={styles.listDiv}>
-              <div className={styles.fourDiv}>
-                <Link
-                  href="/managebooking"
-                  style={{ textDecoration: "none", cursor: "pointer" }}
-                >
-                  {" "}
-                  <div className={styles.profile}>
-                    <Image alt="" src={booking} />
-                    <span>My Bookings</span>
-                  </div>
-                </Link>
-
-                <Link
-                  href="/notification"
-                  style={{ textDecoration: "none", cursor: "pointer" }}
-                >
-                  {" "}
-                  <div className={styles.notification}>
-                    <div className={styles.inner}>
-                      <Image alt="" src={notification} />
-                      <span>Notifications</span>
-                    </div>
-                    <p className={styles.red}>7</p>
-                  </div>
-                </Link>
-
-                <Link
-                  href="/profilepage"
-                  style={{ textDecoration: "none", cursor: "pointer" }}
-                >
-                  <div className={styles.profile}>
-                    <Image alt="" src={profileImg} />
-                    <span>Profile</span>
-                  </div>
-                </Link>
-
-                <Link
-                  href="/savedpassenger"
-                  style={{ textDecoration: "none", cursor: "pointer" }}
-                >
-                  <div className={styles.mybookingDiv}>
-                    <Image alt="" src={savedImg} />
-                    <span>Saved Passengers</span>
-                  </div>
-                </Link>
-              </div>
-              <div className={styles.logoutDiv}>
-                <div className={styles.profile}>
-                  <Image alt="" src={logoutImg} />
-                  <Link
-                    style={{ textDecoration: "none", cursor: "pointer" }}
-                    href="/login"
-                  >
-                    {" "}
-                    <span>Logout</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
+          <About />
         </div>
         <div className={styles.second}>
           <span className={styles.saved}>Saved Passengers</span>
 
           <div className={styles.pass}>
-            <Link
-              href="/managebooking"
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              {" "}
-              <span>My Bookings</span>{" "}
-            </Link>
-            <Link
-              href="/savedpassenger"
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              {" "}
-              <span className={styles.passenger} style={{ fontWeight: "bold" }}>
-                Passengers
-              </span>
-            </Link>
-          </div>
-
-          <PassengerList />
-          {/* <div className={styles.tooMuch}>
-            <div>
-              <div style={{ visibility: "hidden" }}>
-                <span>6</span>{" "}
-                <span style={{ color: "rgba(141, 142, 141, 1)" }}> 10</span>
-              </div>
-            </div>
-            <div className={styles.buttonDiv}>
-              {" "}
-              <button className={styles.prev}>Prev</button>{" "}
-              <Link href="/mybookings">
-                <button className={styles.next}>Next</button>{" "}
+            <div className={styles.passOne}>
+              <Link href="/managebooking" className={styles.passengerLink}>
+                <p className={styles.passenger}>My Bookings</p>
               </Link>
             </div>
-            <div>
-              <span>
-                Page <span className={styles.special}>1</span> Of2
-              </span>
+            <div className={styles.passTwo}>
+              <Link href="/savedpassenger" className={styles.passengerLink}>
+                <p className={styles.passengerPass}>Passengers</p>
+              </Link>
             </div>
-          </div> */}
+          </div>
+
+          {isMobile ? (
+            <PassengerList onPassengerSelect={handlePassengerSelect} />
+          ) : selectedPassenger ? (
+            <PassengerDetails
+              passenger={selectedPassenger}
+              onBack={handleBackFromDetails}
+            />
+          ) : (
+            <PassengerList onPassengerSelect={handlePassengerSelect} />
+          )}
         </div>
       </div>
       <MobileNav />

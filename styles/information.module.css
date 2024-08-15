@@ -1,129 +1,160 @@
+.mother {
+  padding: 30px;
+  color: black;
+  font-family: sans-serif;
+  background: #fff;
+}
+.general {
+  color: black;
+  font-family: sans-serif;
+  background: #fff;
+}
+.firstDiv {
+  display: flex;
+  justify-content: space-between;
+  font-size: 22px;
+  font-weight: bold;
+  padding-bottom: 20px;
+}
+.innerFirst {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+.departDiv {
+  display: flex;
 
-.mother{
-    padding: 30px;
-    color: black;
-    font-family: sans-serif;
-    background: #fff;
+  /* gap: 1em; */
 }
-.general{
-    color: black;
-    font-family: sans-serif;
-    background: #fff;
+.departDiv span {
+  font-size: 16px;
+  padding: 0 10px;
+  border-right: 1px solid #bfbfbf;
+  color: #333333;
 }
-.firstDiv{
-    display: flex;
-    justify-content: space-between;
-    font-size: 22px;
-    font-weight: bold;
-    padding-bottom: 20px;
+.travelDiv {
+  display: flex;
+  gap: 0.3em;
+  padding: 20px 0;
+
+  flex-direction: column;
 }
-.innerFirst{
+.travelDiv div {
+  display: flex;
+  justify-content: space-between;
+}
+.state {
+  font-weight: bold;
+  font-size: 22px;
+}
+.time {
+  font-size: 21px;
+}
+.depart {
+  padding-left: 0 !important;
+}
+.customer {
+  font-size: 21px;
+  font-weight: bold;
+  color: #1E1E1E;
+}
+.customerDiv {
+  display: flex;
+  padding: 20px 0;
+  flex-direction: column;
+  gap: 0.8em;
+  border-top: 1px solid #9d9d9d;
+}
+.customerDiv div,
+.fareDiv div,
+.paymentDiv div {
+  display: flex;
+  justify-content: space-between;
+}
+.fareDiv {
+  padding: 20px 0;
+  display: flex;
+  border-top: 1px solid;
+  flex-direction: column;
+  gap: 0.3em;
+}
+.total {
+  font-size: 21px;
+}
+.secondHeader {
+  display: none;
+}
+
+.totalAmt {
+  font-size: 21px;
+  color: rgba(6, 188, 225, 1);
+  font-weight: bold;
+}
+.paymentDiv {
+  gap: 0.7em;
+  padding: 20px 0;
+  border-top: 1px solid;
+  display: flex;
+  flex-direction: column;
+}
+
+.infoRow {
+  /* Styles for each row of information */
+  margin-bottom: 8px;
+}
+
+.infoLabel {
+    color: #4D4D4D;
+    font-weight: 300;
+
+
+}
+
+.infoValue {
+  color: #646464;
+  font-weight: bold;
+  font-size: 14px
+}
+@media (max-width: 768px) {
+  .general {
+    padding: 5em 15px;
+    background: #dbd8d8;
+  }
+  .state {
+    font-size: 18px;
+    color: #1e1e1e;
+  }
+  .airport {
+    width: 150px;
+    text-align: end;
+  }
+  .airportLeft {
+    width: 150px;
+    text-align: left;
+  }
+  .airportDiv {
+    gap: 14px;
     display: flex;
     align-items: center;
-    gap: 1em;
-}
-.departDiv{
-    display: flex;
-    
-    /* gap: 1em; */
-}
-.departDiv span{
-    font-size: 19px;
-    padding: 0 10px ;
-    border-right: 1px solid  black;
-}
-.travelDiv{
-display: flex;
-gap: 0.3em;
-padding: 20px 0;
-
-flex-direction: column;
-}
-.travelDiv div{
-    display: flex;
-    justify-content: space-between;
-}
-.state{
-    font-weight: bold;
-    font-size: 22px;
-}
-.time{
-    font-size: 21px;
-}
-.depart{
-   padding-left: 0 !important;
-}
-.customer{
-    font-size: 21px;
-    font-weight: bold;
-}
-.customerDiv{
-    display: flex;
-    padding: 20px 0;
-    flex-direction: column;
-    gap: 0.3em;
-    border-top: 1px solid;
-}
-.customerDiv div, .fareDiv div, .paymentDiv div{
-    display: flex;
-    justify-content: space-between;
-}
-.fareDiv{
-    padding: 20px 0;
-    display: flex;
-    border-top: 1px solid;
-    flex-direction: column;
-    gap: 0.3em;
-}  
-.total{
-    font-size: 21px;
-}
-.secondHeader{
+    font-size: 15px;
+    color: #1e1e1e;
+    font-weight: 300;
+  }
+  .sike {
     display: none;
-}
+  }
+  .mother {
+    padding: 30px 0px;
+    border-radius: 12px;
+  }
 
-.totalAmt{
-font-size: 21px;
-color: rgba(6, 188, 225, 1);
-font-weight: bold;
-}
-.paymentDiv{
-    gap: 0.7em;
-    padding: 20px 0;
-    border-top: 1px solid;
-    display: flex;
-    flex-direction: column
-}
-@media (max-width:768px) {
-    .general{
-        padding: 8em 15px;
-        background: #dbd8d8;
-    }
-    .state{
-        font-size: 20px;
-    }
-    .airport{
-        width: 150px;
-        text-align:  end;
-    }
-    .airportLeft{
-        width: 150px;
-        text-align: left;
-    }
-    .airportDiv{
-        gap: 14px;
-        display: flex;
-        align-items: center;
-    }
-    .sike{
-        display: none;
-    }
-    .mother{
-        padding: 30px 10px;
-        border-radius: 12px;
-    }
-    
-  .secondHeader{
+  .customerDiv,
+  .topsec, .fareDiv {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  .secondHeader {
     display: flex;
     position: fixed;
     top: 0;
@@ -134,36 +165,45 @@ font-weight: bold;
     justify-content: space-between;
     top: 0;
     background: #fff;
-    padding: 1em 0;
+    padding: 1em 0.5em;
     align-items: center;
     left: 0;
   }
-  .secondHeader span{
+  .secondHeader span {
     font-size: 20px;
   }
-  .back{
+  .back {
     margin-left: 1em;
   }
-  .support{
+  .support {
     margin-right: 1em;
     width: 50px;
   }
-  .specialText{
-font-weight: lighter;
-padding: 10px;
-border: 1px solid black;
-border-radius: 6px;
-margin-left: 5px;
+  .specialText {
+    font-weight: lighter;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 6px;
+    margin-left: 5px;
   }
-  .who{
+  .who {
     font-size: 25px;
   }
+
+  .flightId {
+    font-size: 19px;
+    color: #1e1e1e;
+  }
+  .airpalne {
+    height: 20px;
+    width: 20px;
+  }
 }
-@media (max-width:400px) {
-    .departDiv span{
-        padding: 0 10px;
-    }
-    .departDiv{
-        /* justify-content: space-between; */
-    }
+@media (max-width: 400px) {
+  .departDiv span {
+    padding: 0 10px;
+  }
+  .departDiv {
+    /* justify-content: space-between; */
+  }
 }

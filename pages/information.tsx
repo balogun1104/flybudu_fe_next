@@ -1,12 +1,26 @@
-import React from "react";
-import styles from "@/styles/information.module.css"
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import styles from "@/styles/information.module.css";
 import copyImg from "@/public/assets/images/pasteImage.png";
 import Aeroplane from "@/public/assets/images/Aeroplane.png";
 import masterCard from "@/public/assets/images/Frame 48097434.png";
 import BackButton from "@/public/assets/images/backbutton.png";
 import Link from "next/link";
 import Image from "next/image";
-function information() {
+import { Booking } from "@/redux/flight/bookingTypes.type";
+
+function Information() {
+  const router = useRouter();
+  const [bookingData, setBookingData] = useState<Booking | null>(null);
+
+  useEffect(() => {
+    const bookingDataString = router.query.bookingData as string;
+    if (bookingDataString) {
+      const parsedBookingData = JSON.parse(bookingDataString);
+      setBookingData(parsedBookingData);
+    }
+  }, [router.query]);
+
   function HeroiconsOutlineDotsVertical(props: any) {
     return (
       <svg
@@ -27,6 +41,16 @@ function information() {
       </svg>
     );
   }
+
+  if (!bookingData) {
+    return <div>Loading...</div>;
+  }
+
+  const departureDate = new Date(bookingData.departure).toLocaleDateString(
+    "en-US",
+    { month: "short", day: "numeric", year: "numeric" }
+  );
+
   return (
     <div className={styles.general}>
       <div className={styles.secondHeader}>
@@ -37,237 +61,179 @@ function information() {
         <HeroiconsOutlineDotsVertical />
       </div>
       <div className={styles.mother}>
-        <div className={styles.firstDiv}>
-          <span className={styles.sike}>Flight Information</span>
-          <div className={styles.innerFirst}>
-            {" "}
-            <span>Flight ID:#UY6789G54 </span>
-            <Image alt="dance" src={copyImg} />
+        <div className={styles.topsec}>
+          <div className={styles.firstDiv}>
+            <span className={styles.sike}>Flight Information</span>
+            <div className={styles.innerFirst}>
+              <span className={styles.flightId}>
+                Flight ID: {bookingData.ticket || "N/A"}{" "}
+              </span>
+              <Image alt="dance" src={copyImg} />
+            </div>
           </div>
-        </div>
-        <div className={styles.departDiv}>
-          <span
-            style={{ color: "rgba(6, 188, 225, 1)", fontWeight: "bold" }}
-            className={styles.depart}
-          >
-            Depart
-          </span>
-          <span>Mar. 14,2023</span>
-          <span style={{ border: "none" }}>0 Stop</span>
-        </div>
-        <div className={styles.travelDiv}>
-          <div className={styles.state}>
-            <span>Lagos (LOS)</span>
-            <span>Abuja (ABV)</span>
-          </div>
-          <div className={styles.airportDiv}>
-            <span className={styles.airportLeft}>
-              Murtala Muhammed International Airport
-            </span>{" "}
-            <Image alt="" src={Aeroplane} />{" "}
-            <span className={styles.airport}>
-              Nnamdi Azikiwe International Airport
+          <div className={styles.departDiv}>
+            <span
+              style={{ color: "rgba(6, 188, 225, 1)", fontWeight: "bold" }}
+              className={styles.depart}
+            >
+              Depart
             </span>
+            <span>{departureDate}</span>
+            <span style={{ border: "none" }}>0 Stop</span>
           </div>
-          <div className={styles.time}>
-            <span>07:00</span>
-            <span>08:40</span>
-          </div>
-        </div>
-        <div className={styles.departDiv}>
-          <span
-            style={{ color: "rgba(6, 188, 225, 1)", fontWeight: "bold" }}
-            className={styles.depart}
-          >
-            Return
-          </span>
-          <span>Mar. 24,2023</span>
-          <span style={{ border: "none" }}>0 Stop</span>
-        </div>
-        <div className={styles.travelDiv}>
-          <div className={styles.state}>
-            <span>Abuja (ABV)</span>
-            <span>Lagos (LOS)</span>
-          </div>
-          <div className={styles.airportDiv}>
-            <span className={styles.airportLeft}>
-              Nnamdi Azikiwe International Airport
-            </span>
-            <Image alt="" src={Aeroplane} />{" "}
-            <span className={styles.airport}>
-              Murtala Muhammed International Airport
-            </span>{" "}
-          </div>
-          <div className={styles.time}>
-            <span>07:45</span>
-            <span>09:15</span>
+          <div className={styles.travelDiv}>
+            <div className={styles.state}>
+              <span>
+                {bookingData.route?.location} (
+                {bookingData.route?.location_code})
+              </span>
+              <span>
+                {bookingData.route?.destination} (
+                {bookingData.route?.destination_code})
+              </span>
+            </div>
+            <div className={styles.airportDiv}>
+              <span className={styles.airportLeft}>
+                {bookingData.route?.location} Airport
+              </span>{" "}
+              <Image className={styles.airpalne} alt="" src={Aeroplane} />{" "}
+              <span className={styles.airport}>
+                {bookingData.route?.destination} Airport
+              </span>
+            </div>
+            <div className={styles.time}>
+              <span>{bookingData.schedule?.departure}</span>
+              <span>{bookingData.schedule?.arrival}</span>
+            </div>
           </div>
         </div>
+        {/* Remove return flight information as it's not in the provided data */}
         <div className={styles.customerDiv}>
           <div>
             <span className={styles.customer}>Customer Information</span>
           </div>
-          <div>
-            <span>Title </span>
-            <span
-              style={{ color: "rgba(100, 100, 100, 1)", fontWeight: "bold" }}
-            >
-              Mr
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>Title</span>
+            <span className={styles.infoValue}>{bookingData.title}</span>
+          </div>
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>Surname</span>
+            <span className={styles.infoValue}>{bookingData.surname}</span>
+          </div>
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>First name</span>
+            <span className={styles.infoValue}>{bookingData.first_name}</span>
+          </div>
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>Middle name</span>
+            <span className={styles.infoValue}>
+              {bookingData.middle_name || "N/A"}
             </span>
           </div>
-          <div>
-            <span>Surname</span>
-            <span
-              style={{ color: "rgba(100, 100, 100, 1)", fontWeight: "bold" }}
-            >
-              Lorem
-            </span>
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>Email</span>
+            <span className={styles.infoValue}>{bookingData.email}</span>
           </div>
-          <div>
-            <span>First name</span>
-            <span
-              style={{ color: "rgba(100, 100, 100, 1)", fontWeight: "bold" }}
-            >
-              Lorem
-            </span>
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>Phone Number</span>
+            <span className={styles.infoValue}>{bookingData.phone}</span>
           </div>
-          <div>
-            <span>Middle name</span>
-            <span
-              style={{ color: "rgba(100, 100, 100, 1)", fontWeight: "bold" }}
-            >
-              Lorem
-            </span>
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>Nationality</span>
+            <span className={styles.infoValue}>{bookingData.nationality}</span>
           </div>
-          <div>
-            <span>Email</span>
-            <span
-              style={{ color: "rgba(100, 100, 100, 1)", fontWeight: "bold" }}
-            >
-              Lorem@gmail.com
-            </span>
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>Gender</span>
+            <span className={styles.infoValue}>{bookingData.gender}</span>
           </div>
-          <div>
-            <span>Phone Number </span>
-            <span
-              style={{ color: "rgba(100, 100, 100, 1)", fontWeight: "bold" }}
-            >
-              0980xxxxxxx
-            </span>
-          </div>
-          <div>
-            <span>Nationality</span>
-            <span
-              style={{ color: "rgba(100, 100, 100, 1)", fontWeight: "bold" }}
-            >
-              Nigerian
-            </span>
-          </div>
-          <div>
-            <span>Gender</span>
-            <span
-              style={{ color: "rgba(100, 100, 100, 1)", fontWeight: "bold" }}
-            >
-              Male
-            </span>
-          </div>
-          <div>
-            <span>Date of Birth</span>
-            <span
-              style={{ color: "rgba(100, 100, 100, 1)", fontWeight: "bold" }}
-            >
-              jan. 1,2023
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>Date of Birth</span>
+            <span className={styles.infoValue}>
+              {new Date(bookingData.DOB).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
             </span>
           </div>
         </div>
         <div className={styles.fareDiv}>
-          <div>
-            {" "}
-            <span className={styles.customer}>Flight Base Fare</span>{" "}
+          <div className={styles.infoRow}>
+            <span className={styles.customer}>Flight Base Fare</span>
           </div>
-          <div>
-            {" "}
-            <span>Adult x 1 </span>{" "}
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>
+              Adult x {JSON.parse(bookingData.passengers).length}
+            </span>
           </div>
-          <div>
-            {" "}
-            <span>Class</span>{" "}
-            <span
-              style={{ color: "rgba(100, 100, 100, 1)", fontWeight: "bold" }}
-            >
-              Economy
-            </span>{" "}
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>Class</span>
+            <span className={styles.infoValue}>Economy</span>
           </div>
-          <div>
-            {" "}
-            <span>Base Fare</span>{" "}
-            <span
-              style={{ color: "rgba(100, 100, 100, 1)", fontWeight: "bold" }}
-            >
-              &#8358;160,000.00
-            </span>{" "}
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>Base Fare</span>
+            <span className={styles.infoValue}>
+              &#8358;
+              {parseFloat(bookingData.price).toLocaleString("en-NG", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </span>
           </div>
-          <div>
-            {" "}
-            <span>Extra Baggage</span>{" "}
-            <span
-              style={{ color: "rgba(100, 100, 100, 1)", fontWeight: "bold" }}
-            >
-              &#8358;12,000.00
-            </span>{" "}
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>Extra Baggage</span>
+            <span className={styles.infoValue}>
+              &#8358;{calculateExtraBaggage(bookingData.luggages ?? "")}
+            </span>
           </div>
-          <div>
-            {" "}
-            <span>Discount</span>{" "}
-            <span
-              style={{ color: "rgba(100, 100, 100, 1)", fontWeight: "bold" }}
-            >
-              &#8358;00.00
-            </span>{" "}
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>Discount</span>
+            <span className={styles.infoValue}>
+              &#8358;
+              {parseFloat(bookingData.discounted_slash).toLocaleString(
+                "en-NG",
+                {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }
+              )}
+            </span>
           </div>
-          <div>
-            {" "}
-            <span>Taxes and Fees</span>{" "}
-            <span
-              style={{ color: "rgba(100, 100, 100, 1)", fontWeight: "bold" }}
-            >
-              &#8358;00.00
-            </span>{" "}
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>Taxes and Fees</span>
+            <span className={styles.infoValue}>&#8358;0.00</span>
           </div>
-          <div>
-            {" "}
-            <span className={styles.total}>Total</span>{" "}
-            <span className={styles.totalAmt}>&#8358;172,000.00</span>{" "}
-          </div>
-        </div>
-        <div className={styles.paymentDiv}>
-          <div>
-            {" "}
-            <span className={styles.customer}>Payment</span>
-          </div>
-          <div>
-            {" "}
-            <span>Payment Method</span>{" "}
-            <div>
-              {" "}
-              <span style={{ fontWeight: "bold", fontSize: "19px" }}>
-                4526****0556
-              </span>{" "}
-              <Image alt="fddsfd" src={masterCard} />
-            </div>
-          </div>
-          <div>
-            <span>Status</span>{" "}
-            <span
-              style={{ color: "rgba(30, 222, 141, 1)", fontWeight: "bold" }}
-            >
-              Successful
+          <div className={styles.infoRow}>
+            <span className={styles.total}>Total</span>
+            <span className={styles.totalAmt}>
+              &#8358;
+              {parseFloat(bookingData.amount_paid).toLocaleString("en-NG", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
             </span>
           </div>
         </div>
+        <p></p>
       </div>
     </div>
   );
 }
 
-export default information;
+function calculateExtraBaggage(luggages: string): string {
+  const parsedLuggages = JSON.parse(luggages);
+  let totalCost = 0;
+
+  for (const direction in parsedLuggages) {
+    parsedLuggages[direction].forEach((luggage: { price: number }) => {
+      totalCost += luggage.price;
+    });
+  }
+
+  return totalCost.toLocaleString("en-NG", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+export default Information;

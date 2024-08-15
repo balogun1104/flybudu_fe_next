@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+   
+    darkModeVariant: false,
+  },
   images: {
     domains: ['res.cloudinary.com'],
     disableStaticImages: false,

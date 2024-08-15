@@ -5,6 +5,7 @@ import Lagos from "@/public/assets/images/lagosIsland.png";
 import Akure from "@/public/assets/images/akure.png";
 import Ibadan from "@/public/assets/images/ibadan.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const HomeSectionFour = () => {
   return (
@@ -108,9 +109,11 @@ const HomeSectionFour = () => {
         </div>
       </div>
       <div className={styles.explore}>
-        <button className={styles.exploreButton}>
-          Explore All Destinations
-        </button>
+        <Link href="/destinations">
+          <button className={styles.exploreButton}>
+            Explore All Destinations
+          </button>
+        </Link>
       </div>
     </div>
   );

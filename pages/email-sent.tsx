@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import styles from "../styles/emailSent.module.css";
 import flyBudu from "@/public/assets/images/flybuduLogo.png";
 import Quote from "@/public/assets/svg/Payment.svg";
-import Profile from "../components/EmailSent/email";
+import EmailComponent from "../components/EmailSent/email";
 import Menu from "@/public/assets/svg/menu.svg";
 import flyBudu2 from "@/public/assets/images/flybuduLogo2.png";
 
@@ -13,6 +13,10 @@ import { MobileNavScreen } from "../components/MobileNavScreen";
 import WhiteImg from "@/public/assets/images/whiteFlybudu.png";
 import MobileNav from "../components/MobileNavBar";
 import Image from "next/image";
+import NavbarMobileView from "@/components/NavbarMobileView/NavbarMobileView";
+import NavbarWebView from "@/components/NavbarWebView/NavbarWebView";
+import LoginHeader from "@/components/LoginHeader/LoginHeader";
+import Navbar from "@/components/NavbarSecond/navbar";
 
 function EmailSent() {
   const [isMobile, setIsMobile] = useState(false);
@@ -36,82 +40,17 @@ function EmailSent() {
 
   return (
     <div className={styles.general}>
-      <div className={styles.header}>
-        <div className={styles.navbarWrap}>
-          <Link  href="/">
-            <button style={{ border: "none", background: "none" }}>
-              {isMobile ? (
-                <Image
-                  className={styles.flybudu}
-                  style={{ cursor: "pointer" }}
-                  src={flyBudu2}
-                  alt=""
-                />
-              ) : (
-                <Image
-                  className={styles.flybudu}
-                  style={{ cursor: "pointer" }}
-                  src={flyBudu}
-                  alt=""
-                />
-              )}
-            </button>
-          </Link>
-          <input
-            type="text"
-            placeholder="Search Flights"
-            className={styles.searchInput}
-          />
-
-          <div>
-            <div className={styles.navbar}>
-              <Link className={styles.active} href="/">
-                Home
-              </Link>
-              <Link href="/destinations">Destinations</Link>
-              <Link href="/featuredflights">Featured Flights</Link>
-              <Link href="/contacts">Contact</Link>
-            </div>
-          </div>
-          <div className={styles.quoteWrap}>
-            <div className={styles.quote}>
-              <span>Get a Qoute</span>
-              <span>
-                <Image src={Quote} alt="" />
-              </span>
-            </div>
-            <Image src={Avatar} className={styles.avatar} alt="" />
-            {isMobile ? (
-              <Image
-                src={WhiteImg}
-                alt=""
-                className={styles.quoteImg}
-                onClick={() => setOpenMenu(!openMenu)}
-              />
-            ) : (
-              <Image
-                src={Menu}
-                alt=""
-                className={styles.quoteImg}
-                onClick={() => setOpenMenu(!openMenu)}
-              />
-            )}
-
-            {openMenu && <MobileNavScreen onClick={() => setOpenMenu(false)} />}
-          </div>
-        </div>
-      </div>
+       <Navbar />
       <div className={styles.secondDiv}>
         <div className={styles.createDiv}>
           {" "}
-          <span className={styles.create}>Login</span>
-          <span>
-            Let Fly Budu be your gateway to seemless travel. We don't just plan
-            trips; we craft experiences that linger in your heart and soul.
-          </span>
+          <LoginHeader 
+          title="Login"
+          description="Let Fly Budu be your gateway to seamless travel. We don't just plan trips; we craft experiences that linger in your heart and soul."
+        />
         </div>
         <div className={styles.tabDiv}>
-          <Profile />
+          <EmailComponent />
         </div>
       </div>
 

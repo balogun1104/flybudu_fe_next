@@ -188,47 +188,57 @@ const ManageBooking: React.FC = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className={styles.general}>
-      {renderHeader()}
-      {renderHeroSection()}
-      <div className={styles.secondDiv}>
-        {isAuthenticated ? (
-          <>
-            <div className={styles.about}>
-              <About />
-            </div>
-            <div className={styles.bookingDiv}>
-              <div className={styles.pass}>
-                <span className={styles.passenger}>My Bookings</span>
-                <Link href="/savedpassenger" className={styles.passengerLink}>
-                  <span>Passengers</span>
-                </Link>
+    <div>
+      <div className={styles.general}>
+        {renderHeader()}
+        {renderHeroSection()}
+        <div className={styles.secondDiv}>
+          {isAuthenticated ? (
+            <>
+              <div className={styles.about}>
+                <About />
               </div>
-              <div className={styles.book}>
-                <span className={styles.none}>Bookings</span>
-                <div className={styles.blueDiv}>
-                  <span className={styles.blue}>Get My Ticket</span>
-                  <span className={styles.blue}>Request Refund</span>
-                  <span className={styles.white}>Make Changes on Ticket</span>
+              <div className={styles.bookingDiv}>
+                <div className={styles.pass}>
+                  <div className={styles.passOne}>
+                    <p className={styles.passenger}>My Bookings</p>
+                  </div>
+                  <div className={styles.passTwo}>
+                    <Link
+                      href="/savedpassenger"
+                      className={styles.passengerLink}
+                    >
+                      <p className={styles.passengerPass}>Passengers</p>
+                    </Link>
+                  </div>
                 </div>
-              </div>
+                <div className={styles.book}>
+                  <span className={styles.none}>Bookings</span>
+                  <div className={styles.blueDiv}>
+                    <span className={styles.blue}>Get My Ticket</span>
+                    <span className={styles.blue}>Request Refund</span>
+                    <span className={styles.white}>Make Changes on Ticket</span>
+                  </div>
+                </div>
 
-              {renderBookingStats()}
-              <Airline />
+                {renderBookingStats()}
+                <Airline />
+              </div>
+            </>
+          ) : (
+            <div className={styles.unauthenticatedMessage}>
+              Please login to view and manage your bookings. Access your travel
+              itineraries, make changes to your flights, and get up-to-date
+              information about your upcoming trips.
             </div>
-          </>
-        ) : (
-          <div className={styles.unauthenticatedMessage}>
-            Please login to view and manage your bookings. Access your travel
-            itineraries, make changes to your flights, and get up-to-date
-            information about your upcoming trips.
-          </div>
-        )}
+          )}
+        </div>
+        {renderMobileNavigation()}
+
+        {renderModal()}
+        {loading && renderLoading()}
       </div>
-      {renderMobileNavigation()}
       <Footer />
-      {renderModal()}
-      {loading && renderLoading()}
     </div>
   );
 };

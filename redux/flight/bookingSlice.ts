@@ -1,5 +1,3 @@
-// redux/bookings/bookingSlice.ts
-
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { BookingData, Booking } from "./bookingTypes.type";
 

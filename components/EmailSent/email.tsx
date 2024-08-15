@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 function email() {
   return (
-    <div className={styles.general}>
+    
       <div className={styles.body}>
         <Image src={Approve} alt="otile" className={styles.img} />
         <span className={styles.welcome}>Email Sent</span>
@@ -15,7 +15,7 @@ function email() {
           <button className={styles.sign}>Back to Sign In</button>
         </Link>
       </div>
-    </div>
+    
   );
 }
 

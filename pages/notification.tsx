@@ -84,8 +84,8 @@ function Notification() {
         <div className={styles.textDiv}>
           <span className={styles.bigText}> MANAGE BOOKINGS</span>
           <p className={styles.small}>
-            Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-            vulputate libero et velit interdum, ac aliquet odio mattis.
+          Stay informed about your journey with our real-time flight notifications. Receive instant updates on gate changes, departure times, and any schedule adjustments. Our reliable alerts ensure you're always prepared for your flight, allowing you to travel with confidence and peace of mind.
+          
           </p>
         </div>
       </div>

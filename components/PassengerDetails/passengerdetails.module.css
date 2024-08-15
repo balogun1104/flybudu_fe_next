@@ -337,3 +337,48 @@
       gap: 24%;
     } */
   }
+
+  .backButton {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .backButton span {
+    margin-left: 8px;
+  }
+  
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .cancel, .changes {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .cancel {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  .changes {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .editButton {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

@@ -135,7 +135,7 @@
   .secondDiv{
     
    
-    padding: 50px 20px ;
+    padding: 50px 0px ;
     display: flex;
     justify-content: space-around;
     background-image: url("../public/assets/images/Union.png");
@@ -171,7 +171,7 @@
       flex-direction: column-reverse;
       justify-content: center;
       align-items: center;
-      gap: 3em;
+      /* gap: 3em; */
     }
     .secondDiv{
       background-image: none;
@@ -180,6 +180,7 @@
   @media (max-width:768px) {
     .general{
       padding: 20px 5px;
+      margin-bottom: 7em;
     }
     .quoteImg{
       position: relative;
@@ -216,15 +217,17 @@
       display: none;
     }
     .secondDiv{
-      margin-top: 3em;
+      margin-top: 3.3em;
+      border-radius: 15px;
+      padding: 15px 0px ;
      
     }
   
     .createDiv{
       width: 100%;
-      background-image: url("../public/assets/images/Union.png");
+      /* background-image: url("../public/assets/images/Union.png"); */
       background-position: cover;
-      padding: 2em 0 16em;
+      padding: 1em 0 1em;
       /* background-size: cover; */
       background-repeat: no-repeat;
     }
@@ -233,6 +236,9 @@
       width: 150px;
     }
     .tabDiv{
-      width: 90%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }

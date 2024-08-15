@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styles from "./passengerlist.module.css";
-import { Link } from "@nextui-org/react";
-import axiosInstance from "@/redux/api"; // Ensure this path is correct
+import axiosInstance from "@/redux/api";
+import {
+  MdOutlineKeyboardDoubleArrowLeft,
+  MdOutlineKeyboardDoubleArrowRight,
+} from "react-icons/md";
 
 interface Passenger {
   id: number;
@@ -17,10 +20,17 @@ interface Passenger {
   phone: string | null;
 }
 
-function PassengerList() {
+interface PassengerListProps {
+  onPassengerSelect: (passenger: Passenger) => void;
+}
+
+const ITEMS_PER_PAGE = 5;
+
+function PassengerList({ onPassengerSelect }: PassengerListProps) {
   const [passengers, setPassengers] = useState<Passenger[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchPassengers = async () => {
@@ -38,6 +48,13 @@ function PassengerList() {
 
     fetchPassengers();
   }, []);
+
+  const paginatedPassengers = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    return passengers.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  }, [passengers, currentPage]);
+
+  const totalPages = Math.ceil(passengers.length / ITEMS_PER_PAGE);
 
   function HeroiconsOutlineDotsVertical(
     props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
@@ -62,6 +79,31 @@ function PassengerList() {
     );
   }
 
+  const renderPagination = () => (
+    <div className={styles.pagination}>
+      <button
+        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+        disabled={currentPage === 1}
+        className={styles.paginationButton}
+      >
+        <MdOutlineKeyboardDoubleArrowLeft className={styles.paginationIcon} />
+        <span>Prev</span>
+      </button>
+      <div className={styles.pageInfo}>
+        <span className={styles.currentPage}>{currentPage}</span>
+        <span className={styles.totalPages}>of {totalPages}</span>
+      </div>
+      <button
+        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+        disabled={currentPage === totalPages}
+        className={styles.paginationButton}
+      >
+        <span>Next</span>
+        <MdOutlineKeyboardDoubleArrowRight className={styles.paginationIcon} />
+      </button>
+    </div>
+  );
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
@@ -69,19 +111,26 @@ function PassengerList() {
     <div className={styles.general}>
       <div className={styles.mother}>
         <table className={styles.table}>
-          <thead className={`${styles.none}`}>
+          <thead className={styles.none}>
             <tr className={styles.tr}>
               <th className={styles.th}>S/N</th>
               <th className={styles.th}>PASSENGER</th>
               <th className={styles.th}>EMAIL</th>
               <th className={styles.th}>PHONE NUMBER</th>
+              <th className={styles.th}></th>
             </tr>
           </thead>
           <tbody className={styles.tbody}>
-            {passengers.map((passenger, index) => (
-              <tr key={passenger.id} className={styles.tr}>
+            {paginatedPassengers.map((passenger, index) => (
+              <tr
+                key={passenger.id}
+                className={styles.tr}
+                onClick={() => onPassengerSelect(passenger)}
+              >
                 <td className={styles.td}>
-                  {String(index + 1).padStart(2, "0")}
+                  {String(
+                    (currentPage - 1) * ITEMS_PER_PAGE + index + 1
+                  ).padStart(2, "0")}
                 </td>
                 <td className={styles.td}>
                   <span className={styles.nameCircle}>
@@ -96,7 +145,7 @@ function PassengerList() {
                 <td className={`${styles.none} ${styles.td}`}>
                   {passenger.phone || "N/A"}
                 </td>
-                <td colSpan={4} className={`${styles.none} ${styles.td}`}>
+                <td className={`${styles.none} ${styles.td}`}>
                   <HeroiconsOutlineDotsVertical />
                 </td>
               </tr>
@@ -104,6 +153,8 @@ function PassengerList() {
           </tbody>
         </table>
       </div>
+
+      {renderPagination()}
     </div>
   );
 }
