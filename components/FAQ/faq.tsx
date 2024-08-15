@@ -67,7 +67,7 @@ function Faq() {
             </div>
             {isOpen && (
               <div className={styles.answer}>
-                <p>{FAQAnswers.find(answer => answer.id === item.id)?.answer}</p>
+                <p className={styles.boldText}>{FAQAnswers.find(answer => answer.id === item.id)?.answer}</p>
               </div>
             )}
           </div>

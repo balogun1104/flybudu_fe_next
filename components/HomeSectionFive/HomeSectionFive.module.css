@@ -8,6 +8,10 @@
   top: 0;
   box-sizing: border-box;
 }
+.boldText{
+  font-family: sans-serif;
+  /* line-height: 18px; */
+}
 .trip {
   display: flex;
   justify-content: space-between;
@@ -55,7 +59,8 @@
 }
 
 .bookfImg {
-  padding-top: 5rem;
+  top: 5em;
+  position: relative;
 }
 .subscribeButton img{
   width: 45px;
@@ -262,6 +267,8 @@
 @media (max-width: 600px) {
   .bookfImg {
     width: 280px;
+    top: 16em;
+    position: relative;
   }
   .final{
     
@@ -270,7 +277,7 @@
 @media (max-width: 560px) {
   .bookfImg {
     position: relative;
-    top: 6em;
+    top: 15em;
   }
   .featImgaeWrap {
     top: -9.4em;
