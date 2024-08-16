@@ -22,7 +22,7 @@
     /* max-width: 268px; */
     color: black;
     max-width: 250px;
-    margin: 30px;
+    margin: 10px;
     display: flex!important;
     gap: 0px;
     padding: 12px;
@@ -60,7 +60,6 @@
 .cardWrapper{
     z-index: 1;
     position: relative;
-    padding-top: 3rem;
 }
 
 .overLay{

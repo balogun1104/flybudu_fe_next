@@ -204,7 +204,7 @@
 }
   .freq {
     font-size: 32px;
-    text-align: center;
+   padding-left: 30px;
   }
   .bookfImg {
     /* padding-top: 29em; */
@@ -275,6 +275,9 @@
   }
 }
 @media (max-width: 560px) {
+  .bookp{
+    width: 250px;
+  }
   .bookfImg {
     position: relative;
     top: 15em;

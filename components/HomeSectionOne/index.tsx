@@ -21,7 +21,7 @@ import {
   FlightSearchResponse,
 } from "@/redux/flight/types";
 import axiosInstance from "@/redux/api";
-
+import WhitePlane from "@/public/assets/svg/whiteEdgePlane.svg";
 import Navbar from "@/components/Navbar";
 import FLy from "@/public/assets/svg/fly.svg";
 import TheArt from "@/public/assets/images/theArt.png";
@@ -835,6 +835,7 @@ const HomeSectionOne = () => {
               </div>
             )}
           </div>
+          <Image src={WhitePlane} className={styles.whitePlane} alt=""/>
         </div>
       </div>
     );

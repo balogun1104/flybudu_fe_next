@@ -5,6 +5,7 @@ import { setFeaturedFlights } from "@/redux/flight/featuredFlightSclice";
 import axiosInstance from "@/redux/api";
 import styles from "./homeSectionTwo.module.css";
 import Light from "@/public/assets/svg/light.svg";
+import cloud from "@/public/assets/svg/blackCloud.svg";
 import green from "@/public/assets/svg/green.svg";
 import star from "@/public/assets/svg/Star.svg";
 import ffDown from "@/public/assets/svg/ffDown.svg";
@@ -98,9 +99,9 @@ function HomeSectionTwo() {
       setIsMobile(window.innerWidth <= 768);
     };
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    // handleResize();
+    // window.addEventListener("resize", handleResize);
+    // return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -258,6 +259,7 @@ function HomeSectionTwo() {
       )}
 
       <Image src={ffDown} alt="ffDown" className={styles.ffDown} />
+      <Image src={cloud} alt=" sike" className={styles.cloud}/>
     </div>
   );
 }

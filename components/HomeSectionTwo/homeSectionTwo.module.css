@@ -9,6 +9,9 @@ background: white;
   display: flex;
   flex-direction: column;
   align-items: flex-end ;
+  position: relative;
+  border-top: none;
+  
   overflow: hidden;
 }
 
@@ -34,7 +37,7 @@ background: white;
 .corem{
   width: 80%;
   margin: 40px 0;
-  font-family: "NeueHaasDisplayLight";
+  font-family: "NeueHaasDisplayBold";
   @media(max-width:768px){
     position: relative;
     left: -3rem;
@@ -127,9 +130,7 @@ margin-left: 20%;
   .slider{
     display: block !important;
   }
-  .secThreeImg{
-    display: none;
-  }
+ 
   .secThreeImgs{
     display: block;
     width: 90%;
@@ -225,6 +226,9 @@ padding-top: 20px;
   position: absolute; 
   left: 2em;
 }
+.cloud{
+  margin-bottom: 50px;
+}
 @media (max-width:500px) {
   .card{
    
@@ -268,8 +272,12 @@ padding-top: 20px;
     justify-content: unset;
     gap: 1em;
   }
+.cloud{
+  margin-right: 40px;
+}
 }
 @media only screen and (max-width: 768px) {
+
   /* Hide the scrollbar */
   .secThreeImg::-webkit-scrollbar {
     width: 0;
@@ -277,9 +285,7 @@ padding-top: 20px;
   .sun{
     display: none;
   }
-  .secThreeImg{
-    overflow-y: hidden !important;
-  }
+ 
 }
 
 

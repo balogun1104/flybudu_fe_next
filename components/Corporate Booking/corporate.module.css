@@ -6,7 +6,7 @@
 .general{
     overflow-x: hidden;
     font-family: 'NeueHaasDisplayBold';
-    padding: 70px 0 80px;
+    padding: 30px 0 80px;
     background: rgba(246, 246, 246, 1);
     color: black;
     padding: 80 0 80px;
@@ -16,7 +16,7 @@
     display: flex;
     width: 100%;
     justify-content: center;
-    gap: 5em;
+    gap: 2em;
     flex-wrap: wrap;
 }
 
@@ -32,7 +32,7 @@ display: flex;
 flex-direction: column;
 }
 .text{
-    font-size: 20px;
+    font-size: 17px;
     width: 500px; 
     margin-top: 20px;
 }
