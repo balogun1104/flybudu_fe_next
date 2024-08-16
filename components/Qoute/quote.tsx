@@ -61,7 +61,7 @@ function QuoteBar({ setIsOpen }: QuoteBarProps) {
   }
 
   return (
-    <div className={styles.darkBG} onClick={handleOutsideClick}>
+    <div className={styles.darkBG} >
       <div className={styles.centered} onClick={(e) => e.stopPropagation()}>
         <div className={styles.body}>
           <Image src={QuoteImg} alt="" className={styles.imgDiv} />
