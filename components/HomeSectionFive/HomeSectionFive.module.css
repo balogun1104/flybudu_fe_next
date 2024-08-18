@@ -175,7 +175,7 @@
   .trip {
     display: flex;
     justify-content: space-between;
-    gap: 2em;
+    gap: 1.5em;
     width: 86%;
   }
   .bookflight {

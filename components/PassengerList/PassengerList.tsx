@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styles from "./passengerlist.module.css";
 import axiosInstance from "@/redux/api";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 import {
   MdOutlineKeyboardDoubleArrowLeft,
   MdOutlineKeyboardDoubleArrowRight,
@@ -24,10 +26,16 @@ interface PassengerListProps {
   onPassengerSelect: (passenger: Passenger) => void;
 }
 const SkeletonLoader = () => {
-  <div className={styles.motherDiv}>
-   
-  </div>
-}
+  return (
+    <div className={styles.motherDiv}>
+      <Skeleton height={60} count={1} baseColor="#fff" className={styles.whiteDiv} />
+      <Skeleton height={60} count={1} baseColor="#fff" className={styles.whiteDiv} />
+      <Skeleton height={60} count={1} baseColor="#fff" className={styles.whiteDiv} />
+      <Skeleton height={60} count={1} baseColor="#fff" className={styles.whiteDiv} />
+      <Skeleton height={60} count={1} baseColor="#fff" className={styles.whiteDiv} />
+    </div>
+  );
+};
 const ITEMS_PER_PAGE = 5;
 
 function PassengerList({ onPassengerSelect }: PassengerListProps) {
@@ -108,13 +116,7 @@ function PassengerList({ onPassengerSelect }: PassengerListProps) {
     </div>
   );
 
-  if (loading) return <div className={styles.motherDiv}>
-     <div className={styles.whiteDiv}> </div>
-    <div className={styles.whiteDiv}> </div>
-    <div className={styles.whiteDiv}> </div>
-    <div className={styles.whiteDiv}> </div>
-    <div className={styles.whiteDiv}> </div>
-  </div>;
+  if (loading) return <SkeletonLoader/>;
   if (error) return <div>{error}</div>;
 
   return (
