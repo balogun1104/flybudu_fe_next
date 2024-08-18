@@ -9,8 +9,9 @@
   box-sizing: border-box;
 }
 .boldText{
-  font-family: sans-serif;
-  /* line-height: 18px; */
+  font-family: 'NeueHaasDisplayBold';
+  margin-bottom: 20px;
+
 }
 .trip {
   display: flex;
@@ -46,7 +47,6 @@
 .bookp {
   margin: 0;
   font-size: 20px;
-  font-family: 'NeueHaasDisplayBold';
 }
 
 .bookflight {
@@ -175,7 +175,7 @@
   .trip {
     display: flex;
     justify-content: space-between;
-    gap: 3em;
+    gap: 2em;
     width: 86%;
   }
   .bookflight {

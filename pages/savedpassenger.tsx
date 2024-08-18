@@ -16,6 +16,7 @@ import { BookingData } from "@/redux/flight/bookingTypes.type";
 
 function SavedPassenger() {
   const router = useRouter();
+
   const [selectedPassenger, setSelectedPassenger] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const { bookingData, loading, error } = useSelector(
@@ -62,9 +63,11 @@ function SavedPassenger() {
     router.push("/savedpassenger", undefined, { shallow: true });
   };
 
+
   return (
+    <div >
     <div className={styles.general}>
-      <div className={styles.header}>
+    <div className={styles.header}>
         <Navbar />
       </div>
       <div className={styles.firstDiv}>
@@ -111,6 +114,7 @@ function SavedPassenger() {
         </div>
       </div>
       <MobileNav />
+    </div>
       <Footer />
     </div>
   );

@@ -7,6 +7,18 @@ background: #fff;
 
 overflow-y: hidden;
 }
+.motherDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.whiteDiv{
+  display: flex;
+  height: 6vh;
+  width: 100%;
+  background: #fff;
+
+}
 .nameCircle{
   font-weight: 600;
   padding-top: 7px;
@@ -55,6 +67,11 @@ justify-content: space-between;
     /* background-color: #f2f2f2; */
   }
   @media (max-width:670px) {
+    .motherDiv{
+      gap: 10px;
+    }
+    .whiteDiv{
+    }
     .mother{
       background: transparent;
     }

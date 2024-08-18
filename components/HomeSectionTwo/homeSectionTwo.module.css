@@ -269,8 +269,8 @@ padding-top: 20px;
     padding: 0;
   }
   .secThreeImg{
-    justify-content: unset;
-    gap: 1em;
+    justify-content: center;
+    gap: 1.5em;
   }
 .cloud{
   margin-right: 40px;

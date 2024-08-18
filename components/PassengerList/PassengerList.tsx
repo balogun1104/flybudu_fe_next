@@ -23,7 +23,11 @@ interface Passenger {
 interface PassengerListProps {
   onPassengerSelect: (passenger: Passenger) => void;
 }
-
+const SkeletonLoader = () => {
+  <div className={styles.motherDiv}>
+   
+  </div>
+}
 const ITEMS_PER_PAGE = 5;
 
 function PassengerList({ onPassengerSelect }: PassengerListProps) {
@@ -104,7 +108,13 @@ function PassengerList({ onPassengerSelect }: PassengerListProps) {
     </div>
   );
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className={styles.motherDiv}>
+     <div className={styles.whiteDiv}> </div>
+    <div className={styles.whiteDiv}> </div>
+    <div className={styles.whiteDiv}> </div>
+    <div className={styles.whiteDiv}> </div>
+    <div className={styles.whiteDiv}> </div>
+  </div>;
   if (error) return <div>{error}</div>;
 
   return (
